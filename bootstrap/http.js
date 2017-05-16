@@ -57,6 +57,7 @@ module.exports = function (callback) {
       require('./events')
       require('./redis')
       require('./cron')
+      require('./poloniex')
 
       /*
       |--------------------------------------------------------------------------
