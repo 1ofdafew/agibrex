@@ -1,5 +1,9 @@
 # Gibrex
 
+## Preparation
+- Make sure `redis` is installed
+- MySQL, PostgreSQL should be installed too
+
 ## Howto
 
 1. Clone the repo
@@ -11,14 +15,17 @@
 ``` bash
  $ cd agibrex
  $ npm install
+ $ cp .env.example .env
 ```
 
-3. Init the database
+3. Run Redis, MySQL/PostgreSQL if you haven't
+
+4. Init the database
 ``` bash
  $ ./ace migration:run
 ```
 
-4. Serve the pages, and continue developing
+5. Serve the pages, and continue developing
 ``` bash
  $ npm run serve:dev
 ```
