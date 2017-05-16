@@ -9,6 +9,7 @@
 
 2. Install the npm dependencies
 ``` bash
+ $ cd agibrex
  $ npm install
 ```
 
