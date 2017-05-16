@@ -10,7 +10,7 @@ class RegisterController {
 
     * doRegister(request, response) {
         const user = new User()
-        user.username = request.input('name')
+        user.username = request.input('username')
         user.email = request.input('email')
       //   user.password = yield Hash.make(request.input('password'))
         user.password = request.input('password')
