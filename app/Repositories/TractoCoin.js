@@ -1,3 +1,7 @@
+'use strict'
+
+const got = require('got');
+const Coin = use('App/Repositories/Coin')
 
 class TractoCoin extends Coin {
   
@@ -6,7 +10,22 @@ class TractoCoin extends Coin {
   }
 
   * createWallet(username, pin) {
-    
+    console.log(`Creating wallet for ${username}...`)
+    return got.post('localhost:8080/api/v1/tracto', {
+      headers: {
+        'content-type': 'application/json'
+      },
+      json: true,
+      body: {
+        username: username,
+        pin: pin
+      }
+    }).then(res => {
+      console.log(res.body)
+      return JSON.stringify(res.body)
+    })
   }
 
 }
+
+module.exports = TractoCoin

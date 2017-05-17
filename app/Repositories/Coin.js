@@ -1,4 +1,4 @@
-
+'use strict'
 
 class Coin {
 
@@ -13,3 +13,5 @@ class Coin {
     }
   }
 }
+
+module.exports = Coin 
