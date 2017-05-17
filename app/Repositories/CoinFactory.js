@@ -1,9 +1,14 @@
+'use strict'
 
-const Exceptions = use('App/Exceptions')
+const CoinException = use('App/Repositories/CoinException')
+
+const TractoCoin = use('App/Repositories/TractoCoin')
+const Bitcoin = use('App/Repositories/Bitcoin')
+const Ethereum = use('App/Repositories/Ethereum')
 
 class CoinFactory {
 
-  factory(type) {
+  constructor(type) {
     switch (type) {
       case 'tracto':
         return new TractoCoin()
@@ -12,8 +17,10 @@ class CoinFactory {
       case 'ethereum':
         return new Ethereum()
       default:
-        throw new Exceptions.ApplicationException('No such implementation')
+        throw new CoinException('No such implementation')
     }
   }
 
 }
+
+module.exports = CoinFactory

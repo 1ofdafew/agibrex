@@ -1,3 +1,6 @@
+'use strict'
+
+const Coin = use('App/Repositories/Coin')
 
 class Ethereum extends Coin {
 
@@ -6,3 +9,5 @@ class Ethereum extends Coin {
   }
 
 }
+
+module.exports = Ethereum

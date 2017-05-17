@@ -5,8 +5,9 @@ const Schema = use('Schema')
 class AccountTableSchema extends Schema {
 
   up () {
-    this.table('account', (table) => {
+    this.create('account', (table) => {
       table.increments()
+      table.string('username', 80).notNullable().unique()
       table.string('wallet_id', 80).notNullable().unique()
       table.string('type', 20).notNullable().unique()
       table.timestamps()
