@@ -20,7 +20,7 @@ class WalletTableSchema extends Schema {
   // }
 
   up () {
-    this.table('wallet', (table) => {
+    this.create('wallet', (table) => {
       table.increments()
       table.string('uuid', 80).notNullable().unique()
       table.string('type', 20).notNullable().unique()
