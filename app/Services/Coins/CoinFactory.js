@@ -1,10 +1,10 @@
 'use strict'
 
-const CoinException = use('App/Repositories/CoinException')
+const CoinException = use('App/Services/Coins/CoinException')
 
-const TractoCoin = use('App/Repositories/TractoCoin')
-const Bitcoin = use('App/Repositories/Bitcoin')
-const Ethereum = use('App/Repositories/Ethereum')
+const TractoCoin = use('App/Services/Coins/TractoCoin')
+const Bitcoin = use('App/Services/Coins/Bitcoin')
+const Ethereum = use('App/Services/Coins/Ethereum')
 
 class CoinFactory {
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const got = require('got');
-const Coin = use('App/Repositories/Coin')
+const Coin = use('App/Services/Coins/Coin')
 
 class TractoCoin extends Coin {
   

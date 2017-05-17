@@ -1,6 +1,6 @@
 'use strict'
 
-const Coin = use('App/Repositories/Coin')
+const Coin = use('App/Services/Coins/Coin')
 
 class Bitcoin extends Coin {
 
