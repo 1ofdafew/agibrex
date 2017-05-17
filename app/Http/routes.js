@@ -28,8 +28,11 @@ Route.post('/login', 'AuthController.login')
 Route.get('/register', 'RegisterController.index')
 Route.post('register', 'RegisterController.doRegister')
 
+
 // Account
 Route.get('/account/:acc_type', 'AccountController.index')
 
 // Buysell
 Route.get('/buysell/:acc_type', 'BuySellController.index')
+
+Route.get('/market', 'MarketDataController.fetchData')

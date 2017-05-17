@@ -22,6 +22,7 @@ class AuthController {
      const authCheck = yield request.auth.attempt(email, password)
      if (authCheck) {
          return response.redirect('/account/btc')
+
      }
 
      yield response.sendView('login', { error: loginMessage.error })

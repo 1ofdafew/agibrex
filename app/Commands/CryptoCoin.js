@@ -42,41 +42,44 @@ class CryptoCoin extends Command {
     // find the user first.
     const user = yield User.query().where('username', args.username).fetch()
     if (user) {
-      const resp = yield new CoinFactory('tracto').createWallet(args.username, args.pin)    
-      const ret = JSON.parse(resp).data.wallet
+      try {
+        const resp = yield new CoinFactory(args.type).createWallet(args.username, args.pin)    
+        const ret = JSON.parse(resp).data.wallet
 
-      // {"status":"ok",
-      //  "data":{
-      //    "wallet":{
-      //       "uuid":"100b6807-a39a-42db-86b3-52aa4ff1ba5c",
-      //       "type":"TRACTO",
-      //       "username":"hisham",
-      //       "address":"TvyZ4eSRCAk2o1jH6VHunK6XmDXALvusgKGbU2kb9rMae3RZg9n3vjyFNYekyeKHMWDbrrQuL7MPpAUNm73MLpbL2A8u2Cydi",
-      //       "pin":"Ez218jPCS79WYVdie34J4UiWyL33sK7wLZymGYWD9vDG",
-      //       "mnemonics":"start claim tenant worth clarify orange fiction sand dash task ginger toast",
-      //       "created_at":"2017-05-17T05:55:13Z",
-      //       "updated_at":"2017-05-17T05:55:13Z"
-      //     }
-      //   }
-      // }      
+        // {"status":"ok",
+        //  "data":{
+        //    "wallet":{
+        //       "uuid":"100b6807-a39a-42db-86b3-52aa4ff1ba5c",
+        //       "type":"TRACTO",
+        //       "username":"hisham",
+        //       "address":"TvyZ4eSRCAk2o1jH6VHunK6XmDXALvusgKGbU2kb9rMae3RZg9n3vjyFNYekyeKHMWDbrrQuL7MPpAUNm73MLpbL2A8u2Cydi",
+        //       "pin":"Ez218jPCS79WYVdie34J4UiWyL33sK7wLZymGYWD9vDG",
+        //       "mnemonics":"start claim tenant worth clarify orange fiction sand dash task ginger toast",
+        //       "created_at":"2017-05-17T05:55:13Z",
+        //       "updated_at":"2017-05-17T05:55:13Z"
+        //     }
+        //   }
+        // }      
 
-      // save into wallet data
-      const wallet = new Wallet()
-      wallet.user_id = user.id
-      wallet.uuid = ret.uuid
-      wallet.type = ret.type 
-      wallet.username = ret.username 
-      wallet.address = ret.address
-      wallet.pin = ret.pin 
-      wallet.mnemonics = ret.mnemonics
+        // save into wallet data
+        const wallet = new Wallet()
+        wallet.user_id = user.id
+        wallet.uuid = ret.uuid
+        wallet.type = ret.type 
+        wallet.username = ret.username 
+        wallet.address = ret.address
+        wallet.pin = ret.pin 
+        wallet.mnemonics = ret.mnemonics
 
-      yield wallet.save()
+        yield wallet.save()
 
-      console.log(wallet.toJSON)
-      this.info(`Wallet Address: ${wallet.address}`)      
+        // console.log(wallet.toJSON)
+        this.info(`Wallet Address: ${wallet.address}`)      
+      } catch (e) {
+        this.error("Can't execute the method: ", e)
+      }
     } else {
       this.error(`Can't find the username '${args.username}'`)
-      return
     }
   }  
 
