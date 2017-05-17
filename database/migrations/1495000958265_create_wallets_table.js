@@ -20,22 +20,21 @@ class WalletTableSchema extends Schema {
   // }
 
   up () {
-    this.create('wallet', (table) => {
+    this.create('wallets', (table) => {
       table.increments()
+      table.integer('user_id').unsigned().references('id').inTable('users')
       table.string('uuid', 80).notNullable().unique()
-      table.string('type', 20).notNullable().unique()
-      table.string('username', 40).notNullable().unique()
+      table.string('type', 20).notNullable()
+      table.string('username', 40).notNullable()
       table.string('address', 120).notNullable().unique()
-      table.string('pin', 50).notNullable().unique()
+      table.string('pin', 50).notNullable()
       table.string('mnemonics', 150).notNullable().unique()
       table.timestamps()
     })
   }
 
   down () {
-    this.table('wallet', (table) => {
-      // opposite of up goes here
-    })
+    this.drop('wallets')
   }
 
 }

@@ -21,7 +21,7 @@ class TractoCoin extends Coin {
         pin: pin
       }
     }).then(res => {
-      console.log(res.body)
+      // console.log(res.body)
       return JSON.stringify(res.body)
     })
   }
