@@ -27,7 +27,6 @@
     "cron": "^1.2.1",
     "got": "^6.7.1",
     "mysql": "^2.13.0",
-    "sqlite3": "^3.1.8",
     "youch": "^2.0.4"
   },
   "standard": {
@@ -40,6 +39,7 @@
     "App": "./app"
   },
   "devDependencies": {
+    "sqlite3": "^3.1.8",
     "nodemon": "^1.11.0",
     "standard": "^10.0.1"
   }
