@@ -7,7 +7,8 @@
     "dev": "echo \"\\033[31mWARN: 'dev' will be depreciated soon. Instead use 'npm run serve:dev'\" && npm run serve:dev",
     "serve:dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
     "serve": "node server.js",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "mocha"
   },
   "author": "",
   "license": "MIT",
@@ -24,13 +25,8 @@
     "adonis-redis": "^1.0.1",
     "adonis-websocket": "^1.0.3",
     "autobahn": "^17.5.1",
-    "chai": "^3.5.0",
-    "co-mocha": "^1.2.0",
-    "cron": "^1.2.1",
     "got": "^6.7.1",
-    "mocha": "^3.4.1",
     "mysql": "^2.13.0",
-    "sqlite3": "^3.1.8",
     "youch": "^2.0.4"
   },
   "standard": {
@@ -43,7 +39,20 @@
     "App": "./app"
   },
   "devDependencies": {
+    "sqlite3": "^3.1.8",
+    "supertest": "^3.0.0",
+    "mocha": "^3.4.1",
+    "chai": "^3.5.0",
+    "co-mocha": "^1.2.0",
     "nodemon": "^1.11.0",
+    "co-fs": "^1.2.0",
+    "colors": "^1.1.2",
+    "cron": "^1.2.1",
+    "globby": "^6.1.0",
+    "lodash": "^4.17.4",
+    "mailparser": "^2.0.5",
+    "ms": "^2.0.0",
+    "yargs": "^8.0.1",
     "standard": "^10.0.1"
   }
 }
