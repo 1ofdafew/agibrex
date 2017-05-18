@@ -35,3 +35,12 @@ Route.group('version1',function() {
 
 //Route.get('/orderbook/store', 'OrderBookController.store')
 //Route.post('orderbook', 'OrderBookController.store')
+
+// Account
+Route.get('/account/:acc_type', 'AccountController.index')
+
+// Buysell
+Route.get('/buysell/:acc_type', 'BuySellController.index')
+
+Route.get('/market', 'MarketDataController.fetchData')
+
