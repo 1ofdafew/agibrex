@@ -55,14 +55,14 @@
               <li><a href="Contact.htm">Contact Us</a></li>
             </ul>
             <ul class="tci_list">
-               @if (Auth::guest())
+
                <li><a href="/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a></li>
                <li>|</li>
                <li><a href="register.php"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a></li>
-               @else
-               <li><a href=""><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ Auth::user()->name }}</a></li>
+
+               <li><a href=""><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;</a></li>
                <li><a href="/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a></li>
-               @endif
+
               <li class="empty margin-left">
                 <label for="language_selector"><img src="/images/language/en.png"></label>
                 <select id="language_selector" class="lang">
@@ -130,7 +130,7 @@
 </div>
 <div class="container">
   <div class="content_right">
-    @yield('content')
+    {% block content %}{% endblock %}
   </div>
   <div class="left_sidebar">
     <div class="sidebar_widget">
@@ -138,8 +138,8 @@
         <!--<h3>Account Navigation</h3>-->
       </div>
       <ul class="arrows_list1">
-        <li><a href="/home" <?php if($active=='dashboard'){ echo 'class="active"';}?>><i class="fa fa-angle-right"></i> Dashboard</a></li>
-        <li><a <?php if($active=='account'){ echo 'class="active"';}?>><i class="fa fa-angle-right"></i> My Account</a>
+        <li><a href="/home"><i class="fa fa-angle-right"></i> Dashboard</a></li>
+        <li><a ><i class="fa fa-angle-right"></i> My Account</a>
            <ul class="" style="margin-left:15px;">
              <li><a href="/account/btc" style="font-size:90%"><i class="fa fa-angle-right"></i> Bitcoin</a></li>
              <li><a href="/account/tracto" style="font-size:90%"><i class="fa fa-angle-right"></i> Tracto</a></li>
@@ -157,7 +157,7 @@
       </ul>
     </div>
     <div class="clearfix mar_top3"></div>
-    <div class="sidebar_widget">
+    <!-- <div class="sidebar_widget">
       <div class="sidebar_title">
         <h3>Transactions</h3>
       </div>
@@ -166,7 +166,7 @@
         <li><a href="https://1btcxe.com/deposit.php"><i class="fa fa-angle-right"></i> Deposit</a></li>
         <li><a href="https://1btcxe.com/withdraw.php"><i class="fa fa-angle-right"></i> Withdraw</a></li>
       </ul>
-    </div>
+    </div> -->
     <div class="mar_top8"></div>
     <div class="clear"></div>
   </div>
@@ -249,7 +249,7 @@
 <script src="/js/jquery.animateNumber.min.js"></script>
 
 
- @yield('docready')
+ {% block docready %}{% endblock %}
 
 </body>
 </html>

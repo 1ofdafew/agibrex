@@ -1,0 +1,457 @@
+{% extends 'layout/logged' %}
+
+{% block content %}
+
+  <div class="testimonials-4">
+    <input id="user_fee" value="0.00" type="hidden">
+    <input id="user_fee1" value="0.00" type="hidden">
+    <div class="one_half">
+      <div class="content">
+        <h3 class="section_label">
+          <span class="left">
+            <i class="fa fa-btc fa-2x"></i>
+          </span>
+          <span class="right">Buy {{acc_type}}</span>
+        </h3>
+        <div class="clear"></div>
+        <form id="buy_form" action="buy-sell.php" method="POST">
+          <div class="buyform">
+            <div class="spacer"></div>
+            <div class="calc dotted">
+              <div class="label">Available
+                <span class="sell_currency_label">USD</span>
+              </div>
+              <div class="value">
+                <span class="buy_currency_char">$</span>
+                <span id="buy_user_available">0</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="param">
+              <label for="buy_amount">Amount to Buy</label>
+              <input name="buy_amount" id="buy_amount" value="0" type="text">
+              <div class="qualify">{{acc_type}}</div>
+              <div class="clear"></div>
+            </div>
+            <div class="param">
+              <label for="buy_currency">Currency to use</label>
+              <select id="buy_currency" name="currency">
+                <option value="aed">AED</option>
+                <option value="aud">AUD</option>
+                <option value="bgn">BGN</option>
+                <option value="cad">CAD</option>
+                <option value="chf">CHF</option>
+                <option value="cny">CNY</option>
+                <option value="czk">CZK</option>
+                <option value="dkk">DKK</option>
+                <option value="eur">EUR</option>
+                <option value="gbp">GBP</option>
+                <option value="hkd">HKD</option>
+                <option value="hrk">HRK</option>
+                <option value="huf">HUF</option>
+                <option value="ils">ILS</option>
+                <option value="inr">INR</option>
+                <option value="jpy">JPY</option>
+                <option value="mur">MUR</option>
+                <option value="mxn">MXN</option>
+                <option value="nok">NOK</option>
+                <option value="nzd">NZD</option>
+                <option value="pln">PLN</option>
+                <option value="ron">RON</option>
+                <option value="rub">RUB</option>
+                <option value="sek">SEK</option>
+                <option value="sgd">SGD</option>
+                <option value="thb">THB</option>
+                <option value="try">TRY</option>
+                <option selected="selected" value="usd">USD</option>
+                <option value="zar">ZAR</option>
+              </select>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox">
+              <label for="buy_market_price">Buy at market price
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox">
+              <label for="buy_limit">Limit Order
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
+              <label for="buy_stop">Stop Order
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div id="buy_price_container" class="param">
+              <label for="buy_price">
+                <span id="buy_price_limit_label">Limit Price</span>
+                <span id="buy_price_market_label" style="display:none;">Price</span>
+              </label>
+              <input name="buy_price" id="buy_price" value="1,793.17" type="text">
+              <div class="qualify">
+                <span class="buy_currency_label">USD</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div id="buy_stop_container" class="param" style="display:none;">
+              <label for="buy_stop_price">Stop Price</label>
+              <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
+              <div class="qualify">
+                <span class="buy_currency_label">USD</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="calc">
+              <div class="label">Subtotal</div>
+              <div class="value">
+                <span class="buy_currency_char">$</span>
+                <span id="buy_subtotal">0.00</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="calc">
+              <div class="label">Fee
+                <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </div>
+              <div class="value">
+                <span id="buy_user_fee">0.00</span>%</div>
+              <div class="clear"></div>
+            </div>
+            <div class="calc bigger">
+              <div class="label">
+                <span id="buy_total_approx_label">Approx.
+                  <span class="buy_currency_label">USD</span>
+                  to spend</span>
+                <span id="buy_total_label" style="display:none;">{{acc_type}} to Receive</span>
+              </div>
+              <div class="value">
+                <span class="buy_currency_char">$</span>
+                <span id="buy_total">0.00</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <input name="buy" value="1" type="hidden">
+            <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+            <input name="submit" value="Buy {{acc_type}}" class="but_user" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="one_half last">
+      <div class="content">
+        <h3 class="section_label">
+          <span class="left">
+            <i class="fa fa-money fa-2x"></i>
+          </span>
+          <span class="right">Sell {{acc_type}}</span>
+        </h3>
+        <div class="clear"></div>
+        <form id="sell_form" action="buy-sell.php" method="POST">
+          <div class="buyform">
+            <div class="spacer"></div>
+            <div class="calc dotted">
+              <div class="label">Available {{acc_type}}</div>
+              <div class="value">
+                <span id="sell_user_available">0</span>
+                {{acc_type}}</div>
+              <div class="clear"></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="param">
+              <label for="sell_amount">Amount to Sell</label>
+              <input name="sell_amount" id="sell_amount" value="0" type="text">
+              <div class="qualify">{{acc_type}}</div>
+              <div class="clear"></div>
+            </div>
+            <div class="param">
+              <label for="sell_currency">Currency to use</label>
+              <select id="sell_currency" name="currency">
+                <option value="aed">AED</option>
+                <option value="aud">AUD</option>
+                <option value="bgn">BGN</option>
+                <option value="cad">CAD</option>
+                <option value="chf">CHF</option>
+                <option value="cny">CNY</option>
+                <option value="czk">CZK</option>
+                <option value="dkk">DKK</option>
+                <option value="eur">EUR</option>
+                <option value="gbp">GBP</option>
+                <option value="hkd">HKD</option>
+                <option value="hrk">HRK</option>
+                <option value="huf">HUF</option>
+                <option value="ils">ILS</option>
+                <option value="inr">INR</option>
+                <option value="jpy">JPY</option>
+                <option value="mur">MUR</option>
+                <option value="mxn">MXN</option>
+                <option value="nok">NOK</option>
+                <option value="nzd">NZD</option>
+                <option value="pln">PLN</option>
+                <option value="ron">RON</option>
+                <option value="rub">RUB</option>
+                <option value="sek">SEK</option>
+                <option value="sgd">SGD</option>
+                <option value="thb">THB</option>
+                <option value="try">TRY</option>
+                <option selected="selected" value="usd">USD</option>
+                <option value="zar">ZAR</option>
+              </select>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox">
+              <label for="sell_market_price">Sell at market price
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
+              <label for="sell_stop">Limit Order
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div class="param lessbottom">
+              <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
+              <label for="sell_stop">Stop Order
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </label>
+              <div class="clear"></div>
+            </div>
+            <div id="sell_price_container" class="param">
+              <label for="sell_price">
+                <span id="sell_price_limit_label">Limit Price</span>
+                <span id="sell_price_market_label" style="display:none;">Price</span>
+              </label>
+              <input name="sell_price" id="sell_price" value="1,752.89" type="text">
+              <div class="qualify">
+                <span class="sell_currency_label">USD</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div id="sell_stop_container" class="param" style="display:none;">
+              <label for="sell_stop_price">Stop Price</label>
+              <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
+              <div class="qualify">
+                <span class="sell_currency_label">USD</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="calc">
+              <div class="label">Subtotal</div>
+              <div class="value">
+                <span class="sell_currency_char">$</span>
+                <span id="sell_subtotal">0.00</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="calc">
+              <div class="label">Fee
+                <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                  <i class="fa fa-question-circle"></i>
+                </a>
+              </div>
+              <div class="value">
+                <span id="sell_user_fee">0.00</span>%</div>
+              <div class="clear"></div>
+            </div>
+            <div class="calc bigger">
+              <div class="label">
+                <span id="sell_total_approx_label">Approx
+                  <span class="sell_currency_label">USD</span>
+                  to receive</span>
+                <span id="sell_total_label" style="display:none;">
+                  <span class="sell_currency_label">USD</span>
+                  to receive</span>
+              </div>
+              <div class="value">
+                <span class="sell_currency_char">$</span>
+                <span id="sell_total">0.00</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <input name="sell" value="1" type="hidden">
+            <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+            <input name="submit" value="Sell {{acc_type}}" class="but_user" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="mar_top3"></div>
+  <div class="clear"></div>
+  <div id="filters_area">
+    <div class="one_half">
+      <h3>Top 10 Bids</h3>
+      <div class="table-style">
+        <table class="table-list trades" id="bids_list">
+          <tbody>
+            <tr>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Value</th>
+            </tr>
+
+            <tr class="bid_tr" id="bid_35539796">
+              <td style="">$<span class="order_price">1,780.84</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.09240000</span>
+              </td>
+              <td style="">$<span class="order_value">164.55</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539807">
+              <td style="">$<span class="order_price">1,780.82</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.04450000</span>
+              </td>
+              <td style="">$<span class="order_value">79.25</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539797">
+              <td style="">$<span class="order_price">1,780.29</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.04390000</span>
+              </td>
+              <td style="">$<span class="order_value">78.15</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539798">
+              <td style="">$<span class="order_price">1,780.06</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.02150000</span>
+              </td>
+              <td style="">$<span class="order_value">38.27</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539860">
+              <td style="">$<span class="order_price">1,779.79</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.02660000</span>
+              </td>
+              <td style="">$<span class="order_value">47.34</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539799">
+              <td style="">$<span class="order_price">1,779.52</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.02410000</span>
+              </td>
+              <td style="">$<span class="order_value">42.89</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539800">
+              <td style="">$<span class="order_price">1,779.15</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.03420000</span>
+              </td>
+              <td style="">$<span class="order_value">60.85</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539801">
+              <td style="">$<span class="order_price">1,778.88</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.04220000</span>
+              </td>
+              <td style="">$<span class="order_value">75.07</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539802">
+              <td style="">$<span class="order_price">1,778.67</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.05530000</span>
+              </td>
+              <td style="">$<span class="order_value">98.36</span>
+              </td>
+            </tr>
+            <tr class="bid_tr" id="bid_35539803">
+              <td style="">$<span class="order_price">1,778.30</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.02430000</span>
+              </td>
+              <td style="">$<span class="order_value">43.21</span>
+              </td>
+            </tr>
+            <tr id="no_bids" style="display:none;">
+              <td colspan="4">No bids to show.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="one_half last">
+      <h3>Top 10 Asks</h3>
+      <div class="table-style">
+        <table class="table-list trades" id="asks_list">
+          <tbody>
+            <tr>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Value</th>
+            </tr>
+
+            <tr id="no_asks" style="display:none;">
+              <td colspan="4">No asks to show.</td>
+            </tr>
+            <tr class="ask_tr" id="ask_35539346">
+              <td style="">$<span class="order_price">1,823.94</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.04910000</span>
+              </td>
+              <td style="">$<span class="order_value">89.56</span>
+              </td>
+            </tr>
+            <tr class="ask_tr" id="ask_35539884">
+              <td style="">$<span class="order_price">1,824.07</span>
+              </td>
+              <td style="">
+                <span class="order_amount">0.07120000</span>
+              </td>
+              <td style="">$<span class="order_value">129.87</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="mar_top5"></div>
+
+{% endblock %}
