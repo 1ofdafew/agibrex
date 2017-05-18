@@ -44,3 +44,25 @@ Route.get('/buysell/:acc_type', 'BuySellController.index')
 
 Route.get('/market', 'MarketDataController.fetchData')
 
+// Profile
+Route.get('/profile', 'ProfileController.index')
+Route.post('profile', 'ProfileController.store')
+Route.get('profile', 'ProfileController.show')
+
+// Asset
+// Route.get('/asset', 'ProfileController.index')
+
+// //creditCard
+// Route.get('/creditCard','CreditCardController.index')
+
+// //history
+// Route.get('/history','HistoryController.index')
+
+// //orderbook
+// Route.get('/orderbook','OrderBookController.index')
+
+// //payment
+// Route.get('/payment','PaymentController.index')
+
+// //transaction
+// Route.get('transaction','TransactionController.index')
