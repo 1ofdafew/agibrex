@@ -8,20 +8,29 @@ var connection = new autobahn.Connection({
 
 
 connection.onopen = function (session) {
-  function marketEvent (args,kwargs) {
-    console.log(args)
-    var data = JSON.stringify(args);
-    ws.send(MarketDataController(data));
+  function marketEvent (args, kwargs) {
+    const data = args
+    const filter = new BloomFilter(data)
+    const result = filter.sift('/BTC|LTC|XMR|ETH/')
+
+    console.log(data)
+    console.log('Filter results: ', result)
+
+    var res = JSON.stringify(result);
+    ws.send(MarketDataController(res));
 
   }
   function tickerEvent (args,kwargs) {
-    console.log(args)
+    // console.log(args)
   }
   function trollboxEvent (args,kwargs) {
-    console.log(args)
+    // console.log(args)
   }
-  session.subscribe('BTC_XMR', marketEvent)
+  session.subscribe('USDT_BTC', marketEvent)
+  session.subscribe('BTC_ETH', marketEvent)
   session.subscribe('BTC_LTC', marketEvent)
+  session.subscribe('BTC_XMR', marketEvent)
+  session.subscribe('BTC_XRP', marketEvent)
   // session.subscribe('ticker', tickerEvent)
   // session.subscribe('trollbox', trollboxEvent);
 }

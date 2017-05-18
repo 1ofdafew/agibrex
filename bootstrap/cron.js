@@ -10,6 +10,8 @@ const job = new CronJob({
     // runs every minute
     // console.log('Running cron for poloniex...')
     // Redis.publish('cron', 'poloniex')
+    Redis.publish('cron', 'Kraken')
+    Redis.publish('cron', 'GDAX')
   },
   start: false,
   timeZone: 'Australia/Sydney'
