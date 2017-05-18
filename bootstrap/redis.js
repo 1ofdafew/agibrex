@@ -27,7 +27,7 @@ Redis.subscribe('cron', function * (location) {
       // konon nya, data ni dari Kraken lah.
       const data = yield kraken.poll()
 
-      channel.emit('message', 'Some market data from Kraken...')
+      channel.emit('message', data)
 
       return
     default:
