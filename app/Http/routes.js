@@ -27,3 +27,11 @@ Route.post('/login', 'AuthController.login')
 // Register
 Route.get('/register', 'RegisterController.index')
 Route.post('register', 'RegisterController.doRegister')
+
+// OrderBook
+Route.group('version1',function() {
+	Route.resource('orderbook', 'OrderBookController')
+}).prefix('api/v1')
+
+//Route.get('/orderbook/store', 'OrderBookController.store')
+//Route.post('orderbook', 'OrderBookController.store')
