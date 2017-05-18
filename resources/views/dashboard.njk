@@ -1,0 +1,20 @@
+{% extends 'layout/logged' %}
+
+{% block content %}
+
+  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
+  <script type="text/javascript">
+
+    // io refers to the above import
+    const io = ws('http://localhost:3333')
+    const client = io.channel('market').connect(function(error, connected) {
+      console.log('Connected: ', connected)
+      console.log('Error: ', error)
+    })
+    client.on('message', function(message) {
+      console.log('Got message: ', message)
+    })
+    client.emit('message', 'Some market data...')
+  </script>
+
+{% endblock %}

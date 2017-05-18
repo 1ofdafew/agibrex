@@ -16,4 +16,4 @@
 
 const Ws = use('Ws')
 
-Ws.channel('/market', 'MarketDataController')
+Ws.channel('market', 'MarketDataController')

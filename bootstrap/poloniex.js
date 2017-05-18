@@ -1,3 +1,6 @@
+'use strict'
+
+const Ws = use('Ws')
 
 var autobahn = require('autobahn');
 var wsuri = "wss://api.poloniex.com";
@@ -8,16 +11,26 @@ var connection = new autobahn.Connection({
 
 
 connection.onopen = function (session) {
+
+  const channel = Ws.channel('market')
+
   function marketEvent (args, kwargs) {
     const data = args
-    const filter = new BloomFilter(data)
-    const result = filter.sift('/BTC|LTC|XMR|ETH/')
+    // const filter = new BloomFilter(data)
+    // const result = filter.sift('/BTC|LTC|XMR|ETH/')
 
-    console.log(data)
-    console.log('Filter results: ', result)
+    // console.log('Filter results: ', result)
+    for (var i=0, len=data.length; i < len; i++) {
+      if (data[i].type === 'newTrade') {
+        channel.emit('message', data[i])
 
-    var res = JSON.stringify(result);
-    ws.send(MarketDataController(res));
+        // we can split this into buy/sell data
+        // and emit to the desired page that listen to the data
+      }
+    }
+
+    // var res = JSON.stringify(result);
+    // ws.send(MarketDataController(res));
 
   }
   function tickerEvent (args,kwargs) {

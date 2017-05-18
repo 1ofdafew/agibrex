@@ -5,12 +5,21 @@ class MarketDataController {
   constructor (socket, request) {
     this.socket = socket
     this.request = request
+
+    console.log('Connected socket id = %s', socket.id)
+  }  
+
+  disconnected(socket) {
+    console.log('Socket disconnected, id = %s', socket.id)
   }
 
-  fetchData (message) {
-    // listening for message event
-    const fetchData = Ws.channel('market')
-    fetchData.emit('', 'data')
+  * onMessage(message) {
+    console.log('Received message: ', message)
+    this.socket.toEveryone().emit('message', message)
+  }
+
+  * update(data) {
+    this.socket.toEveryone().emit('message', data)
   }
 
 }

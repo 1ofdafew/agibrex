@@ -38,6 +38,7 @@ Route.group('version1',function() {
 
 // Account
 Route.get('/account/:acc_type', 'AccountController.index')
+Route.get('/dashboard', 'DashboardController.index')
 
 // Buysell
 Route.get('/buysell/:acc_type', 'BuySellController.index')

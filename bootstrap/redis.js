@@ -2,18 +2,23 @@
 
 const Redis = use('Redis')
 const Event = use('Event')
+const Ws = use('Ws')
 
 const KrakenPoller = use('App/Services/KrakenPoller')
 // const KrakenPoller = use('App/Services/KrakenPoller')
 
 Redis.subscribe('cron', function * (location) {
   console.log('received location to pull from: ', location)
+  const channel = Ws.channel('market')
+
   switch (location) {
     case 'GDAX':
       console.log('Polling data from GDAX')
       // Call DGAX poller
       // and send event data
+      channel.emit('message', 'Some market data from GDAX...')
       return
+
     case 'Kraken':
       console.log('Polling data from Kraken')
 
@@ -22,7 +27,8 @@ Redis.subscribe('cron', function * (location) {
       // konon nya, data ni dari Kraken lah.
       const data = yield kraken.poll()
 
-      Event.fire('kraken.data', data)
+      channel.emit('message', 'Some market data from Kraken...')
+
       return
     default:
       console.log('Je ne comprend pas!')
