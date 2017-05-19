@@ -8,7 +8,7 @@ class AccountsTableSchema extends Schema {
     this.create('accounts', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
-      table.string('address', 255).notNullable().unique()
+      table.string('address', 160).notNullable().unique()
       table.string('acc_type', 10)
       table.decimal('bal_available', 16,8).defaultTo('0.00000000')
       table.decimal('bal_locked', 16,8).defaultTo('0.00000000')

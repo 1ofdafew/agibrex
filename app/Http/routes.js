@@ -30,11 +30,15 @@ Route.post('register', 'RegisterController.doRegister')
 
 // OrderBook
 Route.group('version1',function() {
-	Route.resource('orderbook', 'OrderBookController')
+	// Route.resource('orderbook', 'OrderBookController')
+	Route.get('orderbook', 'OrderBookController.index')
+	Route.post('orderbook', 'OrderBookController.store')
+	Route.post('orderbook/delete', 'OrderBookController.delete')
+	Route.post('orderbook/activate', 'OrderBookController.activate')
+	Route.get('orderbook/showbid', 'OrderBookController.showbid')
+	Route.get('orderbook/showask', 'OrderBookController.showask')
+	Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 }).prefix('api/v1')
-
-//Route.get('/orderbook/store', 'OrderBookController.store')
-//Route.post('orderbook', 'OrderBookController.store')
 
 // Account
 Route.get('/account/:acc_type', 'AccountController.index')
