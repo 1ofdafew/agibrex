@@ -8,7 +8,7 @@
     "serve:dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js",
     "serve": "node server.js",
     "lint": "standard",
-    "test": "mocha"
+    "test": "node bin/test.js"
   },
   "author": "",
   "license": "MIT",
@@ -60,6 +60,7 @@
     "sqlite3": "^3.1.8",
     "standard": "^10.0.1",
     "supertest": "^3.0.0",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.1",
+    "zombie": "^5.0.5"
   }
 }
