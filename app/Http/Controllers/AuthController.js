@@ -10,6 +10,7 @@ class AuthController {
     }
 
    * login(request, response) {
+     console.log('Processing login')
      const email = request.input('email')
      const password = request.input('password')
 

@@ -24,9 +24,14 @@
     "adonis-middleware": "^1.0.11",
     "adonis-redis": "^1.0.1",
     "adonis-websocket": "^1.0.3",
+    "adonis-websocket-client": "^1.0.2",
     "autobahn": "^17.5.1",
     "got": "^6.7.1",
+    "highcharts": "^5.0.11",
+    "kraken-api": "^0.1.7",
     "mysql": "^2.13.0",
+    "sqlite3": "^3.1.8",
+    "uuid": "^3.0.1",
     "youch": "^2.0.4"
   },
   "standard": {
@@ -39,22 +44,22 @@
     "App": "./app"
   },
   "devDependencies": {
-    "sqlite3": "^3.1.8",
-
-    "supertest": "^3.0.0",
-    "mocha": "^3.4.1",
     "chai": "^3.5.0",
-    "co-mocha": "^1.2.0",
-
-    "nodemon": "^1.11.0",
     "co-fs": "^1.2.0",
+    "co-mocha": "^1.2.0",
     "colors": "^1.1.2",
     "cron": "^1.2.1",
+    "form-data": "^2.1.4",
     "globby": "^6.1.0",
     "lodash": "^4.17.4",
     "mailparser": "^2.0.5",
+    "mocha": "^3.4.1",
     "ms": "^2.0.0",
-    "yargs": "^8.0.1",
-    "standard": "^10.0.1"
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0",
+    "sqlite3": "^3.1.8",
+    "standard": "^10.0.1",
+    "supertest": "^3.0.0",
+    "yargs": "^8.0.1"
   }
 }
