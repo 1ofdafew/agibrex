@@ -45,9 +45,9 @@
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     client.on('sell', (data) => {
-                      console.log('Got sell data', data)
+                      console.log('Got sell data:', data)
                       var x = (new Date()).getTime(), // current time
-                          y = parseFloat(data.amount); //Math.round(Math.random() * 100);
+                          y = parseFloat(data.rate); //Math.round(Math.random() * 100);
                       series.addPoint([x, y], true, true);
                     })
 

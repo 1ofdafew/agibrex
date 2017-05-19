@@ -22,7 +22,7 @@ connection.onopen = function (session) {
     // console.log('Filter results: ', result)
     for (var i=0, len=data.length; i < len; i++) {
       if (data[i].type === 'newTrade') {
-        // channel.emit('message', data[i])
+        // channel.emit('message', data[i].data)
 
         // we can split this into buy/sell data
         // and emit to the desired page that listen to the data
@@ -48,10 +48,10 @@ connection.onopen = function (session) {
     // console.log(args)
   }
   session.subscribe('USDT_BTC', marketEvent)
-  session.subscribe('BTC_ETH', marketEvent)
-  session.subscribe('BTC_LTC', marketEvent)
-  session.subscribe('BTC_XMR', marketEvent)
-  session.subscribe('BTC_XRP', marketEvent)
+  // session.subscribe('BTC_ETH', marketEvent)
+  // session.subscribe('BTC_LTC', marketEvent)
+  // session.subscribe('BTC_XMR', marketEvent)
+  // session.subscribe('BTC_XRP', marketEvent)
   // session.subscribe('ticker', tickerEvent)
   // session.subscribe('trollbox', trollboxEvent);
 }
