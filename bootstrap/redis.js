@@ -5,7 +5,7 @@ const Event = use('Event')
 const Ws = use('Ws')
 
 const KrakenPoller = use('App/Services/KrakenPoller')
-// const KrakenPoller = use('App/Services/KrakenPoller')
+// const GDAXPoller = use('App/Services/GDAXPoller')
 
 Redis.subscribe('cron', function * (location) {
   console.log('received location to pull from: ', location)
@@ -15,6 +15,9 @@ Redis.subscribe('cron', function * (location) {
     case 'GDAX':
       console.log('Polling data from GDAX')
       // Call DGAX poller
+      // const gdax = new GDAXPoller()
+      //
+      // const data = yield gdax.poll()
       // and send event data
       channel.emit('message', 'Some market data from GDAX...')
       return
