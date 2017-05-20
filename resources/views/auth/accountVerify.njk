@@ -1,0 +1,55 @@
+{% extends 'layout/master' %}
+
+{% block content %}
+
+<div class="page_title">
+  <div class="container">
+    <div class="title">
+      <h3><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Account Verification</h3>
+    </div>
+
+  </div>
+</div>
+<div class="fresh_projects login_bg">
+  <div class="clearfix mar_top5"></div>
+
+  <div class="container">
+    <!--<h2>Login</h2>-->
+    {% if old('error') %}
+      <div class="alert alert-warning" role="alert">
+        {{ old('error') }}
+      </div>
+    {% endif %}
+
+    {{ form.open({ action: 'Auth/AccountVerifyController.verify' }) }}
+      {{ csrfField }}
+
+      <div class="loginform"> 
+        <a href="/auth/login">Need to login?</a> | 
+        <a href="/auth/register">Register perhaps?</a>
+
+        <div class="separate"></div>
+
+        <br>
+        <h4>
+          Please enter the verification code sent to you via {{ old('verifyMethod', 'email') }}
+          - {{ old('email') }}
+        </h4>
+
+        <p>Dev Mode: pls check you console for the verification_code</p>
+
+        <div class="loginform_inputs">
+          <div class="input_contain last form-group"> <i class="fa fa-lock"></i>
+            <input type="text" class="login" name="token" value="" required>
+          </div>
+        </div>
+        <br>
+        <input type="submit" name="submit" value="Verify" class="but_user">
+      </div>
+    
+    {{ form.close() }}
+
+  <div class="clearfix mar_top8"></div>
+</div>
+
+{% endblock %}
