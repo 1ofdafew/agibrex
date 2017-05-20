@@ -7,8 +7,9 @@ class PaymentTableSchema extends Schema {
   up () {
     this.create('Payment', (table) => {
       table.increments()
-      table.string('uuid')
-      table.string('trans_id')
+      table.string('uuid').notNullable().unique()
+      table.string('trans_id').notNullable()
+      table.double('amount').notNullable()
       table.timestamps()
     })
   }

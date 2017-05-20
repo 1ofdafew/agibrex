@@ -49,16 +49,39 @@ Route.get('/buysell/:acc_type', 'BuySellController.index')
 
 Route.get('/market', 'MarketDataController.fetchData')
 
-// Profile
-Route.get('/profile', 'ProfileController.index')
-Route.post('profile', 'ProfileController.store')
-Route.get('profile', 'ProfileController.show')
+
+Route.group('version1',function() {
+  //profile
+  Route.get('profile', 'ProfileController.index')
+  Route.get('profile/show', 'ProfileController.show')
+  Route.post('profile', 'ProfileController.store')
+  Route.post('profile/update', 'ProfileController.update')
+  
+  //credit card
+  Route.get('creditCard', 'CreditCardController.index')
+  Route.get('creditCard/show', 'CreditCardController.show')
+  Route.post('creditCard', 'CreditCardController.store')
+  Route.post('creditCard/update', 'CreditCardController.update')
+
+  //history
+  Route.get('history','HistoryController.index')
+  Route.post('history','HistoryController.store')
+  Route.get('history/show','HistoryController.show')
+
+  //transaction
+  Route.get('transaction','TransactionController.index')
+  Route.post('transaction','TransactionController.store')
+  Route.get('transaction/show','TransactionController.show')
+
+}).prefix('api/v1')
 
 // Asset
 // Route.get('/asset', 'ProfileController.index')
 
 // //creditCard
-// Route.get('/creditCard','CreditCardController.index')
+//  Route.group('version1',function() {
+//   Route.resource('creditCard', 'CreditCardController')
+// }).prefix('api/v1')
 
 // //history
 // Route.get('/history','HistoryController.index')
