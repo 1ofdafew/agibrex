@@ -14,17 +14,17 @@ class Profile extends Lucid {
     this.uuid = uuidV4()
     this.name = data.name
     this.email = data.email
-    this.tel_no = data.tel_no 
-    this.addrs = data.addrs 
+    this.mobile_no = data.mobile_no 
+    this.address = data.address 
   }  
 
   static get visible(){
-    return ['id', 'uuid', 'name', 'email', 'tel_no', 'addrs']
+    return ['id', 'uuid', 'name', 'email', 'mobile_no', 'address']
   }
 
-  // profile () {
-  //   return this.hasOne('App/Model/Profile')
-  // }
+  user () {
+    return this.belongsTo('App/Model/User')
+  }
 
 }
 

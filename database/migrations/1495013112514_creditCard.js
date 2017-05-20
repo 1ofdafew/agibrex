@@ -7,9 +7,9 @@ class CreditCardTableSchema extends Schema {
   up () {
     this.create('CreditCard', (table) => {
       table.increments()
-      table.string('uuid')
+      table.string('uuid',80).notNullable().unique()
       table.string('name',254)
-      table.integer('num',50)
+      table.integer('card_num',50)
       table.integer('cbb',3)
       table.timestamps()
     })
