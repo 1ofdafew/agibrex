@@ -80,6 +80,13 @@
             enabled: false
         },
 
+        yAxis: {
+            min: 1000,
+            max: 10000,
+            startOnTick: true,
+            endOnTick: true
+        },
+
         series: [{
             name: 'Initial data',
             data: (function () {
@@ -91,7 +98,7 @@
                 for (i = -999; i <= 0; i += 1) {
                     data.push([
                         time + i * 1000,
-                        Math.round(Math.random() * 100)
+                        Math.round(Math.random() * 4000)
                     ]);
                 }
                 return data;
