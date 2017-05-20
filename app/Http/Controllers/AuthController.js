@@ -1,7 +1,9 @@
 'use strict'
 
 const User = use('App/Model/User')
-const Hash = use('Hash')
+const Validator = use('App/Services/Validator')
+
+const UserService = make('App/Services/UserService')
 
 class AuthController {
 
@@ -11,28 +13,34 @@ class AuthController {
 
    * login(request, response) {
      console.log('Processing login')
-     const email = request.input('email')
-     const password = request.input('password')
 
-     const loginMessage = {
-         success: 'Logged-in Successfully!',
-         error: 'Invalid Credentials'
+     try {
+
+         const credentials = request.only('email', 'password')
+         yield Validator.validate(credentials, User.loginRules, User.loginMessages)
+
+         const user = yield UserService.findViaCredentials(credentials.email, credentials.password)
+
+         console.log(user)
+         const loginToken = yield request.auth.attempt(
+            credentials.email, credentials.password)
+
+         console.log('Login is succesful')
+
+         response.redirect('/account/btc')
+
+     } catch (e) {
+        console.log(e)
+        const errMsg = 'Invalid username, or password'
+        yield response.sendView('login', {error: errMsg})
      }
 
-     // Attempt to login with email and password
-     const authCheck = yield request.auth.attempt(email, password)
-     if (authCheck) {
-         return response.redirect('/account/btc')
-
-     }
-
-     yield response.sendView('login', { error: loginMessage.error })
    }
 
    * logout(request, response) {
         yield request.auth.logout()
 
-        return response.redirect('/')
+        response.redirect('/')
     }
 }
 

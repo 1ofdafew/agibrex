@@ -23,6 +23,7 @@
     "adonis-lucid": "^3.0.14",
     "adonis-middleware": "^1.0.11",
     "adonis-redis": "^1.0.1",
+    "adonis-validation-provider": "^3.0.5",
     "adonis-websocket": "^1.0.3",
     "adonis-websocket-client": "^1.0.2",
     "autobahn": "^17.5.1",
@@ -30,6 +31,7 @@
     "highcharts": "^5.0.11",
     "kraken-api": "^0.1.7",
     "mysql": "^2.13.0",
+    "node-uuid": "^1.4.8",
     "sqlite3": "^3.1.8",
     "uuid": "^3.0.1",
     "youch": "^2.0.4"

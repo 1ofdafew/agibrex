@@ -8,12 +8,12 @@ const KrakenPoller = use('App/Services/KrakenPoller')
 // const GDAXPoller = use('App/Services/GDAXPoller')
 
 Redis.subscribe('cron', function * (location) {
-  console.log('received location to pull from: ', location)
+  // console.log('received location to pull from: ', location)
   const channel = Ws.channel('market')
 
   switch (location) {
     case 'GDAX':
-      console.log('Polling data from GDAX')
+      // console.log('Polling data from GDAX')
       // Call DGAX poller
       // const gdax = new GDAXPoller()
       //
@@ -23,7 +23,7 @@ Redis.subscribe('cron', function * (location) {
       return
 
     case 'Kraken':
-      console.log('Polling data from Kraken')
+      // console.log('Polling data from Kraken')
 
       const kraken = new KrakenPoller()
 

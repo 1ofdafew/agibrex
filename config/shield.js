@@ -83,11 +83,18 @@ module.exports = {
   csrf: {
     enable: true,
     methods: ['POST', 'PUT', 'DELETE'],
-<<<<<<< Updated upstream
-    filterUris: ['/api/v1/orderbook','/api/v1/orderbook/delete', '/api/v1/orderbook/activate','/profile'],
-=======
-    filterUris: ['/api/v1/profile', '/api/v1/profile/update', '/api/v1/creditCard', '/api/v1/creditCard/update', '/api/v1/history', '/api/v1/transaction'],
->>>>>>> Stashed changes
+    filterUris: [
+      '/api/v1/profile',
+      '/api/v1/profile/update',
+      '/api/v1/creditCard',
+      '/api/v1/creditCard/update',
+      '/api/v1/history',
+      '/api/v1/transaction',
+      '/api/v1/orderbook',
+      '/api/v1/orderbook/delete', 
+      '/api/v1/orderbook/activate',
+      '/profile'
+    ],
     compareHostAndOrigin: true
   }
 

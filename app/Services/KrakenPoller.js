@@ -1,4 +1,4 @@
-'use struct'
+'use strict'
 
 const KrakenClient = require('kraken-api')
 
