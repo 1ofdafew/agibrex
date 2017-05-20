@@ -47,9 +47,17 @@ class UserService {
     const freshInstance = yield this.User.find(user.id)
     
     // firing email event in a non-blocking fashion
-    Event.fire('user:registered', freshInstance) 
+    Event.fire('user:registered', freshInstance)
 
     return freshInstance
+  }
+
+  /**
+   * Reset user account
+   * @param {string} email
+   */
+  * resetPassword (email) {
+
   }
 
   /**
@@ -90,7 +98,7 @@ class UserService {
     const isMatchedPassword = yield Hash.verify(password, user.password)
 
     if (!isMatchedPassword) {
-      throw new Exceptions.ApplicationException('Password mis-match', 400)
+      throw new Exceptions.ApplicationException('Password mismatched', 400)
     }
     return user
   }

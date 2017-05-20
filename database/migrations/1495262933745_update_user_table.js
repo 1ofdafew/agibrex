@@ -6,7 +6,7 @@ class UpdateUserTableTableSchema extends Schema {
 
   up () {
     this.table('users', (table) => {
-      table.enum('status', ['pending-verification', 'active', 'disabled']).defaultTo('pending-verification').after('avatar')
+      table.enum('status', ['pending-verification', 'active', 'disabled']).defaultTo('pending-verification')
       table.string('verification_code', 40).after('status')
     })
   }

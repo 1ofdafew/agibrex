@@ -21,23 +21,40 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 
 // Login
-Route.get('/login', 'AuthController.index')
-Route.post('/login', 'AuthController.login')
+Route.group('Authentication', function() {
+  
+  Route.get('/login', 'Auth/LoginController.index').as('login')
+  Route.post('/login', 'Auth/LoginController.login').as('login')
+  Route.get('/logout', 'Auth/LoginController.logout')
 
-// Register
-Route.get('/register', 'RegisterController.index')
-Route.post('/register', 'RegisterController.register')
+  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
+  Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
 
-// Account
-Route.get('/account/:acc_type', 'AccountController.index')
-Route.get('/dashboard', 'DashboardController.index')
+  // Register
+  Route.get('/register', 'Auth/RegisterController.index').as('register')
+  Route.post('/register', 'Auth/RegisterController.register').as('register')
 
-// Buysell
-Route.get('/buysell/:acc_type', 'BuySellController.index')
+  Route.get('/verify', 'Auth/AccountVerifyController.index').as('verify')
+  Route.post('/verify', 'Auth/AccountVerifyController.verify').as('verify')
 
-Route.get('/market', 'MarketDataController.fetchData')
+}).prefix('/auth')
 
-Route.group('version1',function() {
+// Accounts
+Route.group('Secure Area', function() {
+
+  Route.get('/account', 'AccountController.index').as('account')
+
+
+  Route.get('/dashboard', 'DashboardController.index').as('dashboard')
+
+  // Buysell
+  Route.get('/buysell/:acc_type', 'BuySellController.index')
+
+  Route.get('/market', 'MarketDataController.fetchData')
+
+}).middleware('auth')
+
+Route.group('API',function() {
 	
   // OrderBook Resources
 	Route.get('/orderbook', 'OrderBookController.index')
@@ -80,5 +97,5 @@ Route.group('version1',function() {
   Route.get('orderbook/showask', 'OrderBookController.showask')
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
-}).prefix('api/v1')
+}).prefix('/api/v1')
 

@@ -26,8 +26,7 @@
 
 <!-- ######### CSS STYLES ######### -->
 <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 <!-- responsive devices styles -->
 <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
@@ -48,20 +47,20 @@
         <div class="top_contact_info">
           <div class="container">
             <ul class="tci_list_left">
-              <li><a href="Help.htm">FAQ</a></li>
+              <li><a href="#">FAQ</a></li>
               <li>|</li>
-              <li><a href="Support.htm">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
+              <li><a href="#">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
               <li>|</li>
-              <li><a href="Contact.htm">Contact Us</a></li>
+              <li><a href="#">Contact Us</a></li>
             </ul>
             <ul class="tci_list">
 
-               <li><a href="/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a></li>
+               <li><a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a></li>
                <li>|</li>
-               <li><a href="register.php"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a></li>
+               <li><a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a></li>
 
                <li><a href=""><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;</a></li>
-               <li><a href="/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a></li>
+               <li><a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a></li>
 
               <li class="empty margin-left">
                 <label for="language_selector"><img src="/images/language/en.png"></label>
@@ -84,32 +83,32 @@
       <div class="container">
 
         <!-- Logo -->
-        <div class="one_fourth"><a href="index.htm" id="logo"></a></div>
+        <div class="one_fourth"><a href="/" id="logo"></a></div>
 
         <!-- Menu -->
         <div class="three_fourth last">
             <nav id="access" class="access" role="navigation">
               <div id="menu" class="menu">
                 <ul id="tiny">
-                  <li><a href="">Home</a></li>
+                  <li><a href="#">Home</a></li>
                   <li><a href="/exchange">Exchange</a></li>
-                  <li><a href="">Order Book</a></li>
-                  <li><a href="">Our Security</a></li>
-                  <li><a href="">How Does It Work?</a></li>
-                  <li><a href="">Fees</a></li>
-                  <li><a href="">Gibrex</a></li>
+                  <li><a href="#">Order Book</a></li>
+                  <li><a href="#">Our Security</a></li>
+                  <li><a href="#">How Does It Work?</a></li>
+                  <li><a href="#">Fees</a></li>
+                  <li><a href="#">Gibrex</a></li>
                   <li><a href="/account" class="active">My Account</a></li>
                 </ul>
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
-                  <option value="">HOME</option>
-                  <option value="">ORDER BOOK</option>
-                  <option value="">OUR SECURITY</option>
-                  <option value="">HOW DOES IT WORK?</option>
-                  <option value="">FEES</option>
-                  <option value="">ABOUT Gibrex</option>
-                  <option value="">Login</option>
-                  <option value="">Register</option>
+                  <option value="#">HOME</option>
+                  <option value="#">ORDER BOOK</option>
+                  <option value="#">OUR SECURITY</option>
+                  <option value="#">HOW DOES IT WORK?</option>
+                  <option value="#">FEES</option>
+                  <option value="#">ABOUT Gibrex</option>
+                  <option value="/auth/login">Login</option>
+                  <option value="/auth/register">Register</option>
                 </select>
               </div>
             </nav>
@@ -125,12 +124,14 @@
   <div class="container">
     <div class="title">
       <h1><i class="fa fa-address-card-o"></i>&nbsp;&nbsp;My Account</h1>
+      {{ user }}
     </div>
   </div>
 </div>
 <div class="container">
   <div class="content_right">
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
   </div>
   <div class="left_sidebar">
     <div class="sidebar_widget">
@@ -145,15 +146,15 @@
              <li><a href="/account/tracto" style="font-size:90%"><i class="fa fa-angle-right"></i> Tracto</a></li>
            </ul>
         </li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Open Orders</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Transactions</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Security</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Settings</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Bank Accounts</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Open Orders</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Transactions</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Security</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Settings</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Bank Accounts</a></li>
 
-        <li><a href=""><i class="fa fa-angle-right"></i> History</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> API Access</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Logout</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> History</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> API Access</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Logout</a></li>
       </ul>
     </div>
     <div class="clearfix mar_top3"></div>
@@ -179,7 +180,7 @@
   <div class="clearfix mar_top5"></div>
     <div class="container">
       <div class="one_fourth">
-        <div class="footer_logo"><img src="css/images/gibrex.png" alt=""></div>
+        <div class="footer_logo"><img src="/images/gibrex.png" alt=""></div>
         <div class="clearfix mar_top1"></div>
         <ul class="contact_address">
           <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
@@ -190,28 +191,28 @@
         <div class="one_fourth">
           <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Navigation</h3>
           <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="index.htm">&nbsp;&nbsp;Home</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Home</a></li>
             <li><i class="fa fa-angle-right"></i><a href="/exchange">&nbsp;&nbsp;Exchange</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="Margin.htm">&nbsp;&nbsp;Margin Trading</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="Lending.htm">&nbsp;&nbsp;Lending</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="Fees.htm">&nbsp;&nbsp;Fees</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Margin Trading</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Lending</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Fees</a></li>
           </ul>
         </div>
         <div class="one_fourth">
           <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Gibrex</h3>
           <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="About.htm">&nbsp;&nbsp;About Gibrex</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="News.htm">&nbsp;&nbsp;News Feed</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="Security.htm">&nbsp;&nbsp;Security</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;About Gibrex</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;News Feed</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Security</a></li>
           </ul>
         </div>
         <div class="one_fourth last">
           <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Support</h3>
           <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="Support.htm">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
-            <li><i class="fa fa-angle-right"></i><a href="Resources.htm">&nbsp;&nbsp;Resources</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="FAQ.htm">&nbsp;&nbsp;FAQ</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="Contact.htm">&nbsp;&nbsp;Contact Us</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Resources</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;FAQ</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -226,9 +227,9 @@
           <li>|</li>
           <li><a href="Privacy.htm"> Privacy Policy</a></li>
           <li>|</li>
-          <li><a target="_blank" href="Term.htm"> Term & Condition</a></li>
+          <li><a target="_blank" href="#"> Terms &amp; Condition</a></li>
           <li>|</li>
-          <li><a target="_blank" href="API.htm"> API Documentation</a></li>
+          <li><a target="_blank" href="#"> API Documentation</a></li>
         </ul>
       </div>
       <!-- <div class="one_half last">

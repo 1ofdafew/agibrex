@@ -14,7 +14,7 @@ module.exports = {
   | Available Options are :-
   | cookie, file, redis
   */
-  driver: Env.get('SESSION_DRIVER', 'cookie'),
+  driver: Env.get('SESSION_DRIVER', 'redis'),
 
   /*
   |--------------------------------------------------------------------------
@@ -40,13 +40,14 @@ module.exports = {
   | You can also supply a redis connection string like so:
   | redis: Env.get('REDIS_URL', 'redis://localhost:6379')
   */
-  redis: {
-    port: 6379,          // Redis port
-    host: '127.0.0.1',   // Redis host
-    family: 4,           // 4 (IPv4) or 6 (IPv6)
-    password: 'auth',
-    db: 0
-  },
+  // redis: {
+  //   port: 6379,          // Redis port
+  //   host: '127.0.0.1',   // Redis host
+  //   family: 4,           // 4 (IPv4) or 6 (IPv6)
+  //   password: '',
+  //   db: 0
+  // },
+  redis: Env.get('REDIS_URL', 'redis://localhost:6379'),
 
   
   /*
