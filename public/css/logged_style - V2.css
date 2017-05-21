@@ -30,8 +30,8 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 	color: inherit;
 }
 h1 {
-	font-size: 16px;
-	line-height: 36px;
+	font-size: 40px;
+	line-height: 40px;
 	margin-bottom: 22px;
 	font-style: normal;
 	text-align: left;
@@ -62,10 +62,10 @@ h3 i {
 	font-style: normal;
 }
 h4 {
-    font-size: 18px;
+	font-size: 18px;
 	line-height: 22px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 15px;
+	margin-bottom: 20px;
 	font-style: normal;
 }
 h4 i {
@@ -73,12 +73,10 @@ h4 i {
 	font-style: normal;
 }
 h5 {
-	font-size: 22px;
-	text-align: left;
+	font-size: 16px;
 	line-height: 22px;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	font-style: normal;
-	text-transform: uppercase;
 }
 h6 {
 	font-size: 14px;
@@ -400,7 +398,7 @@ del {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	text-indent: -999em;
-	background: url(../images/gibrex02.png) no-repeat left bottom !important;
+	background: url(../images/gibrex.png) no-repeat left bottom !important;
 }
 .clear {
 	clear: both;
@@ -636,11 +634,11 @@ del {
 	right: 0;
 	bottom: 0;
 	top: 0;
-	background-color: #333333;
+	background-color: #333;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	-moz-opacity: 0.5;
-	-khtml-opacity: 0.5;
-	opacity: 0.5;
+	-moz-opacity: 0.2;
+	-khtml-opacity: 0.2;
+	opacity: 0.2;
 }
 .ticker a {
 	color: #ddd;
@@ -676,15 +674,9 @@ del {
 	padding-left: 50px;
 }
 /* columns */
-
 .one_half, .one_third, .one_fourth, .two_third, .three_fourth, .one_fifth {
 	position: relative;
 	margin-right: 4%;
-	float: left;
-}
-.one_fourth02, .one_fifth02, .one_fifth03 {
-	position: relative;
-	margin-right: 30px;
 	float: left;
 }
 .one_full {
@@ -699,17 +691,8 @@ del {
 .one_fourth {
 	width: 22%;
 }
-.one_fourth02 {
-	width: 450px;
-}
 .one_fifth {
 	width: 16.800%;
-}
-.one_fifth02 {
-	width: 140px;
-}
-.one_fifth03 {
-	width: 300px;
 }
 .one_fifth.less-space {
 	width: 19%;
@@ -738,7 +721,6 @@ del {
 	font-weight: 500;
 	text-transform: uppercase;
 	margin-top: 0px;
-
 }
 #access .menu select {
 	border: 2px solid #eee;
@@ -777,7 +759,7 @@ del {
 	font-size: 18px;
 	letter-spacing: 0.5px;
 	line-height: 1;
-	color: #f4f4f4;
+	color: #383634;
 	margin: 0;
 	padding: 13px 12px 12px 14px;
 	text-align: center;
@@ -865,7 +847,7 @@ del {
 	margin: 0px;
 	width: 100%;
 	min-height: 68px;
-	background: #666;
+	background: #383634 url(../images/top-bg.jpg) repeat left top;
 }
 ul.tci_list_left {
 	float: left;
@@ -1440,7 +1422,7 @@ a.button_slider:hover {
 .fresh_projects {
 	float: left;
 	width: 100%;
-	/*background-color: #f0f0f0;*/
+	background-color: #f0f0f0;
 	text-align: center;
 }
 .fresh_projects h2 {
@@ -1574,7 +1556,7 @@ a.button_slider:hover {
 	line-height: normal;
 }
 .login_bg {
-	background-color: #fff;
+	background-color: #00BDBD;
 }
 .login_bg h2 {
 	color: #FFF;
@@ -1917,7 +1899,7 @@ a.forgot:hover {
 .footer {
 	float: left;
 	width: 100%;
-	background: #eee;
+	background: #383634;
 	color: #999;
 }
 .footer .one_fourth {
@@ -1952,7 +1934,7 @@ a.forgot:hover {
 .footer .list li {
 	padding: 0px;
 	margin: 0px;
-	line-height: 20px;
+	line-height: 30px;
 }
 .footer ul.contact_address {
 	float: left;
@@ -2039,11 +2021,11 @@ a.forgot:hover {
 	width: 100%;
 	color: #eee;
 	letter-spacing: 0.5px;
-	/*background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;*/
+	background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;
 }
 .copyright_info .one_half {
 	float: left;
-	width: 48%;
+	width: 88%;
 	margin-right: 4%;
 }
 .copyright_info b {
@@ -2123,9 +2105,9 @@ ul.footer_social_links {
 	position: relative;
 	float: left;
 	width: 100%;
-	/*margin-top: 45px;*/
-	padding: 20px 0px;
-	background: #eee;
+	margin-top: 0px;
+	padding: 28px 0px;
+	background: #383634 url(../images/elements/dark_mosaic.png) repeat left top;
 }
 .page_title .title {
 	width: 100%;
@@ -2133,11 +2115,11 @@ ul.footer_social_links {
 	text-align: left;
 	margin: 0px;
 }
-.page_title .title h3 {
+.page_title .title h1 {
 	margin: 0px 0px 0px 0px;
 	background: none;
 	font-weight: 300;
-	color: #666;
+	color: #fff;
 }
 .page_title .pagenation {
 	float: left;
@@ -3967,7 +3949,7 @@ ul.list1 {
 	padding: 0px;
 	margin: 0px;
 	text-align: left;
-	line-height: 20px;
+	line-height: 30px;
 }
 .list1 li i {
 	padding: 0px;
@@ -5203,8 +5185,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	zoom: 1
 }
 #trueHeader {
-	background-color: #333;
-	border-bottom: 1px solid #333;
+	background-color: #fff;
+	border-bottom: 1px solid #fff;
 }
 #header.sticky #trueHeader {
 	position: fixed;

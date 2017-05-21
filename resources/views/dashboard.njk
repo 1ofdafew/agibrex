@@ -6,7 +6,7 @@
   <script src="https://code.highcharts.com/stock/highstock.js"></script>
   <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 
-  <div id="container" style="height: 400px; min-width: 310px"></div>
+  <div id="container" style="height: 500px; min-width: 310px; margin-bottom:100px;"></div>
 
 	<script type="text/javascript">
 
@@ -44,7 +44,7 @@
     }, null, document.getElementsByTagName('head')[0]);
 
     Highcharts.theme = {
-     colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+     colors: ['#efaa06', '#ee5a41', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
         '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
      chart: {
         backgroundColor: {
@@ -55,7 +55,7 @@
            ]
         },
         style: {
-           fontFamily: '\'Unica One\', sans-serif'
+           fontFamily: '\'Roboto Condensed\', sans-serif'
         },
         plotBorderColor: '#606063'
      },
@@ -76,7 +76,9 @@
         gridLineColor: '#707073',
         labels: {
            style: {
-              color: '#E0E0E3'
+              color: '#E0E0E3',
+              fontSize: '14px'
+
            }
         },
         lineColor: '#707073',
@@ -93,7 +95,8 @@
         gridLineColor: '#707073',
         labels: {
            style: {
-              color: '#E0E0E3'
+              color: '#E0E0E3',
+              fontSize: '14px'
            }
         },
         lineColor: '#707073',

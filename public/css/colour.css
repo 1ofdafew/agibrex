@@ -10,10 +10,10 @@
 	background-color: #efa006;
 }
 #access .menu ul li ul {
-	background: #efa006;
+	background: #727272;
 }
 #access .menu ul li ul li a {
-	background: #efa006;
+	background: #727272;
 }
 #access .menu ul li ul li a:hover, #access .menu ul li ul li.active a, #access .menu ul li ul li a.selected {
 	background: #32dfdf;
@@ -108,7 +108,7 @@ a.but_goback {
 	color: #efa006;
 }
 .sidebar_widget ul.arrows_list1 li a {
-	color: #efa006;
+	color: #727272;
 }
 #site-searchform #searchsubmit {
 	background: #efa006 url(../../images/site-search-icon.png) no-repeat center 14px;
