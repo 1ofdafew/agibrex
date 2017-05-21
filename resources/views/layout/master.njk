@@ -28,13 +28,13 @@
   client.emit('message', 'Some market data...')
 
   // now, process the seel signals
-  // client.on('sell', (data) => {
-  //   console.log('Got sell data', data)
-  // })
-  //
-  // client.on('buy', (data) => {
-  //   console.log('Got buy data', data)
-  // })
+  client.on('sell', (data) => {
+    console.log('Got sell data', data)
+  })
+
+  client.on('buy', (data) => {
+    console.log('Got buy data', data)
+  })
 </script>
 
 <meta name="keywords" content="">
