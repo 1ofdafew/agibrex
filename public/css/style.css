@@ -2039,7 +2039,7 @@ a.forgot:hover {
 	width: 100%;
 	color: #eee;
 	letter-spacing: 0.5px;
-	background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;
+	/*background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;*/
 }
 .copyright_info .one_half {
 	float: left;
@@ -5069,7 +5069,7 @@ a.knowmore_but:hover {
 	float: left;
 	width: 100%;
 	height: 13px;
-	background: url(../images/arrow-02.png) no-repeat center top;
+	/*background: url(../images/arrow-02.png) no-repeat center top;*/
 }
 .waves_01 {
 	float: left;

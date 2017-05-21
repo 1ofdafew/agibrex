@@ -3,26 +3,19 @@
 class AccountController {
 
   * index (request, response) {
+    response.sendView('account/index')
+  }
 
-      const user = yield request.auth.getUser()
+  * account_btc (request, response) {
+    response.sendView('account/btc', { acc_type: 'Bitcoin'})
+  }
 
-      const acc_type = request.param('acc_type')
+  * account_tracto (request, response) {
+    response.sendView('account/tracto', { acc_type: 'Tracto'})
+  }
 
-      // const sql = yield Database.from('wallet').where({ type: acc_type }).where({ uuid: user.id) })
-
-      // response.send(sql)
-      // if (account) {
-
-         // response.send(account.wallet_id)
-      // } else {
-      //
-      // }
-
-
-      yield response.sendView('account',{ 'acc_type' : acc_type })
-      
-    response.sendView('account')
-
+  * account_ethereum (request, response) {
+    response.sendView('account/tracto', { acc_type: 'Ethereum'})
   }
 }
 
