@@ -10,6 +10,7 @@ const KrakenPoller = use('App/Services/KrakenPoller')
 Redis.subscribe('cron', function * (location) {
   // console.log('received location to pull from: ', location)
   const channel = Ws.channel('market')
+  // const channel = Ws.channel('eth')
 
   switch (location) {
     case 'GDAX':
