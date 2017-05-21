@@ -857,7 +857,7 @@ del {
 	margin: 0px;
 	width: 100%;
 	min-height: 56px;
-	background: #555 url(images/top-bg.jpg) repeat left;
+	/*background: #555 url(images/top-bg.jpg) repeat left;*/
 }
 ul.tci_list_left {
 	float: left;
@@ -1894,7 +1894,7 @@ a.forgot:hover {
 .footer {
 	float: left;
 	width: 100%;
-	background: #383634 url(images/elements/dark_mosaic.png) repeat left top;
+	/*background: #383634 url(images/elements/dark_mosaic.png) repeat left top;*/
 	color: #999;
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 18px;
