@@ -687,7 +687,7 @@ del {
 	width: 100%;
 }
 .one_half {
-	width: 30%;
+	width: 48%;
 }
 .one_third {
 	width: 30.650%;
@@ -4810,7 +4810,7 @@ ul.list_empty.form_buttons {
 .buyform .param label {
 	float: left;
 	font-size: 18px;
-	margin-top: 15px;
+	margin-top: 5px;
 	margin-bottom: 10px;
 }
 .buyform .param input {
@@ -4818,7 +4818,7 @@ ul.list_empty.form_buttons {
 	float: left;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
-	padding: 7px 9px 7px 7px;
+	padding: 7px 25px 7px 7px;
 	border: 1px solid #D6D6D6;
 	background-color: #FFF;
 	width: 95%;
@@ -4841,7 +4841,7 @@ ul.list_empty.form_buttons {
 }
 .buyform .param input.checkbox {
 	clear: none;
-	margin: 20px 10px 0 0;
+	margin: 10px 10px 0 0;
 	width: auto;
 }
 .buyform .param select:focus {
