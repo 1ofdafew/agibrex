@@ -7,7 +7,7 @@ class OrderBooksTableSchema extends Schema {
   up () {
     this.create('order_books', (table) => {
       table.increments('id')
-      table.string('uuid', 40).notNullable().unique()
+      table.string('uuid',80).notNullable().unique()
       table.string('type')
       table.string('asset')
       table.double('amount')

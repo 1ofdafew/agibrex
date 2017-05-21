@@ -8,7 +8,7 @@ class HistoriesTableSchema extends Schema {
     this.create('histories', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
-      table.string('uuid').notNullable().unique()
+      table.string('uuid',80).notNullable().unique()
       table.string('location').notNullable()
       table.string('ip_address').notNullable()
       table.string('trace').notNullable()

@@ -24,3 +24,7 @@ Event.when('kraken.data', 'Kraken.process')
 
 // User registration events
 Event.when('user:registered', 'UserRegistered.process')
+
+//Matching bid&ask
+Event.when('matched:result', 'MatchedResult.ok')
+Event.when('unmatched:result', 'MatchedResult.failed')
