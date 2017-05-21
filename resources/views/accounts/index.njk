@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;Account Balance (<strong>{{ acc_type }}</strong>)</h3>
+<h3><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;Account Balance (<strong>{{ type }}</strong>)</h3>
 <div class="text">
   <p>It is recommended that you set up two-factor authentication for your account using your cellphone. <br>To do so, please visit the <a href="security.htm">Security </a>page.</p>
 </div>
@@ -43,9 +43,9 @@
   </div>
   <div class="mar_top6"></div>
   <ul class="list_empty">
-    <li><a href="/buysell/{{ acc_type }}" class="but_user"> Buy/Sell</a></li>
-    <li><a href="" class="but_user"> Deposit</a></li>
-    <li><a href="" class="but_user"> Withdraw</a></li>
+    <li><a href="/trades/{{ type }}" class="but_user"> Buy/Sell</a></li>
+    <li><a href="/accounts/{{ type }}/deposit" class="but_user"> Deposit</a></li>
+    <li><a href="/accounts/{{ type }}/withdraw" class="but_user"> Withdraw</a></li>
   </ul>
 
   <div class="mar_top8"></div>

@@ -39,23 +39,33 @@ Route.group('Authentication', function() {
 
 }).prefix('/auth')
 
-// Account routes
-Route.group('Accounts', function () {
-  Route.get('/', 'AccountController.index')
-  Route.get('/btc', 'AccountController.account_btc')
-  Route.get('/tracto', 'AccountController.account_tracto')
-  Route.get('/ethereum', 'AccountController.account_ethereum')
-}).prefix('/accounts').middleware('auth')
 
 // Secure Area routes
 Route.group('Secure Area', function() {
 
-
+  // Dashboard
   Route.get('/dashboard', 'DashboardController.index').as('dashboard')
 
-  // Buysell
-  Route.get('/buysell/btc', 'BuySellController.trade_btc')
-  Route.get('/buysell/tracto', 'BuySellController.trade_tracto')
+  // Account routes
+  Route.group('Accounts', function () {
+    Route.get('/', 'Accounts/AccountController.index')
+
+    Route.get('/bitcoin', 'Accounts/BitcoinController.account')
+    Route.get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit')
+    Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw')
+
+    Route.get('/tracto', 'Accounts/TractoController.account')
+
+    Route.get('/ethereum', 'Accounts/EthereumController.account')
+
+  }).prefix('/accounts')
+
+  // Trades
+  Route.group('Buy n Sell', function () {
+    Route.get('/bitcoin', 'TradesController.trade_bitcoin')
+    Route.get('/tracto', 'TradesController.trade_tracto')
+    Route.get('/ethereum', 'TradesController.trade_ethereum')
+  }).prefix('/trades')
 
   Route.get('/market', 'MarketDataController.fetchData')
 
