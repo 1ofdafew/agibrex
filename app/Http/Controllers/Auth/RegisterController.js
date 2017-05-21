@@ -44,7 +44,7 @@ class RegisterController {
 
     } catch(e) {
       // log.error('Invalid data for registration: ', e.fields)
-      console.log(e)
+      console.log(e.fields)
       if (e.fields != undefined) {
         yield request.with({ error: e.fields[0].message }).flash()
       } else {
