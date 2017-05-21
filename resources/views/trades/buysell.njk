@@ -8,12 +8,10 @@
     <div class="one_half">
       <div class="content">
         <h3 class="section_label">
-          <span class="left">
-            <i class="fa fa-btc fa-2x"></i>
-          </span>
-          <span class="right">Buy {{acc_type}}</span>
+          <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy {{acc_type}}</span>
         </h3>
         <div class="clear"></div>
+        <div class="dotted"></div>
         <form id="buy_form" action="buy-sell.php" method="POST">
           <div class="buyform">
             <div class="spacer"></div>
@@ -29,13 +27,14 @@
             </div>
             <div class="spacer"></div>
             <div class="param">
-              <label for="buy_amount">Amount to Buy</label>
+                <label for="buy_amount">Amount To Buy</label>
               <input name="buy_amount" id="buy_amount" value="0" type="text">
               <div class="qualify">{{acc_type}}</div>
               <div class="clear"></div>
             </div>
+            <div class="mar_top1"></div>
             <div class="param">
-              <label for="buy_currency">Currency to use</label>
+              <label for="buy_currency">Currency To Use</label>
               <select id="buy_currency" name="currency">
                 <option value="aed">AED</option>
                 <option value="aud">AUD</option>
@@ -69,33 +68,35 @@
               </select>
               <div class="clear"></div>
             </div>
+            <div class="mar_top2"></div>
             <div class="param lessbottom">
               <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox">
-              <label for="buy_market_price">Buy at market price
+              <label for="buy_market_price">Buy At Market Price&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
             <div class="param lessbottom">
               <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox">
-              <label for="buy_limit">Limit Order
+              <label for="buy_limit">Limit Order&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
             <div class="param lessbottom">
               <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
-              <label for="buy_stop">Stop Order
+              <label for="buy_stop">Stop Order&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
+            <div class="mar_top2"></div>
             <div id="buy_price_container" class="param">
               <label for="buy_price">
                 <span id="buy_price_limit_label">Limit Price</span>
@@ -107,6 +108,7 @@
               </div>
               <div class="clear"></div>
             </div>
+              <div class="mar_top3"></div>
             <div id="buy_stop_container" class="param" style="display:none;">
               <label for="buy_stop_price">Stop Price</label>
               <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
@@ -125,15 +127,16 @@
               <div class="clear"></div>
             </div>
             <div class="calc">
-              <div class="label">Fee
+              <div class="label">Fee&nbsp;
                 <a title="View fee schedule" href="fee-schedule.php" target="_blank">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </div>
               <div class="value">
-                <span id="buy_user_fee">0.00</span>%</div>
+                <span id="buy_user_fee">0.00</span>&nbsp;%</div>
               <div class="clear"></div>
             </div>
+            <div class="dotted"></div>
             <div class="calc bigger">
               <div class="label">
                 <span id="buy_total_approx_label">Approx.
@@ -147,6 +150,7 @@
               </div>
               <div class="clear"></div>
             </div>
+            <div class="mar_top1"></div>
             <input name="buy" value="1" type="hidden">
             <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
             <input name="submit" value="Buy {{acc_type}}" class="but_user" type="submit">
@@ -157,12 +161,10 @@
     <div class="one_half last">
       <div class="content">
         <h3 class="section_label">
-          <span class="left">
-            <i class="fa fa-money fa-2x"></i>
-          </span>
-          <span class="right">Sell {{acc_type}}</span>
+          <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell {{acc_type}}</span>
         </h3>
         <div class="clear"></div>
+        <div class="dotted"></div>
         <form id="sell_form" action="buy-sell.php" method="POST">
           <div class="buyform">
             <div class="spacer"></div>
@@ -175,13 +177,14 @@
             </div>
             <div class="spacer"></div>
             <div class="param">
-              <label for="sell_amount">Amount to Sell</label>
+              <label for="sell_amount">Amount To Sell</label>
               <input name="sell_amount" id="sell_amount" value="0" type="text">
               <div class="qualify">{{acc_type}}</div>
               <div class="clear"></div>
             </div>
+            <div class="mar_top1"></div>
             <div class="param">
-              <label for="sell_currency">Currency to use</label>
+              <label for="sell_currency">Currency To Use</label>
               <select id="sell_currency" name="currency">
                 <option value="aed">AED</option>
                 <option value="aud">AUD</option>
@@ -215,33 +218,35 @@
               </select>
               <div class="clear"></div>
             </div>
+            <div class="mar_top2"></div>
             <div class="param lessbottom">
               <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox">
-              <label for="sell_market_price">Sell at market price
+              <label for="sell_market_price">Sell At Market Price&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
             <div class="param lessbottom">
               <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
-              <label for="sell_stop">Limit Order
+              <label for="sell_stop">Limit Order&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
             <div class="param lessbottom">
               <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
-              <label for="sell_stop">Stop Order
+              <label for="sell_stop">Stop Order&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </label>
               <div class="clear"></div>
             </div>
+            <div class="mar_top2"></div>
             <div id="sell_price_container" class="param">
               <label for="sell_price">
                 <span id="sell_price_limit_label">Limit Price</span>
@@ -253,6 +258,7 @@
               </div>
               <div class="clear"></div>
             </div>
+            <div class="mar_top3"></div>
             <div id="sell_stop_container" class="param" style="display:none;">
               <label for="sell_stop_price">Stop Price</label>
               <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
@@ -271,15 +277,16 @@
               <div class="clear"></div>
             </div>
             <div class="calc">
-              <div class="label">Fee
+              <div class="label">Fee&nbsp;
                 <a title="View fee schedule" href="fee-schedule.php" target="_blank">
-                  <i class="fa fa-question-circle"></i>
+                  <i class="fa fa-question"></i>
                 </a>
               </div>
               <div class="value">
-                <span id="sell_user_fee">0.00</span>%</div>
+                <span id="sell_user_fee">0.00</span>&nbsp;%</div>
               <div class="clear"></div>
             </div>
+            <div class="dotted"></div>
             <div class="calc bigger">
               <div class="label">
                 <span id="sell_total_approx_label">Approx
@@ -295,6 +302,7 @@
               </div>
               <div class="clear"></div>
             </div>
+            <div class="mar_top1"></div>
             <input name="sell" value="1" type="hidden">
             <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
             <input name="submit" value="Sell {{acc_type}}" class="but_user" type="submit">
