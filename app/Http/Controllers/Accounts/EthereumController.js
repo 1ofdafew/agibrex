@@ -7,7 +7,7 @@ class EthereumController {
   }
 
   * deposit (request, response) {
-    yield response.sendView('accounts/deposits/ethereum', { type: 'ethereum'})
+    yield response.sendView('accounts/deposit/ethereum', { type: 'ethereum'})
   }
 
   * withdraw (request, response) {

@@ -7,7 +7,7 @@ class TractoController {
   }
 
   * deposit (request, response) {
-    yield response.sendView('accounts/deposits/tracto', { type: 'tracto'})
+    yield response.sendView('accounts/deposit/tracto', { type: 'tracto'})
   }
 
   * withdraw (request, response) {
