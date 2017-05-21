@@ -13,7 +13,6 @@ class OrderBookController {
     response.json(ob)//Show all from order_books table in json
   }
 
-
   * showdelete(request, response) {
     const ob = yield Database.table('order_books')
     .where('status','0')
@@ -21,9 +20,6 @@ class OrderBookController {
     console.log(ob)
     response.json(ob)//Show all from order_books table in json
   }
-  // * create(request, response) {
-  //   //
-  // }
 
   * store(request, response) {
     const data=request.only(['type', 'asset', 'amount', 'price','status'])
@@ -33,10 +29,6 @@ class OrderBookController {
     yield ob.save()//Save to new row table
     response.ok(ob)
   }
-
-  // * show(request, response) {
-  //   //
-  // }
 
   * showbid(request, response) {
     const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
@@ -62,10 +54,6 @@ class OrderBookController {
     response.json(asklist)//Show where type=ask from order_book table
   }
 
-  // * edit(request, response) {
-  //   //
-  // }
-
   * delete(request, response) {
     const data=request.only(['uuid'])
     console.log('Disable status with uuid:')
@@ -74,7 +62,7 @@ class OrderBookController {
     .table('order_books')
     .where('uuid', data.uuid)
     .update('status', '0')
-    response.ok(updateRow)
+    response.ok(updateRow)//Deactivate row by change status=0
   }
 
   * activate(request, response) {
@@ -85,12 +73,8 @@ class OrderBookController {
     .table('order_books')
     .where('uuid', data.uuid)
     .update('status', '1')
-    response.ok(updateRow)
+    response.ok(updateRow)//Activate row by change status=1
   }
-
-  // * destroy(request, response) {
-  //   //
-  // }
 
 }
 
