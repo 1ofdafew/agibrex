@@ -22,7 +22,7 @@ Route.on('/').render('welcome')
 
 // Login
 Route.group('Authentication', function() {
-  
+
   Route.get('/login', 'Auth/LoginController.index').as('login')
   Route.post('/login', 'Auth/LoginController.login').as('login')
   Route.get('/logout', 'Auth/LoginController.logout')
@@ -43,7 +43,7 @@ Route.group('Authentication', function() {
 Route.group('Secure Area', function() {
 
   Route.get('/account', 'AccountController.index').as('account')
-
+  Route.get('/account/:acc_type', 'AccountController.index').middleware('auth')
 
   Route.get('/dashboard', 'DashboardController.index').as('dashboard')
 
@@ -55,7 +55,7 @@ Route.group('Secure Area', function() {
 }).middleware('auth')
 
 Route.group('API',function() {
-	
+
   // OrderBook Resources
 	Route.get('/orderbook', 'OrderBookController.index')
 	Route.post('/orderbook', 'OrderBookController.store')
@@ -70,7 +70,7 @@ Route.group('API',function() {
   Route.get('/profile/show', 'ProfileController.show')
   Route.post('/profile', 'ProfileController.store')
   Route.post('/profile/update', 'ProfileController.update')
-  
+
   //credit card
   Route.get('/creditCard', 'CreditCardController.index')
   Route.get('/creditCard/show', 'CreditCardController.show')
@@ -98,4 +98,3 @@ Route.group('API',function() {
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
 }).prefix('/api/v1')
-
