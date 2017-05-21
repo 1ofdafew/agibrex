@@ -1,7 +1,7 @@
 'use strict'
 
 const Lucid = use('Lucid')
-const uuidV4 = require('uuid/v4');
+const uuid = require('uuid/v4');
 
 class Profile extends Lucid {
   
@@ -11,7 +11,7 @@ class Profile extends Lucid {
     console.log(`Profile data: ${data.name}`)
     console.log(JSON.stringify(data))
 
-    this.uuid = uuidV4()
+    this.uuid = uuid()
     this.name = data.name
     this.email = data.email
     this.mobile_no = data.mobile_no 

@@ -1,7 +1,7 @@
 'use strict'
 
 const Lucid = use('Lucid')
-const uuidV4 = require('uuid/v4');
+const uuid = require('uuid/v4');
 
 
 class History extends Lucid {
@@ -12,7 +12,7 @@ class History extends Lucid {
     console.log(`History data: ${data.location}`)
     console.log(JSON.stringify(data))
 
-    this.uuid = uuidV4()
+    this.uuid = uuid()
     this.location = data.location
     this.ip_address = data.ip_address
     this.trace = data.trace 

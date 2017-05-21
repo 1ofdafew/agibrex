@@ -71,6 +71,10 @@ class AdonisReporter extends Mocha.reporters.base {
    * @return     {String}  The test duration.
    */
   getTestDuration (duration, expectedDuration) {
+    if (duration === undefined) {
+      duration = 0
+    }
+    
     return duration > expectedDuration ? colors.red(ms(duration)) : colors.yellow(ms(duration))
   }
 

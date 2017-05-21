@@ -1,7 +1,7 @@
 'use strict'
 
 const Hash = use('Hash')
-const uuid = use('node-uuid')
+const uuid = require('uuid/v4');
 const User = exports = module.exports = {}
 
 /**
@@ -26,7 +26,7 @@ User.encryptPassword = function * (next) {
  * @yield {Function}
  */
 User.setVerificationToken = function * (next) {
-  this.verification_code = uuid.v1()
+  this.verification_code = uuid()
   yield next
 }
 

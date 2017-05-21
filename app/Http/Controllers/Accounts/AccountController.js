@@ -3,10 +3,9 @@
 class AccountController {
 
   * index (request, response) {
-
-    response.sendView('account')
-
+    yield response.sendView('accounts/index')
   }
+
 }
 
 module.exports = AccountController

@@ -47,6 +47,7 @@ class LoginController {
 
   * logout (request, response) {
 
+    log.info("auth:logout Logging out user ", request.auth.getUser())
     yield request.auth.logout()
     response.redirect('/')
   }

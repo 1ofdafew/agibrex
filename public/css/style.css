@@ -2039,7 +2039,7 @@ a.forgot:hover {
 	width: 100%;
 	color: #eee;
 	letter-spacing: 0.5px;
-	background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;
+	/*background: #ff7a29 url(../images/h-lines2.png) repeat-x left 1px;*/
 }
 .copyright_info .one_half {
 	float: left;

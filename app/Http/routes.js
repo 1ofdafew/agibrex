@@ -21,13 +21,13 @@ const Route = use('Route')
 Route.on('/').render('welcome')
 
 // Login
-Route.group('Authentication', function() {
-  
+Route.group('Authentication', function () {
+
   Route.get('/login', 'Auth/LoginController.index').as('login')
   Route.post('/login', 'Auth/LoginController.login').as('login')
-  Route.get('/logout', 'Auth/LoginController.logout')
+  Route.get('/logout', 'Auth/LoginController.logout').as('logout')
 
-  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
+  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')  
   Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
 
   // Register
@@ -39,23 +39,67 @@ Route.group('Authentication', function() {
 
 }).prefix('/auth')
 
-// Accounts
-Route.group('Secure Area', function() {
+// Dashboard
+Route.get('/dashboard', 'DashboardController.index')
+  .as('dashboard')
+  .middleware('auth')
 
-  Route.get('/account', 'AccountController.index').as('account')
+// Account routes
+Route.group('Accounts', function () {
 
+  Route
+    .get('/', 'Accounts/AccountController.index')
+    .middleware('auth')
 
-  Route.get('/dashboard', 'DashboardController.index').as('dashboard')
+  Route
+    .get('/bitcoin', 'Accounts/BitcoinController.account')
+    .middleware('auth')
 
-  // Buysell
-  Route.get('/buysell/:acc_type', 'BuySellController.index')
+  Route
+    .get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit')
+    .middleware('auth')
 
-  Route.get('/market', 'MarketDataController.fetchData')
+  Route
+    .get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw')
+    .middleware('auth')
 
-}).middleware('auth')
+  Route
+    .get('/tracto', 'Accounts/TractoController.account')
+    .middleware('auth')
 
-Route.group('API',function() {
-	
+  Route
+    .get('/tracto/deposit', 'Accounts/TractoController.deposit')
+    .middleware('auth')
+
+  Route
+    .get('/tracto/withdraw', 'Accounts/TractoController.withdraw')
+    .middleware('auth')
+
+  Route
+    .get('/ethereum', 'Accounts/EthereumController.account')
+    .middleware('auth')
+
+  Route
+    .get('/ethereum/deposit', 'Accounts/EthereumController.deposit')
+    .middleware('auth')
+
+  Route
+    .get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw')
+    .middleware('auth')
+
+}).prefix('/accounts')
+
+// Trades
+Route.group('Buy n Sell', function () {
+  Route.get('/bitcoin', 'TradesController.trade_bitcoin').middleware('auth')
+  Route.get('/tracto', 'TradesController.trade_tracto').middleware('auth')
+  Route.get('/ethereum', 'TradesController.trade_ethereum').middleware('auth')
+}).prefix('/trades')
+
+Route.get('/market', 'MarketDataController.fetchData').middleware('auth')
+
+Route.group('API',function () {
+
   // OrderBook Resources
 	Route.get('/orderbook', 'OrderBookController.index')
 	Route.post('/orderbook', 'OrderBookController.store')
@@ -70,7 +114,7 @@ Route.group('API',function() {
   Route.get('/profile/show', 'ProfileController.show')
   Route.post('/profile', 'ProfileController.store')
   Route.post('/profile/update', 'ProfileController.update')
-  
+
   //credit card
   Route.get('/creditCard', 'CreditCardController.index')
   Route.get('/creditCard/show', 'CreditCardController.show')
@@ -98,4 +142,3 @@ Route.group('API',function() {
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
 }).prefix('/api/v1')
-
