@@ -17,10 +17,14 @@
 
 const Route = use('Route')
 
-// Main Page
+/**
+ * Main Page
+ */
 Route.on('/').render('welcome')
 
-// Login
+/** 
+ * Login
+ */
 Route.group('Authentication', function () {
 
   Route.get('/login', 'Auth/LoginController.index').as('login')
@@ -39,57 +43,47 @@ Route.group('Authentication', function () {
 
 }).prefix('/auth')
 
-// Dashboard
+/**
+ * Dashboard 
+ */
 Route.get('/dashboard', 'DashboardController.index')
   .as('dashboard')
   .middleware('auth')
 
-// Account routes
+/**
+ * Account routes
+ */
 Route.group('Accounts', function () {
 
-  Route
-    .get('/', 'Accounts/AccountController.index')
-    .middleware('auth')
+  Route.get('/', 'Accounts/AccountController.index').middleware('auth')
 
-  Route
-    .get('/bitcoin', 'Accounts/BitcoinController.account')
-    .middleware('auth')
+  Route.get('/bitcoin', 'Accounts/BitcoinController.account').middleware('auth')
+  Route.get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit').middleware('auth')
+  Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw').middleware('auth')
 
-  Route
-    .get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit')
-    .middleware('auth')
+  Route.get('/tracto', 'Accounts/TractoController.account').middleware('auth')
+  Route.get('/tracto/deposit', 'Accounts/TractoController.deposit').middleware('auth')
+  Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw').middleware('auth')
 
-  Route
-    .get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw')
-    .middleware('auth')
-
-  Route
-    .get('/tracto', 'Accounts/TractoController.account')
-    .middleware('auth')
-
-  Route
-    .get('/tracto/deposit', 'Accounts/TractoController.deposit')
-    .middleware('auth')
-
-  Route
-    .get('/tracto/withdraw', 'Accounts/TractoController.withdraw')
-    .middleware('auth')
-
-  Route
-    .get('/ethereum', 'Accounts/EthereumController.account')
-    .middleware('auth')
-
-  Route
-    .get('/ethereum/deposit', 'Accounts/EthereumController.deposit')
-    .middleware('auth')
-
-  Route
-    .get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw')
-    .middleware('auth')
+  Route.get('/ethereum', 'Accounts/EthereumController.account').middleware('auth')
+  Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
+  Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
 
 }).prefix('/accounts')
 
-// Trades
+/**
+ * User Settings
+ */
+Route.group('User Settings', function () {
+
+  Route.get('/profile', 'User/SettingsController.profile').middleware('auth')
+  Route.get('/change', 'User/SettingsController.changePassword').middleware('auth')
+
+}).prefix('/user')
+
+/**
+ * Trades
+ */
 Route.group('Buy n Sell', function () {
   Route.get('/bitcoin', 'TradesController.trade_bitcoin').middleware('auth')
   Route.get('/tracto', 'TradesController.trade_tracto').middleware('auth')

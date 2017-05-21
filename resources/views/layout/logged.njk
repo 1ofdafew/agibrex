@@ -18,20 +18,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <!-- Google fonts - witch you want to use - (rest you can just remove) -->
+{# <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css"> #}
 <link rel="stylesheet" href="/css/css.css" type="text/css">
 
 <!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <!-- ######### CSS STYLES ######### -->
 <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 <!-- responsive devices styles -->
 <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
 
-{# <link rel="stylesheet" href="/css/yellow.css"> #}
+<link rel="stylesheet" href="/css/forms.css">
 
 </head>
 
@@ -103,11 +104,11 @@
                   <li><a href="#">Home</a></li>
                   <li><a href="/exchange">Exchange</a></li>
                   <li><a href="">Order Book</a></li>
-                  <li><a href="">Our Security</a></li>
-                  <li><a href="">How Does It Work?</a></li>
-                  <li><a href="">Fees</a></li>
-                  <li><a href="">Gibrex</a></li>
-                  <li><a href="/account" class="active">My Account</a></li>
+                  {# <li><a href="">Our Security</a></li> #}
+                  {# <li><a href="">How Does It Work?</a></li> #}
+                  {# <li><a href="">Fees</a></li> #}
+                  {# <li><a href="">Gibrex</a></li> #}
+                  <li><a href="/accounts" class="active">My Account</a></li>
                 </ul>
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
@@ -152,20 +153,20 @@
         <li><a ><i class="fa fa-angle-right"></i> My Account</a>
            <ul class="" style="margin-left:15px;">
             <li>
-              <a href="/accounts/bitcoin" style="font-size:90%"><i class="fa fa-angle-right"></i> Bitcoin</a>
+              <a href="/accounts/bitcoin"><i class="fa fa-caret-right"></i> Bitcoin</a>
             </li>
             <li>
-              <a href="/accounts/tracto" style="font-size:90%"><i class="fa fa-angle-right"></i> Tracto</a>
+              <a href="/accounts/tracto"><i class="fa fa-caret-right"></i> Tracto</a>
             </li>
             <li>
-              <a href="/accounts/ethereum" style="font-size:90%"><i class="fa fa-angle-right"></i> Ethereum</a>
+              <a href="/accounts/ethereum"><i class="fa fa-caret-right"></i> Ethereum</a>
             </li>
            </ul>
         </li>
         <li><a href=""><i class="fa fa-angle-right"></i> Open Orders</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Transactions</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Security</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Settings</a></li>
+        <li><a href="/user/profile"><i class="fa fa-angle-right"></i> Settings</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Bank Accounts</a></li>
 
         <li><a href=""><i class="fa fa-angle-right"></i> History</a></li>
@@ -196,7 +197,7 @@
   <div class="clearfix mar_top5"></div>
     <div class="container">
       <div class="one_fourth">
-        <div class="footer_logo"><img src="/images/gibrex.png" alt=""></div>
+        <div class="footer_logo"><img src="/images/gibrex02.png" alt=""></div>
         <div class="clearfix mar_top1"></div>
         <ul class="contact_address">
           <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
