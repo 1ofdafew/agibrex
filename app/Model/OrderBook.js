@@ -1,7 +1,7 @@
 'use strict'
 
 const Lucid = use('Lucid')
-const uuidV4 = require('uuid/v4')
+const uuid = use('node-uuid')
 
 class OrderBook extends Lucid {
 
@@ -9,7 +9,7 @@ constructor(data){
 	super()
 
 	// this.id=data.id
-	this.uuid = uuidV4()
+	this.uuid = uuid.v1()
 	this.type = data.type
 	this.asset = data.asset
 	this.amount = data.amount

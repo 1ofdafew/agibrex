@@ -1,7 +1,7 @@
 'use strict'
 
 const Lucid = use('Lucid')
-const uuidV4 = require('uuid/v4');
+const uuid = use('node-uuid')
 
 class CreditCard extends Lucid {
 
@@ -11,7 +11,7 @@ constructor(data) {
     console.log(`Credit Card data: ${data.name}`)
     console.log(JSON.stringify(data))
 
-    this.uuid = uuidV4()
+    this.uuid = uuid.v1()
     this.name = data.name
     this.card_num = data.card_num
     this.cbb = data.cbb 
