@@ -48,7 +48,7 @@ Route.group('Secure Area', function() {
   Route.get('/dashboard', 'DashboardController.index').as('dashboard')
 
   // Buysell
-  Route.get('/buysell/:acc_type', 'BuySellController.index')
+  Route.get('/buysell', 'BuySellController.index')
 
   Route.get('/market', 'MarketDataController.fetchData')
 

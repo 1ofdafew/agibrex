@@ -2,12 +2,10 @@
 
 class BuySellController {
 
-   * index (request, response) {
-
-      const acc_type = request.param('acc_type')
-
-      yield response.sendView('buysell',{ 'acc_type' : acc_type })
-   }
+  * index (request, response) {
+      yield response.sendView('buysell')
+  }
+  
 }
 
 module.exports = BuySellController
