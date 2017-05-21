@@ -116,7 +116,7 @@ Route.group('API',function () {
   Route.post('/transaction','TransactionController.store')
   Route.get('/transaction/show','TransactionController.show')
 
-  // OrderBook
+  //OrderBook
   Route.get('orderbook', 'OrderBookController.index')
   Route.post('orderbook', 'OrderBookController.store')
   Route.post('orderbook/delete', 'OrderBookController.delete')
@@ -125,6 +125,8 @@ Route.group('API',function () {
   Route.get('orderbook/showask', 'OrderBookController.showask')
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
-  Route.get('match', 'MatchController.bidprocess')
+  //Matching
+  Route.post('match/bid', 'MatchController.bidprocess')
+  Route.post('match/ask', 'MatchController.askprocess')
 
 }).prefix('/api/v1')

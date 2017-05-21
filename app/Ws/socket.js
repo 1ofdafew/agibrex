@@ -18,3 +18,4 @@ const Ws = use('Ws')
 
 Ws.channel('market', 'MarketDataController')
 Ws.channel('bidsocket','BidSocketController')
+Ws.channel('asksocket','AskSocketController')
