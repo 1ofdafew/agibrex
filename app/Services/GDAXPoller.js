@@ -10,7 +10,7 @@ class KrakenPoller {
 
   constructor() {
     this.kraken = new KrakenClient(
-      '6lCCNDeQHFj9boJFzooth+ERlcLBOllletAhQifWnIPy87RvoTgZdHhC', 
+      '6lCCNDeQHFj9boJFzooth+ERlcLBOllletAhQifWnIPy87RvoTgZdHhC',
       'oumS1kGdpLzac73l4t+Ae/HQ4SayQO03pctb3XQao6x0KpRMBT5niE1qrEs/KpQDvB/7hm7eBv0O+ALqyHiu5w==')
   }
 
