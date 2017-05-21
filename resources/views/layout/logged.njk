@@ -7,6 +7,31 @@
 <title>Gibrex - The World Trusted Digital Exchange</title>
 <!--<base href="https://1btcxe.com/">-->
 <base href=".">
+
+<script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
+<script type="text/javascript">
+
+  // io refers to the above import
+  const io = ws('http://localhost:3333')
+  const client = io.channel('eth').connect(function(error, connected) {
+    console.log('Connected: ', connected)
+    console.log('Error: ', error)
+  })
+  client.on('message', function(message) {
+    console.log('Got message: ', message)
+  })
+  client.emit('message', 'Some market data...')
+
+  // now, process the seel signals
+  // client.on('sell', (data) => {
+  //   console.log('Got sell data', data)
+  // })
+  //
+  // client.on('buy', (data) => {
+  //   console.log('Got buy data', data)
+  // })
+</script>
+
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="publisher" content="Gibrex">
