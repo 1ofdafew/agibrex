@@ -55,8 +55,12 @@ Route.group('Secure Area', function() {
     Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw')
 
     Route.get('/tracto', 'Accounts/TractoController.account')
+    Route.get('/tracto/deposit', 'Accounts/TractoController.deposit')
+    Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw')
 
     Route.get('/ethereum', 'Accounts/EthereumController.account')
+    Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit')
+    Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw')
 
   }).prefix('/accounts')
 
