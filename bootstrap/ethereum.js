@@ -48,10 +48,6 @@ connection.onopen = function (session) {
     // console.log(args)
   }
   session.subscribe('USDT_ETH', marketEvent)
-  // session.subscribe('BTC_ETH', marketEvent)
-  // session.subscribe('BTC_LTC', marketEvent)
-  // session.subscribe('BTC_XMR', marketEvent)
-  // session.subscribe('BTC_XRP', marketEvent)
   // session.subscribe('ticker', tickerEvent)
   // session.subscribe('trollbox', trollboxEvent);
 }
