@@ -4,4 +4,98 @@
 
   <h4>Deposits Bitcoin</h4>
 
+
+		<div class="testimonials-4">
+			<div class="one_half">
+				<div class="content">
+					<h3 class="section_label">
+						<span class="left"><i class="fa fa-btc fa-2x"></i></span>
+						<span class="right">Deposit Bitcoins</span>
+					</h3>
+					<div class="clear"></div>
+					<div class="buyform">
+						<div class="spacer"></div>
+						<div class="param">
+							<label for="deposit_address">Send Bitcoins to This Address</label>
+							<input type="text" id="deposit_address" name="deposit_address" value="12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
+							<div class="clear"></div>
+						</div>
+						<div class="spacer"></div>
+						<div class="calc">
+							<img class="qrcode" src="includes/qrcode.php?code=12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
+						</div>
+						<div class="spacer"></div>
+						<div class="calc">
+							<a class="item_label" href="bitcoin-addresses.php"><i class="fa fa-cog"></i> Manage Bitcoin addresses</a>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="one_half last">
+				<div class="content">
+					<h3 class="section_label">
+						<span class="left"><i class="fa fa-money fa-2x"></i></span>
+						<span class="right">Deposit Fiat Currency</span>
+					</h3>
+					<div class="clear"></div>
+					<div class="buyform">
+						<div class="spacer"></div>
+												<div class="param">
+						<label for="deposit_bank_account">Bank Account to Use</label>
+							<select id="deposit_bank_account" name="deposit_bank_account">
+							<option selected="selected" value="336">75327588755235 - (USD)</option>							</select>
+							<div class="clear"></div>
+						</div>
+						<div class="spacer"></div>
+						<div class="calc">
+							<div class="text"><p><u><strong>STEP 1</strong></u></p>
+
+<p>Open your own private bank account with <a href="https://secure.cryptocapital.co/new_account_type.php" target="_blank">Crypto Capital</a> in any of 30 different currencies.</p>
+
+<p><u><strong>STEP 2</strong></u></p>
+
+<p>Link this account to your 1BTCXE&nbsp;account by visiting the <a href="bank-accounts.php">bank accounts</a> page and clicking "add account". Make sure that the account number and currency match those on your Crypto Capital account.</p>
+
+<p><u><strong>STEP 3</strong></u></p>
+
+<p>Please login to your Crypto Capital account and&nbsp;select the account, then choose "New Transfer" on the left menu, click on the "Beneficiary List" button, then click "Add New". To add <strong><span id="escrow_name"></span><span id="escrow_name">1BTCXE</span></strong> as a new beneficiary, use the following information:</p>
+
+<ul>
+	<li>Select : Crypto Capital, Company account.</li>
+	<li>Company name : <strong><span id="escrow_name">1BTCXE</span></strong>.</li>
+	<li>Address : Panama City, Panama.</li>
+	<li>Country : Panama.</li>
+	<li>Account number : <strong><span id="escrow_account">9120091194</span></strong>.</li>
+</ul>
+
+<p>Select the account currency and then create a <strong>new transfer</strong> to this account. Once the transfer is complete, your <span style="line-height: 20.7999992370605px;">1BTCXE</span> account will be credited.</p>
+</div>
+							<div class="mar_top2"></div>
+							<a class="item_label" href="bank-accounts.php"><i class="fa fa-cog"></i> Manage bank accounts</a>
+							<div class="clear"></div>
+						</div>
+											</div>
+				</div>
+			</div>
+		</div>
+		<div class="mar_top3"></div>
+		<div class="clear"></div>
+		<h3>Recent Deposits</h3>
+		<div id="filters_area">
+        	<div class="table-style">
+        		<table class="table-list trades" id="bids_list">
+        			<tbody><tr>
+        				<th>ID</th>
+        				<th>Date and Time</th>
+        				<th>Description</th>
+        				<th>Amount</th>
+        				<th>Status</th>
+        			</tr>
+        			<tr><td colspan="5">You have not made any deposits.</td></tr>        		</tbody></table>
+			</div>
+					</div>
+		<div class="mar_top5"></div>
+
+
 {% endblock %}
