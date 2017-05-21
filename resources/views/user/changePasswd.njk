@@ -1,0 +1,52 @@
+{% extends 'layout/logged' %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h3>User Settings</h3>
+  </div>
+
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="/user/profile">Profile</a></li>
+      <li role="presentation" class="active"><a href="/user/change">Passwords</a></li>
+      <li role="presentation"><a href="/user/security">Security</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <div class="col-sm-10" style="margin-top: 40px">
+      <h3>Change Password</h3>
+
+      {{ form.open({ action: 'User/SettingsController.changePassword' }) }}
+
+        {{ csrfField }}
+
+        <div class="form">
+
+          <div class="fields">
+            <i class="fa fa-user"></i>
+            {{ form.label('password', 'Enter current password') }}
+            {{ form.password('passsword') }}
+          </div>
+
+          <div class="fields">
+            {{ form.label('new_password', 'Enter new password') }}
+            {{ form.password('new_passsword') }}
+          </div>
+
+          <div class="fields">
+            {{ form.label('conf_password', 'Enter new password, again') }}
+            {{ form.password('conf_passsword') }}
+          </div>
+
+          <div class="button">
+            {{ form.submit('Change Password') }}
+          </div>
+        </div>
+
+      {{ form.close() }}
+    </div>
+  </div>
+
+{% endblock %}

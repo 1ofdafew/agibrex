@@ -18,11 +18,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <!-- Google fonts - witch you want to use - (rest you can just remove) -->
+{# <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css"> #}
 <link rel="stylesheet" href="/css/css.css" type="text/css">
 
 <!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
 <!-- ######### CSS STYLES ######### -->
 <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
@@ -31,7 +32,7 @@
 <!-- responsive devices styles -->
 <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
 
-{# <link rel="stylesheet" href="/css/yellow.css"> #}
+<link rel="stylesheet" href="/css/forms.css">
 
 </head>
 
@@ -103,11 +104,11 @@
                   <li><a href="#">Home</a></li>
                   <li><a href="/exchange">Exchange</a></li>
                   <li><a href="">Order Book</a></li>
-                  <li><a href="">Our Security</a></li>
-                  <li><a href="">How Does It Work?</a></li>
-                  <li><a href="">Fees</a></li>
-                  <li><a href="">Gibrex</a></li>
-                  <li><a href="/account" class="active">My Account</a></li>
+                  {# <li><a href="">Our Security</a></li> #}
+                  {# <li><a href="">How Does It Work?</a></li> #}
+                  {# <li><a href="">Fees</a></li> #}
+                  {# <li><a href="">Gibrex</a></li> #}
+                  <li><a href="/accounts" class="active">My Account</a></li>
                 </ul>
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
@@ -165,7 +166,7 @@
         <li><a href=""><i class="fa fa-angle-right"></i> Open Orders</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Transactions</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Security</a></li>
-        <li><a href=""><i class="fa fa-angle-right"></i> Settings</a></li>
+        <li><a href="/user/profile"><i class="fa fa-angle-right"></i> Settings</a></li>
         <li><a href=""><i class="fa fa-angle-right"></i> Bank Accounts</a></li>
 
         <li><a href=""><i class="fa fa-angle-right"></i> History</a></li>
