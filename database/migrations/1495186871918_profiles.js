@@ -8,7 +8,8 @@ class ProfilesTableSchema extends Schema {
     this.create('profiles', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
-      table.string('uuid').notNullable().unique()
+      //table.string('uuid').notNullable().unique()//MariaDB error-ER_TOO_LONG_KEY: Specified key was too long; max key length is 767 bytes
+      table.string('uuid',80).notNullable().unique()
       table.string('name',254).notNullable()
       table.string('email',254).notNullable()
       table.varchar('mobile_no',15).notNullable()

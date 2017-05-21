@@ -94,15 +94,6 @@ Route.get('/market', 'MarketDataController.fetchData').middleware('auth')
 
 Route.group('API',function () {
 
-  // OrderBook Resources
-	Route.get('/orderbook', 'OrderBookController.index')
-	Route.post('/orderbook', 'OrderBookController.store')
-	Route.post('/orderbook/delete', 'OrderBookController.delete')
-	Route.post('/orderbook/activate', 'OrderBookController.activate')
-	Route.get('/orderbook/showbid', 'OrderBookController.showbid')
-	Route.get('/orderbook/showask', 'OrderBookController.showask')
-	Route.get('/orderbook/showdelete', 'OrderBookController.showdelete')
-
   //profile
   Route.get('/profile', 'ProfileController.index')
   Route.get('/profile/show', 'ProfileController.show')
@@ -126,7 +117,6 @@ Route.group('API',function () {
   Route.get('/transaction/show','TransactionController.show')
 
   // OrderBook
-  // Route.resource('orderbook', 'OrderBookController')
   Route.get('orderbook', 'OrderBookController.index')
   Route.post('orderbook', 'OrderBookController.store')
   Route.post('orderbook/delete', 'OrderBookController.delete')
@@ -134,5 +124,7 @@ Route.group('API',function () {
   Route.get('orderbook/showbid', 'OrderBookController.showbid')
   Route.get('orderbook/showask', 'OrderBookController.showask')
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
+
+  Route.get('match', 'MatchController.bidprocess')
 
 }).prefix('/api/v1')
