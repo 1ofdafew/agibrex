@@ -3,19 +3,23 @@
 const chai = use('chai')
 const assert = chai.assert
 const User = use('App/Model/User')
+const UserService = make('App/Services/UserService')
 require('co-mocha')
 
-describe('User', function() {
+describe('User', function () {
   
-  it('should be able to register user', function() {
-    const user = new User()
-    user.email = 'foo@bar.com'
-    user.password = 'secret'
+  it('should be able to register user', function * () {
+    const credentials = {
+      username: 'foo',
+      email: 'foo@bar.com',
+      password: 'secret'
+    }
+    const user = yield UserService.register(credentials.username,
+      credentials.email, credentials.password)
 
-    const res = user.save()
-    assert.instanceOf(res, User)
-    // assert.equal(res.status, 'pending-verification')
-    // assert.match(res.verification_code, /[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12}/)    
+    // test the results
+    assert.instanceOf(user, User)
+    assert.equal(user.status, 'pending-verification')
   })
           
 })

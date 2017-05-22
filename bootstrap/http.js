@@ -58,6 +58,7 @@ module.exports = function (callback) {
       require('./redis')
       require('./cron')
       require('./poloniex')
+      require('./ethereum')
 
       /*
       |--------------------------------------------------------------------------

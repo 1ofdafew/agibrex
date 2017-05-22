@@ -5,8 +5,8 @@
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="https://code.highcharts.com/stock/highstock.js"></script>
   <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-
-  <div id="container" style="height: 500px; min-width: 310px; margin-bottom:100px;"></div>
+  <h3><i class="fa fa-line-chart"></i>&nbsp;&nbsp;&nbsp;Current BTC Ask &amp; Bid Price</h3>
+  <div id="container" style="height: 500px; min-width: 310px; margin-bottom:200px;"></div>
 
 	<script type="text/javascript">
 
@@ -44,7 +44,7 @@
     }, null, document.getElementsByTagName('head')[0]);
 
     Highcharts.theme = {
-     colors: ['#efaa06', '#ee5a41', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+     colors: ['#efaa06', '#ee5a41', '#f45b5b', '#efaa06', '#aaeeee', '#ff0066', '#efaa06',
         '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
      chart: {
         backgroundColor: {
@@ -63,7 +63,7 @@
         style: {
            color: '#E0E0E3',
            textTransform: 'uppercase',
-           fontSize: '20px'
+           fontSize: '18px'
         }
      },
      subtitle: {
@@ -293,7 +293,7 @@
         },
 
         title: {
-            text: 'Current BTC Ask & Bid Price'
+            text: ''
         },
 
         exporting: {
