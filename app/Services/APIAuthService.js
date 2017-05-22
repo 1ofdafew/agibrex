@@ -1,13 +1,12 @@
 'use strict'
 
+const Env = use('Env')
 const Exceptions = use('App/Exceptions')
-const got = require('got')
-const axios = require('axios')
+const GibrexService = use('App/Services/GibrexService')
 
-const URL = 'http://147.135.171.127/auth'
-// const URL = 'http://localhost:8080/auth'
+const URL = Env.get('COIN_URL')
 
-class APIAuthService {
+class APIAuthService extends GibrexService {
 
   /**
    * injecting required dependencies auto fulfilled
@@ -23,16 +22,21 @@ class APIAuthService {
   }
 
   constructor (APIAuth, APIUser) {
+    super()
     this.APIAuth = APIAuth
     this.APIUser = APIUser
   }
 
   * delete (username) {
-    const response = yield this._send('delete', URL + '/' + username, {})
+    const response = yield this.send('delete', URL + '/auth/' + username, {})
     if (response.status === 'ok') {
+      // delete from table as well
+      const user = yield this.APIUser.findBy('username', username)
+      yield user.delete()
+
       return response
     } else {
-      throw new Exceptions.ApplicationException('Unable to delete user ${username}', 400)
+      throw new Exceptions.ApplicationException(`Unable to delete user ${username}`, 400)
     }
   }
 
@@ -46,7 +50,7 @@ class APIAuthService {
       }
       // console.log('payload:', payload)
 
-      const response = yield this._send('post', URL, payload)
+      const response = yield this.send('post', URL + '/auth', payload)
       // console.log('register response: ', response)
 
       if (response.ok) {
@@ -75,20 +79,31 @@ class APIAuthService {
     const payload = {
       password: password 
     }    
-    const response = yield this._send('post', URL + '/' + username, payload)
-    // console.log('authenticate response: ', response)
+    const response = yield this.send('post', URL + '/auth/' + username, payload)
     if (response.status === 'ok') {
-      const auth = new this.APIAuth()
-      auth.username = username
-      auth.token = response.data.token
-      yield auth.save()
+      try {
+        console.log('FindOrFail:', response.data)
+        const prev = yield this.APIAuth.findByOrFail('username', username, function() {
+          throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
+        })
+        prev.token = response.data.token
+        console.log('Saving a previous record:', prev)
+        yield prev.save()
+        return yield this.APIAuth.find(prev.id)
 
-      if (auth.isNew()) {
-        throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
-      }
-      return yield this.APIAuth.find(auth.id)
+      } catch(e) {
+        console.log('Creating new auth record')
+        const auth = new this.APIAuth()
+        auth.username = username
+        auth.token = response.data.token
+        yield auth.save()
+  
+        if (auth.isNew()) {
+          throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
+        }
+        return yield this.APIAuth.find(auth.id)                
+      }      
     }
-    throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
   }
 
   * getToken(username) {
@@ -97,26 +112,8 @@ class APIAuthService {
     })
   }
 
-  * getUser() {
-    return yield this.APIUser.query().where('id', 1).first()
-  }
-
-  * _send(method, url, data) {
-    // console.log('Sending', method, 'data to', url)
-    return axios({
-      method: method,
-      url: url,
-      headers: {
-        'content-type': 'application/json'
-      },
-      data: data
-    }).then(res => { 
-      // console.log('response:: ', res.data)
-      return res.data
-    }).catch(err => { 
-      console.log('error:: ', err.response.data)
-      return err.response.data
-    })
+  * getUser(username) {
+    return yield this.APIUser.findByOrFail('username', username)
   }
 
 }

@@ -9,11 +9,11 @@ class TradesController {
   * trade_bitcoin (request, response) {
     yield response.sendView('trades/bitcoin')
   }
-  
+
   * trade_tracto (request, response) {
     yield response.sendView('trades/tracto')
   }
-  
+
   * trade_ethereum (request, response) {
     yield response.sendView('trades/ethereum')
   }
