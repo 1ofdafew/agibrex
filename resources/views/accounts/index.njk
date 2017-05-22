@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Create Account</h3>
-
 <div class="testimonials-4">
   <!-- <div class="notice">
     <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;You don't have any <strong>{{ type }}</strong> account yet. Please create your account.</div>
@@ -11,7 +9,7 @@
   <div class="one_half">
     <div class="content">
       <h3 class="section_label">
-        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }}</span>
+        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type }} Accounnt</span>
       </h3>
       <div class="clear"></div>
       <form id="buy_form" action="buy-sell.php" method="POST">
@@ -19,7 +17,11 @@
             <div class="dotted"></div>
             <div class="mar_top2"></div>
           <div class="param">
-              <label for="buy_amount">Insert Your PIN</label>
+              <label for="buy_amount">Insert Your PIN&nbsp;
+                <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
+                  <i class="fa fa-question"></i>
+                </a>
+              </label>
             <input name="buy_amount" id="buy_amount" value="" type="text">
             <div class="clear"></div>
           </div>
