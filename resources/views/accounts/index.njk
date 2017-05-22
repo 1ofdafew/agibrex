@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Account Balance ( <strong>{{ type }}</strong> )</h3>
+<h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Create Account ( <strong>{{ type }}</strong> )</h3>
 <div class="text">
-  <p>It is recommended that you set up two-factor authentication for your account using your cellphone. <br>To do so, please visit the Security page.</p>
+  <p>You don't have any <strong>{{ type }}</strong> account yet. </p>
 </div>
 <div class="clearfix mar_top3"></div>
 <div class="testimonials-4">
@@ -12,40 +12,8 @@
     <div class="message-box-wrap">It is recommended that you set up two-factor authentication for your account using your cellphone. To do so, please visit the <a href="security.htm">Security </a>page.</div>
   </div>-->
 
-  <div class="clear"></div>
-  <div class="content">
-    <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Available Balances</span> </h3>
-    <div class="clear"></div>
-    <div class="balances">
-      <div class="one_half">
-        <div class="label">Amount Available</div>
-        <div class="panel-divider2"></div>
-        <div class="amount" id="decimals1">0.00000000</div>
-      </div>
-      <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="mar_top1"></div>
-  <div class="clear"></div>
-  <div class="content">
-    <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Balances On Hold</span> </h3>
-    <div class="clear"></div>
-    <div class="balances">
-      <div class="one_half">
-        <div class="label">You have no open orders or withdrawal requests.</div>
-        <div class="panel-divider2"></div>
-        <div class="amount" id="decimals2">0.00000000</div>
-      </div>
-      <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="mar_top6"></div>
   <ul class="list_empty">
-    <li><a href="/trades/{{ type }}" class="but_user"> Buy/Sell</a></li>
-    <li><a href="/accounts/{{ type }}/deposit" class="but_user"> Deposit</a></li>
-    <li><a href="/accounts/{{ type }}/withdraw" class="but_user"> Withdraw</a></li>
+    <li><a href="" class="but_user">Create Account</a></li>
   </ul>
 
   <div class="mar_top8"></div>
