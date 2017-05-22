@@ -1,24 +1,33 @@
 'use strict'
 
-const CoinException = use('App/Services/Coins/CoinException')
+const Env = use('Env')
+const Exceptions = use('App/Exceptions')
+const Coin = use('App/Services/Coins/Coin')
 
-const TractoCoin = use('App/Services/Coins/TractoCoin')
-const Bitcoin = use('App/Services/Coins/Bitcoin')
-const Ethereum = use('App/Services/Coins/Ethereum')
+const URL = Env.get('COIN_URL')
 
-class CoinFactory {
+class CoinFactory extends Coin {
 
   constructor(type) {
-    switch (type) {
-      case 'tracto':
-        return new TractoCoin()
-      case 'bitcoin':
-        return new Bitcoin()
-      case 'ethereum':
-        return new Ethereum()
-      default:
-        throw new CoinException('No such implementation')
+    super()
+    this.type = type
+  }
+
+  * createWallet(username, pin) {
+    console.log(`Creating wallet for ${username}...`)
+    const data = {
+      username: username,
+      pin: pin
     }
+    return yield this.send('post', `${URL}/api/v1/${this.type}`, data)
+  }
+
+  * getAddress(username) {
+    return yield this.send('get', `${URL}/api/v1/${this.type}/${username}`, {})
+  }
+
+  * getBalance(address) {
+    return yield this.send('get', `${URL}/api/v1/${this.type}/${address}`, {})
   }
 
 }

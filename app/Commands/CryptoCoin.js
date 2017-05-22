@@ -2,7 +2,6 @@
 
 const Command = use('Command')
 const CoinFactory = use('App/Services/Coins/CoinFactory')
-const TractoCoin = use('App/Services/Coins/TractoCoin')
 
 const User = use('App/Model/User')
 const Wallet = use('App/Model/Wallet')
