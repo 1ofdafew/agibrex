@@ -1566,7 +1566,7 @@ a.button_slider:hover {
 }
 .login_bg {
 	margin-top:20px;
-	background-color: #ffffff;
+	background-color: #fff;
 }
 .login_bg h2 {
 	color: #FFF;
@@ -1593,7 +1593,7 @@ a.button_slider:hover {
 	color: #444;
 }
 .login_bg .loginform .loginform_inputs {
-	background-color: #FFF;
+	background-color: #fff;
 	border: 1px solid #D1D1D1;
 	margin-bottom: 10px;
 	margin-top: 30px;
@@ -1601,8 +1601,8 @@ a.button_slider:hover {
 .login_bg .loginform .input_contain {
 	color: #727272;
 	font-size: 18px;
-	padding-left: 18px;
-	text-align: left;
+	padding-left: 10px;
+	text-align: center;
 }
 .login_bg .loginform .separate {
 	border-top: 1px solid #D1D1D1;
