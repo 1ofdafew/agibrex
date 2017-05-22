@@ -20,10 +20,10 @@ class MatchController {
    
   	if ( db_ask.length != 0) {	//ok
   	  	log.info('matched:result')
-  		Event.fire('matched:result')
+  		Event.fire('matched:result',db_ask)
       } else {	//fail
   	  	log.info('unmatched:result')
-  		Event.fire('unmatched:result')
+  		Event.fire('unmatched:result',ws_bid)
       }
     response.json(db_ask)
   }
@@ -41,10 +41,10 @@ class MatchController {
 
   	if ( db_bid.length != 0) {	//ok
   	  	log.info('matched:result')
-  		Event.fire('matched:result')
+  		Event.fire('matched:result',db_bid)
       } else {	//fail
   	  	log.info('unmatched:result')
-  		Event.fire('unmatched:result')
+  		Event.fire('unmatched:result',ws_ask)
       }
     response.json(db_bid)
   }
@@ -66,13 +66,13 @@ class MatchController {
     	const data={type: 'ask', asset:'BTC', amount: bid_price.amount, price: bid_price.price}
     	const ob = new OrderBook(data)
   	  	log.info('matched:result')
-  		Event.fire('matched:result')
+  		Event.fire('matched:result',data)
     	yield ob.save()
     	 } else {
   	  	log.info('end:result')
   		Event.fire('end:result')
       }
-    response.ok(best_ask)
+    response.ok(bid_price)
  
   }
 }
