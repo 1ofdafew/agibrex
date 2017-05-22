@@ -3894,9 +3894,9 @@ p.error {
 	background-color: #ffdddd;
 }
 .notice {
-	color: #a79a30;
-	border-color: #d7d099;
-	background-color: #f6f2d2;
+	color: #a9946c;
+	border-color: #fff3dc;
+	background-color: #fff3dc;
 }
 .success {
 	color: #1ea133;
