@@ -95,7 +95,8 @@ module.exports = {
       '/api/v1/orderbook/activate',
       '/profile',
       '/api/v1/match/bid',
-      '/api/v1/match/ask'
+      '/api/v1/match/ask',
+      '/api/v1/match/neworder'
     ],
     compareHostAndOrigin: true
   }

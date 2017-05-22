@@ -10,7 +10,12 @@ MatchedResult.ok = function (data) {
   //send execute trade
 }
 
-MatchedResult.failed = function (data) {
+MatchedResult.recheck = function (data) {
   // this.emitter gives access to the event instance
-  log.info('Listener: Failed, redo')
+  log.info('Listener: Failed, recheck')
+}
+
+MatchedResult.end = function (data) {
+  // this.emitter gives access to the event instance
+  log.info('Listener: Failed, end')
 }

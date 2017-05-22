@@ -3,6 +3,7 @@
 const Database = use('Database')
 const log = use('npmlog')
 const Event = use('Event')
+const OrderBook = use('App/Model/OrderBook')
 
 class MatchController {
 
@@ -19,10 +20,10 @@ class MatchController {
    
   	if ( db_ask.length != 0) {	//ok
   	  	log.info('matched:result')
-  	Event.fire('matched:result')
+  		Event.fire('matched:result')
       } else {	//fail
   	  	log.info('unmatched:result')
-  	Event.fire('unmatched:result')
+  		Event.fire('unmatched:result')
       }
     response.json(db_ask)
   }
@@ -40,12 +41,39 @@ class MatchController {
 
   	if ( db_bid.length != 0) {	//ok
   	  	log.info('matched:result')
-  	Event.fire('matched:result')
+  		Event.fire('matched:result')
       } else {	//fail
   	  	log.info('unmatched:result')
-  	Event.fire('unmatched:result')
+  		Event.fire('unmatched:result')
       }
     response.json(db_bid)
+  }
+
+  * neworder(request, response) {
+  	const bid_price=request.only(['type', 'asset', 'amount', 'price'])
+  	const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+    .from('order_books')
+    .where('type', 'ask')
+    .where('status','1')
+    .orderBy('price', 'asc')
+    .orderBy('created_at','asc')
+
+    log.info('bid_price.price:',bid_price.price)
+    log.info('best_ask[0].price:',best_ask[0].price)
+
+    if (bid_price.price > best_ask[0].price) {
+    	log.info('create new order ask')
+    	const data={type: 'ask', asset:'BTC', amount: bid_price.amount, price: bid_price.price}
+    	const ob = new OrderBook(data)
+  	  	log.info('matched:result')
+  		Event.fire('matched:result')
+    	yield ob.save()
+    	 } else {
+  	  	log.info('end:result')
+  		Event.fire('end:result')
+      }
+    response.ok(best_ask)
+ 
   }
 }
 

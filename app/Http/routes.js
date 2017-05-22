@@ -128,5 +128,6 @@ Route.group('API',function () {
   //Matching
   Route.post('match/bid', 'MatchController.bidprocess')
   Route.post('match/ask', 'MatchController.askprocess')
+  Route.post('match/neworder', 'MatchController.neworder')
 
 }).prefix('/api/v1')
