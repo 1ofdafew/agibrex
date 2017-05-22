@@ -1,19 +1,12 @@
-{% extends 'layout/master' %}
+{% extends 'layout/puppet' %}
 
 {% block content %}
 
-<div class="page_title">
-  <div class="container">
-    <div class="title">
-      <h3><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register Your Account</h3>
-    </div>
 
-  </div>
-</div>
 <div class="fresh_projects login_bg">
   <div class="clearfix mar_top5"></div>
     <div class="container">
-  
+
       {% if old('error') %}
         <div class="alert alert-warning" role="alert">
           {{ old('error') }}
@@ -25,29 +18,29 @@
       {{ form.open({ action: 'Auth/RegisterController.register' }) }}
         {{ csrfField }}
 
-        <div class="loginform"> 
+        <div class="loginform">
           <a href="login">Need to login?</a>
           <div class="separate"></div>
           <div class="loginform_inputs">
             <div class="input_contain form-group"> <i class="fa fa-user"></i>
-              <input type="text" class="login" name="username" value="" id="username" 
+              <input type="text" class="login" name="username" value="" id="username"
                       placeholder="Username" required autofocus>
-            </div>            
-            <div class="separate"></div>            
+            </div>
+            <div class="separate"></div>
             <div class="input_contain form-group"> <i class="fa fa-envelope"></i>
-              <input type="email" class="login" name="email" value="" id="email" 
+              <input type="email" class="login" name="email" value="" id="email"
                       placeholder="Email address" required autofocus>
-            </div>            
-            <div class="separate"></div>            
+            </div>
+            <div class="separate"></div>
             <div class="input_contain form-group"> <i class="fa fa-key"></i>
-              <input type="password" class="login" name="password" value="" id="password" 
+              <input type="password" class="login" name="password" value="" id="password"
                       placeholder="Password" required autofocus>
             </div>
           </div>
           <br>
           <input type="submit" name="submit" value="Register" class="but_user">
         </div>
-      
+
       {{ form.close() }}
 
     </div>

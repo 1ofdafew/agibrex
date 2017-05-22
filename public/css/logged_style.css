@@ -1413,9 +1413,9 @@ a.button_slider:hover {
 	width: 100%;
 	background-color: #f0f0f0;
 	text-align: center;
-	-webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 4px 0px 0px #FFF;
+	/*-webkit-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 4px 0px 0px #FFF;
 	-moz-box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 4px 0px 0px #FFF;
-	box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 4px 0px 0px #FFF;
+	box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.1), 0px 4px 0px 0px #FFF;*/
 }
 .fresh_projects h2 {
 	font-size: 40px;
@@ -1565,23 +1565,24 @@ a.button_slider:hover {
 	line-height: normal;
 }
 .login_bg {
+	margin-top:20px;
 	background-color: #ffffff;
 }
 .login_bg h2 {
 	color: #FFF;
 }
 .login_bg .error, .login_bg .messages {
-	margin: 20px auto;
-	width: 419px;
+	margin: 30px auto 30px;
+	width: 360px;
 }
 .login_bg .loginform {
 	background-color: #f6f6f6;
-	width: 420px;
-	margin: 60px auto 30px;
+	width: 360px;
+	margin: 40px auto 300px;
 /*	-moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);*/
-	padding: 35px 50px 50px;
+	padding: 35px 40px 40px;
 }
 .login_bg .loginform a {
 	color: #727272;
@@ -1595,12 +1596,12 @@ a.button_slider:hover {
 	background-color: #FFF;
 	border: 1px solid #D1D1D1;
 	margin-bottom: 10px;
-	margin-top: 20px;
+	margin-top: 30px;
 }
 .login_bg .loginform .input_contain {
 	color: #727272;
 	font-size: 18px;
-	padding-left: 13px;
+	padding-left: 18px;
 	text-align: left;
 }
 .login_bg .loginform .separate {
@@ -1612,6 +1613,7 @@ a.button_slider:hover {
 	border: medium none;
 	font-size: 14px;
 	padding: 10px;
+	width: 82%;
 }
 .login_bg .loginform .input_contain .login:focus {
 	color: #444;
@@ -3882,7 +3884,7 @@ p.error {
 }
 .message-box-wrap {
 	border: 0px solid #fff;
-	padding: 15px;
+	padding: 0px 20px;
 }
 .info {
 	color: #4a84bc;
