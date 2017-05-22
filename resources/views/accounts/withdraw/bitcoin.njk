@@ -2,6 +2,133 @@
 
 {% block content %}
 
-  <h4>Withdraw Bitcoin</h4>
+
+      <div class="testimonials-4">
+        <div class="one_half">
+          <div class="content">
+            <h3 class="section_label">
+							<span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw Bitcoins</span>
+						</h3>
+            <div class="clear"></div>
+						<div class="dotted"></div>
+            <form id="buy_form" action="https://1btcxe.com/withdraw.php" method="POST">
+              <div class="buyform">
+                <div class="spacer"></div>
+                <div class="calc dotted">
+                  <div class="label">Available BTC</div>
+                  <div class="value">0.00000000 BTC</div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="param">
+                  <label for="btc_address">Send to Address</label>
+                  <input type="text" id="btc_address" name="btc_address" value="">
+                  <div class="clear"></div>
+                </div>
+								<div class="mar_top1"></div>
+                <div class="param">
+                  <label for="btc_amount">Amount to Send</label>
+                  <input type="text" id="btc_amount" name="btc_amount" value="0.00000000">
+                  <div class="qualify">BTC</div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+								<div class="mar_top2"></div>
+                <div class="calc">
+                  <div class="label">Blockchain Fee <a title="The fee the network charges for transactions." href="javascript:return false;"><i class="fa fa-question-circle"></i></a></div>
+                  <div class="value"><span id="withdraw_btc_network_fee">0.0005</span> BTC</div>
+                  <div class="clear"></div>
+                </div>
+                <div class="calc bigger">
+                  <div class="label"> <span id="withdraw_btc_total_label">BTC to Receive</span> </div>
+                  <div class="value"><span id="withdraw_btc_total">0.00000000</span></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <input type="hidden" name="bitcoins" value="1">
+                <input type="submit" name="submit" value="Send Bitcoins" class="but_user">
+              </div>
+            </form>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="one_half last">
+          <div class="content">
+            <h3 class="section_label">
+							<span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw Fiat Currency</span>
+						</h3>
+            <div class="clear"></div>
+						<div class="dotted"></div>
+            <form id="buy_form" action="https://1btcxe.com/withdraw.php" method="POST">
+              <div class="buyform">
+                <div class="spacer"></div>
+                <div class="calc dotted">
+                  <div class="label">Available <span class="currency_label">USD</span></div>
+                  <div class="value"><span class="currency_char">$</span><span id="user_available">0.00</span></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="param">
+                  <label for="withdraw_account">Receiving Bank Account</label>
+                  <select id="withdraw_account" name="account">
+                    <option selected="selected" value="336">75327588755235 - (USD)</option>
+                  </select>
+                  <div class="clear"></div>
+                </div>
+								<div class="mar_top1"></div>
+                <div class="param">
+                  <label for="fiat_amount">Amount to Withdraw</label>
+                  <input type="text" id="fiat_amount" name="fiat_amount" value="0.00">
+                  <div class="qualify"><span class="currency_label">USD</span></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+								<div class="mar_top2"></div>
+                <div class="calc">
+                  <div class="label">Fee <a title="View fee schedule" href="https://1btcxe.com/fee-schedule.php"><i class="fa fa-question-circle"></i></a></div>
+                  <div class="value"><span class="currency_char">$</span><span id="withdraw_fiat_fee">0.00</span></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="calc bigger">
+                  <div class="label"><span class="currency_label">USD</span> to Receive</div>
+                  <div class="value"><span class="currency_char">$</span><span id="withdraw_fiat_total">0.00</span></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <input type="hidden" name="fiat" value="1">
+                <input type="submit" name="submit" value="Withdraw Currency" class="but_user">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="mar_top3"></div>
+      <div class="clear"></div>
+      <h3>Recent Withdrawals</h3>
+      <div id="filters_area">
+        <div class="table-style">
+          <table class="table-list trades" id="bids_list">
+            <tbody>
+              <tr>
+                <th>ID</th>
+                <th>Date and Time</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Net Amount</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td colspan="5">No withdrawals have been made.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="mar_top5"></div>
+
 
 {% endblock %}
