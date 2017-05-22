@@ -26,6 +26,7 @@
 
 <!-- ######### CSS STYLES ######### -->
 <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
+<!-- <link rel="stylesheet" href="/css/background.css" type="text/css"> -->
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 <!-- responsive devices styles -->
@@ -104,7 +105,9 @@
                   <li><a href="/exchange">Exchange</a></li>
                   <li><a href="">Order Book</a></li>
                   <li><a href="">Gibrex</a></li>
+                  {% if currentUser %}
                   <li><a href="/accounts" class="active">My Account</a></li>
+                  {% endif %}
                 </ul>
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
@@ -124,6 +127,7 @@
   </div>
 </header>
 <!-- end header -->
+{% if currentUser %}
 <div class="page_title">
   <div class="container">
     <div class="title">
@@ -134,6 +138,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 {% block fullview %}
 <div class="container">
@@ -164,7 +169,7 @@
         <li><a href=""><i class="fa fa-caret-right"></i> Open Orders</a></li>
         <li><a href=""><i class="fa fa-caret-right"></i> Transactions</a></li>
         <li><a href=""><i class="fa fa-caret-right"></i> Security</a></li>
-        <li><a href=""><i class="fa fa-caret-right"></i> Settings</a></li>
+        <li><a href="/user/profile"><i class="fa fa-caret-right"></i> Settings</a></li>
         <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li>
 
         <li><a href=""><i class="fa fa-caret-right"></i> History</a></li>
