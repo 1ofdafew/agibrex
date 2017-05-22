@@ -28,7 +28,7 @@ class APIAuthService extends GibrexService {
   }
 
   * delete (username) {
-    const response = yield this.send('delete', URL + '/auth/' + username, {})
+    const response = yield this.send('delete', `${URL}/auth/${username}`, {})
     if (response.status === 'ok') {
       // delete from table as well
       const user = yield this.APIUser.findBy('username', username)
@@ -41,53 +41,47 @@ class APIAuthService extends GibrexService {
   }
 
   * register (username, email, password) {
-
-    try {
-      const payload = {
-        username: username,
-        email: email,
-        password: password
-      }
-      // console.log('payload:', payload)
-
-      const response = yield this.send('post', URL + '/auth', payload)
-      // console.log('register response: ', response)
-
-      if (response.ok) {
-        // save this user
-        const user = new this.APIUser()
-        user.uuid = response.ok.uuid
-        user.username = response.ok.username
-        user.email = response.ok.email
-        user.mobile_no = response.ok.mobile_no
-        user.password = response.ok.password
-        yield user.save()
-
-        if (user.isNew()) {
-          throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)
-        }
-        return yield this.APIUser.find(user.id)
-      }
-      throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)    
-
-    } catch(e) {
-      throw(e)
+    const payload = {
+      username: username,
+      email: email,
+      password: password
     }
+    // console.log('payload:', payload)
+
+    const response = yield this.send('post', `${URL}/auth`, payload)
+    // console.log('register response: ', response)
+
+    if (response.ok) {
+      // save this user
+      const user = new this.APIUser()
+      user.uuid = response.ok.uuid
+      user.username = response.ok.username
+      user.email = response.ok.email
+      user.mobile_no = response.ok.mobile_no
+      user.password = response.ok.password
+      yield user.save()
+
+      if (user.isNew()) {
+        throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)
+      }
+      return yield this.APIUser.find(user.id)
+    }
+    throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)    
   }
 
   * authenticate (username, password) {
     const payload = {
       password: password 
     }    
-    const response = yield this.send('post', URL + '/auth/' + username, payload)
+    const response = yield this.send('post', `${URL}/auth/${username}`, payload)
     if (response.status === 'ok') {
       try {
-        console.log('FindOrFail:', response.data)
+        console.log('findByOrFail:', response.data)
         const prev = yield this.APIAuth.findByOrFail('username', username, function() {
           throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
         })
         prev.token = response.data.token
-        console.log('Saving a previous record:', prev)
+        console.log('Saving a previous record: findByOrFail -', prev)
         yield prev.save()
         return yield this.APIAuth.find(prev.id)
 
@@ -112,8 +106,15 @@ class APIAuthService extends GibrexService {
     })
   }
 
+  * createToken(username, email, password) {
+    const user = yield this.register(username, email, password)
+    return yield this.authenticate(user.username, password)
+  }
+
   * getUser(username) {
-    return yield this.APIUser.findByOrFail('username', username)
+    return yield this.APIUser.findByOrFail('username', username, function() {
+      throw new Exceptions.ApplicationException(`Cannot find user with ${field}`, 404)
+    })
   }
 
 }
