@@ -66,8 +66,28 @@ class APIAuthService {
     }
   }
 
+  * authenticate (username, password) {
+    const payload = {
+      password: password 
+    }    
+    const response = yield this.send('post', URL + '/' + username, payload)
+    console.log('authenticate response: ', response)
+    if (response.status === 'ok') {
+      const auth = new this.APIAuth()
+      auth.username = username
+      auth.token = response.data.token
+      yield auth.save()
+
+      if (auth.isNew()) {
+        throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
+      }
+      return yield this.APIAuth.find(auth.id)
+    }
+    throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
+  }
+
   * send(method, url, data) {
-    console.log('Sending', method, 'data to', url)
+    // console.log('Sending', method, 'data to', url)
     return axios({
       method: method,
       url: url,
@@ -76,7 +96,7 @@ class APIAuthService {
       },
       data: data
     }).then(res => { 
-      console.log('response:: ', res.data)
+      // console.log('response:: ', res.data)
       return res.data
     }).catch(err => { 
       console.log('error:: ', err.response.data)

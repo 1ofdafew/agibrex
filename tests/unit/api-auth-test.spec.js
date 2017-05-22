@@ -20,4 +20,11 @@ describe('API Test', function() {
     assert.equal(resp.username, 'foo')
     assert.equal(resp.email, 'foo@bar.com')
   })
+
+  it('should allow us to authenticate, and get token', function * () {
+    const resp = yield APIAuthService.authenticate('foo', 'sa')
+
+    
+    console.log(resp)
+  })
 })
