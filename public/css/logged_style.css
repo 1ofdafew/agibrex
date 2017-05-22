@@ -553,9 +553,18 @@ del {
 	color: #FF5151 !important;
 }
 .mobilebanner {
-	background: url(images/bg3.jpg) no-repeat left top / cover;
-	padding: 0px 0px;
+	background: url(../images/footer_lodyas.png) left top / cover;
+	padding: 20px 0px;
 	position: relative;
+	-webkit-animation: 50s scroll infinite linear;
+	-moz-animation: 50s scroll infinite linear;
+	-o-animation: 50s scroll infinite linear;
+	-ms-animation: 50s scroll infinite linear;
+	animation: 50s scroll infinite linear;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 .mobilebanner h1 {
 	/*color: #fff;
@@ -3860,19 +3869,19 @@ a.but_woman:hover {
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 	border: 0px solid #bbb;
-	margin-bottom: 40px;
-	font-size: 17px;
+	margin-bottom: 10px;
+	font-size: 18px;
 	padding: 20px;
 }
 p.error {
 	border: none;
 }
 .info strong, .error strong, .notice strong, .success strong {
-	font-size: 16px;
+	font-size: 18px;
 }
 .message-box-wrap {
 	border: 0px solid #fff;
-	padding: 10px;
+	padding: 15px;
 }
 .info {
 	color: #4a84bc;
@@ -4891,15 +4900,21 @@ ul.list_empty.form_buttons {
 .buyform .calc .label {
 	float: left;
 	font-size: 18px;
+	font-weight: 300;
 	text-transform: uppercase;
 }
+.buyform .calc .label02 {
+	float: left;
+	font-size: 18px;
+	font-weight: 300;
+}
 .buyform .calc.dotted {
-	border-bottom: 1.5px dashed #8b8b8b;
+	border-bottom: 1px dashed #b2b2b2;
 	margin-top: 5px;
 	padding-bottom: 10px;
 }
 .dotted {
-	border-bottom: 1.5px dashed #8b8b8b;
+	border-bottom: 1px dashed #b2b2b2;
 	margin-top: 15px;
 	padding-bottom: 10px;
 }
@@ -4909,7 +4924,7 @@ ul.list_empty.form_buttons {
 	color: #444;
 }
 .buyform .calc.bigger {
-	margin: 20px 0;
+	margin: 5px 0;
 }
 .buyform .calc.bigger .label {
 	font-size: 18px;

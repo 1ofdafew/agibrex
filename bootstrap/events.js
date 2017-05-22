@@ -27,4 +27,5 @@ Event.when('user:registered', 'UserRegistered.process')
 
 //Matching bid/ask
 Event.when('matched:result', 'MatchedResult.ok')
-Event.when('unmatched:result', 'MatchedResult.failed')
+Event.when('unmatched:result', 'MatchedResult.recheck')
+Event.when('end:result', 'MatchedResult.end')

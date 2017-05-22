@@ -1,4 +1,4 @@
-{% extends 'layout/logged' %}
+{% extends 'layout/master' %}
 
 {% block content %}
 
@@ -80,11 +80,11 @@
             </div>
             <div class="param lessbottom">
               <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox">
-              <label for="buy_limit">Limit Order&nbsp;
+              <!-- <label for="buy_limit">Limit Order&nbsp;
                 <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
                   <i class="fa fa-question"></i>
                 </a>
-              </label>
+              </label> -->
               <div class="clear"></div>
             </div>
             <div class="param lessbottom">
@@ -311,11 +311,13 @@
       </div>
     </div>
   </div>
-  <div class="mar_top3"></div>
+  <div class="mar_top6"></div>
   <div class="clear"></div>
+
   <div id="filters_area">
+
     <div class="one_half">
-      <h3>Top 10 Bids</h3>
+      <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Top 10 Bids</h3>
       <div class="table-style">
         <table class="table-list trades" id="bids_list">
           <tbody>
@@ -422,8 +424,9 @@
         </table>
       </div>
     </div>
+
     <div class="one_half last">
-      <h3>Top 10 Asks</h3>
+      <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Top 10 Asks</h3>
       <div class="table-style">
         <table class="table-list trades" id="asks_list">
           <tbody>
