@@ -69,7 +69,8 @@ h3 i {
 h4 {
 	font-size: 18px;
 	line-height: 22px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+	margin-top:  15px;
 	font-style: normal;
 }
 h4 i {
@@ -96,7 +97,7 @@ p {
 	color: #727272;
 	font-style: normal;
 	line-height: 25px;
-	width: 800px;
+	/*width: 800px;*/
 }
 ul, ol {
 	margin: 0 0 20px 0;
@@ -3894,9 +3895,9 @@ p.error {
 	background-color: #ffdddd;
 }
 .notice {
-	color: #a79a30;
-	border-color: #d7d099;
-	background-color: #f6f2d2;
+	color: #a9946c;
+	border-color: #fff3dc;
+	background-color: #fff3dc;
 }
 .success {
 	color: #1ea133;
@@ -5287,7 +5288,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	display: inline-block;
 	padding: 3px 0 4px 0;
 	position: relative;
-	width: 97px;
+	width: 120px;
 	z-index: 2;
 	text-align: center;
 }
