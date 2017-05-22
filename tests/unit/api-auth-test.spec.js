@@ -10,11 +10,6 @@ chai.use(chaiHttp)
 
 describe('API Test', function() {
 
-  it('should allow us to delete existing user', function * () {
-    const resp = yield APIAuthService.delete('foo')
-    assert.equal(resp, null)
-  })
-
   it('should return empty user', function * () {
     const resp = yield APIAuthService.getUser()
     assert.equal(resp, null)
@@ -42,4 +37,10 @@ describe('API Test', function() {
     const token = yield APIAuthService.getToken('foo')
     assert.equal(token.username, 'foo')
   })
+
+  it('should allow us to delete existing user', function * () {
+    const resp = yield APIAuthService.delete('foo')
+    assert.equal(resp.status, 'ok')
+  })
+  
 })

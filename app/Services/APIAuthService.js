@@ -4,8 +4,8 @@ const Exceptions = use('App/Exceptions')
 const got = require('got')
 const axios = require('axios')
 
-// const URL = 'http://147.135.171.127/auth'
-const URL = 'http://localhost:8080/auth'
+const URL = 'http://147.135.171.127/auth'
+// const URL = 'http://localhost:8080/auth'
 
 class APIAuthService {
 
