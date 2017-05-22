@@ -101,7 +101,11 @@
             <nav id="access" class="access" role="navigation">
               <div id="menu" class="menu">
                 <ul id="tiny">
+                  {% if currentUser %}
                   <li><a href="#">Home</a></li>
+                  {% else %}
+                  <li><a href="#" class="active">Home</a></li>
+                  {% endif %}
                   <li><a href="/exchange">Exchange</a></li>
                   <li><a href="">Order Book</a></li>
                   <li><a href="">Gibrex</a></li>
