@@ -3,7 +3,8 @@
 class BitcoinController {
 
   * account (request, response) {
-    yield response.sendView('accounts/bitcoin', { type: 'bitcoin'})
+    // yield response.sendView('accounts/bitcoin', { type: 'bitcoin'})
+    yield response.sendView('accounts/tabs', { type: 'bitcoin'})
   }
 
   * deposit (request, response) {

@@ -10,7 +10,8 @@ class TractoController {
     yield tractoAcc.checkBalance('TvxTwZhrxaHV5GnfZgSfiLX5XmfVR4fB5dBAzm91AW7cDfShT19AFno7gMhZp1ejdJdxBKkRTnQ8RNDxB2fjDqg32gQR7zsDp')
     response.send(tractoAcc)
 
-    yield response.sendView('accounts/tracto', { type: 'tracto'})
+    yield response.sendView('accounts/tabs', { type: 'tracto'})
+
   }
 
   * deposit (request, response) {

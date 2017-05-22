@@ -28,6 +28,7 @@
     "adonis-websocket": "^1.0.3",
     "adonis-websocket-client": "^1.0.2",
     "autobahn": "^17.5.1",
+    "axios": "^0.16.1",
     "debug": "^2.6.8",
     "got": "^6.7.1",
     "handle": "^1.0.0",
@@ -74,6 +75,6 @@
     "standard": "^10.0.1",
     "supertest": "^3.0.0",
     "yargs": "^8.0.1",
-    "zombie": "^5.0.5"
+    "zombie": "2.0.0-alpha11"
   }
 }
