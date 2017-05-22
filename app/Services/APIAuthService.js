@@ -27,7 +27,7 @@ class APIAuthService {
   }
 
   * delete (username) {
-    const response = yield this.send('delete', URL + '/' + username, {})
+    const response = yield this._send('delete', URL + '/' + username, {})
     console.log('delete response: ', response)
   }
 
@@ -39,9 +39,9 @@ class APIAuthService {
         email: email,
         password: password
       }
-      console.log('payload:', payload)
+      // console.log('payload:', payload)
 
-      const response = yield this.send('post', URL, payload)
+      const response = yield this._send('post', URL, payload)
       console.log('register response: ', response)
 
       if (response.ok) {
@@ -70,7 +70,7 @@ class APIAuthService {
     const payload = {
       password: password 
     }    
-    const response = yield this.send('post', URL + '/' + username, payload)
+    const response = yield this._send('post', URL + '/' + username, payload)
     console.log('authenticate response: ', response)
     if (response.status === 'ok') {
       const auth = new this.APIAuth()
@@ -86,7 +86,13 @@ class APIAuthService {
     throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
   }
 
-  * send(method, url, data) {
+  * getToken(username) {
+    return yield this.APIAuth.findByOrFail('username', username, function() {
+      throw new Exceptions.ApplicationException(`Cannot find user with ${field}`, 404)
+    })
+  }
+
+  * _send(method, url, data) {
     // console.log('Sending', method, 'data to', url)
     return axios({
       method: method,

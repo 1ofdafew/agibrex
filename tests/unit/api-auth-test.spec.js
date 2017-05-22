@@ -22,9 +22,12 @@ describe('API Test', function() {
   })
 
   it('should allow us to authenticate, and get token', function * () {
-    const resp = yield APIAuthService.authenticate('foo', 'sa')
+    const resp = yield APIAuthService.authenticate('foo', 'sa')    
+    assert.equal(resp.username, 'foo')
+  })
 
-    
-    console.log(resp)
+  it('should return token', function * () {
+    const token = yield APIAuthService.getToken('foo')
+    assert.equal(token.username, 'foo')
   })
 })
