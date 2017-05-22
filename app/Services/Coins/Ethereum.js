@@ -2,6 +2,7 @@
 
 const got = require('got');
 const Coin = use('App/Services/Coins/Coin')
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.IntcInVzZXJuYW1lXCI6XCJnaWJyZXhcIixcImVtYWlsXCI6XCJhZG1pbkBnaWJyZXguY29tXCJ9Ig.0GkMJHKkOoJB5J_tDrykQysOiTDFXFiscZ6bmVgLSM4';
 
 class Ethereum extends Coin {
 
@@ -24,6 +25,19 @@ class Ethereum extends Coin {
       // console.log(res.body)
       return JSON.stringify(res.body)
     })
+  }
+
+  * checkBalance(wallet_address) {
+      console.log(`Checking balance for ${wallet_address}...`)
+      return got.get(`http://158.69.170.180:8080/api/v1/ethereum/${wallet_address}`, {
+          headers: {
+              'content-type': 'application/json',
+              'x-auth': token
+          },
+          json: true
+      }).then(res => {
+        return JSON.stringify(res.body)
+      })
   }
 
 }
