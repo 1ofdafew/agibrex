@@ -12,6 +12,12 @@ describe('API Test', function() {
 
   it('should allow us to delete existing user', function * () {
     const resp = yield APIAuthService.delete('foo')
+    assert.equal(resp, null)
+  })
+
+  it('should return empty user', function * () {
+    const resp = yield APIAuthService.getUser()
+    assert.equal(resp, null)
   })
 
   it('should allow us to register', function * () {
@@ -19,6 +25,12 @@ describe('API Test', function() {
 
     assert.equal(resp.username, 'foo')
     assert.equal(resp.email, 'foo@bar.com')
+  })
+
+  it('should return existing user', function * () {
+    const user = yield APIAuthService.getUser()
+    assert.equal(user.id, 1)
+    assert.equal(user.username, 'foo')
   })
 
   it('should allow us to authenticate, and get token', function * () {

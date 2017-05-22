@@ -4,7 +4,8 @@ const Exceptions = use('App/Exceptions')
 const got = require('got')
 const axios = require('axios')
 
-const URL = 'http://147.135.171.127/auth'
+// const URL = 'http://147.135.171.127/auth'
+const URL = 'http://localhost:8080/auth'
 
 class APIAuthService {
 
@@ -28,7 +29,11 @@ class APIAuthService {
 
   * delete (username) {
     const response = yield this._send('delete', URL + '/' + username, {})
-    console.log('delete response: ', response)
+    if (response.status === 'ok') {
+      return response
+    } else {
+      throw new Exceptions.ApplicationException('Unable to delete user ${username}', 400)
+    }
   }
 
   * register (username, email, password) {
@@ -42,7 +47,7 @@ class APIAuthService {
       // console.log('payload:', payload)
 
       const response = yield this._send('post', URL, payload)
-      console.log('register response: ', response)
+      // console.log('register response: ', response)
 
       if (response.ok) {
         // save this user
@@ -71,7 +76,7 @@ class APIAuthService {
       password: password 
     }    
     const response = yield this._send('post', URL + '/' + username, payload)
-    console.log('authenticate response: ', response)
+    // console.log('authenticate response: ', response)
     if (response.status === 'ok') {
       const auth = new this.APIAuth()
       auth.username = username
@@ -90,6 +95,10 @@ class APIAuthService {
     return yield this.APIAuth.findByOrFail('username', username, function() {
       throw new Exceptions.ApplicationException(`Cannot find user with ${field}`, 404)
     })
+  }
+
+  * getUser() {
+    return yield this.APIUser.query().where('id', 1).first()
   }
 
   * _send(method, url, data) {
