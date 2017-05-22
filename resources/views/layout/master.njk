@@ -150,6 +150,7 @@
     {% block content %}
     {% endblock %}
   </div>
+  {% if currentUser %}
   <div class="left_sidebar">
     <div class="sidebar_widget">
       <div class="sidebar_title">
@@ -195,6 +196,7 @@
     <div class="mar_top8"></div>
     <div class="clear"></div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
 <!-- Footer

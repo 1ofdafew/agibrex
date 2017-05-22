@@ -36,7 +36,9 @@ class Coin {
       auth = yield APIAuthService.createToken(ADMIN, EMAIL, PASSWORD)
     }
 
-    console.log('Coin: Sending', method, 'data to', url, ', data:', data)
+    console.log(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`)
+    console.log(data)
+    
     return axios({
       method: method,
       url: url,
@@ -44,14 +46,15 @@ class Coin {
         'content-type': 'application/json',
         'x-auth': auth.token
       },
-      data: data
+      data: data,
+      timeout: 10000
     }).then(res => { 
-      // console.log('Coin:response:: ', res)
-      console.log('Coin:response:: ', res.data)
+      console.log(`Coin:${this.type}: response => `)
+      console.log(res.data)
       return res.data
     }).catch(err => { 
-      // console.log('Coin:error:: ', err)
-      console.log('Coin:error:: ', err.response.data)
+      console.log(`Coin:${this.type}: response => `)
+      console.log(err.response.data)
       return err.response.data
     })
   }

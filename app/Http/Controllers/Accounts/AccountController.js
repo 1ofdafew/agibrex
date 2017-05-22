@@ -3,7 +3,11 @@
 class AccountController {
 
   * index (request, response) {
-    yield response.sendView('accounts/index')
+    const user = yield request.auth.getUser()
+    if (user) {
+      yield response.sendView('accounts/index')      
+    }
+    response.redirect('/auth/login')
   }
 
 }
