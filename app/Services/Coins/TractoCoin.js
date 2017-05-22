@@ -1,7 +1,11 @@
 'use strict'
 
-const got = require('got');
+const Env = use('Env')
+const Exceptions = use('App/Exceptions')
+const axios = require('axios')
+
 const Coin = use('App/Services/Coins/Coin')
+const URL = Env.get('COIN_URL')
 
 class TractoCoin extends Coin {
   
@@ -11,19 +15,12 @@ class TractoCoin extends Coin {
 
   * createWallet(username, pin) {
     console.log(`Creating wallet for ${username}...`)
-    return got.post('localhost:8080/api/v1/tracto', {
-      headers: {
-        'content-type': 'application/json'
-      },
-      json: true,
-      body: {
-        username: username,
-        pin: pin
-      }
-    }).then(res => {
-      // console.log(res.body)
-      return JSON.stringify(res.body)
-    })
+    const data = {
+      username: username,
+      pin: pin
+    }
+    const resp = yield this.send('post', URL + '/api/v1/tracto', data)
+    console.log('createWallet:', resp)
   }
 
 }
