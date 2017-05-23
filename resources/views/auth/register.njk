@@ -10,7 +10,7 @@
       {% if old('error') %}
       <div class="message-box-wrap">
         <div class="error" role="alert">
-          {{ old('error') }}
+          <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
         </div>
       </div>
       {% endif %}
@@ -21,7 +21,7 @@
         {{ csrfField }}
 
         <div class="loginform">
-          <a href="login">Need to login?</a>
+          <a>Register Your Account</a>
           <div class="loginform_inputs">
             <div class="input_contain form-group"><i class="fa fa-user"></i>&nbsp;&nbsp;
               <input type="text" class="login" name="username" value="" id="username"
