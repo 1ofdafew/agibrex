@@ -1,19 +1,13 @@
 'use strict'
-const Database = use('Database')
-const OrderBook = use('App/Model/OrderBook')
 
 class EthereumController {
 
   * account (request, response) {
-      yield response.sendView('accounts/ethereum', { type: 'ethereum'})
-  }
+    const user = yield request.auth.getUser()
+    const wallet = yield user.wallets().where('type', 'ETHEREUM').fetch()
+    console.log('eth: wallets =>', wallet)
 
-  * deposit(request, response) {
-    yield response.sendView('accounts/deposit/ethereum', { type: 'ethereum' })
-  }
-
-  * withdraw(request, response) {
-    yield response.sendView('accounts/withdraw/ethereum', { type: 'ethereum' })
+    yield response.sendView('accounts/index', {type: 'ethereum'})
   }
 
 }

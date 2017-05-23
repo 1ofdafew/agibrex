@@ -66,6 +66,7 @@ Route.group('Accounts', function () {
   Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw').middleware('auth')
 
   Route.get('/ethereum', 'Accounts/EthereumController.account').middleware('auth')
+  Route.get('/ethereum/create', 'Accounts/EthereumController.create').middleware('auth')
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
 

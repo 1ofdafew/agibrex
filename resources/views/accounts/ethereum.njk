@@ -1,1 +1,21 @@
-{% extends 'accounts/index' %}
+{% extends 'layout/master' %}
+
+{% block content %}
+
+  <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Create Account&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<strong>Ethereum</strong></h3>
+  {% if wallet %}
+  {% else %}
+  <div class="testimonials-4">
+    <div class="notice">
+      <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;You don't have any <strong>{{ type }}</strong> account yet. Please create your account.</div>
+    </div>
+    <div class="mar_top2"></div>
+    <ul class="list_empty">
+      <li><a href="/accounts/ethereum/create" class="but_user">Create Account</a></li>
+    </ul>
+
+    <div class="mar_top8"></div>
+  </div>
+{% endif %}
+
+{% endblock %}
