@@ -66,13 +66,15 @@ class WalletService {
     //         created_at: '2017-05-23T05:33:00Z',
     //         updated_at: '2017-05-23T05:33:00Z' } } }
     const wallet = new this.Wallet()
+    wallet.user_id = user.id 
+    
     wallet.uuid = resp.data.wallet.uuid
     wallet.type = resp.data.wallet.type
     wallet.username = resp.data.wallet.username
     wallet.address = resp.data.wallet.address
     wallet.pin = resp.data.wallet.pin
     wallet.mnemonics = resp.data.wallet.mnemonics
-    yield user.wallet().save(wallet)
+    yield wallet.save(wallet)
 
     if (wallet.isNew()) {
       throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)

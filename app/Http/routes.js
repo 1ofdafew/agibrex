@@ -58,10 +58,12 @@ Route.group('Accounts', function () {
   Route.get('/', 'Accounts/AccountController.index').middleware('auth')
 
   Route.get('/bitcoin', 'Accounts/BitcoinController.account').middleware('auth')
+  Route.post('/bitcoin/create', 'Accounts/BitcoinController.create').middleware('auth')
   Route.get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit').middleware('auth')
   Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw').middleware('auth')
 
   Route.get('/tracto', 'Accounts/TractoController.account').middleware('auth')
+  Route.post('/tracto/create', 'Accounts/TractoController.create').middleware('auth')
   Route.get('/tracto/deposit', 'Accounts/TractoController.deposit').middleware('auth')
   Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw').middleware('auth')
 
