@@ -7,7 +7,7 @@
   <div class="one_third">
     <div class="content">
       <h3 class="section_label">
-        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type }} Account</span>
+        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type | safe }} Account</span>
       </h3>
       <div class="clear"></div>
       <br>
@@ -18,14 +18,16 @@
       {% if old('error') %}
       <div class="message-box-wrap">
         <div class="error" role="alert">
-        {% for k in error %}
-          {{ k.message }}
-        {% endfor %}
+          {% for e in old('error') %}
+          {{ e.message }}
+          {% endfor %}
         </div>
       </div>
       {% endif %}
 
-      {{ form.open({ action: 'Accounts/EthereumController.create' }) }}
+      {{ form.open({ action: 'Accounts/EthereumController.create', id: 'coin_create' }) }}
+        {{ csrfField }}
+        
         <div class="buyform">
           <div class="dotted"></div>
           <div class="mar_top2"></div>
@@ -43,7 +45,7 @@
             <input name="pin2" id="pin2" value="" type="text">
           </div>
           <div class="mar_top3"></div>
-          <input name="submit" value="Create Account {{ type }}" class="but_user" type="submit">
+          <input name="submit" value="Create Account {{ type | safe }}" class="but_user" type="submit">
         </div>
       {{ form.close() }}
     </div>
