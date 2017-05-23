@@ -55,12 +55,24 @@
               <div class="mar_top2"></div>
               <ul class="list_empty">
                 <li>
-                  <input type="submit" name="submit" value="Enable 2FA" class="but_user">
+                  <span><input type="submit" id="myBtn" name="submit" value="Enable 2FA" class="but_user"></span>
                 </li>
                 <!-- li><input type="submit" name="google" value="Enable Google Authenticator" class="but_user" /></li -->
                 <!--  li><input type="submit" name="sms" value="Send By SMS" class="but_user" /></li -->
               </ul>
             </div>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+             <!-- Modal content -->
+             <div class="modal-content">
+               <span class="close">&times;</span>
+               <p><img src="{{ data }}" alt="{{ text }}"></p>
+             </div>
+
+            </div>
+
             <div class="clear"></div>
           </div>
         </div>
