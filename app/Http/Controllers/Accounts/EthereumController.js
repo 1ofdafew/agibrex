@@ -29,12 +29,12 @@ class EthereumController {
         balance: balance,
         wallet: wallet
       }
-      yield response.sendView('accounts.ethereum', args)
+      yield response.sendView('accounts.tabs', args)
     } else {
       const args = {
         type: 'ethereum'
       }
-      yield response.sendView('accounts.index', args)      
+      yield response.sendView('accounts.index', args)
     }
   }
 
@@ -54,7 +54,7 @@ class EthereumController {
 
     } catch(e) {
       yield request.with({ error: e.fields }).flash()
-      response.redirect('back')      
+      response.redirect('back')
     }
   }
 
