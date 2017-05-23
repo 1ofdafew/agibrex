@@ -8,6 +8,10 @@ class Wallet extends Lucid {
     return this.belongsTo('App/Model/User')
   }
 
+  // static get traits () {
+  //   return ['App/Model/Wallet']
+  // }  
+
   static get pinRules () {
     return {
       pin1: 'required',

@@ -18,7 +18,7 @@ section {
   margin: 0 0 -1px;
   padding: 15px 25px;
   font-family: 'Roboto Condensed', sans-serif;
-	font-size: 18px;
+  font-size: 18px;
   text-transform: uppercase;
   /*font-weight: 600;*/
   text-align: center;
@@ -27,7 +27,7 @@ section {
 }
 label:before {
   font-family: 'Roboto Condensed', sans-serif;
-	font-size: 18px;
+  font-size: 18px;
   font-weight: normal;
   margin-right: 10px;
 }
@@ -82,18 +82,16 @@ input:checked + label {
   <label class="labels" for="tab3">Withdraw</label>
 
   <section id="content0">
-  <div class="testimonials-4">
+    <div class="testimonials-4">
       <div class="notice">
         <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;It is recommended that you set up two-factor authentication for your account using your cellphone. To do so, please visit the <a href="security.htm">Security </a>page.</div>
       </div>
       <div class="content">
-        <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Available Balances</span> </h3>
+        <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Wallet Address</span> </h3>
         <div class="clear"></div>
         <div class="balances">
           <div class="one_half">
-            <div class="label">Amount Available</div>
-            <div class="panel-divider2"></div>
-            <div class="amount" id="decimals1">0.00000000</div>
+            <div class="label">{{ wallet.address }}</div>
           </div>
           <div class="clear"></div>
         </div>
@@ -101,6 +99,22 @@ input:checked + label {
       </div>
       <div class="mar_top1"></div>
       <div class="clear"></div>
+      <div class="content">
+        <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Available Balances</span> </h3>
+        <div class="clear"></div>
+        <div class="balances">
+          <div class="one_half">
+            <div class="label">Amount Available</div>
+            <div class="panel-divider2"></div>
+            <div class="amount" id="decimals1">{{ balance }}</div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="mar_top1"></div>
+      <div class="clear"></div>
+      {% if type != 'Ethereum' %}
       <div class="content">
         <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Balances On Hold</span> </h3>
         <div class="clear"></div>
@@ -115,7 +129,7 @@ input:checked + label {
         <div class="clear"></div>
       </div>
       <div class="mar_top3"></div>
-
+      {% endif %}
       <!-- <ul class="list_empty">
         <li><a href="/trades/{{ type }}" class="but_user"> Buy/Sell</a></li>
         <li><a href="/accounts/{{ type }}/deposit" class="but_user"> Deposit</a></li>
@@ -638,7 +652,7 @@ input:checked + label {
             <div class="param">
             <label for="deposit_bank_account">Bank Account To Use</label>
               <select id="deposit_bank_account" name="deposit_bank_account">
-              <option selected="selected" value="336">75327588755235 - (USD)</option>							</select>
+              <option selected="selected" value="336">75327588755235 - (USD)</option>             </select>
               <div class="clear"></div>
             </div>
             <div class="spacer"></div>
@@ -681,7 +695,7 @@ input:checked + label {
                 <th>Amount</th>
                 <th>Status</th>
               </tr>
-              <tr><td colspan="5">You have not made any deposits.</td></tr>        		</tbody></table>
+              <tr><td colspan="5">You have not made any deposits.</td></tr>           </tbody></table>
       </div>
           </div>
     <div class="mar_top5"></div>
