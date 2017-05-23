@@ -2,8 +2,8 @@
 
 const Lucid = use('Lucid')
 
-class ApiAuth extends Lucid {
+class APIAuth extends Lucid {
 
 }
 
-module.exports = ApiAuth
+module.exports = APIAuth

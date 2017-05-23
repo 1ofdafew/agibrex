@@ -48,11 +48,11 @@ Route.group('Authentication', function () {
 /**
  *Security
  */
-Route.group('Security', function () {
-
-  Route.get('/qrcode', 'Security/QrCodeController.index').as('qrcode')
-
-}).prefix('/security')
+// Route.group('Security', function () {
+//
+//   Route.get('/qrcode', 'Security/QrCodeController.index').as('qrcode')
+//
+// }).prefix('/security')
 
 
 /**
@@ -70,16 +70,21 @@ Route.group('Accounts', function () {
   Route.get('/', 'Accounts/AccountController.index').middleware('auth')
 
   Route.get('/bitcoin', 'Accounts/BitcoinController.account').middleware('auth')
+  Route.post('/bitcoin/create', 'Accounts/BitcoinController.create').middleware('auth')
   Route.get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit').middleware('auth')
   Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw').middleware('auth')
 
   Route.get('/tracto', 'Accounts/TractoController.account').middleware('auth')
+  Route.post('/tracto/create', 'Accounts/TractoController.create').middleware('auth')
   Route.get('/tracto/deposit', 'Accounts/TractoController.deposit').middleware('auth')
   Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw').middleware('auth')
 
   Route.get('/ethereum', 'Accounts/EthereumController.account').middleware('auth')
+  Route.post('/ethereum/create', 'Accounts/EthereumController.create').middleware('auth')
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
+
+  Route.get('/security','Accounts/AccountController.security')
 
 }).prefix('/accounts')
 
@@ -139,9 +144,11 @@ Route.group('API',function () {
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
   //Matching
+  Route.post('match/process', 'MatchController.process')
   Route.post('match/bid', 'MatchController.bidprocess')
   Route.post('match/ask', 'MatchController.askprocess')
   Route.post('match/neworder', 'MatchController.neworder')
+  Route.get('match', 'MatchController.index')
 
   //Asset
   Route.get('/asset','AssetController.index')
@@ -154,3 +161,6 @@ Route.group('API',function () {
   Route.get('/payment/show','PaymentController.show')
 
 }).prefix('/api/v1')
+
+//Exchange
+Route.get('/exchange','ExchangeController.index')

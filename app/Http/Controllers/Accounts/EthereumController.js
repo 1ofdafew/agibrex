@@ -1,21 +1,14 @@
 'use strict'
-const Database = use('Database')
-const OrderBook = use('App/Model/OrderBook')
 
-class EthereumController {
+const CoinController = use('App/Http/Controllers/Accounts/CoinController')
 
-  * account (request, response) {
-      yield response.sendView('accounts/ethereum', { type: 'ethereum'})
-  }
+class EthereumController extends CoinController {
 
-  * deposit(request, response) {
-    yield response.sendView('accounts/deposit/ethereum', { type: 'ethereum' })
-  }
-
-  * withdraw(request, response) {
-    yield response.sendView('accounts/withdraw/ethereum', { type: 'ethereum' })
+  constructor() {
+    super('ethereum')
   }
 
 }
 
 module.exports = EthereumController
+

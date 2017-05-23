@@ -16,17 +16,16 @@
 
     {% if old('error') %}
     <div class="message-box-wrap">
-      <div class="error" role="alert">
-				{{ old('error') }}
-			</div>
+      <div class="error" role="alert" id="div4">
+        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+      </div>
     </div>
     {% endif %}
 
     {% if old('info') %}
     <div class="message-box-wrap">
-      <div class="error" role="alert">
-
-        {{ old('info') }}
+      <div class="error" role="alert" id="div4">
+        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('info') }}
         </div>
       </div>
     {% endif %}

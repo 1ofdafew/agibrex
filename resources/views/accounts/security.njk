@@ -1,0 +1,74 @@
+{% extends 'layout/master' %}
+
+{% block content %}
+
+    <div class="testimonials-4">
+      <h3><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;Two-Factor Authentication</h3>
+      <div class="text">
+        <p>Enabling two-factor authentication adds an extra layer of security to your account. In addition to your regular password, your account will require you to input a token from your cell phone to sign in.</p>
+        <div class="mar_top5"></div>
+        <h3><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;There are 3 ways to do this</h3>
+        <ol>
+          <li>Download the app called <strong>Authy</strong> on your smartphone<em> ( Recommended )</em>.</li>
+          <li>Download <strong>Google Authenticator</strong> on your smartphone.</span></li>
+          <li>Receive your token by SMS.</li>
+        </ol>
+        <div class="mar_top3"></div>
+        <p><span style="font-size:18px;">Once you complete the process on this page, two-factor authentication will be enabled.</span></p>
+        <p><i class="fa fa-info"></i>&nbsp;&nbsp;&nbsp;Please note : If you lose your phone you will need to go through our <a href="https://1btcxe.com/reset_2fa.php" target="_blank">Reset Process</a> to restore access.</p>
+      </div>
+      <div class="mar_top4"></div>
+      <div class="clear"></div>
+      <form name="start_auth" id="enable_tfa" action="https://1btcxe.com/security.php" method="POST">
+        <input type="hidden" name="step" value="1">
+        <input type="hidden" id="send_sms" name="send_sms" value="">
+        <input type="hidden" id="google_2fa" name="google_2fa" value="">
+        <div class="buyform">
+          <div class="content">
+            <h3 class="section_label"><span class="right">Enable Two - Factor Authentication ( 2FA )</span> </h3>
+            <div class="mar_top1"></div>
+            <div class="one_third"><span class="left">
+
+              <div class="param">
+                <label for="method"></label>
+                <select name="method" id="method">
+                  <option value="google">Google Authenticator</option>
+                  <option value="authy">Authy</option>
+                  <option value="sms">SMS</option>
+                </select>
+                <div class="clear"></div>
+              </div>
+              <div class="param method_show" style="display:none;">
+                <label for="authy-countries">Your Country <em> ( Optional for Google Auth. )</em></label>
+                <input id="countries-input-0" class="countries-input" type="text" autocomplete="off">
+                <select id="authy-countries" style="display:none">
+                </select>
+                <div class="clear"></div>
+                <input type="hidden" id="country-code-0" name="country_code" value="1">
+              </div>
+              <div class="param method_show" style="display:none;">
+                <label for="authy-cellphone">Your Cellphone # <em> ( Optional for Google Auth. )</em></label>
+                <input name="cell" id="authy-cellphone" type="text" value="">
+                <div class="clear"></div>
+              </span></div>
+
+
+              <div class="mar_top2"></div>
+              <ul class="list_empty">
+                <li>
+                  <input type="submit" name="submit" value="Enable 2FA" class="but_user">
+                </li>
+                <!-- li><input type="submit" name="google" value="Enable Google Authenticator" class="but_user" /></li -->
+                <!--  li><input type="submit" name="sms" value="Send By SMS" class="but_user" /></li -->
+              </ul>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="mar_top8"></div>
+
+
+
+{% endblock %}
