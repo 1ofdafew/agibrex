@@ -32,13 +32,16 @@ class Coin {
 
     var auth
     try {
-      auth = yield APIAuthService.getToken(ADMIN)      
+      console.log('Authenticating via local token...')
+      auth = yield APIAuthService.getToken(ADMIN)
     } catch(e) {
+      console.log('Authenticating via new user token...')
       auth = yield APIAuthService.createToken(ADMIN, EMAIL, PASSWORD)
     }
 
+    console.log('Proceeding with creating coin account...')
     log.info(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`, data)
-    
+
     return axios({
       method: method,
       url: url,
@@ -48,10 +51,10 @@ class Coin {
       },
       data: data,
       timeout: 10000
-    }).then(res => { 
+    }).then(res => {
       log.info(`Coin:${this.type}: response => `, res.data)
       return res.data
-    }).catch(err => { 
+    }).catch(err => {
       log.info(`Coin:${this.type}: response => `, err.response.data)
       return err.response.data
     })
@@ -59,4 +62,4 @@ class Coin {
 
 }
 
-module.exports = Coin 
+module.exports = Coin
