@@ -96,7 +96,10 @@ module.exports = {
       '/profile',
       '/api/v1/match/bid',
       '/api/v1/match/ask',
-      '/api/v1/match/neworder'
+      '/api/v1/match/neworder',
+      '/api/v1/asset',
+      '/api/v1/payment'
+
     ],
     compareHostAndOrigin: true
   }
