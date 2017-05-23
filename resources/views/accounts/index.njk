@@ -7,24 +7,34 @@
   <div class="one_third">
     <div class="content">
       <h3 class="section_label">
-        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type }} Accounnt</span>
+        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type | safe }} Account</span>
       </h3>
       <div class="clear"></div>
       <br>
       <div class="notice">
         <h3>Please write down this PIN womewhere as this PIN shall be used to authenticate your transaction later</h3>
       </div>
-      <form id="buy_form" action="buy-sell.php" method="POST">
+
+      {% if old('error') %}
+      <div class="message-box-wrap">
+        <div class="error" role="alert">
+          {% for e in old('error') %}
+          {{ e.message }}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <form method="POST" action="/accounts/{{ type | safe }}/create" enctype="application/x-www-form-urlencoded" id="coin_create">
+        {{ csrfField }}
+
         <div class="buyform">
-            <div class="dotted"></div>
-            <div class="mar_top2"></div>
+          <div class="dotted"></div>
+          <div class="mar_top2"></div>
           <div class="param">
               <label for="buy_amount">Insert Your PIN&nbsp;
-                <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
-                  <i class="fa fa-question"></i>
-                </a>
               </label>
-            <input name="buy_amount" id="buy_amount" value="" type="text">
+            <input name="pin1" id="pin1" value="" type="text">
             <div class="clear"></div>
           </div>
           <div class="mar_top1"></div>
@@ -32,24 +42,15 @@
             <label for="buy_price">
               <span id="buy_price_limit_label">Confirm Your PIN</span>
             </label>
-            <input name="buy_price" id="buy_price" value="" type="text">
+            <input name="pin2" id="pin2" value="" type="text">
           </div>
-
-          <div id="buy_stop_container" class="param" style="display:none;">
-            <label for="buy_stop_price">Stop Price</label>
-            <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
-            <div class="qualify">
-              <span class="buy_currency_label">USD</span>
-            </div>
-            <div class="clear"></div>
-          </div>
-
           <div class="mar_top3"></div>
-          <input name="submit" value="Create Account {{acc_type}}" class="but_user" type="submit">
+          <input name="submit" value="Create Account {{ type | safe }}" class="but_user" type="submit">
         </div>
       </form>
     </div>
   </div>
+
 </div>
 
 {% endblock %}
