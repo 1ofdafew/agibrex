@@ -12,15 +12,15 @@ class CoinController {
 
   * account (request, response) {
     const user = yield request.auth.getUser()
-    console.log('User:', user)
-    console.log('Type:', this.CoinType.toUpperCase())
+    // console.log('User:', user)
+    // console.log('Type:', this.CoinType.toUpperCase())
 
     const resp = yield user.wallets().where('type', this.CoinType.toUpperCase()).fetch()
-    console.log('Response:', resp)
+    // console.log('Response:', resp)
 
     const wallet = resp.toJSON()[0]
 
-    console.log(this.CoinType, ':: wallets =>', wallet)
+    // console.log(this.CoinType, ':: wallets =>', wallet)
     // console.log('eth: wallets =>', wallet)
 
     if (wallet === undefined) {
@@ -28,7 +28,7 @@ class CoinController {
       yield response.sendView('accounts.index', args)      
     } else {
       const balance = yield WalletService.getBalance(this.CoinType, wallet.address)
-      console.log(this.CoinType, '::Controller balance:', balance.data)
+      // console.log(this.CoinType, '::Controller balance:', balance.data)
 
       // if (this.CoinType) {
       //     balResp = {
@@ -51,7 +51,7 @@ class CoinController {
       //     }
       // }
 
-      console.log(this.CoinType, ':: Balance:', balance)
+      // console.log(this.CoinType, ':: Balance:', balance)
       const args = {
         type: this.CoinType.replace(/\b\w/g, l => l.toUpperCase()),
         balance: balance.data.balance,

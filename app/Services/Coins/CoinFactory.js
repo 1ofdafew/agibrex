@@ -3,6 +3,7 @@
 const Env = use('Env')
 const Exceptions = use('App/Exceptions')
 const Coin = use('App/Services/Coins/Coin')
+const log = require('npmlog')
 
 const URL = Env.get('COIN_URL')
 
@@ -14,7 +15,7 @@ class CoinFactory extends Coin {
   }
 
   * createWallet(username, pin) {
-    console.log(`Creating wallet for ${username}...`)
+    log.info(`Creating wallet for ${username}...`)
     const data = {
       username: username,
       pin: pin
