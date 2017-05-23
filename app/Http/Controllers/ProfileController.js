@@ -1,16 +1,15 @@
 'use strict'
 
 const Profile = use('App/Model/Profile')
+const ProfileService = make('App/Service/ProfileService')
+
 const Database = use('Database');
 
 class ProfileController {
 
   * index(request, response) {
-    // yield response.sendView('profile')
-    // response.ok(profile)
-    //const profile = yield Profile.all()
-    const profile = yield Database.table('profiles')
-    response.json(profile)
+    const profiles =  yield ProfileService.show()
+    response.json(profiles)
   }
 
 
