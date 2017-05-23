@@ -84,42 +84,40 @@ input:checked + label {
   <section id="content0">
     <div class="testimonials-4">
       <div class="notice">
-        <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;It is recommended that you set up two-factor authentication for your account using your cellphone. To do so, please visit the <a href="security.htm">Security </a>page.</div>
+        <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;It is recommended that you set up two-factor authentication for your account using your cellphone. To do so, please visit the <a href="/accounts/security">Security </a>page.</div>
       </div>
       <div class="contentflat">
         <div class="mar_top2"></div>
-        <h3 class="section_label01"> <i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Wallet Address </h3>
+        <h3 class="section_label01"> <i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Wallet Address</h3>&nbsp;
+          <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price"><i class="fa fa-question"></i></a>
         <div class="section_label02">
           <span><a  id="myBtn" class="but_user">{{ wallet.address }}</a></span>
         </div>
       </div>
 
-      <!-- Trigger/Open The Modal -->
-
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
-
  <!-- Modal content -->
- <div class="modal-content">
-   <span class="close">&times;</span>
-   <p>Some text in the Modal..</p>
- </div>
-
+  <div class="modal-content">
+    <span class="close">&times;</span>
+      <img src="https://chart.googleapis.com/chart?chs=450x450&cht=qr&chl=bitcoin:{{ wallet.address }}">
+  </div>
 </div>
-      <div class="clear"></div>
-      <div class="mar_top1"></div>
-      <div class="clear"></div>
+    <div class="clear"></div>
+    <div class="mar_top1"></div>
+    <div class="clear"></div>
       <div class="content">
         <div class="mar_top1"></div>
         <h3 class="section_label01"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }} Available Balance</span> </h3>
         <div class="section_label02">
           <div class="amountbalance" id="decimals1">{{ balance.available }}</div>
         </div>
-        <div class="clear"></div>
+<div class="clear"></div>
       </div>
-      <div class="mar_top20"></div>
       <div class="clear"></div>
+      <div class="mar_top1"></div>
+      <div class="clear"></div>
+
       {% if type != 'Ethereum' %}
       <div class="content">
         <div class="mar_top1"></div>
@@ -644,7 +642,8 @@ input:checked + label {
             <div class="spacer"></div>
             <div class="mar_top2"></div>
             <div class="calc">
-              <img class="qrcode" src="includes/qrcode.php?code=12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
+              <!-- <img class="qrcode" src="includes/qrcode.php?code=12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz"> -->
+              <img src="https://chart.googleapis.com/chart?chs=450x450&cht=qr&chl=bitcoin:12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
             </div>
             <div class="spacer"></div>
             <div class="mar_top2"></div>
