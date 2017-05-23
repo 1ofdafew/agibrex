@@ -93,6 +93,7 @@ Route.group('Buy n Sell', function () {
 
 Route.get('/market', 'MarketDataController.fetchData').middleware('auth')
 
+
 Route.group('API',function () {
 
   //profile
@@ -130,5 +131,15 @@ Route.group('API',function () {
   Route.post('match/bid', 'MatchController.bidprocess')
   Route.post('match/ask', 'MatchController.askprocess')
   Route.post('match/neworder', 'MatchController.neworder')
+
+  //Asset
+  Route.get('/asset','AssetController.index')
+  Route.post('/asset','AssetController.store')
+  Route.get('/asset/show','AssetController.show')
+
+  //Payment
+  Route.get('/payment','PaymentController.index')
+  Route.post('/payment','PaymentController.store')
+  Route.get('/payment/show','PaymentController.show')
 
 }).prefix('/api/v1')

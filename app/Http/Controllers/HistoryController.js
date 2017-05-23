@@ -20,11 +20,6 @@ class HistoryController {
           yield history.save()
           response.ok(history)
 
-          // var profileMessage = {
-          //     success: 'already save'
-          // }
-
-          // yield response.sendView('profile', { profileMessage : profileMessage })
       }
 
       * show(request, response) {
