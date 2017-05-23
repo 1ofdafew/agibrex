@@ -8,18 +8,18 @@ class Payment extends Lucid {
 constructor(data) {
     super()
 
-    console.log(`Profile data: ${data.name}`)
+    console.log(`Profile data: ${data.trans_id}`)
     console.log(JSON.stringify(data))
 
     this.uuid = uuid()
-    this. = data.
-    this. = data.
-    this. = data. 
-    this. = data. 
+    this.trans_id = data.trans_id
+    this.amount = data.amount
+    this.type = data.type
+
   }  
 
   static get visible(){
-    return ['', '', '', '', '', '']
+    return ['id', 'uuid', 'trans_id', 'amount', 'type']
   }
 
   user () {

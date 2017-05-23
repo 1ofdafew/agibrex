@@ -2,20 +2,54 @@
 
 {% block content %}
 
-<h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Create Account&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<strong>{{ type }}</strong></h3>
-
-<!-- <div class="text">
-  <p>You don't have any <strong>{{ type }}</strong> account yet. </p>
-</div> -->
+<h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;Create Account</h3>
 
 <div class="testimonials-4">
-  <div class="notice">
+  <!-- <div class="notice">
     <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;You don't have any <strong>{{ type }}</strong> account yet. Please create your account.</div>
+  </div> -->
+  <div class="one_half">
+    <div class="content">
+      <h3 class="section_label">
+        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }}</span>
+      </h3>
+      <div class="clear"></div>
+      <form id="buy_form" action="buy-sell.php" method="POST">
+        <div class="buyform">
+            <div class="dotted"></div>
+            <div class="mar_top2"></div>
+          <div class="param">
+              <label for="buy_amount">Insert Your PIN</label>
+            <input name="buy_amount" id="buy_amount" value="" type="text">
+            <div class="clear"></div>
+          </div>
+          <div class="mar_top1"></div>
+          <div id="buy_price_container" class="param">
+            <label for="buy_price">
+              <span id="buy_price_limit_label">Confirm Your PIN</span>
+            </label>
+            <input name="buy_price" id="buy_price" value="" type="text">
+          </div>
+
+          <div id="buy_stop_container" class="param" style="display:none;">
+            <label for="buy_stop_price">Stop Price</label>
+            <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
+            <div class="qualify">
+              <span class="buy_currency_label">USD</span>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="mar_top3"></div>
+          <input name="submit" value="Create Account {{acc_type}}" class="but_user" type="submit">
+        </div>
+      </form>
+    </div>
   </div>
   <div class="mar_top2"></div>
-  <ul class="list_empty">
+  <!-- <ul class="list_empty">
     <li><a href="" class="but_user">Create Account</a></li>
-  </ul>
+  </ul> -->
 
   <div class="mar_top8"></div>
 </div>

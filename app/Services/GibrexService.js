@@ -12,7 +12,8 @@ class GibrexService {
       headers: {
         'content-type': 'application/json'
       },
-      data: data
+      data: data,
+      timeout: 10000
     }).then(res => { 
       console.log('GibrexService:response:: ', res.data)
       return res.data

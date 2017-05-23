@@ -13,44 +13,42 @@ class CreditCardController {
     }
   
 
-    * store(request, response) {
+ * store(request, response) {
       const data = request.only(['name', 'card_num', 'cbb'])
       console.log('CreditCardController data....')
       console.log(data)
 
-          const cc = new CreditCard(data)
-          yield cc.save()
-          response.ok(cc)
+      const cc = new CreditCard(data)
+      yield cc.save()
+      response.ok(cc)
 
-      }
+    }
 
-      * show(request, response) {
+ * show(request, response) {
 
-        const id = request.param("id");
+      const id = request.param("id");
 
+      const data = yield Database
+      .table('credit_cards')
+      .select('name', 'card_num', 'cbb')
+      .where({id:id})
         
-        const data = yield Database
-        .table('credit_cards')
-        .select('name', 'card_num', 'cbb')
-        .where({id:id})
-        
-        response.json(data)
+      response.json(data)
+    }
 
-        }
+ * update(request, response) {
 
-         * update(request, response) {
+      const data=request.only(['id','card_num','cbb'])
+      console.log('Updating a row....')
+      console.log(data)
 
-          const data=request.only(['id','card_num','cbb'])
-          console.log('Updating a row....')
-          console.log(data)
-
-          const updateRow = yield Database
-          .table('credit_cards')
-          .where('id', data.id)
-          .update('card_num', data.card_num)
-          .update('cbb',data.cbb)
-          response.ok(updateRow)
-          }
+      const updateRow = yield Database
+      .table('credit_cards')
+      .where('id', data.id)
+      .update('card_num', data.card_num)
+      .update('cbb',data.cbb)
+      response.ok(updateRow)
+    }
 
 }
 

@@ -19,12 +19,6 @@ class TransactionController {
           const transaction = new Transaction(data)
           yield transaction.save()
           response.ok(transaction)
-
-          // var profileMessage = {
-          //     success: 'already save'
-          // }
-
-          // yield response.sendView('profile', { profileMessage : profileMessage })
       }
 
       * show(request, response) {
