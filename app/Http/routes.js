@@ -22,7 +22,7 @@ const Route = use('Route')
  */
 Route.on('/').render('welcome')
 
-/** 
+/**
  * Login
  */
 Route.group('Authentication', function () {
@@ -31,7 +31,7 @@ Route.group('Authentication', function () {
   Route.post('/login', 'Auth/LoginController.login').as('login')
   Route.get('/logout', 'Auth/LoginController.logout').as('logout')
 
-  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')  
+  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
   Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
 
   // Register
@@ -43,8 +43,20 @@ Route.group('Authentication', function () {
 
 }).prefix('/auth')
 
+
+
 /**
- * Dashboard 
+ *Security
+ */
+Route.group('Security', function () {
+
+  Route.get('/qrcode', 'Security/QrCodeController.index').as('qrcode')
+
+}).prefix('/security')
+
+
+/**
+ * Dashboard
  */
 Route.get('/dashboard', 'DashboardController.index')
   .as('dashboard')
