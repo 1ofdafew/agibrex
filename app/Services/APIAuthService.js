@@ -3,8 +3,10 @@
 const Env = use('Env')
 const Exceptions = use('App/Exceptions')
 const GibrexService = use('App/Services/GibrexService')
+const log = require('npmlog')
 
 const URL = Env.get('COIN_URL')
+const NEED_REG = Env.get('COIN_ADMIN_REG')
 
 class APIAuthService extends GibrexService {
 
@@ -107,7 +109,10 @@ class APIAuthService extends GibrexService {
   }
 
   * createToken(username, email, password) {
-    const user = yield this.register(username, email, password)
+    if (NEED_REG === 'yes') {
+      log.info(`Registering new user for API auth`, {username, email})
+      const user = yield this.register(username, email, password)      
+    }
     return yield this.authenticate(user.username, password)
   }
 

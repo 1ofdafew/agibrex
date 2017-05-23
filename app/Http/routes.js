@@ -58,10 +58,12 @@ Route.group('Accounts', function () {
   Route.get('/', 'Accounts/AccountController.index').middleware('auth')
 
   Route.get('/bitcoin', 'Accounts/BitcoinController.account').middleware('auth')
+  Route.post('/bitcoin/create', 'Accounts/BitcoinController.create').middleware('auth')
   Route.get('/bitcoin/deposit', 'Accounts/BitcoinController.deposit').middleware('auth')
   Route.get('/bitcoin/withdraw', 'Accounts/BitcoinController.withdraw').middleware('auth')
 
   Route.get('/tracto', 'Accounts/TractoController.account').middleware('auth')
+  Route.post('/tracto/create', 'Accounts/TractoController.create').middleware('auth')
   Route.get('/tracto/deposit', 'Accounts/TractoController.deposit').middleware('auth')
   Route.get('/tracto/withdraw', 'Accounts/TractoController.withdraw').middleware('auth')
 
@@ -128,9 +130,11 @@ Route.group('API',function () {
   Route.get('orderbook/showdelete', 'OrderBookController.showdelete')
 
   //Matching
+  Route.post('match/process', 'MatchController.process')
   Route.post('match/bid', 'MatchController.bidprocess')
   Route.post('match/ask', 'MatchController.askprocess')
   Route.post('match/neworder', 'MatchController.neworder')
+  Route.get('match', 'MatchController.index')
 
   //Asset
   Route.get('/asset','AssetController.index')

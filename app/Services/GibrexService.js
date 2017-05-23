@@ -1,6 +1,7 @@
 'use strict'
 
 const axios = require('axios')
+const log = require('npmlog')
 
 class GibrexService {
 
@@ -15,10 +16,10 @@ class GibrexService {
       data: data,
       timeout: 10000
     }).then(res => { 
-      console.log('GibrexService:response:: ', res.data)
+      log.info('GibrexService:response:: ', res.data)
       return res.data
     }).catch(err => { 
-      console.log('GibrexService:error:: ', err.response.data)
+      log.info('GibrexService:error:: ', err.response.data)
       return err.response.data
     })
   }

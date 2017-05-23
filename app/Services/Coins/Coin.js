@@ -3,6 +3,7 @@
 const Env = use('Env')
 const axios = require('axios')
 const APIAuthService = make('App/Services/APIAuthService')
+const log = require('npmlog')
 
 const ADMIN = Env.get('COIN_ADMIN')
 const EMAIL = Env.get('COIN_ADMIN_EMAIL')
@@ -36,8 +37,7 @@ class Coin {
       auth = yield APIAuthService.createToken(ADMIN, EMAIL, PASSWORD)
     }
 
-    console.log(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`)
-    console.log(data)
+    log.info(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`, data)
     
     return axios({
       method: method,
@@ -49,12 +49,10 @@ class Coin {
       data: data,
       timeout: 10000
     }).then(res => { 
-      console.log(`Coin:${this.type}: response => `)
-      console.log(res.data)
+      log.info(`Coin:${this.type}: response => `, res.data)
       return res.data
     }).catch(err => { 
-      console.log(`Coin:${this.type}: response => `)
-      console.log(err.response.data)
+      log.info(`Coin:${this.type}: response => `, err.response.data)
       return err.response.data
     })
   }

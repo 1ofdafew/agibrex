@@ -1,18 +1,11 @@
 'use strict'
 
-class BitcoinController {
+const CoinController = use('App/Http/Controllers/Accounts/CoinController')
 
-  * account (request, response) {
-    // yield response.sendView('accounts/bitcoin', { type: 'bitcoin'})
-    yield response.sendView('accounts/tabs', { type: 'bitcoin'})
-  }
+class BitcoinController extends CoinController {
 
-  * deposit (request, response) {
-    yield response.sendView('accounts/deposit/bitcoin', { type: 'bitcoin'})
-  }
-
-  * withdraw (request, response) {
-    yield response.sendView('accounts/withdraw/bitcoin', { type: 'bitcoin'})
+  constructor() {
+    super('bitcoin')
   }
 
 }

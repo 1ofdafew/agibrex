@@ -98,35 +98,38 @@ input:checked + label {
       <div class="clear"></div>
       <div class="content">
         <div class="mar_top1"></div>
-        <h3 class="section_label01"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }} Available Balances</span> </h3>
+        <h3 class="section_label01"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }} Available Balance</span> </h3>
         <div class="section_label02">
-          <div class="amountbalance" id="decimals1">{{ balance }}</div>
+          <div class="amountbalance" id="decimals1">{{ balance.available }}</div>
         </div>
-        <!-- <div class="balances"> -->
-          <!-- <div class="one_half"> -->
-            <!-- <div class="label">Amount Available</div> -->
-            <!-- <div class="panel-divider2"></div> -->
-            <!-- <div class="amount" id="decimals1">{{ balance }}</div>
-          </div> -->
-        <!-- </div> -->
         <div class="clear"></div>
       </div>
       <div class="mar_top20"></div>
       <div class="clear"></div>
       {% if type != 'Ethereum' %}
       <div class="content">
+        <div class="mar_top1"></div>
+        <h3 class="section_label01"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;{{ type }} Pending Balance</span> </h3>
+        <div class="section_label02">
+          <div class="amountbalance" id="decimals1">{{ balance.pending }}</div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      {# <div class="content">
         <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Balances On Hold</span> </h3>
         <div class="clear"></div>
         <div class="balances">
           <div class="one_half">
             <div class="label">You have no open orders or withdrawal requests.</div>
             <div class="panel-divider2"></div>
-            <div class="amount" id="decimals2">0.00000000</div>
+            <div class="amount" id="decimals2">{{ balance.pending }}</div>
           </div>
           <div class="clear"></div>
         </div>
         <div class="clear"></div>
       </div>
+       #}
       <div class="mar_top3"></div>
       {% endif %}
       <!-- <ul class="list_empty">

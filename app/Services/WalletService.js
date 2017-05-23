@@ -2,6 +2,7 @@
 
 const Exceptions = use('App/Exceptions')
 const CoinFactory = use('App/Services/Coins/CoinFactory')
+const log = require('npmlog')
 
 class WalletService {
 
@@ -33,7 +34,7 @@ class WalletService {
    */
   * create(type, user, pin) {
 
-    console.log('=> Creating wallet', type, 'for user', user.username)
+    log.info('=> Creating wallet', type, 'for user', user.username)
     // => Creating wallet ethereum for user mhishami
     // Creating wallet for mhishami...
     // Coin:ethereum: URL => http://147.135.171.127/api/v1/ethereum, method => post, data =>
@@ -66,13 +67,16 @@ class WalletService {
     //         created_at: '2017-05-23T05:33:00Z',
     //         updated_at: '2017-05-23T05:33:00Z' } } }
     const wallet = new this.Wallet()
+    wallet.user_id = user.id 
+
     wallet.uuid = resp.data.wallet.uuid
     wallet.type = resp.data.wallet.type
     wallet.username = resp.data.wallet.username
     wallet.address = resp.data.wallet.address
     wallet.pin = resp.data.wallet.pin
     wallet.mnemonics = resp.data.wallet.mnemonics
-    yield user.wallet().save(wallet)
+    yield wallet.save(wallet)
+    log.info('wallet created:', wallet)
 
     if (wallet.isNew()) {
       throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)
