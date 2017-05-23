@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://1btcxe.com/account.php -->
+<html lang="en" class="no-js js">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Gibrex - The World Trusted Digital Exchange</title>
+<!--<base href="https://1btcxe.com/">-->
+<base href=".">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="publisher" content="Gibrex">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="favicon.ico">
+
+<!-- this styles only adds some repairs on idevices  -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google fonts - witch you want to use - (rest you can just remove) -->
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+
+<!-- ######### CSS STYLES ######### -->
+<link rel="stylesheet" href="css/style_main.css" type="text/css">
+<link rel="stylesheet" href="css/style_exchange.css" type="text/css">
+
+<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+<!-- responsive devices styles -->
+<link rel="stylesheet" media="screen" href="css/responsive-leyouts.css" type="text/css">
+<link rel="stylesheet" href="css/colour.css">
+
+
+</head>
+
+<body>
+<div class="site_wrapper">
+
+<!-- HEADER -->
+<header id="header" class="" style="height: 131px;">
+
+  <!-- Top header bar -->
+  <div id="topHeader">
+      <div class="wrapper">
+        <div class="top_contact_info">
+          <div class="container">
+            <ul class="tci_list_left">
+              <li><a href="">FAQ</a></li>
+              <li>|</li>
+              <li><a href="">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
+              <li>|</li>
+              <li><a href="">Contact Us</a></li>
+            </ul>
+            <ul class="tci_list">
+
+              {% if not currentUser %}
+              <li>
+                <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
+              </li>
+              <li>|</li>
+              <li>
+                <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
+              </li>
+              {% else %}
+              <li>
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+              </li>
+              <li>
+                <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+              </li>
+              {% endif %}
+
+              <li class="empty margin-left">
+                <label for="language_selector"><img src="/images/language/en.png"></label>
+                <select id="language_selector" class="lang">
+                  <option value="en" selected="selected">English</option>
+                  <option value="es">Español</option>
+                  <option value="ru">Pусский</option>
+                  <option value="zh">中文</option>
+                </select>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <!-- end top contact info -->
+
+    </div>
+  </div>
+  <div id="trueHeader">
+    <div class="wrapper">
+      <div class="container">
+
+        <!-- Logo -->
+        <div class="one_fourth"><a href="/" id="logo"></a></div>
+
+        <!-- Menu -->
+        <div class="three_fourth last">
+            <nav id="access" class="access" role="navigation">
+              <div id="menu" class="menu">
+                <ul id="tiny">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="/exchange">Exchange</a></li>
+                  <li><a href="">Order Book</a></li>
+                  <li><a href="">Gibrex</a></li>
+                  {% if currentUser %}
+                  <li><a href="/accounts" class="active">My Account</a></li>
+                  {% endif %}
+                </ul>
+                <select class="selectnav" id="selectnav1">
+                  <option value="">--- Navigation --- </option>
+                  <option value="">HOME</option>
+                  <option value="">ORDER BOOK</option>
+                  <option value="">ABOUT Gibrex</option>
+                  <option value="/auth/login">Login</option>
+                  <option value="/auth/register">Register</option>
+                </select>
+              </div>
+            </nav>
+            <!-- end nav menu -->
+
+          </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- end header -->
+{% if currentUser %}
+<div class="page_title">
+  <div class="container">
+    <div class="title">
+      <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}</h4>
+    </div>
+    <div class="title02">
+      <h4><div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">My Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div></h4>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% block fullview %}
+<div class="container">
+  {% block content %}
+  {% endblock %}
+</div>
+{% endblock %}
+<!-- Footer
+======================================= -->
+
+<div class="footer">
+  <div class="arrow_02"></div>
+  <div class="clearfix mar_top5"></div>
+    <div class="container">
+      <div class="one_fourth">
+        <div class="footer_logo"><img src="/images/gibrex02.png" alt=""></div>
+        <div class="clearfix mar_top1"></div>
+        <ul class="contact_address">
+          <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
+          <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Users Currently Online - 16,684</li>
+        </ul>
+      </div>
+      <div class="one_half">
+        <div class="one_fourth">
+          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Navigation</h3>
+          <ul class="list">
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Home</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="/exchange">&nbsp;&nbsp;Exchange</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Margin Trading</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Lending</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Fees</a></li>
+          </ul>
+        </div>
+        <div class="one_fourth">
+          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Gibrex</h3>
+          <ul class="list">
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;About Gibrex</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;News Feed</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Security</a></li>
+          </ul>
+        </div>
+        <div class="one_fourth last">
+          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Support</h3>
+          <ul class="list">
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Resources</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;FAQ</a></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix mar_top5"></div>
+  </div>
+  <div class="copyright_info">
+    <div class="container">
+      <div class="one_half">
+        <ul class="tci_list_left">
+          <li><b>Copyright © All Right Reserved 2017 Gibrex.com - Cryptocurrency Made Easy.</b></li>
+          <li>|</li>
+          <li><a href="Privacy.htm"> Privacy Policy</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="#"> Terms &amp; Condition</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="#"> API Documentation</a></li>
+        </ul>
+      </div>
+      <!-- <div class="one_half last">
+        <ul class="footer_social_links">
+          <li><a href="http://158.69.170.180/#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="http://158.69.170.180/#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div>-->
+    </div>
+  </div>
+  <!-- end copyright info -->
+
+</div>
+
+<!-- ######### JS FILES ######### -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.color.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+
+
+ {% block docready %}{% endblock %}
+
+</body>
+</html>
