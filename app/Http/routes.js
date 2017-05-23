@@ -72,6 +72,8 @@ Route.group('Accounts', function () {
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
 
+  Route.get('/security','Accounts/AccountController.security')
+
 }).prefix('/accounts')
 
 /**
