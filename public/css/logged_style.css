@@ -700,7 +700,8 @@ del {
 	width: 48%;
 }
 .one_third {
-	width: 30.650%;
+	width: 34.650%;
+	/*width: 30.650%;*/
 }
 .one_fourth {
 	width: 22%;
@@ -4763,8 +4764,9 @@ ul.list_empty.form_buttons {
 	float: left;
 }
 .form_button {
-	padding: 5px 0 10px 0;
-	clear: both;
+	padding: 0px 10px 0px 0px;
+	float: right;
+	/*clear: both;*/
 }
 .form2 ul {
 }

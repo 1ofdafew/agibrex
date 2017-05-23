@@ -1,12 +1,19 @@
 {% extends 'layout/master' %}
 
 {% block content %}
-<div class="content_right">
+
       <div class="testimonials-4">
+        <div class="one_third">
         <div class="content">
-          <h3 class="section_label"> <span class="left"><i class="fa fa-user fa-2x"></i></span> <span class="right">Personal Info</span> </h3>
+          <h3 class="section_label">
+            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Personal Information</span>
+          </h3>
+          <div class="form_button">
+            <input type="submit" name="submit" value="Save Info" class="but_user">
+          </div>
           <div class="clear"></div>
-          <form name="settings" action="https://1btcxe.com/settings.php" class="form form1" method="POST">
+          <div class="dotted"></div>
+          <form name="settings" action="#" class="form form1" method="POST">
             <input type="hidden" id="form_name" name="form_name" value="settings">
             <ul>
               <li class="">
@@ -19,7 +26,7 @@
                 <label for="settings_pass2">Confirm Password </label>
                 <input type="password" name="settings[pass2]" value="" id="settings_pass2">
               </li>
-              <li class=""><em>*</em>
+              <li class="">
                 <div class="label_extend"></div>
                 <label for="settings_email">Email </label>
                 <input type="text" name="settings[email]" value="irwanhanafy@gmail.com" id="settings_email">
@@ -60,9 +67,9 @@
                   <option value="26">ZAR</option>
                 </select>
               </li>
-              <div class="form_button">
-                <input type="submit" name="submit" value="Save Info" class="but_user">
-              </div>
+              <div class="clearfix mar_top3"></div>
+
+
               <input type="hidden" name="submitted" value="1">
               <input type="hidden" name="settings[uniq]" value="0b7f08405e9da5785d97dc48bff3b487" class="hidden_input" id="settings_uniq">
             </ul>
@@ -74,8 +81,11 @@
         <div class="mar_top3"></div>
         <div class="clear"></div>
         <div class="content">
-          <h3 class="section_label"> <span class="left"><i class="fa fa-check fa-2x"></i></span> <span class="right">Security and Notifications</span> </h3>
+          <h3 class="section_label">
+            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Security and Notifications</span>
+          </h3>
           <div class="clear"></div>
+          <div class="dotted"></div>
           <form id="buy_form" action="https://1btcxe.com/settings.php" method="POST">
             <input type="hidden" name="prefs" value="1">
             <input type="hidden" name="submitted" value="1">
@@ -143,7 +153,8 @@
         </div>
         <div class="mar_top8"></div>
       </div>
-    </div>
+      </div>
+
 
 
 
