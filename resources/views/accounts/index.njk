@@ -3,15 +3,17 @@
 {% block content %}
 
 <div class="testimonials-4">
-  <!-- <div class="notice">
-    <div class="message-box-wrap"><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;You don't have any <strong>{{ type }}</strong> account yet. Please create your account.</div>
-  </div> -->
+
   <div class="one_third">
     <div class="content">
       <h3 class="section_label">
         <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type }} Accounnt</span>
       </h3>
       <div class="clear"></div>
+      <br>
+      <div class="notice">
+        <h3>Please write down this PIN womewhere as this PIN shall be used to authenticate your transaction later</h3>
+      </div>
       <form id="buy_form" action="buy-sell.php" method="POST">
         <div class="buyform">
             <div class="dotted"></div>
@@ -48,12 +50,6 @@
       </form>
     </div>
   </div>
-  <div class="mar_top2"></div>
-  <!-- <ul class="list_empty">
-    <li><a href="" class="but_user">Create Account</a></li>
-  </ul> -->
-
-  <div class="mar_top8"></div>
 </div>
 
 {% endblock %}
