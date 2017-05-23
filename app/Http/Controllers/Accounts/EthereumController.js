@@ -3,15 +3,39 @@
 const Wallet = use('App/Model/Wallet')
 const Validator = use('App/Services/Validator')
 const WalletService = make('App/Services/WalletService')
+const View = use('View')
+
+const TYPE = 'ethereum'
 
 class EthereumController {
 
+  constructor() {
+  }
+
   * account (request, response) {
     const user = yield request.auth.getUser()
-    const wallet = yield user.wallets().where('type', 'ETHEREUM').fetch()
+    const resp = yield user.wallets().where('type', 'ETHEREUM').fetch()
+    const wallet = resp.toJSON()[0]
+
+    console.log('eth: wallets =>', wallet)
     // console.log('eth: wallets =>', wallet)
 
-    yield response.sendView('accounts/ethereum', {type: 'ethereum'})
+    if (wallet.uuid) {
+      const bal = yield WalletService.getBalance(TYPE, wallet.address)
+      const balance = parseFloat(bal.data.balance).toFixed(10)
+      console.log('Balance:', bal)
+      const args = {
+        type: 'Ethereum',
+        balance: balance,
+        wallet: wallet
+      }
+      yield response.sendView('accounts.ethereum', args)
+    } else {
+      const args = {
+        type: 'ethereum'
+      }
+      yield response.sendView('accounts.index', args)      
+    }
   }
 
   * create (request, response) {
