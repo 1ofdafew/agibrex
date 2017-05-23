@@ -24,14 +24,17 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
+
 <!-- ######### CSS STYLES ######### -->
-<link rel="stylesheet" href="/css/logged_style.css" type="text/css">
-<!-- <link rel="stylesheet" href="/css/background.css" type="text/css"> -->
+<link rel="stylesheet" href="css/style_main.css" type="text/css">
+<link rel="stylesheet" href="css/style_exchange.css" type="text/css">
+
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
 <!-- responsive devices styles -->
-<link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
-<link rel="stylesheet" href="/css/colour.css">
+<link rel="stylesheet" media="screen" href="css/responsive-leyouts.css" type="text/css">
+<link rel="stylesheet" href="css/colour.css">
 
 
 </head>
@@ -50,11 +53,12 @@
             <ul class="tci_list_left">
               <li><a href="">FAQ</a></li>
               <li>|</li>
-              <li><a href="">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
+              <li><a href="">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
               <li>|</li>
               <li><a href="">Contact Us</a></li>
             </ul>
             <ul class="tci_list">
+
               {% if not currentUser %}
               <li>
                 <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
@@ -100,11 +104,7 @@
             <nav id="access" class="access" role="navigation">
               <div id="menu" class="menu">
                 <ul id="tiny">
-                  {% if currentUser %}
                   <li><a href="#">Home</a></li>
-                  {% else %}
-                  <li><a href="#" class="active">Home</a></li>
-                  {% endif %}
                   <li><a href="/exchange">Exchange</a></li>
                   <li><a href="">Order Book</a></li>
                   <li><a href="">Gibrex</a></li>
@@ -145,57 +145,8 @@
 
 {% block fullview %}
 <div class="container">
-  <div class="content_right">
-    {% block content %}
-    {% endblock %}
-  </div>
-  {% if currentUser %}
-  <div class="left_sidebar">
-    <div class="sidebar_widget">
-      <div class="sidebar_title">
-        <!--<h3>Account Navigation</h3>-->
-      </div>
-      <ul class="arrows_list1">
-        <li><a href="/dashboard"><i class="fa fa-caret-right"></i> Dashboard</a></li>
-        <li><a ><i class="fa fa-caret-right"></i> My Account</a>
-           <ul class="" style="margin-left:15px;">
-            <li>
-              <a href="/accounts/bitcoin"><i class="fa fa-angle-right"></i> Bitcoin</a>
-            </li>
-            <li>
-              <a href="/accounts/tracto"><i class="fa fa-angle-right"></i> Tracto</a>
-            </li>
-            <li>
-              <a href="/accounts/ethereum"><i class="fa fa-angle-right"></i> Ethereum</a>
-            </li>
-           </ul>
-        </li>
-        <!-- <li><a href=""><i class="fa fa-caret-right"></i> Open Orders</a></li> -->
-        <li><a href=""><i class="fa fa-caret-right"></i> Transactions</a></li>
-        <li><a href="/accounts/security"><i class="fa fa-caret-right"></i> Security</a></li>
-        <li><a href="/user/profile"><i class="fa fa-caret-right"></i> Settings</a></li>
-        <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li>
-
-        <li><a href=""><i class="fa fa-caret-right"></i> History</a></li>
-        <li><a href=""><i class="fa fa-caret-right"></i> API Access</a></li>
-        <!-- <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li> -->
-      </ul>
-    </div>
-    <div class="clearfix mar_top3"></div>
-    <!-- <div class="sidebar_widget">
-      <div class="sidebar_title">
-        <h3>Transactions</h3>
-      </div>
-      <ul class="arrows_list1">
-        <li><a href="https://1btcxe.com/buy-sell.php"><i class="fa fa-angle-right"></i> Buy/Sell</a></li>
-        <li><a href="https://1btcxe.com/deposit.php"><i class="fa fa-angle-right"></i> Deposit</a></li>
-        <li><a href="https://1btcxe.com/withdraw.php"><i class="fa fa-angle-right"></i> Withdraw</a></li>
-      </ul>
-    </div> -->
-    <div class="mar_top8"></div>
-    <div class="clear"></div>
-  </div>
-  {% endif %}
+  {% block content %}
+  {% endblock %}
 </div>
 {% endblock %}
 <!-- Footer
@@ -203,17 +154,17 @@
 
 <div class="footer">
   <div class="arrow_02"></div>
-  <div class="clearfix mar_top3"></div>
+  <div class="clearfix mar_top5"></div>
     <div class="container">
       <div class="one_fourth">
         <div class="footer_logo"><img src="/images/gibrex02.png" alt=""></div>
         <div class="clearfix mar_top1"></div>
         <ul class="contact_address">
-          <li><i class="fa  fa-clock-o"></i>&nbsp;&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
-          <li><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Users Currently Online - 16,684</li>
+          <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
+          <li><i class="fa fa-angle-right"></i>&nbsp;&nbsp;Users Currently Online - 16,684</li>
         </ul>
       </div>
-      <!-- <div class="one_half">
+      <div class="one_half">
         <div class="one_fourth">
           <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Navigation</h3>
           <ul class="list">
@@ -235,13 +186,13 @@
         <div class="one_fourth last">
           <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Support</h3>
           <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
+            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
             <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Resources</a></li>
             <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;FAQ</a></li>
             <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Contact Us</a></li>
           </ul>
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="clearfix mar_top5"></div>
   </div>
@@ -249,7 +200,7 @@
     <div class="container">
       <div class="one_half">
         <ul class="tci_list_left">
-          <li><b>Copyright © All Right Reserved 2017 Gibrex.com - The World Trusted Digital Exchange.</b></li>
+          <li><b>Copyright © All Right Reserved 2017 Gibrex.com - Cryptocurrency Made Easy.</b></li>
           <li>|</li>
           <li><a href="Privacy.htm"> Privacy Policy</a></li>
           <li>|</li>
@@ -272,8 +223,6 @@
 
 <!-- ######### JS FILES ######### -->
 <script src="/js/jquery.min.js"></script>
-<script src="/js/popap.js"></script>
-
 <script src="/js/jquery.color.min.js"></script>
 <script src="/js/jquery.animateNumber.min.js"></script>
 

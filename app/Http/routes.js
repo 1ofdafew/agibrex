@@ -22,7 +22,7 @@ const Route = use('Route')
  */
 Route.on('/').render('welcome')
 
-/** 
+/**
  * Login
  */
 Route.group('Authentication', function () {
@@ -31,7 +31,7 @@ Route.group('Authentication', function () {
   Route.post('/login', 'Auth/LoginController.login').as('login')
   Route.get('/logout', 'Auth/LoginController.logout').as('logout')
 
-  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')  
+  Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
   Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
 
   // Register
@@ -43,8 +43,9 @@ Route.group('Authentication', function () {
 
 }).prefix('/auth')
 
+
 /**
- * Dashboard 
+ * Dashboard
  */
 Route.get('/dashboard', 'DashboardController.index')
   .as('dashboard')
@@ -71,6 +72,8 @@ Route.group('Accounts', function () {
   Route.post('/ethereum/create', 'Accounts/EthereumController.create').middleware('auth')
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
+
+  Route.get('/security','Accounts/AccountController.security')
 
 }).prefix('/accounts')
 
@@ -147,3 +150,6 @@ Route.group('API',function () {
   Route.get('/payment/show','PaymentController.show')
 
 }).prefix('/api/v1')
+
+//Exchange
+Route.get('/exchange','ExchangeController.index')

@@ -90,9 +90,23 @@ input:checked + label {
         <div class="mar_top2"></div>
         <h3 class="section_label01"> <i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Wallet Address </h3>
         <div class="section_label02">
-          <span a href="/trades/{{ type }}" class="but_user">{{ wallet.address }}</a></span>
+          <span><a  id="myBtn" class="but_user">{{ wallet.address }}</a></span>
         </div>
       </div>
+
+      <!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+ <!-- Modal content -->
+ <div class="modal-content">
+   <span class="close">&times;</span>
+   <p>Some text in the Modal..</p>
+ </div>
+
+</div>
       <div class="clear"></div>
       <div class="mar_top1"></div>
       <div class="clear"></div>
@@ -104,7 +118,7 @@ input:checked + label {
         </div>
         <div class="clear"></div>
       </div>
-      <div class="mar_top1"></div>
+      <div class="mar_top20"></div>
       <div class="clear"></div>
       {% if type != 'Ethereum' %}
       <div class="content">
@@ -138,7 +152,7 @@ input:checked + label {
         <li><a href="/accounts/{{ type }}/withdraw" class="but_user"> Withdraw</a></li>
       </ul> -->
 
-      <div class="mar_top8"></div>
+      <div class="mar_top20"></div>
     </div>
   </section>
 
