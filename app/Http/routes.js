@@ -44,17 +44,6 @@ Route.group('Authentication', function () {
 }).prefix('/auth')
 
 
-
-/**
- *Security
- */
-// Route.group('Security', function () {
-//
-//   Route.get('/qrcode', 'Security/QrCodeController.index').as('qrcode')
-//
-// }).prefix('/security')
-
-
 /**
  * Dashboard
  */
