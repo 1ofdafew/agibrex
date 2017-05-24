@@ -1,6 +1,4 @@
-{% extends 'layout/master' %}
-
-{% block fullview %}
+{% extends 'layout/master' %} {% block fullview %}
 
 <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -9,104 +7,113 @@
 
 <div class="container_full">
   <div class="mobilebanner">
-	 <div class="container">
-		<h1>THE WORLD TRUSTED DIGITAL EXCHANGE.</h1>
-		<h1>A CROSS - PLATFORM TRADING.</h1>
-		<a href="/auth/login" class="button_slider">
-			<i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login
-		</a>
-		<a href="/auth/register" class="button_slider">
-			<i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Create Your Account
-		</a>
-		<div class="clear"></div>
-	 </div>
-	 <div class="ticker">
-		<div class="contain">
-		  <div class="scroll" style="left: -3338.08px;"> <a class="price-red selected" href="index.php?currency=usd"><span class="abbr">USD</span> <span class="price_USD">1,255.04</span></a> <a class="" href="index.php?currency=eur"><span class="abbr">EUR</span> <span class="price_EUR">1,170.86</span></a> <a class="" href="index.php?currency=cny"><span class="abbr">CNY</span> <span class="price_CNY">8,631.64</span></a> <a class="" href="index.php?currency=rub"><span class="abbr">RUB</span> <span class="price_RUB">70,507.87</span></a> <a class="" href="index.php?currency=chf"><span class="abbr">CHF</span> <span class="price_CHF">1,252.91</span></a> <a class="" href="index.php?currency=jpy"><span class="abbr">JPY</span> <span class="price_JPY">136,417.39</span></a> <a class="" href="index.php?currency=gbp"><span class="abbr">GBP</span> <span class="price_GBP">980.19</span></a> <a class="" href="index.php?currency=cad"><span class="abbr">CAD</span> <span class="price_CAD">1,690.29</span></a> <a class="" href="index.php?currency=aud"><span class="abbr">AUD</span> <span class="price_AUD">1,669.38</span></a> <a class="" href="index.php?currency=aed"><span class="abbr">AED</span> <span class="price_AED">4,600.59</span></a> <a class="" href="index.php?currency=bgn"><span class="abbr">BGN</span> <span class="price_BGN">2,282.31</span></a> <a class="" href="index.php?currency=czk"><span class="abbr">CZK</span> <span class="price_CZK">31,454.64</span></a> <a class="" href="index.php?currency=dkk"><span class="abbr">DKK</span> <span class="price_DKK">8,679.39</span></a> <a class="" href="index.php?currency=hkd"><span class="abbr">HKD</span> <span class="price_HKD">9,751.67</span></a> <a class="" href="index.php?currency=hrk"><span class="abbr">HRK</span> <span class="price_HRK">8,685.40</span></a> <a class="" href="index.php?currency=huf"><span class="abbr">HUF</span> <span class="price_HUF">358,582.86</span></a> <a class="" href="index.php?currency=ils"><span class="abbr">ILS</span> <span class="price_ILS">4,595.53</span></a> <a class="" href="index.php?currency=inr"><span class="abbr">INR</span> <span class="price_INR">80,970.32</span></a> <a class="" href="index.php?currency=mur"><span class="abbr">MUR</span> <span class="price_MUR">44,663.35</span></a> <a class="" href="index.php?currency=mxn"><span class="abbr">MXN</span> <span class="price_MXN">23,546.72</span></a> <a class="" href="index.php?currency=nok"><span class="abbr">NOK</span> <span class="price_NOK">10,809.99</span></a> <a class="" href="index.php?currency=nzd"><span class="abbr">NZD</span> <span class="price_NZD">1,795.22</span></a> <a class="" href="index.php?currency=pln"><span class="abbr">PLN</span> <span class="price_PLN">4,984.27</span></a> <a class="" href="index.php?currency=ron"><span class="abbr">RON</span> <span class="price_RON">5,304.48</span></a> <a class="" href="index.php?currency=sek"><span class="abbr">SEK</span> <span class="price_SEK">11,225.76</span></a> <a class="" href="index.php?currency=sgd"><span class="abbr">SGD</span> <span class="price_SGD">1,754.07</span></a> <a class="" href="index.php?currency=thb"><span class="abbr">THB</span> <span class="price_THB">43,128.52</span></a> <a class="" href="index.php?currency=try"><span class="abbr">TRY</span> <span class="price_TRY">4,560.47</span></a> <a class="" href="index.php?currency=zar"><span class="abbr">ZAR</span> <span class="price_ZAR">16,384.33</span></a> </div>
+    <div class="container">
+      <h1>THE WORLD TRUSTED DIGITAL EXCHANGE.</h1>
+      <h1>A CROSS - PLATFORM TRADING.</h1>
+      <a href="/auth/login" class="button_slider">
+        <i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login
+      </a>
+      <a href="/auth/register" class="button_slider">
+        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Create Your Account
+      </a>
+      <div class="clear"></div>
+    </div>
+    <div class="ticker">
+      <div class="contain">
+        <div class="scroll" style="left: -3338.08px;"> <a class="price-red selected" href="index.php?currency=usd"><span class="abbr">USD</span> <span class="price_USD">1,255.04</span></a> <a class="" href="index.php?currency=eur"><span class="abbr">EUR</span> <span class="price_EUR">1,170.86</span></a>          <a class="" href="index.php?currency=cny"><span class="abbr">CNY</span> <span class="price_CNY">8,631.64</span></a> <a class="" href="index.php?currency=rub"><span class="abbr">RUB</span> <span class="price_RUB">70,507.87</span></a> <a class=""
+            href="index.php?currency=chf"><span class="abbr">CHF</span> <span class="price_CHF">1,252.91</span></a> <a class="" href="index.php?currency=jpy"><span class="abbr">JPY</span> <span class="price_JPY">136,417.39</span></a>
+          <a class="" href="index.php?currency=gbp"><span class="abbr">GBP</span> <span class="price_GBP">980.19</span></a> <a class="" href="index.php?currency=cad"><span class="abbr">CAD</span> <span class="price_CAD">1,690.29</span></a> <a class="" href="index.php?currency=aud"><span class="abbr">AUD</span> <span class="price_AUD">1,669.38</span></a>          <a class="" href="index.php?currency=aed"><span class="abbr">AED</span> <span class="price_AED">4,600.59</span></a> <a class="" href="index.php?currency=bgn"><span class="abbr">BGN</span> <span class="price_BGN">2,282.31</span></a> <a class=""
+            href="index.php?currency=czk"><span class="abbr">CZK</span> <span class="price_CZK">31,454.64</span></a> <a class="" href="index.php?currency=dkk"><span class="abbr">DKK</span> <span class="price_DKK">8,679.39</span></a>
+          <a class="" href="index.php?currency=hkd"><span class="abbr">HKD</span> <span class="price_HKD">9,751.67</span></a> <a class="" href="index.php?currency=hrk"><span class="abbr">HRK</span> <span class="price_HRK">8,685.40</span></a> <a class="" href="index.php?currency=huf"><span class="abbr">HUF</span> <span class="price_HUF">358,582.86</span></a>          <a class="" href="index.php?currency=ils"><span class="abbr">ILS</span> <span class="price_ILS">4,595.53</span></a> <a class="" href="index.php?currency=inr"><span class="abbr">INR</span> <span class="price_INR">80,970.32</span></a> <a class=""
+            href="index.php?currency=mur"><span class="abbr">MUR</span> <span class="price_MUR">44,663.35</span></a> <a class="" href="index.php?currency=mxn"><span class="abbr">MXN</span> <span class="price_MXN">23,546.72</span></a>
+          <a class="" href="index.php?currency=nok"><span class="abbr">NOK</span> <span class="price_NOK">10,809.99</span></a> <a class="" href="index.php?currency=nzd"><span class="abbr">NZD</span> <span class="price_NZD">1,795.22</span></a> <a class="" href="index.php?currency=pln"><span class="abbr">PLN</span> <span class="price_PLN">4,984.27</span></a>          <a class="" href="index.php?currency=ron"><span class="abbr">RON</span> <span class="price_RON">5,304.48</span></a> <a class="" href="index.php?currency=sek"><span class="abbr">SEK</span> <span class="price_SEK">11,225.76</span></a> <a class=""
+            href="index.php?currency=sgd"><span class="abbr">SGD</span> <span class="price_SGD">1,754.07</span></a> <a class="" href="index.php?currency=thb"><span class="abbr">THB</span> <span class="price_THB">43,128.52</span></a>
+          <a class="" href="index.php?currency=try"><span class="abbr">TRY</span> <span class="price_TRY">4,560.47</span></a> <a class="" href="index.php?currency=zar"><span class="abbr">ZAR</span> <span class="price_ZAR">16,384.33</span></a> </div>
 
-		</div>
-		<div class="bg"></div>
-	 </div>
-	 <!--<div class="overlay"></div> -->
+      </div>
+      <div class="bg"></div>
+    </div>
+    <!--<div class="overlay"></div> -->
   </div>
 </div>
 
 <div class="clearfix"></div>
 
-<div class="fresh_projects global_stats"> <a name="global_stats"></a>
+<div class="fresh_projects global_stats">
+  <a name="global_stats"></a>
   <div class="clearfix mar_top6"></div>
   <div class="container">
-	 <div class="one_half">
-		<h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Key Statistics - Bitcoin Trading Market</h3>
-	 </div>
+    <div class="one_half">
+      <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Key Statistics - Bitcoin Trading Market</h3>
+    </div>
 
 
-	 <div class="clear"></div>
-	 <div class="panel panel-default">
-		<div class="panel-heading non-mobile">
-		  <div class="one_fifth">Last Price</div>
-		  <div class="one_fifth">Daily Change</div>
-		  <div class="one_fifth">Day's Range</div>
-		  <div class="one_fifth">Today's Open</div>
-		  <div class="one_fifth last">24h Volume</div>
-		  <div class="clear"></div>
-		</div>
-		<div class="panel-body">
-		  <div class="one_fifth">
-			 <div class="m_head">Last Price</div>
-			 <p class="stat1 price-red"><i id="up_or_down1" class="fa fa-caret-down price-red"></i> $<span id="stats_last_price">1,255.04</span><small id="stats_last_price_curr"></small></p>
-		  </div>
-		  <div class="one_fifth">
-			 <div class="m_head">Daily Change</div>
-			 <p class="stat1"><i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i> <span id="stats_daily_change_abs">29.47</span> <small><span id="stats_daily_change_perc">2.35</span>%</small></p>
-		  </div>
-		  <div class="one_fifth">
-			 <div class="m_head">Day's Range</div>
-			 <p class="stat1">$<span id="stats_min">1,226.58</span> - <span id="stats_max">1,258.23</span></p>
-		  </div>
-		  <div class="one_fifth">
-			 <div class="m_head">Today's Open</div>
-			 <p class="stat1">$<span id="stats_open">1,225.57</span></p>
-		  </div>
-		  <div class="one_fifth last">
-			 <div class="m_head">24h Volume</div>
-			 <p class="stat1"><span id="stats_traded">55.81</span> BTC</p>
-		  </div>
-		  <div class="panel-divider"></div>
-		  <div class="one_third">
-			 <h4>Market Cap :<em class="stat2">$<span id="stats_market_cap">0</span></em></h4>
-		  </div>
-		  <div class="one_third">
-			 <h4>Total BTC :<em class="stat2"><span id="stats_total_btc">0</span></em></h4>
-		  </div>
-		  <div class="one_third last">
-			 <h4>Global Volume :<em class="stat2">$<span id="stats_trade_volume">0</span></em></h4>
-		  </div>
-		  <div class="clear"></div>
-		</div>
-		<div class="clear"></div>
-	 </div>
-	 <div class="clear"></div>
-	 <div class="currencies panel panel-default">
-		<div class="panel-body"> <a class="price-red selected" href="index.php?currency=usd#global_stats"><span class="abbr">USD</span> <span class="price_USD">1,255.04</span></a> <a class="" href="index.php?currency=eur#global_stats"><span class="abbr">EUR</span> <span class="price_EUR">1,170.86</span></a> <a class="" href="index.php?currency=cny#global_stats"><span class="abbr">CNY</span> <span class="price_CNY">8,631.64</span></a> <a class="" href="index.php?currency=rub#global_stats"><span class="abbr">RUB</span> <span class="price_RUB">70,507.87</span></a> <a class="" href="index.php?currency=chf#global_stats"><span class="abbr">CHF</span> <span class="price_CHF">1,252.91</span></a> <a class="" href="index.php?currency=jpy#global_stats"><span class="abbr">JPY</span> <span class="price_JPY">136,417.39</span></a> <a class="" href="index.php?currency=gbp#global_stats"><span class="abbr">GBP</span> <span class="price_GBP">980.19</span></a> <a class="" href="index.php?currency=cad#global_stats"><span class="abbr">CAD</span> <span class="price_CAD">1,690.29</span></a> <a class="" href="index.php?currency=aud#global_stats"><span class="abbr">AUD</span> <span class="price_AUD">1,669.38</span></a> <a class="" href="index.php?currency=aed#global_stats"><span class="abbr">AED</span> <span class="price_AED">4,600.59</span></a> <a class="" href="index.php?currency=bgn#global_stats"><span class="abbr">BGN</span> <span class="price_BGN">2,282.31</span></a> <a class="" href="index.php?currency=czk#global_stats"><span class="abbr">CZK</span> <span class="price_CZK">31,454.64</span></a> <a class="" href="index.php?currency=dkk#global_stats"><span class="abbr">DKK</span> <span class="price_DKK">8,679.39</span></a> <a class="" href="index.php?currency=hkd#global_stats"><span class="abbr">HKD</span> <span class="price_HKD">9,751.67</span></a> <a class="" href="index.php?currency=hrk#global_stats"><span class="abbr">HRK</span> <span class="price_HRK">8,685.40</span></a> <a class="" href="index.php?currency=huf#global_stats"><span class="abbr">HUF</span> <span class="price_HUF">358,582.86</span></a> <a class="" href="index.php?currency=ils#global_stats"><span class="abbr">ILS</span> <span class="price_ILS">4,595.53</span></a> <a class="" href="index.php?currency=inr#global_stats"><span class="abbr">INR</span> <span class="price_INR">80,970.32</span></a> <a class="" href="index.php?currency=mur#global_stats"><span class="abbr">MUR</span> <span class="price_MUR">44,663.35</span></a> <a class="" href="index.php?currency=mxn#global_stats"><span class="abbr">MXN</span> <span class="price_MXN">23,546.72</span></a> <a class="" href="index.php?currency=nok#global_stats"><span class="abbr">NOK</span> <span class="price_NOK">10,809.99</span></a> <a class="" href="index.php?currency=nzd#global_stats"><span class="abbr">NZD</span> <span class="price_NZD">1,795.22</span></a> <a class="" href="index.php?currency=pln#global_stats"><span class="abbr">PLN</span> <span class="price_PLN">4,984.27</span></a> <a class="" href="index.php?currency=ron#global_stats"><span class="abbr">RON</span> <span class="price_RON">5,304.48</span></a> <a class="" href="index.php?currency=sek#global_stats"><span class="abbr">SEK</span> <span class="price_SEK">11,225.76</span></a> <a class="" href="index.php?currency=sgd#global_stats"><span class="abbr">SGD</span> <span class="price_SGD">1,754.07</span></a> <a class="" href="index.php?currency=thb#global_stats"><span class="abbr">THB</span> <span class="price_THB">43,128.52</span></a> <a class="" href="index.php?currency=try#global_stats"><span class="abbr">TRY</span> <span class="price_TRY">4,560.47</span></a> <a class="" href="index.php?currency=zar#global_stats"><span class="abbr">ZAR</span> <span class="price_ZAR">16,384.33</span></a> </div>
-		<div class="repeat-line o1"></div>
-		<div class="repeat-line o2"></div>
-		<div class="repeat-line o3"></div>
-		<div class="repeat-line o4"></div>
-		<div class="repeat-line o5"></div>
-		<div class="repeat-line o6"></div>
-		<div class="repeat-line o7"></div>
-		<div class="repeat-line o8"></div>
-		<div class="repeat-line o9"></div>
-		<div class="repeat-line o10"></div>
-	 </div>
-	 <!-- <div class="graph_options"> <a href="#" class="selected" data-option="1mon">1M</a> <a href="#" data-option="3mon">3M</a> <a href="#" data-option="6mon">6M</a> <a href="#" data-option="ytd">YTD</a> <a href="#" class="last" data-option="1year">1Y</a> -->
-   <div class="clear"></div>
-   <h3><i class="fa fa-line-chart" style="margin-top:30px;"></i>&nbsp;Ethereum and Bitcoin Price</h3>
-   <div id="container" style="height: 500px; min-width: 310px; "></div>
+    <div class="clear"></div>
+    <div class="panel panel-default">
+      <div class="panel-heading non-mobile">
+        <div class="one_fifth">Last Price</div>
+        <div class="one_fifth">Daily Change</div>
+        <div class="one_fifth">Day's Range</div>
+        <div class="one_fifth">Today's Open</div>
+        <div class="one_fifth last">24h Volume</div>
+        <div class="clear"></div>
+      </div>
+      <div class="panel-body">
+        <div class="one_fifth">
+          <div class="m_head">Last Price</div>
+          <p class="stat1 price-red"><i id="up_or_down1" class="fa fa-caret-down price-red"></i> $<span id="stats_last_price">1,255.04</span><small id="stats_last_price_curr"></small></p>
+        </div>
+        <div class="one_fifth">
+          <div class="m_head">Daily Change</div>
+          <p class="stat1"><i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i> <span id="stats_daily_change_abs">29.47</span> <small><span id="stats_daily_change_perc">2.35</span>%</small></p>
+        </div>
+        <div class="one_fifth">
+          <div class="m_head">Day's Range</div>
+          <p class="stat1">$<span id="stats_min">1,226.58</span> - <span id="stats_max">1,258.23</span></p>
+        </div>
+        <div class="one_fifth">
+          <div class="m_head">Today's Open</div>
+          <p class="stat1">$<span id="stats_open">1,225.57</span></p>
+        </div>
+        <div class="one_fifth last">
+          <div class="m_head">24h Volume</div>
+          <p class="stat1"><span id="stats_traded">55.81</span> BTC</p>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="one_third">
+          <h4>Market Cap :<em class="stat2">$<span id="stats_market_cap">0</span></em></h4>
+        </div>
+        <div class="one_third">
+          <h4>Total BTC :<em class="stat2"><span id="stats_total_btc">0</span></em></h4>
+        </div>
+        <div class="one_third last">
+          <h4>Global Volume :<em class="stat2">$<span id="stats_trade_volume">0</span></em></h4>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="currencies panel panel-default">
+      <div class="panel-body"> <a class="price-red selected" href="index.php?currency=usd#global_stats"><span class="abbr">USD</span> <span class="price_USD">1,255.04</span></a> <a class="" href="index.php?currency=eur#global_stats"><span class="abbr">EUR</span> <span class="price_EUR">1,170.86</span></a>        <a class="" href="index.php?currency=cny#global_stats"><span class="abbr">CNY</span> <span class="price_CNY">8,631.64</span></a> <a class="" href="index.php?currency=rub#global_stats"><span class="abbr">RUB</span> <span class="price_RUB">70,507.87</span></a>        <a class="" href="index.php?currency=chf#global_stats"><span class="abbr">CHF</span> <span class="price_CHF">1,252.91</span></a> <a class="" href="index.php?currency=jpy#global_stats"><span class="abbr">JPY</span> <span class="price_JPY">136,417.39</span></a>        <a class="" href="index.php?currency=gbp#global_stats"><span class="abbr">GBP</span> <span class="price_GBP">980.19</span></a> <a class="" href="index.php?currency=cad#global_stats"><span class="abbr">CAD</span> <span class="price_CAD">1,690.29</span></a>        <a class="" href="index.php?currency=aud#global_stats"><span class="abbr">AUD</span> <span class="price_AUD">1,669.38</span></a> <a class="" href="index.php?currency=aed#global_stats"><span class="abbr">AED</span> <span class="price_AED">4,600.59</span></a>        <a class="" href="index.php?currency=bgn#global_stats"><span class="abbr">BGN</span> <span class="price_BGN">2,282.31</span></a> <a class="" href="index.php?currency=czk#global_stats"><span class="abbr">CZK</span> <span class="price_CZK">31,454.64</span></a>        <a class="" href="index.php?currency=dkk#global_stats"><span class="abbr">DKK</span> <span class="price_DKK">8,679.39</span></a> <a class="" href="index.php?currency=hkd#global_stats"><span class="abbr">HKD</span> <span class="price_HKD">9,751.67</span></a>        <a class="" href="index.php?currency=hrk#global_stats"><span class="abbr">HRK</span> <span class="price_HRK">8,685.40</span></a> <a class="" href="index.php?currency=huf#global_stats"><span class="abbr">HUF</span> <span class="price_HUF">358,582.86</span></a>        <a class="" href="index.php?currency=ils#global_stats"><span class="abbr">ILS</span> <span class="price_ILS">4,595.53</span></a> <a class="" href="index.php?currency=inr#global_stats"><span class="abbr">INR</span> <span class="price_INR">80,970.32</span></a>        <a class="" href="index.php?currency=mur#global_stats"><span class="abbr">MUR</span> <span class="price_MUR">44,663.35</span></a> <a class="" href="index.php?currency=mxn#global_stats"><span class="abbr">MXN</span> <span class="price_MXN">23,546.72</span></a>        <a class="" href="index.php?currency=nok#global_stats"><span class="abbr">NOK</span> <span class="price_NOK">10,809.99</span></a> <a class="" href="index.php?currency=nzd#global_stats"><span class="abbr">NZD</span> <span class="price_NZD">1,795.22</span></a>        <a class="" href="index.php?currency=pln#global_stats"><span class="abbr">PLN</span> <span class="price_PLN">4,984.27</span></a> <a class="" href="index.php?currency=ron#global_stats"><span class="abbr">RON</span> <span class="price_RON">5,304.48</span></a>        <a class="" href="index.php?currency=sek#global_stats"><span class="abbr">SEK</span> <span class="price_SEK">11,225.76</span></a> <a class="" href="index.php?currency=sgd#global_stats"><span class="abbr">SGD</span> <span class="price_SGD">1,754.07</span></a>        <a class="" href="index.php?currency=thb#global_stats"><span class="abbr">THB</span> <span class="price_THB">43,128.52</span></a> <a class="" href="index.php?currency=try#global_stats"><span class="abbr">TRY</span> <span class="price_TRY">4,560.47</span></a>        <a class="" href="index.php?currency=zar#global_stats"><span class="abbr">ZAR</span> <span class="price_ZAR">16,384.33</span></a> </div>
+      <div class="repeat-line o1"></div>
+      <div class="repeat-line o2"></div>
+      <div class="repeat-line o3"></div>
+      <div class="repeat-line o4"></div>
+      <div class="repeat-line o5"></div>
+      <div class="repeat-line o6"></div>
+      <div class="repeat-line o7"></div>
+      <div class="repeat-line o8"></div>
+      <div class="repeat-line o9"></div>
+      <div class="repeat-line o10"></div>
+    </div>
+    <!-- <div class="graph_options"> <a href="#" class="selected" data-option="1mon">1M</a> <a href="#" data-option="3mon">3M</a> <a href="#" data-option="6mon">6M</a> <a href="#" data-option="ytd">YTD</a> <a href="#" class="last" data-option="1year">1Y</a> -->
+    <div class="clear"></div>
+    <h3><i class="fa fa-line-chart" style="margin-top:30px;"></i>&nbsp;Ethereum and Bitcoin Price</h3>
+    {% include 'tabs_graph' %}
+    <!-- <div id="container" style="height: 500px; min-width: 310px; "></div> -->
 
-   <script type="text/javascript">
-
+    <!-- <script type="text/javascript">
       // io refers to the above import
       const io = ws('http://localhost:3333')
       const client = io.channel('eth').connect(function(error, connected) {
@@ -133,201 +140,207 @@
       // })
 
       Highcharts.setOptions({
-          global: {
-              useUTC: false
-          }
+        global: {
+          useUTC: false
+        }
       });
 
       // import Highcharts from '../parts/Globals.js';
       Highcharts.createElement('link', {
-         href: 'https://fonts.googleapis.com/css?family=Unica+One',
-         rel: 'stylesheet',
-         type: 'text/css'
+        href: 'https://fonts.googleapis.com/css?family=Unica+One',
+        rel: 'stylesheet',
+        type: 'text/css'
       }, null, document.getElementsByTagName('head')[0]);
 
       Highcharts.theme = {
-       colors: ['#efaa06', '#ee5a41', '#f45b5b', '#efaa06', '#aaeeee', '#ff0066', '#efaa06',
-          '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-       chart: {
+        colors: ['#efaa06', '#ee5a41', '#f45b5b', '#efaa06', '#aaeeee', '#ff0066', '#efaa06',
+          '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'
+        ],
+        chart: {
           backgroundColor: {
-             linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-             stops: [
-                [0, '#2a2a2b'],
-                [1, '#3e3e40']
-             ]
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 1,
+              y2: 1
+            },
+            stops: [
+              [0, '#2a2a2b'],
+              [1, '#3e3e40']
+            ]
           },
           style: {
-             fontFamily: '\'Roboto Condensed\', sans-serif'
+            fontFamily: '\'Roboto Condensed\', sans-serif'
           },
           plotBorderColor: '#606063'
-       },
-       title: {
+        },
+        title: {
           style: {
-             color: '#E0E0E3',
-             textTransform: 'uppercase',
-             fontSize: '18px'
+            color: '#E0E0E3',
+            textTransform: 'uppercase',
+            fontSize: '18px'
           }
-       },
-       subtitle: {
+        },
+        subtitle: {
           style: {
-             color: '#E0E0E3',
-             textTransform: 'uppercase'
+            color: '#E0E0E3',
+            textTransform: 'uppercase'
           }
-       },
-       xAxis: {
+        },
+        xAxis: {
           gridLineColor: '#707073',
           labels: {
-             style: {
-                color: '#E0E0E3',
-                fontSize: '14px'
+            style: {
+              color: '#E0E0E3',
+              fontSize: '14px'
 
-             }
+            }
           },
           lineColor: '#707073',
           minorGridLineColor: '#505053',
           tickColor: '#707073',
           title: {
-             style: {
-                color: '#A0A0A3'
+            style: {
+              color: '#A0A0A3'
 
-             }
+            }
           }
-       },
-       yAxis: {
+        },
+        yAxis: {
           gridLineColor: '#707073',
           labels: {
-             style: {
-                color: '#E0E0E3',
-                fontSize: '14px'
-             }
+            style: {
+              color: '#E0E0E3',
+              fontSize: '14px'
+            }
           },
           lineColor: '#707073',
           minorGridLineColor: '#505053',
           tickColor: '#707073',
           tickWidth: 1,
           title: {
-             style: {
-                color: '#A0A0A3'
-             }
+            style: {
+              color: '#A0A0A3'
+            }
           }
-       },
-       tooltip: {
+        },
+        tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.85)',
           style: {
-             color: '#F0F0F0'
+            color: '#F0F0F0'
           }
-       },
-       plotOptions: {
+        },
+        plotOptions: {
           series: {
-             dataLabels: {
-                color: '#B0B0B3'
-             },
-             marker: {
-                lineColor: '#333'
-             }
+            dataLabels: {
+              color: '#B0B0B3'
+            },
+            marker: {
+              lineColor: '#333'
+            }
           },
           boxplot: {
-             fillColor: '#505053'
+            fillColor: '#505053'
           },
           candlestick: {
-             lineColor: 'white'
+            lineColor: 'white'
           },
           errorbar: {
-             color: 'white'
+            color: 'white'
           }
-       },
-       legend: {
+        },
+        legend: {
           itemStyle: {
-             color: '#E0E0E3'
+            color: '#E0E0E3'
           },
           itemHoverStyle: {
-             color: '#FFF'
+            color: '#FFF'
           },
           itemHiddenStyle: {
-             color: '#606063'
+            color: '#606063'
           }
-       },
-       credits: {
+        },
+        credits: {
           style: {
-             color: '#666'
+            color: '#666'
           }
-       },
-       labels: {
+        },
+        labels: {
           style: {
-             color: '#707073'
+            color: '#707073'
           }
-       },
+        },
 
-       drilldown: {
+        drilldown: {
           activeAxisLabelStyle: {
-             color: '#F0F0F3'
+            color: '#F0F0F3'
           },
           activeDataLabelStyle: {
-             color: '#F0F0F3'
+            color: '#F0F0F3'
           }
-       },
+        },
 
-       navigation: {
+        navigation: {
           buttonOptions: {
-             symbolStroke: '#DDDDDD',
-             theme: {
-                fill: '#505053'
-             }
+            symbolStroke: '#DDDDDD',
+            theme: {
+              fill: '#505053'
+            }
           }
-       },
+        },
 
-       // scroll charts
-       rangeSelector: {
+        // scroll charts
+        rangeSelector: {
           buttonTheme: {
-             fill: '#505053',
-             stroke: '#000000',
-             style: {
-                color: '#CCC'
-             },
-             states: {
-                hover: {
-                   fill: '#707073',
-                   stroke: '#000000',
-                   style: {
-                      color: 'white'
-                   }
-                },
-                select: {
-                   fill: '#000003',
-                   stroke: '#000000',
-                   style: {
-                      color: 'white'
-                   }
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+              color: '#CCC'
+            },
+            states: {
+              hover: {
+                fill: '#707073',
+                stroke: '#000000',
+                style: {
+                  color: 'white'
                 }
-             }
+              },
+              select: {
+                fill: '#000003',
+                stroke: '#000000',
+                style: {
+                  color: 'white'
+                }
+              }
+            }
           },
           inputBoxBorderColor: '#505053',
           inputStyle: {
-             backgroundColor: '#333',
-             color: 'silver'
+            backgroundColor: '#333',
+            color: 'silver'
           },
           labelStyle: {
-             color: 'silver'
+            color: 'silver'
           }
-       },
+        },
 
-       navigator: {
+        navigator: {
           handles: {
-             backgroundColor: '#666',
-             borderColor: '#AAA'
+            backgroundColor: '#666',
+            borderColor: '#AAA'
           },
           outlineColor: '#CCC',
           maskFill: 'rgba(255,255,255,0.1)',
           series: {
-             color: '#7798BF',
-             lineColor: '#A6C7ED'
+            color: '#7798BF',
+            lineColor: '#A6C7ED'
           },
           xAxis: {
-             gridLineColor: '#505053'
+            gridLineColor: '#505053'
           }
-       },
+        },
 
-       scrollbar: {
+        scrollbar: {
           barBackgroundColor: '#808083',
           barBorderColor: '#808083',
           buttonArrowColor: '#CCC',
@@ -336,117 +349,118 @@
           rifleColor: '#FFF',
           trackBackgroundColor: '#404043',
           trackBorderColor: '#404043'
-       },
+        },
 
-       // special colors for some of the
-       legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
-       background2: '#505053',
-       dataLabelsColor: '#B0B0B3',
-       textColor: '#C0C0C0',
-       contrastTextColor: '#F0F0F3',
-       maskColor: 'rgba(255,255,255,0.3)'
-    };
+        // special colors for some of the
+        legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+        background2: '#505053',
+        dataLabelsColor: '#B0B0B3',
+        textColor: '#C0C0C0',
+        contrastTextColor: '#F0F0F3',
+        maskColor: 'rgba(255,255,255,0.3)'
+      };
 
-    Highcharts.setOptions(Highcharts.theme);
+      Highcharts.setOptions(Highcharts.theme);
 
       // Create the chart
       Highcharts.stockChart('container', {
-          chart: {
-              events: {
-                  load: function () {
+        chart: {
+          events: {
+            load: function() {
 
-                    // var series = this.series;
-                    // set up the updating of the chart each second
-                    var series = this.series[0];
-                    client.on('message', (message) => {
-                      console.log('Got message data:', message)
-                      var x = (new Date()).getTime(), // current time
-                          y = parseFloat(message.rate); //Math.round(Math.random() * 100);
-                      series.addPoint([x, y], true, true);
-                    })
-                    // set up the updating of the chart each second
-                    var series1 = this.series[1];
-                    client2.on('sell', (data) => {
-                      console.log('Got sell data:', data)
-                      var x = (new Date()).getTime(), // current time
-                          y = parseFloat(data.rate); //Math.round(Math.random() * 100);
-                      series1.addPoint([x, y], true, true);
-                    })
+              // var series = this.series;
+              // set up the updating of the chart each second
+              var series = this.series[0];
+              client.on('message', (message) => {
+                console.log('Got message data:', message)
+                var x = (new Date()).getTime(), // current time
+                  y = parseFloat(message.rate); //Math.round(Math.random() * 100);
+                series.addPoint([x, y], true, true);
+              })
+              // set up the updating of the chart each second
+              var series1 = this.series[1];
+              client2.on('sell', (data) => {
+                console.log('Got sell data:', data)
+                var x = (new Date()).getTime(), // current time
+                  y = parseFloat(data.rate); //Math.round(Math.random() * 100);
+                series1.addPoint([x, y], true, true);
+              })
 
-                  }
+            }
+          }
+        },
+
+        rangeSelector: {
+          buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+          }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+          }, {
+            type: 'all',
+            text: 'All'
+          }],
+          inputEnabled: false,
+          selected: 0
+        },
+
+        title: {
+          text: ''
+        },
+
+        exporting: {
+          enabled: false
+        },
+
+        yAxis: {
+          min: 1000,
+          max: 10000,
+          startOnTick: true,
+          endOnTick: true
+        },
+
+        series: [{
+            name: 'Ethereum',
+            data: (function() {
+              // generate an array of random data
+              var data1 = [],
+                time = (new Date()).getTime(),
+                i;
+
+              for (i = -10; i <= 0; i += 1) {
+                data1.push([
+                  time + i * 1000,
+                  2000 + Math.round(Math.random() * 4000)
+                ]);
               }
-          },
-
-          rangeSelector: {
-              buttons: [{
-                  count: 1,
-                  type: 'minute',
-                  text: '1M'
-              }, {
-                  count: 5,
-                  type: 'minute',
-                  text: '5M'
-              }, {
-                  type: 'all',
-                  text: 'All'
-              }],
-              inputEnabled: false,
-              selected: 0
-          },
-
-          title: {
-              text: ''
-          },
-
-          exporting: {
-              enabled: false
-          },
-
-          yAxis: {
-              min: 1000,
-              max: 10000,
-              startOnTick: true,
-              endOnTick: true
-          },
-
-          series: [{
-              name: 'Ethereum',
-              data: (function () {
-                  // generate an array of random data
-                  var data1 = [],
-                      time = (new Date()).getTime(),
-                      i;
-
-                  for (i = -10; i <= 0; i += 1) {
-                      data1.push([
-                          time + i * 1000,
-                          2000 + Math.round(Math.random() * 4000)
-                      ]);
-                  }
-                  return data1;
-              }())
+              return data1;
+            }())
           },
           {
-              name: 'Bitcoin',
-              data: (function () {
-                  // generate an array of random data
-                  var data2 = [],
-                      time = (new Date()).getTime(),
-                      i;
+            name: 'Bitcoin',
+            data: (function() {
+              // generate an array of random data
+              var data2 = [],
+                time = (new Date()).getTime(),
+                i;
 
-                  for (i = -10; i <= 0; i += 1) {
-                      data2.push([
-                          time + i * 1000,
-                          2000 + Math.round(Math.random() * 4000)
-                      ]);
-                  }
-                  return data2;
-              }())
-          }]
+              for (i = -10; i <= 0; i += 1) {
+                data2.push([
+                  time + i * 1000,
+                  2000 + Math.round(Math.random() * 4000)
+                ]);
+              }
+              return data2;
+            }())
+          }
+        ]
       });
-    </script>
-	 <!-- </div> -->
-	 <!-- <div class="graph_contain">
+    </script> -->
+    <!-- </div> -->
+    <!-- <div class="graph_contain">
 		<input id="graph_price_history_currency" value="usd" type="hidden">
 		<div id="graph_price_history" style="padding: 0px; position: relative;">
 		  <canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1204px; height: 300px;" width="1204" height="300"></canvas>
@@ -457,120 +471,120 @@
 		  <div class="price"></div>
 		</div>
 	 </div> -->
-	 <div class="mar_top4"></div>
-	 <div class="one_half">
-		<input id="transactions_timestamp" value="1492794751000" type="hidden">
-		<h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Latest Trades</h3>
-		<div class="table-style">
-		  <table class="table-list trades" id="transactions_list">
-			 <tbody>
-				<tr>
-				  <th>Time Since</th>
-				  <th>Amount</th>
-				  <th>BTC Price</th>
-				</tr>
-				<tr id="order_1179970">
-				  <td style=""><span class="time_since hasCountdown">22 Seconds</span>
-					 <input class="time_since_seconds" value="1492794823" type="hidden"></td>
-				  <td style="">0.03810000 BTC</td>
-				  <td style="">$1,255.04</td>
-				</tr>
-				<tr id="order_1179969">
-				  <td style=""><span class="time_since hasCountdown">22 Seconds</span>
-					 <input class="time_since_seconds" value="1492794823" type="hidden"></td>
-				  <td style="">0.03110000 BTC</td>
-				  <td style="">$1,255.97</td>
-				</tr>
-				<tr id="order_1179968">
-				  <td style=""><span class="time_since hasCountdown">22 Seconds</span>
-					 <input class="time_since_seconds" value="1492794823" type="hidden"></td>
-				  <td style="">0.05660000 BTC</td>
-				  <td style="">$1,256.25</td>
-				</tr>
-				<tr id="order_1179967">
-				  <td style=""><span class="time_since hasCountdown">22 Seconds</span>
-					 <input class="time_since_seconds" value="1492794823" type="hidden"></td>
-				  <td style="">0.06400000 BTC</td>
-				  <td style="">$1,255.79</td>
-				</tr>
-				<tr id="order_1179966">
-				  <td style=""><span class="time_since hasCountdown">22 Seconds</span>
-					 <input class="time_since_seconds" value="1492794823" type="hidden"></td>
-				  <td style="">0.04850000 BTC</td>
-				  <td style="">$1,255.43</td>
-				</tr>
-				<tr id="no_transactions" style="display:none;">
-				  <td colspan="3">No transactions to show.</td>
-				</tr>
-			 </tbody>
-		  </table>
-		</div>
-	 </div>
-	 <div class="one_half last">
-		<h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Open Orders <a href="order-book.php" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a></h3>
-		<div class="one_half">
-		  <div class="table-style">
-			 <table class="table-list trades" id="bids_list">
-				<tbody>
-				  <tr>
-					 <th colspan="2">Bid</th>
-				  </tr>
-				  <tr id="bid_31398145" class="bid_tr">
-					 <td><span class="order_amount">0.03240000</span> BTC
-						<input id="order_id" value="31398145" type="hidden"></td>
-					 <td>$<span class="order_price">1,256.32</span></td>
-				  </tr>
-				  <tr class="bid_tr" id="bid_31398185">
-					 <td style=""><span class="order_amount">0.51600000</span> BTC</td>
-					 <td style="">$<span class="order_price">1,258.41</span></td>
-				  </tr>
-				  <tr id="bid_31398136" class="bid_tr">
-					 <td><span class="order_amount">0.05660000</span> BTC
-						<input id="order_id" value="31398136" type="hidden"></td>
-					 <td>$<span class="order_price">1,256.25</span></td>
-				  </tr>
-				  <tr id="bid_31398137" class="bid_tr">
-					 <td><span class="order_amount">0.03110000</span> BTC
-						<input id="order_id" value="31398137" type="hidden"></td>
-					 <td>$<span class="order_price">1,255.97</span></td>
-				  </tr>
-				  <tr id="bid_31398138" class="bid_tr">
-					 <td><span class="order_amount">0.06400000</span> BTC
-						<input id="order_id" value="31398138" type="hidden"></td>
-					 <td>$<span class="order_price">1,255.79</span></td>
-				  </tr>
-				  <tr id="no_bids" style="display:none;">
-					 <td colspan="2">No bids to show.</td>
-				  </tr>
-				</tbody>
-			 </table>
-		  </div>
-		</div>
-		<div class="one_half last">
-		  <div class="table-style">
-			 <table class="table-list trades" id="asks_list">
-				<tbody>
-				  <tr>
-					 <th colspan="2">Ask</th>
-				  </tr>
-				  <tr id="ask_31398069" class="ask_tr">
-					 <td><span class="order_amount">0.01350000</span> BTC
-						<input id="order_id" value="31398069" type="hidden"></td>
-					 <td>$<span class="order_price">1,258.56</span></td>
-				  </tr>
-				  <tr id="ask_31394552" class="ask_tr">
-					 <td><span class="order_amount">0.05860000</span> BTC
-						<input id="order_id" value="31394552" type="hidden"></td>
-					 <td>$<span class="order_price">1,258.83</span></td>
-				  </tr>
-				  <tr id="no_asks" style="display:none;">
-					 <td colspan="2">No asks to show.</td>
-				  </tr>
-				</tbody>
-			 </table>
-		  </div>
-		</div>
-	 </div>
+    <div class="mar_top4"></div>
+    <div class="one_half">
+      <input id="transactions_timestamp" value="1492794751000" type="hidden">
+      <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Latest Trades</h3>
+      <div class="table-style">
+        <table class="table-list trades" id="transactions_list">
+          <tbody>
+            <tr>
+              <th>Time Since</th>
+              <th>Amount</th>
+              <th>BTC Price</th>
+            </tr>
+            <tr id="order_1179970">
+              <td style=""><span class="time_since hasCountdown">22 Seconds</span>
+                <input class="time_since_seconds" value="1492794823" type="hidden"></td>
+              <td style="">0.03810000 BTC</td>
+              <td style="">$1,255.04</td>
+            </tr>
+            <tr id="order_1179969">
+              <td style=""><span class="time_since hasCountdown">22 Seconds</span>
+                <input class="time_since_seconds" value="1492794823" type="hidden"></td>
+              <td style="">0.03110000 BTC</td>
+              <td style="">$1,255.97</td>
+            </tr>
+            <tr id="order_1179968">
+              <td style=""><span class="time_since hasCountdown">22 Seconds</span>
+                <input class="time_since_seconds" value="1492794823" type="hidden"></td>
+              <td style="">0.05660000 BTC</td>
+              <td style="">$1,256.25</td>
+            </tr>
+            <tr id="order_1179967">
+              <td style=""><span class="time_since hasCountdown">22 Seconds</span>
+                <input class="time_since_seconds" value="1492794823" type="hidden"></td>
+              <td style="">0.06400000 BTC</td>
+              <td style="">$1,255.79</td>
+            </tr>
+            <tr id="order_1179966">
+              <td style=""><span class="time_since hasCountdown">22 Seconds</span>
+                <input class="time_since_seconds" value="1492794823" type="hidden"></td>
+              <td style="">0.04850000 BTC</td>
+              <td style="">$1,255.43</td>
+            </tr>
+            <tr id="no_transactions" style="display:none;">
+              <td colspan="3">No transactions to show.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="one_half last">
+      <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Open Orders <a href="order-book.php" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a></h3>
+      <div class="one_half">
+        <div class="table-style">
+          <table class="table-list trades" id="bids_list">
+            <tbody>
+              <tr>
+                <th colspan="2">Bid</th>
+              </tr>
+              <tr id="bid_31398145" class="bid_tr">
+                <td><span class="order_amount">0.03240000</span> BTC
+                  <input id="order_id" value="31398145" type="hidden"></td>
+                <td>$<span class="order_price">1,256.32</span></td>
+              </tr>
+              <tr class="bid_tr" id="bid_31398185">
+                <td style=""><span class="order_amount">0.51600000</span> BTC</td>
+                <td style="">$<span class="order_price">1,258.41</span></td>
+              </tr>
+              <tr id="bid_31398136" class="bid_tr">
+                <td><span class="order_amount">0.05660000</span> BTC
+                  <input id="order_id" value="31398136" type="hidden"></td>
+                <td>$<span class="order_price">1,256.25</span></td>
+              </tr>
+              <tr id="bid_31398137" class="bid_tr">
+                <td><span class="order_amount">0.03110000</span> BTC
+                  <input id="order_id" value="31398137" type="hidden"></td>
+                <td>$<span class="order_price">1,255.97</span></td>
+              </tr>
+              <tr id="bid_31398138" class="bid_tr">
+                <td><span class="order_amount">0.06400000</span> BTC
+                  <input id="order_id" value="31398138" type="hidden"></td>
+                <td>$<span class="order_price">1,255.79</span></td>
+              </tr>
+              <tr id="no_bids" style="display:none;">
+                <td colspan="2">No bids to show.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="one_half last">
+        <div class="table-style">
+          <table class="table-list trades" id="asks_list">
+            <tbody>
+              <tr>
+                <th colspan="2">Ask</th>
+              </tr>
+              <tr id="ask_31398069" class="ask_tr">
+                <td><span class="order_amount">0.01350000</span> BTC
+                  <input id="order_id" value="31398069" type="hidden"></td>
+                <td>$<span class="order_price">1,258.56</span></td>
+              </tr>
+              <tr id="ask_31394552" class="ask_tr">
+                <td><span class="order_amount">0.05860000</span> BTC
+                  <input id="order_id" value="31394552" type="hidden"></td>
+                <td>$<span class="order_price">1,258.83</span></td>
+              </tr>
+              <tr id="no_asks" style="display:none;">
+                <td colspan="2">No asks to show.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="clearfix mar_top3"></div>
 </div>
