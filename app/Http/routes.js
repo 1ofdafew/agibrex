@@ -40,6 +40,8 @@ Route.group('Authentication', function () {
 
   Route.get('/verify', 'Auth/AccountVerifyController.index').as('verify')
   Route.post('/verify', 'Auth/AccountVerifyController.verify').as('verify')
+  Route.get('/resend', 'Auth/AccountVerifyController.resend').as('verify')
+  Route.post('/resend', 'Auth/AccountVerifyController.doResend').as('verify')
 
 }).prefix('/auth')
 

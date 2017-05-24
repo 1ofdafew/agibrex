@@ -35,7 +35,7 @@ class RegisterController {
           userDetails.username, userDetails.email, userDetails.password)
 
       const data = {
-        verifyMethod: 'Email',
+        verifyMethod: 'email',
         email: user.email
       }
       yield request.with(data).flash()

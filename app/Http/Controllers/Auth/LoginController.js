@@ -25,12 +25,21 @@ class LoginController {
 
       const user = yield UserService.findViaCredentials(credentials.email, credentials.password)
 
-      debug('User: ', user)
-      const loginToken = yield request.auth.attempt(credentials.email, credentials.password)
+      // check for unconfirmed user email
+      if (user.status != 'active') {
+        const data = {
+          verifyMethod: 'email',
+          email: user.email
+        }
+        yield request.with(data).flash()
+        response.redirect('verify')
+      } else {
+        debug('User: ', user)
+        const loginToken = yield request.auth.attempt(credentials.email, credentials.password)
 
-      log.info('gibrex:login Login is succesful')
-      response.redirect('/dashboard')
-
+        log.info('gibrex:login Login is succesful')
+        response.redirect('/dashboard')        
+      }
     } catch (e) {
 
       debug(e)
