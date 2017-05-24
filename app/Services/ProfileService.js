@@ -6,28 +6,34 @@ const uuid = require('uuid/v4');
 
 class ProfileService {
 
+  /**
+   * injecting required dependencies auto fulfilled
+   * by IoC container
+   *
+   * @return {Array}
+   */
   static get inject () {
     return ['App/Model/Profile']
   }
 
+  /**
+   * Constructor
+   * @param {Profile} - The Profile model
+   */
   constructor (Profile) {
     this.Profile = Profile
   }
 
+  //show all data profile user
   * showAll() {
     return yield Database.table('profiles')
   }
 
-
+  // => insert data profile user
   * store (name, email, mobile_no, address) {
-
-  	//const profile = new this.Profile()
   	const profile = new this.Profile()
   	console.log('Profileservice data....')
   	console.log(name)
-	  console.log(email)
-	  console.log(mobile_no)
-	  console.log(address)
 
   	profile.uuid = uuid()
   	profile.name = name
@@ -35,21 +41,19 @@ class ProfileService {
     profile.mobile_no = mobile_no
     profile.address = address
 
-	
-     yield profile.save()
+    yield profile.save()
   }
 
+  //=>show some data profile 
   * show(){
-
     return yield Database
     .table('profiles')
     .select('name', 'email', 'mobile_no', 'address')
     .where({ id: id})
-    
   }
 
-  *update (email, mobile_no, address){
-
+  //=>update data email, mobile_no, address 
+  * update (email, mobile_no, address){
   	const updateRow = yield Database
     .table('profiles')
     .where({ id: id})

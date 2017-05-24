@@ -28,13 +28,13 @@ class DashboardController {
         tracto: balances.filter(function(x) { return x.type === 'TRACTO'})[0]
       }
       log.info(`Balance dashboard:`, args)
-      yield response.sendView('dashboard', {accounts: args})
+      yield response.sendView('dashboard', {accounts: ''})
     } catch(e) {
       log.error(e)
       response.redirect('/auth/login')
     }
   }
-  
+
 }
 
 module.exports = DashboardController
