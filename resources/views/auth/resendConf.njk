@@ -1,0 +1,76 @@
+{% extends 'layout/master' %}
+
+{% block content %}
+
+<div class="page_title">
+  <div class="container">
+    <div class="title">
+      <h3><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Login To Your Account</h3>
+    </div>
+
+  </div>
+</div>
+<div class="fresh_projects login_bg">
+  <div class="clearfix mar_top5"></div>
+
+  <div class="container">
+    <!--<h2>Login</h2>-->
+    {% if old('error') %}
+      <div class="alert alert-warning" role="alert">
+        {{ old('error') }}
+      </div>
+    {% endif %}
+
+    {% if not old('email') %}
+
+      {{ form.open({ action: 'Auth/AccountVerifyController.doResend' }) }}
+        {{ csrfField }}
+        <div class="loginform"> 
+          
+          <a href="/auth/login">Need to login?</a>
+
+          <div class="notice" style="margin: 20px 0px 20px;">
+            <h4>
+              Please enter the email address<br>
+              that you use during registration
+            </h4>
+            {{ info }}
+          </div>
+          <div class="separate"></div>
+          
+          <div class="loginform_inputs">
+            <div class="input_contain last form-group"> <i class="fa fa-user"></i>
+              <input type="text" class="login" name="email" value="" placeholder="Email address" required>
+            </div>
+          </div>
+          <br>
+          <input type="submit" name="submit" value="Resend Confirmation" class="but_user">
+
+        </div>
+      
+      {{ form.close() }}
+
+    {% else %}
+
+      <div class="loginform">
+
+        <a href="/auth/login">Need to login?</a>
+        <div class="separate" style="margin-top: 10px;"></div>
+        <br>
+        <div class="notice">
+          <h4>Your email confirmation has been sent</h4>
+        </div>
+        <br>
+        <p>
+          Please check your email for detailed instructions further. Thank you.
+        </p>
+
+      </div>
+
+    {% endif %}
+
+
+    <a class="forgot" href="/auth/register">Don't have an account? Register Here.</a> </div>
+  <div class="clearfix mar_top8"></div>
+</div>
+{% endblock %}
