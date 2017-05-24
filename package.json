@@ -36,8 +36,10 @@
     "highcharts": "^5.0.11",
     "kraken-api": "^0.1.7",
     "mysql": "^2.13.0",
+    "node-qrcode": "0.0.4",
     "npmlog": "^4.1.0",
     "qrcode": "^0.8.1",
+    "speakeasy": "^2.0.0",
     "uuid": "^3.0.1",
     "youch": "^2.0.4"
   },

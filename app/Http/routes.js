@@ -61,8 +61,11 @@ Route.get('/dashboard', 'DashboardController.index')
  */
 Route.group('Security', function () {
 
-  Route.get('/security','Security/SecurityController.index')
-  Route.get('/qrcode','Security/QrCodeController.index')
+  Route.get('/options','Security/SecurityController.index').middleware('auth')
+  Route.post('/options','Security/SecurityController.pick').middleware('auth')
+
+  Route.get('/qrcode','Security/QrCodeController.index').middleware('auth')
+  Route.post('/qrcode','Security/QrCodeController.verify').middleware('auth')
 
 }).prefix('/security')
 
