@@ -15,8 +15,8 @@ class MatchController {
 
 
 * process(request, response) {
-    const ws_bid = request.only(['type', 'asset', 'amount', 'price'])
-    const data = yield MatcherService.compare(ws_bid)
+    const ws = request.only(['type', 'asset', 'amount', 'price'])
+    const data = yield MatcherService.compare(ws)
     response.ok(data)
   }
 
