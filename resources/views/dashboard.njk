@@ -4,10 +4,9 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 
-<div class="container">
   <div class="testimonials-4">
-    <div class="one_full">
-      <div class="one_third">
+
+      <div class="one_thirdpx">
         <div class="content">
           <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Bitcoin</span>
@@ -30,15 +29,15 @@
           </div>
           <div class="clear"></div>
         {% else %}
-          <p class="info" style="margin-top: 20px;">
-            No account created.
+          <p class="notice" style="margin-top: 20px;">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
-          <div class="clear" style="margin-top: 40px;"></div>
+          <div class="mar_top2"></div>
           <a href="/accounts/tracto" class="but_user">Create Account</a>
         {% endif %}
         </div>
       </div>
-      <div class="one_third">
+      <div class="one_thirdpx">
         <div class="content">
           <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Tracto</span>
@@ -60,15 +59,15 @@
           </div>
           <div class="clear"></div>
         {% else %}
-          <p class="info" style="margin-top: 20px;">
-            No account created.
+          <p class="notice" style="margin-top: 20px;">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
-          <div class="clear" style="margin-top: 40px;"></div>
+          <div class="mar_top2"></div>
           <a href="/accounts/tracto" class="but_user">Create Account</a>
         {% endif %}
         </div>
       </div>
-      <div class="one_third last">
+      <div class="one_thirdpx lastpx">
         <div class="content">
           <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Ethereum</span>
@@ -89,23 +88,23 @@
           <div class="clear"></div>
           -->
         {% else %}
-          <p class="info" style="margin-top: 20px;">
-            No account created.
+          <p class="notice" style="margin-top: 20px;">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
-          <div class="clear" style="margin-top: 40px;"></div>
+          <div class="mar_top2"></div>
           <a href="/accounts/ethereum" class="but_user">Create Account</a>
+
         {% endif %}
         </div>
       </div>
-    </div>
+
   </div>
 
   <div class="mar_top4"></div>
   <div class="one_half">
     <h3><i class="fa fa-line-chart"></i>&nbsp;&nbsp;&nbsp;Current BTC Ask &amp; Bid Price</h3>
   </div>
-  <div id="container" style="height: 500px; min-width: 310px; margin-bottom:200px;"></div>
-
+  <div id="container" style="height: 500px; min-width: 310px; margin-bottom:250px;"></div>
   <script type="text/javascript">
     // io refers to the above import
     const io = ws('http://localhost:3333')
@@ -447,7 +446,9 @@
       ]
     });
   </script>
-  <div class="mar_top8"></div>
+
+
+  <div class="mar_top20"></div>
   <div class="one_full">
     <input id="transactions_timestamp" value="1492794751000" type="hidden">
     <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Latest Transactions</h3>
@@ -455,11 +456,7 @@
       <table class="table-list trades" id="transactions_list">
         <tbody>
           <tr>
-<<<<<<< HEAD
-            <th>No</th>
-=======
             <th>No.</th>
->>>>>>> 3d6ee89014302680c5a84ecbdb4ef245ee97aa58
             <th>Action</th>
             <th>Status</th>
             <th>Type</th>
@@ -497,7 +494,7 @@
     </div>
   </div>
   <div class="mar_top10"></div>
-</div>
+
 
 
 

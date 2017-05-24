@@ -739,7 +739,8 @@ del {
 }
 .one_thirdpx {
 	/*width: 34.650%;*/
-	width: 30.650%;
+	/*width: 30.650%;*/
+	width: 32.3%;
 }
 .one_fourthpx {
 	width: 29.5%;
@@ -5312,6 +5313,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	padding: 20px 0;
 	font-size: 18px;
 	font-weight: 100;
+	text-transform: uppercase;
 }
 .panel-default .m_head {
 	color: #444;
