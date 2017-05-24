@@ -17,6 +17,7 @@
         {% if accounts.bitcoin %}
           <!-- <h3 class="section_label01"> <span class="right">&nbsp;&nbsp;&nbsp;Bitcoin Available Balance</span> </h3> -->
           <div class="section_label02">
+
             <h6>Available</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.bitcoin.balance.available }}</div>
           </div>
@@ -25,6 +26,7 @@
 
             <h6>Pending</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.bitcoin.balance.pending }}</div>
+
           </div>
           <div class="clear"></div>
         {% else %}
@@ -32,7 +34,7 @@
             No account created.
           </p>
           <div class="clear" style="margin-top: 40px;"></div>
-          <a href="/accounts/tracto" class="but_user">Create Account</a>                    
+          <a href="/accounts/tracto" class="but_user">Create Account</a>
         {% endif %}
         </div>
       </div>
@@ -46,8 +48,10 @@
         {% if accounts.tracto %}
           <!-- <h4 class="section_label01">&nbsp;&nbsp;&nbsp;Tracto Available Balance</h4> -->
           <div class="section_label02">
+
             <h6>Available</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.tracto.balance.available }}</div>
+
           </div>
           <div class="clear"></div>
           <div class="section_label02">
@@ -60,7 +64,7 @@
             No account created.
           </p>
           <div class="clear" style="margin-top: 40px;"></div>
-          <a href="/accounts/tracto" class="but_user">Create Account</a>          
+          <a href="/accounts/tracto" class="but_user">Create Account</a>
         {% endif %}
         </div>
       </div>
@@ -72,7 +76,7 @@
           <div class="clear"></div>
           <div class="dotted"></div>
           <!-- <h3 class="section_label01"> <span class="right">&nbsp;&nbsp;&nbsp;Ethereum Available Balance</span> </h3> -->
-        {% if accounts.ethereum %}  
+        {% if accounts.ethereum %}
           <div class="section_label02">
             <h6>Available</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.ethereum.balance.available }}</div>
@@ -80,7 +84,7 @@
           <div class="clear"></div>
           <!--
           <div class="section_label02">
-            <div class="amountbalance" id="decimals1">0.0</div>
+            <div class="amountbalance" id="decimals1">0.00000000000</div>
           </div>
           <div class="clear"></div>
           -->
