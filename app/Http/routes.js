@@ -52,6 +52,17 @@ Route.get('/dashboard', 'DashboardController.index')
   .middleware('auth')
 
 /**
+ * Security
+ */
+Route.group('Security', function () {
+
+  Route.get('/security','Security/SecurityController.index')
+  Route.get('/qrcode','Security/QrCodeController.index')
+
+}).prefix('/security')
+
+
+/**
  * Account routes
  */
 Route.group('Accounts', function () {
@@ -73,7 +84,6 @@ Route.group('Accounts', function () {
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
 
-  Route.get('/security','Accounts/AccountController.security')
 
 }).prefix('/accounts')
 
