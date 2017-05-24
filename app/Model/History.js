@@ -6,18 +6,18 @@ const uuid = require('uuid/v4');
 
 class History extends Lucid {
 
-  constructor(data) {
-    super()
+  // constructor(data) {
+  //   super()
 
-    console.log(`History data: ${data.location}`)
-    console.log(JSON.stringify(data))
+  //   console.log(`History data: ${data.location}`)
+  //   console.log(JSON.stringify(data))
 
-    this.uuid = uuid()
-    this.location = data.location
-    this.ip_address = data.ip_address
-    this.trace = data.trace 
-    this.activities = data.activities 
-  }  
+    // this.uuid = uuid()
+    // this.location = data.location
+    // this.ip_address = data.ip_address
+    // this.trace = data.trace 
+    // this.activities = data.activities 
+  // }  
 
   static get visible(){
     return ['id', 'uuid', 'location', 'ip_address', 'trace', 'activities']

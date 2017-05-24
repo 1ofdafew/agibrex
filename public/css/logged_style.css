@@ -690,6 +690,7 @@ del {
 /* columns */
 .one_half, .one_third, .one_fourth, .two_third, .three_fourth, .one_fifth {
 	position: relative;
+	/*margin-right: 10px;*/
 	margin-right: 4%;
 	float: left;
 }
@@ -720,7 +721,7 @@ del {
 	width: 74%;
 }
 .last {
-	margin-right: 0 !important;
+	margin-right: 0px !important;
 	clear: right;
 }
 /*------------------*/

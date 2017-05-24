@@ -26,6 +26,6 @@ Event.when('kraken.data', 'Kraken.process')
 Event.when('user:registered', 'UserRegistered.process')
 
 //Matching bid/ask
-Event.when('matched:result', 'MatchedResult.ok')
-Event.when('unmatched:result', 'MatchedResult.recheck')
-Event.when('end:result', 'MatchedResult.end')
+Event.when('match:ok', 'MatchedResult.ok')
+// Event.when('match:recheck', 'MatchedResult.recheck')
+Event.when('match:failed', 'MatchedResult.failed')
