@@ -1,6 +1,8 @@
 'use strict'
 
 const UserService = make('App/Services/UserService')
+const Hash = use('Hash')
+const log = use('npmlog')
 
 class ForgotPasswordController {
 
@@ -13,8 +15,8 @@ class ForgotPasswordController {
 
     try {
       const email = request.input('email')
-      yield UserService.resetPassword(email)
-
+      const user = yield UserService.findByOrFail('email', email)
+      yield UserService.resetPassword(user)
       yield request.with({ info: 'ok' }).flash()
       response.redirect('back')
 
@@ -22,8 +24,49 @@ class ForgotPasswordController {
       yield request.with({ error: 'Invalid email address' }).flash()
       response.redirect('back')
     }
-
   }
+
+  * prepareResetPassword (request, response) {
+    try {
+      console.log('prepareResetPassword....')
+
+      const token = request.input('token')
+      const user = yield UserService.findByOrFail('verification_code', token)
+      yield response.sendView('auth.passwordReset', {user: user.toJSON()})
+
+    } catch(e) {
+      log.error(e)
+      yield request.with({ error: 'Invalid verification token' }).flash()
+      yield response.redirect('login')
+    }
+  }
+
+  * doResetPassword (request, response) {
+    try {
+      const cred = request.only('password1', 'password2', '_code')
+      console.log(cred)
+
+      if (cred.password1 === cred.password2) {
+        const user = yield UserService.findByOrFail('verification_code', cred._code)
+        console.log('User: ', user.toJSON())
+
+        // update password
+        user.password = yield Hash.make(user.password)
+        yield user.save()
+
+        // login the user
+        yield request.auth.login(user)        
+
+        // redirect to dashboard.
+        response.redirect('/dashboard')
+      }
+      throw new Error('Passwords are not the same')
+    } catch(e) {
+      log.error(e)
+      yield response.redirect('login')
+    }
+  }
+
 }
 
 module.exports = ForgotPasswordController

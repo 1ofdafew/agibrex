@@ -25,7 +25,7 @@
 
       {{ form.open({ action: 'Auth/AccountVerifyController.doResend' }) }}
         {{ csrfField }}
-        <div class="loginform"> 
+        <div class="loginform">
           
           <a href="/auth/login">Need to login?</a>
 
@@ -45,15 +45,12 @@
           </div>
           <br>
           <input type="submit" name="submit" value="Resend Confirmation" class="but_user">
-
-        </div>
-      
+        </div>      
       {{ form.close() }}
 
     {% else %}
 
       <div class="loginform">
-
         <a href="/auth/login">Need to login?</a>
         <div class="separate" style="margin-top: 10px;"></div>
         <br>
@@ -64,13 +61,12 @@
         <p>
           Please check your email for detailed instructions further. Thank you.
         </p>
-
       </div>
 
     {% endif %}
 
-
-    <a class="forgot" href="/auth/register">Don't have an account? Register Here.</a> </div>
+    <a class="forgot" href="/auth/register">Don't have an account? Register Here.</a> 
+  </div>
   <div class="clearfix mar_top8"></div>
 </div>
 {% endblock %}

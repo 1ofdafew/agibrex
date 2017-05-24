@@ -60,6 +60,8 @@ class AccountVerifyController {
     try {
       const resp = yield UserService.findByOrFail('email', email)
       const user = resp.toJSON()
+      yield UserService.resendEmail(user)
+      
       const args = {
         info: 'Confirmation email sent.',
         email: email

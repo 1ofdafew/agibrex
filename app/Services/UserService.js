@@ -3,6 +3,8 @@
 const Exceptions = use('App/Exceptions')
 const Event = use('Event')
 const Hash = use('Hash')
+const log = use('npmlog')
+const uuid = require('uuid/v4')
 
 class UserService {
 
@@ -54,10 +56,25 @@ class UserService {
 
   /**
    * Reset user account
-   * @param {string} email
+   * @param {Object} user object
    */
-  * resetPassword (email) {
+  * resetPassword (user) {
+    log.info(`Sending reset password for ${user.email}`)
+    try {
+      // change the verification code to a new one.
+      user.verification_code = uuid()
+      yield user.save()
 
+      // save, and fire
+      Event.fire('user:sendResetPassword', user)
+    } catch(e) {
+      log.error(`resetPassword:: error:`, e)
+    }
+  }
+
+  * resendEmail(user) {
+    log.info('Sending registration confirmation again to', user.email)
+    Event.fire('user:resendConfirmation', user)
   }
 
   /**
@@ -72,7 +89,7 @@ class UserService {
    * @public
    */
   * findByOrFail (field, value) {
-
+    log.info(`Find user by ${field} => ${value}`)
     return yield this.User.findByOrFail(field, value, function () {
       throw new Exceptions.ApplicationException(`Cannot find user with ${field}`, 404)
     })

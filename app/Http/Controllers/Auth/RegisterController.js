@@ -15,7 +15,7 @@ class RegisterController {
    * @param  {Object} response
    */
   * index(request, response) {
-    yield response.sendView('auth/register')
+    yield response.sendView('auth.register')
   }
 
   /**
@@ -51,6 +51,14 @@ class RegisterController {
       }
       response.redirect('register')
     }
+  }
+
+  * resetPassword (request, response) {
+    yield response.sendView('auth.passwordReset')
+  }
+
+  * doResetPassword (request, response) {
+    response.redirect('login')
   }
 
 }

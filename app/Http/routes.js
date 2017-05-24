@@ -33,15 +33,18 @@ Route.group('Authentication', function () {
 
   Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
   Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
+  Route.get('/reset', 'Auth/ForgotPasswordController.prepareResetPassword').as('reset')
+  Route.post('/reset', 'Auth/ForgotPasswordController.doResetPassword').as('reset')
 
   // Register
   Route.get('/register', 'Auth/RegisterController.index').as('register')
   Route.post('/register', 'Auth/RegisterController.register').as('register')
+  Route.get('/resetpass', 'Auth/RegisterController.resetPassword').as('resetPassword')
 
   Route.get('/verify', 'Auth/AccountVerifyController.index').as('verify')
   Route.post('/verify', 'Auth/AccountVerifyController.verify').as('verify')
-  Route.get('/resend', 'Auth/AccountVerifyController.resend').as('verify')
-  Route.post('/resend', 'Auth/AccountVerifyController.doResend').as('verify')
+  Route.get('/resend', 'Auth/AccountVerifyController.resend').as('resend')
+  Route.post('/resend', 'Auth/AccountVerifyController.doResend').as('doResend')
 
 }).prefix('/auth')
 
