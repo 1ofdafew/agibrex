@@ -103,6 +103,27 @@ class WalletService {
   }
 
   /**
+   * Get balance for accounts
+   * @params {Array} accounts
+   */
+  * getAccountBalance(accounts) {
+    try {
+      // console.log('Received accounts:', accounts)
+      var resp = []
+      for (var i=0; i < accounts.length; i++) {
+        const acc = accounts[i]
+        // log.info('const acc =', accounts[i])
+        const bal = yield this.getBalance(acc.type.toLowerCase(), acc.address)
+        log.info(`Balance for ${acc.address}:`, bal)
+        resp.push({type: acc.type, balance: bal.data.balance})
+      }
+      return resp 
+    } catch(e) {
+      log.error(e)
+    }
+  }
+
+  /**
    * Get wallet for the user
    * @param {username}  The username of the user
    *
