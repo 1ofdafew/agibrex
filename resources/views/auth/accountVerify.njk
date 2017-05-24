@@ -25,18 +25,14 @@
       {{ csrfField }}
 
       <div class="loginform"> 
-        <a href="/auth/login">Need to login?</a> | 
-        <a href="/auth/register">Register perhaps?</a>
-
-        <div class="separate"></div>
+        <a href="/auth/resend">Send it again?</a>
+        <div class="separate" style="margin-top: 10px;"></div>
 
         <br>
         <h4>
           Please enter the verification code sent to you via {{ old('verifyMethod', 'email') }}
-          - {{ old('email') }}
+          at {{ old('email') }}
         </h4>
-
-        <p>Dev Mode: pls check you console for the verification_code</p>
 
         <div class="loginform_inputs">
           <div class="input_contain last form-group"> <i class="fa fa-lock"></i>

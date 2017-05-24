@@ -15,7 +15,7 @@ class RegisterController {
    * @param  {Object} response
    */
   * index(request, response) {
-    yield response.sendView('auth/register')
+    yield response.sendView('auth.register')
   }
 
   /**
@@ -35,7 +35,7 @@ class RegisterController {
           userDetails.username, userDetails.email, userDetails.password)
 
       const data = {
-        verifyMethod: 'Email',
+        verifyMethod: 'email',
         email: user.email
       }
       yield request.with(data).flash()
@@ -51,6 +51,14 @@ class RegisterController {
       }
       response.redirect('register')
     }
+  }
+
+  * resetPassword (request, response) {
+    yield response.sendView('auth.passwordReset')
+  }
+
+  * doResetPassword (request, response) {
+    response.redirect('login')
   }
 
 }

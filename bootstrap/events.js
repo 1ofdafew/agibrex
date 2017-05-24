@@ -24,6 +24,8 @@ Event.when('kraken.data', 'Kraken.process')
 
 // User registration events
 Event.when('user:registered', 'UserRegistered.process')
+Event.when('user:sendResetPassword', 'UserRegistered.sendResetPassword')
+Event.when('user:resendConfirmation', 'UserRegistered.resendConfirmation')
 
 //Matching bid/ask
 Event.when('match:ok', 'MatchedResult.ok')

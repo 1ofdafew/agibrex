@@ -8,7 +8,7 @@
 section {
   display: none;
   padding: 30px 0 0;
-  border-top: 1px solid #ddd;
+  border-top: 6px solid #666;
 }
 .radiobuttontab {
   display: none;
@@ -22,8 +22,10 @@ section {
   text-transform: uppercase;
   /*font-weight: 600;*/
   text-align: center;
-  color: #bbb;
-  border: 1px solid transparent;
+  color: #888;
+  border: 0px solid transparent;
+  background-color: #e2e2e2;
+  border-bottom: 1px solid #666;
 }
 label:before {
   font-family: 'Roboto Condensed', sans-serif;
@@ -31,19 +33,17 @@ label:before {
   font-weight: normal;
   margin-right: 10px;
 }
-/*label[for*='1']:before { content: '\f1cb'; }
-label[for*='2']:before { content: '\f17d'; }
-label[for*='3']:before { content: '\f16b'; }
-label[for*='4']:before { content: '\f1a9'; }*/
 label:hover {
-  color: #888;
+  color: #f1f1f1;
   cursor: pointer;
+  background-color: #888;
 }
 input:checked + label {
-  color: #555;
-  border: 1px solid #ddd;
-  border-top: 3px solid #efa006;
-  border-bottom: 1px solid #fff;
+  color: #f1f1f1;
+  border: 1px solid #666;
+  border-top: 4px solid #efa006;
+  border-bottom: 1px solid #666;
+  background-color: #666;
 }
 #tab0:checked ~ #content0,
 #tab1:checked ~ #content1,

@@ -1,75 +1,65 @@
 {% block content %}
 
 <style>
-  section {
-    display: none;
-    padding: 30px 0 0;
-    border-top: 1px solid #ddd;
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 6px solid #666;
+}
+.radiobuttontab {
+  display: none;
+}
+.labels {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  /*font-weight: 600;*/
+  text-align: center;
+  color: #888;
+  border: 0px solid transparent;
+  background-color: #e2e2e2;
+  border-bottom: 1px solid #666;
+}
+label:before {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  margin-right: 10px;
+}
+label:hover {
+  color: #f1f1f1;
+  cursor: pointer;
+  background-color: #888;
+}
+input:checked + label {
+  color: #f1f1f1;
+  border: 1px solid #666;
+  border-top: 4px solid #efa006;
+  border-bottom: 1px solid #666;
+  background-color: #666;
+}
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+  display: block;
+}
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
   }
-
-  .radiobuttontab {
-    display: none;
-  }
-
-  .labels {
-    display: inline-block;
-    margin: 0 0 -1px;
-    padding: 15px 25px;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 18px;
-    text-transform: uppercase;
-    /*font-weight: 600;*/
-    text-align: center;
-    color: #bbb;
-    border: 1px solid transparent;
-  }
-
   label:before {
-    font-family: 'Roboto Condensed', sans-serif;
+    margin: 0;
     font-size: 18px;
-    font-weight: normal;
-    margin-right: 10px;
   }
-  /*label[for*='1']:before { content: '\f1cb'; }
-label[for*='2']:before { content: '\f17d'; }
-label[for*='3']:before { content: '\f16b'; }
-label[for*='4']:before { content: '\f1a9'; }*/
-
-  label:hover {
-    color: #888;
-    cursor: pointer;
+}
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
   }
-
-  input:checked+label {
-    color: #555;
-    border: 1px solid #ddd;
-    border-top: 3px solid #efa006;
-    border-bottom: 1px solid #fff;
-  }
-
-  #tab0:checked~#content0,
-  #tab1:checked~#content1,
-  #tab2:checked~#content2,
-  #tab3:checked~#content3,
-  #tab4:checked~#content4 {
-    display: block;
-  }
-
-  @media screen and (max-width: 650px) {
-    label {
-      font-size: 0;
-    }
-    label:before {
-      margin: 0;
-      font-size: 18px;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
-    label {
-      padding: 15px;
-    }
-  }
+}
 </style>
 
 <main>
@@ -79,18 +69,21 @@ label[for*='4']:before { content: '\f1a9'; }*/
     crossorigin="anonymous">
   </script>
 
-  <input class="radiobuttontab" id="tab0" type="radio" name="tabs" checked>
-  <label class="labels" for="tab0">Bitcoin</label>
+  <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
+  <label class="labels" for="tab1">BTC</label>
 
-  <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
-  <label class="labels" for="tab1">Ethereum</label>
+  <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
+  <label class="labels" for="tab2">TRC</label>
+
+  <input class="radiobuttontab" id="tab3" type="radio" name="tabs">
+  <label class="labels" for="tab3">ETH</label>
 
   <script type="text/javascript">
     console.log('Showing tabs....')
   </script>
 
 
-  <section id="content0">
+  <section id="content1">
     <div id="container" style="height: 500px; min-width: 310px; "></div>
 
     <script type="text/javascript">
@@ -161,7 +154,7 @@ label[for*='4']:before { content: '\f1a9'; }*/
     </script>
   </section>
 
-  <section id="content1">
+  <section id="content2">
     <div id="buy_stop_container" class="param" style="display:none;">
       <label for="buy_stop_price">Stop Price</label>
       <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
@@ -520,13 +513,364 @@ label[for*='4']:before { content: '\f1a9'; }*/
     </script>
   </section>
 
-  <!-- <section id="content2">
-
-  </section>
-
   <section id="content3">
+    <div id="buy_stop_container" class="param" style="display:none;">
+      <label for="buy_stop_price">Stop Price</label>
+      <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
+      <div class="qualify">
+        <span class="buy_currency_label">USD</span>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div id="container" style="height: 500px; min-width: 310px; "></div>
 
-  </section> -->
+    <script type="text/javascript">
+      // io refers to the above import
+      const io = ws('http://localhost:3333')
+      const client = io.channel('eth').connect(function(error, connected) {
+        console.log('Connected: ', connected)
+        console.log('Error: ', error)
+      })
+
+      const client2 = io.channel('market').connect(function(error, connected) {
+        console.log('Connected: ', connected)
+        console.log('Error: ', error)
+      })
+      client.on('message', function(message) {
+        console.log('Got message: ', message)
+      })
+      client.emit('message', 'Some market data...')
+
+      // now, process the seel signals
+      // client2.on('sell', (data) => {
+      //   console.log('Got sell data', data)
+      // })
+      //
+      // client.on('buy', (data) => {
+      //   console.log('Got buy data', data)
+      // })
+
+      Highcharts.setOptions({
+        global: {
+          useUTC: false
+        }
+      });
+
+      // import Highcharts from '../parts/Globals.js';
+      Highcharts.createElement('link', {
+        href: 'https://fonts.googleapis.com/css?family=Unica+One',
+        rel: 'stylesheet',
+        type: 'text/css'
+      }, null, document.getElementsByTagName('head')[0]);
+
+      Highcharts.theme = {
+        colors: ['#efaa06', '#ee5a41', '#f45b5b', '#efaa06', '#aaeeee', '#ff0066', '#efaa06',
+          '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'
+        ],
+        chart: {
+          backgroundColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 1,
+              y2: 1
+            },
+            stops: [
+              [0, '#2a2a2b'],
+              [1, '#3e3e40']
+            ]
+          },
+          style: {
+            fontFamily: '\'Roboto Condensed\', sans-serif'
+          },
+          plotBorderColor: '#606063'
+        },
+        title: {
+          style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase',
+            fontSize: '18px'
+          }
+        },
+        subtitle: {
+          style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase'
+          }
+        },
+        xAxis: {
+          gridLineColor: '#707073',
+          labels: {
+            style: {
+              color: '#E0E0E3',
+              fontSize: '14px'
+
+            }
+          },
+          lineColor: '#707073',
+          minorGridLineColor: '#505053',
+          tickColor: '#707073',
+          title: {
+            style: {
+              color: '#A0A0A3'
+
+            }
+          }
+        },
+        yAxis: {
+          gridLineColor: '#707073',
+          labels: {
+            style: {
+              color: '#E0E0E3',
+              fontSize: '14px'
+            }
+          },
+          lineColor: '#707073',
+          minorGridLineColor: '#505053',
+          tickColor: '#707073',
+          tickWidth: 1,
+          title: {
+            style: {
+              color: '#A0A0A3'
+            }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.85)',
+          style: {
+            color: '#F0F0F0'
+          }
+        },
+        plotOptions: {
+          series: {
+            dataLabels: {
+              color: '#B0B0B3'
+            },
+            marker: {
+              lineColor: '#333'
+            }
+          },
+          boxplot: {
+            fillColor: '#505053'
+          },
+          candlestick: {
+            lineColor: 'white'
+          },
+          errorbar: {
+            color: 'white'
+          }
+        },
+        legend: {
+          itemStyle: {
+            color: '#E0E0E3'
+          },
+          itemHoverStyle: {
+            color: '#FFF'
+          },
+          itemHiddenStyle: {
+            color: '#606063'
+          }
+        },
+        credits: {
+          style: {
+            color: '#666'
+          }
+        },
+        labels: {
+          style: {
+            color: '#707073'
+          }
+        },
+
+        drilldown: {
+          activeAxisLabelStyle: {
+            color: '#F0F0F3'
+          },
+          activeDataLabelStyle: {
+            color: '#F0F0F3'
+          }
+        },
+
+        navigation: {
+          buttonOptions: {
+            symbolStroke: '#DDDDDD',
+            theme: {
+              fill: '#505053'
+            }
+          }
+        },
+
+        // scroll charts
+        rangeSelector: {
+          buttonTheme: {
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+              color: '#CCC'
+            },
+            states: {
+              hover: {
+                fill: '#707073',
+                stroke: '#000000',
+                style: {
+                  color: 'white'
+                }
+              },
+              select: {
+                fill: '#000003',
+                stroke: '#000000',
+                style: {
+                  color: 'white'
+                }
+              }
+            }
+          },
+          inputBoxBorderColor: '#505053',
+          inputStyle: {
+            backgroundColor: '#333',
+            color: 'silver'
+          },
+          labelStyle: {
+            color: 'silver'
+          }
+        },
+
+        navigator: {
+          handles: {
+            backgroundColor: '#666',
+            borderColor: '#AAA'
+          },
+          outlineColor: '#CCC',
+          maskFill: 'rgba(255,255,255,0.1)',
+          series: {
+            color: '#7798BF',
+            lineColor: '#A6C7ED'
+          },
+          xAxis: {
+            gridLineColor: '#505053'
+          }
+        },
+
+        scrollbar: {
+          barBackgroundColor: '#808083',
+          barBorderColor: '#808083',
+          buttonArrowColor: '#CCC',
+          buttonBackgroundColor: '#606063',
+          buttonBorderColor: '#606063',
+          rifleColor: '#FFF',
+          trackBackgroundColor: '#404043',
+          trackBorderColor: '#404043'
+        },
+
+        // special colors for some of the
+        legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+        background2: '#505053',
+        dataLabelsColor: '#B0B0B3',
+        textColor: '#C0C0C0',
+        contrastTextColor: '#F0F0F3',
+        maskColor: 'rgba(255,255,255,0.3)'
+      };
+
+      Highcharts.setOptions(Highcharts.theme);
+
+      // Create the chart
+      Highcharts.stockChart('container', {
+        chart: {
+          events: {
+            load: function() {
+
+              // var series = this.series;
+              // set up the updating of the chart each second
+              var series = this.series[0];
+              client.on('message', (message) => {
+                console.log('Got message data:', message)
+                var x = (new Date()).getTime(), // current time
+                  y = parseFloat(message.rate); //Math.round(Math.random() * 100);
+                series.addPoint([x, y], true, true);
+              })
+              // set up the updating of the chart each second
+              var series1 = this.series[1];
+              client2.on('sell', (data) => {
+                console.log('Got sell data:', data)
+                var x = (new Date()).getTime(), // current time
+                  y = parseFloat(data.rate); //Math.round(Math.random() * 100);
+                series1.addPoint([x, y], true, true);
+              })
+
+            }
+          }
+        },
+
+        rangeSelector: {
+          buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+          }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+          }, {
+            type: 'all',
+            text: 'All'
+          }],
+          inputEnabled: false,
+          selected: 0
+        },
+
+        title: {
+          text: ''
+        },
+
+        exporting: {
+          enabled: false
+        },
+
+        yAxis: {
+          min: 1000,
+          max: 10000,
+          startOnTick: true,
+          endOnTick: true
+        },
+
+        series: [{
+            name: 'Ethereum',
+            data: (function() {
+              // generate an array of random data
+              var data1 = [],
+                time = (new Date()).getTime(),
+                i;
+
+              for (i = -10; i <= 0; i += 1) {
+                data1.push([
+                  time + i * 1000,
+                  2000 + Math.round(Math.random() * 4000)
+                ]);
+              }
+              return data1;
+            }())
+          },
+          {
+            name: 'Bitcoin',
+            data: (function() {
+              // generate an array of random data
+              var data2 = [],
+                time = (new Date()).getTime(),
+                i;
+
+              for (i = -10; i <= 0; i += 1) {
+                data2.push([
+                  time + i * 1000,
+                  2000 + Math.round(Math.random() * 4000)
+                ]);
+              }
+              return data2;
+            }())
+          }
+        ]
+      });
+    </script>
+  </section>
 
 </main>
 

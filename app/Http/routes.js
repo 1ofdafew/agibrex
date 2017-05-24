@@ -33,13 +33,18 @@ Route.group('Authentication', function () {
 
   Route.get('/forgot', 'Auth/ForgotPasswordController.index').as('forgot')
   Route.post('/forgot', 'Auth/ForgotPasswordController.reset').as('forgot')
+  Route.get('/reset', 'Auth/ForgotPasswordController.prepareResetPassword').as('reset')
+  Route.post('/reset', 'Auth/ForgotPasswordController.doResetPassword').as('reset')
 
   // Register
   Route.get('/register', 'Auth/RegisterController.index').as('register')
   Route.post('/register', 'Auth/RegisterController.register').as('register')
+  Route.get('/resetpass', 'Auth/RegisterController.resetPassword').as('resetPassword')
 
   Route.get('/verify', 'Auth/AccountVerifyController.index').as('verify')
   Route.post('/verify', 'Auth/AccountVerifyController.verify').as('verify')
+  Route.get('/resend', 'Auth/AccountVerifyController.resend').as('resend')
+  Route.post('/resend', 'Auth/AccountVerifyController.doResend').as('doResend')
 
 }).prefix('/auth')
 
@@ -50,6 +55,17 @@ Route.group('Authentication', function () {
 Route.get('/dashboard', 'DashboardController.index')
   .as('dashboard')
   .middleware('auth')
+
+/**
+ * Security
+ */
+Route.group('Security', function () {
+
+  Route.get('/security','Security/SecurityController.index')
+  Route.get('/qrcode','Security/QrCodeController.index')
+
+}).prefix('/security')
+
 
 /**
  * Account routes
@@ -73,7 +89,6 @@ Route.group('Accounts', function () {
   Route.get('/ethereum/deposit', 'Accounts/EthereumController.deposit').middleware('auth')
   Route.get('/ethereum/withdraw', 'Accounts/EthereumController.withdraw').middleware('auth')
 
-  Route.get('/security','Accounts/AccountController.security')
 
 }).prefix('/accounts')
 

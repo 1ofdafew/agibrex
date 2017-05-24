@@ -9,11 +9,6 @@ class AccountController {
     }
     response.redirect('/auth/login')
   }
-
-  * security (request, response) {
-
-    yield response.sendView('accounts/security')  
-  }
 }
 
 module.exports = AccountController
