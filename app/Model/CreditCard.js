@@ -5,17 +5,17 @@ const uuid = require('uuid/v4');
 
 class CreditCard extends Lucid {
 
-constructor(data) {
-    super()
+// constructor(data) {
+//     super()
 
-    console.log(`Credit Card data: ${data.name}`)
-    console.log(JSON.stringify(data))
+//     console.log(`Credit Card data: ${data.name}`)
+//     console.log(JSON.stringify(data))
 
-    this.uuid = uuid()
-    this.name = data.name
-    this.card_num = data.card_num
-    this.cbb = data.cbb 
-  }  
+//     this.uuid = uuid()
+//     this.name = data.name
+//     this.card_num = data.card_num
+//     this.cbb = data.cbb 
+//   }  
 
   static get visible(){
     return ['id', 'uuid', 'name', 'card_num', 'cbb']

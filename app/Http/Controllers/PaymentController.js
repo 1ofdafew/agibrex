@@ -1,38 +1,37 @@
 'use strict'
 
 const Payment = use('App/Model/Payment')
+const Validator = use('App/Services/Validator')
+const PaymentService = make('App/Services/PaymentService')
+
 const Database = use('Database');
 
 class PaymentController {
 
 * index (request, response) {
-
-      const payment = yield Database.table('payments')
+      const payment = yield PaymentService.showAll()
       response.json(payment)
     }
   
 
     * store(request, response) {
-      const data = request.only(['trans_id', 'amount', 'type'])
+      const data = request.only('trans_id', 'amount', 'type')
+      
+      const payment = yield PaymentService.store(
+        data.trans_id, data.amount, data.type)
+
       console.log('PaymentController data....')
       console.log(data)
 
-          const payment = new Payment(data)
-          yield payment.save()
-          response.ok(payment)
+          // const payment = new Payment(data)
+          // yield payment.save()
+          response.json(payment)
       }
 
       * show(request, response) {
 
-        const id = request.param("id");
-
-        
-        const data = yield Database
-        .table('payments')
-        .select('trans_id', 'amount', 'type')
-        .where({id:id})
-
-        response.json(data)
+        const payment = yield PaymentService.show()
+        response.json(payment)
 
         }
 
