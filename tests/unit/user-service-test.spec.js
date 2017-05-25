@@ -20,6 +20,5 @@ describe('User', function () {
     // test the results
     assert.instanceOf(user, User)
     assert.equal(user.status, 'pending-verification')
-  })
-          
+  })      
 })
