@@ -59,7 +59,7 @@
     "App": "./app"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "*",
     "chai-http": "^3.0.0",
     "co-fs": "^1.2.0",
     "co-mocha": "^1.2.0",
@@ -71,7 +71,7 @@
     "handle": "^1.0.0",
     "lodash": "^4.17.4",
     "mailparser": "^2.0.5",
-    "mocha": "^3.4.1",
+    "mocha": "*",
     "ms": "^2.0.0",
     "nodemon": "^1.11.0",
     "request": "^2.81.0",

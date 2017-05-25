@@ -182,3 +182,6 @@ Route.group('API',function () {
 
 }).prefix('/api/v1')
 
+
+Route.get('/obchart', 'ObchartController.index')
+  .as('orderbookchart')
