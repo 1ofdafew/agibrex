@@ -63,11 +63,6 @@ input:checked + label {
 </style>
 
 <main>
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous">
-  </script>
 
   <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
   <label class="labels" for="tab1">BTC</label>
@@ -87,70 +82,79 @@ input:checked + label {
     <div id="container" style="height: 500px; min-width: 310px; "></div>
 
     <script type="text/javascript">
-    jQuery(document).ready(function(a){
-    var json = "/bitcoin.json";
-    console.log(json)
-    $.getJSON("/bitcoin.json", function (data) {
+      $(document).ready(function(a) {
+        var json = "/bitcoin.json";
+        console.log(json)
 
-      console.log(data)
-      // create the chart
-      Highcharts.stockChart('container', {
+        console.log('Getting ethereum data...')
+        $.getJSON('/ethereum.json', function(data) {
+          console.log('Ethereum data:', data)
+        });
 
-        title: {
-          text: 'BTC/USD'
-        },
+        console.log('Getting bitcoin data...')
+        $.getJSON(json, function (data) {
 
-        subtitle: {
-          text: 'Using ordinal X axis'
-        },
+          console.log('bitcoin data:', data)
+          // create the chart
+          Highcharts.stockChart('container', {
 
-        xAxis: {
-          gapGridLineWidth: 0
-        },
-
-        rangeSelector: {
-          buttons: [{
-            type: 'hour',
-            count: 1,
-            text: '1h'
-          }, {
-            type: 'day',
-            count: 1,
-            text: '1D'
-          }, {
-            type: 'all',
-            count: 1,
-            text: 'All'
-          }],
-          selected: 1,
-          inputEnabled: false
-        },
-
-        series: [{
-          name: 'AAPL',
-          type: 'area',
-          data: data,
-          gapSize: 5,
-          tooltip: {
-            valueDecimals: 2
-          },
-          fillColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1
+            title: {
+              text: 'BTC/USD'
             },
-            stops: [
-              [0, Highcharts.getOptions().colors[0]],
-              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-            ]
-          },
-          threshold: null
-        }]
+
+            subtitle: {
+              text: 'Using ordinal X axis'
+            },
+
+            xAxis: {
+              gapGridLineWidth: 0
+            },
+
+            rangeSelector: {
+              buttons: [{
+                type: 'hour',
+                count: 1,
+                text: '1h'
+              }, {
+                type: 'day',
+                count: 1,
+                text: '1D'
+              }, {
+                type: 'all',
+                count: 1,
+                text: 'All'
+              }],
+              selected: 1,
+              inputEnabled: false
+            },
+
+            series: [{
+              name: 'AAPL',
+              type: 'area',
+              data: data,
+              gapSize: 5,
+              tooltip: {
+                valueDecimals: 2
+              },
+              fillColor: {
+                linearGradient: {
+                  x1: 0,
+                  y1: 0,
+                  x2: 0,
+                  y2: 1
+                },
+                stops: [
+                  [0, Highcharts.getOptions().colors[0]],
+                  [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                ]
+              },
+              threshold: null
+            }]
+
+          });
+        });
       });
-    });
-  });
+
     </script>
   </section>
 
@@ -170,15 +174,15 @@ input:checked + label {
       const io = ws('http://localhost:3333')
       const client = io.channel('eth').connect(function(error, connected) {
         console.log('Connected: ', connected)
-        console.log('Error: ', error)
+        // console.log('Error: ', error)
       })
 
       const client2 = io.channel('market').connect(function(error, connected) {
         console.log('Connected: ', connected)
-        console.log('Error: ', error)
+        // console.log('Error: ', error)
       })
       client.on('message', function(message) {
-        console.log('Got message: ', message)
+        // console.log('Got message: ', message)
       })
       client.emit('message', 'Some market data...')
 
@@ -424,7 +428,7 @@ input:checked + label {
               // set up the updating of the chart each second
               var series = this.series[0];
               client.on('message', (message) => {
-                console.log('Got message data:', message)
+                // console.log('Got message data:', message)
                 var x = (new Date()).getTime(), // current time
                   y = parseFloat(message.rate); //Math.round(Math.random() * 100);
                 series.addPoint([x, y], true, true);
@@ -432,7 +436,7 @@ input:checked + label {
               // set up the updating of the chart each second
               var series1 = this.series[1];
               client2.on('sell', (data) => {
-                console.log('Got sell data:', data)
+                // console.log('Got sell data:', data)
                 var x = (new Date()).getTime(), // current time
                   y = parseFloat(data.rate); //Math.round(Math.random() * 100);
                 series1.addPoint([x, y], true, true);
@@ -513,7 +517,7 @@ input:checked + label {
     </script>
   </section>
 
-  <section id="content3">
+<section id="content3">
     <div id="buy_stop_container" class="param" style="display:none;">
       <label for="buy_stop_price">Stop Price</label>
       <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
@@ -524,352 +528,12 @@ input:checked + label {
     </div>
     <div id="container" style="height: 500px; min-width: 310px; "></div>
 
-    <script type="text/javascript">
-      // io refers to the above import
-      const io = ws('http://localhost:3333')
-      const client = io.channel('eth').connect(function(error, connected) {
-        console.log('Connected: ', connected)
-        console.log('Error: ', error)
-      })
-
-      const client2 = io.channel('market').connect(function(error, connected) {
-        console.log('Connected: ', connected)
-        console.log('Error: ', error)
-      })
-      client.on('message', function(message) {
-        console.log('Got message: ', message)
-      })
-      client.emit('message', 'Some market data...')
-
-      // now, process the seel signals
-      // client2.on('sell', (data) => {
-      //   console.log('Got sell data', data)
-      // })
-      //
-      // client.on('buy', (data) => {
-      //   console.log('Got buy data', data)
-      // })
-
-      Highcharts.setOptions({
-        global: {
-          useUTC: false
-        }
-      });
-
-      // import Highcharts from '../parts/Globals.js';
-      Highcharts.createElement('link', {
-        href: 'https://fonts.googleapis.com/css?family=Unica+One',
-        rel: 'stylesheet',
-        type: 'text/css'
-      }, null, document.getElementsByTagName('head')[0]);
-
-      Highcharts.theme = {
-        colors: ['#efaa06', '#ee5a41', '#f45b5b', '#efaa06', '#aaeeee', '#ff0066', '#efaa06',
-          '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'
-        ],
-        chart: {
-          backgroundColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 1,
-              y2: 1
-            },
-            stops: [
-              [0, '#2a2a2b'],
-              [1, '#3e3e40']
-            ]
-          },
-          style: {
-            fontFamily: '\'Roboto Condensed\', sans-serif'
-          },
-          plotBorderColor: '#606063'
-        },
-        title: {
-          style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase',
-            fontSize: '18px'
-          }
-        },
-        subtitle: {
-          style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase'
-          }
-        },
-        xAxis: {
-          gridLineColor: '#707073',
-          labels: {
-            style: {
-              color: '#E0E0E3',
-              fontSize: '14px'
-
-            }
-          },
-          lineColor: '#707073',
-          minorGridLineColor: '#505053',
-          tickColor: '#707073',
-          title: {
-            style: {
-              color: '#A0A0A3'
-
-            }
-          }
-        },
-        yAxis: {
-          gridLineColor: '#707073',
-          labels: {
-            style: {
-              color: '#E0E0E3',
-              fontSize: '14px'
-            }
-          },
-          lineColor: '#707073',
-          minorGridLineColor: '#505053',
-          tickColor: '#707073',
-          tickWidth: 1,
-          title: {
-            style: {
-              color: '#A0A0A3'
-            }
-          }
-        },
-        tooltip: {
-          backgroundColor: 'rgba(0, 0, 0, 0.85)',
-          style: {
-            color: '#F0F0F0'
-          }
-        },
-        plotOptions: {
-          series: {
-            dataLabels: {
-              color: '#B0B0B3'
-            },
-            marker: {
-              lineColor: '#333'
-            }
-          },
-          boxplot: {
-            fillColor: '#505053'
-          },
-          candlestick: {
-            lineColor: 'white'
-          },
-          errorbar: {
-            color: 'white'
-          }
-        },
-        legend: {
-          itemStyle: {
-            color: '#E0E0E3'
-          },
-          itemHoverStyle: {
-            color: '#FFF'
-          },
-          itemHiddenStyle: {
-            color: '#606063'
-          }
-        },
-        credits: {
-          style: {
-            color: '#666'
-          }
-        },
-        labels: {
-          style: {
-            color: '#707073'
-          }
-        },
-
-        drilldown: {
-          activeAxisLabelStyle: {
-            color: '#F0F0F3'
-          },
-          activeDataLabelStyle: {
-            color: '#F0F0F3'
-          }
-        },
-
-        navigation: {
-          buttonOptions: {
-            symbolStroke: '#DDDDDD',
-            theme: {
-              fill: '#505053'
-            }
-          }
-        },
-
-        // scroll charts
-        rangeSelector: {
-          buttonTheme: {
-            fill: '#505053',
-            stroke: '#000000',
-            style: {
-              color: '#CCC'
-            },
-            states: {
-              hover: {
-                fill: '#707073',
-                stroke: '#000000',
-                style: {
-                  color: 'white'
-                }
-              },
-              select: {
-                fill: '#000003',
-                stroke: '#000000',
-                style: {
-                  color: 'white'
-                }
-              }
-            }
-          },
-          inputBoxBorderColor: '#505053',
-          inputStyle: {
-            backgroundColor: '#333',
-            color: 'silver'
-          },
-          labelStyle: {
-            color: 'silver'
-          }
-        },
-
-        navigator: {
-          handles: {
-            backgroundColor: '#666',
-            borderColor: '#AAA'
-          },
-          outlineColor: '#CCC',
-          maskFill: 'rgba(255,255,255,0.1)',
-          series: {
-            color: '#7798BF',
-            lineColor: '#A6C7ED'
-          },
-          xAxis: {
-            gridLineColor: '#505053'
-          }
-        },
-
-        scrollbar: {
-          barBackgroundColor: '#808083',
-          barBorderColor: '#808083',
-          buttonArrowColor: '#CCC',
-          buttonBackgroundColor: '#606063',
-          buttonBorderColor: '#606063',
-          rifleColor: '#FFF',
-          trackBackgroundColor: '#404043',
-          trackBorderColor: '#404043'
-        },
-
-        // special colors for some of the
-        legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
-        background2: '#505053',
-        dataLabelsColor: '#B0B0B3',
-        textColor: '#C0C0C0',
-        contrastTextColor: '#F0F0F3',
-        maskColor: 'rgba(255,255,255,0.3)'
-      };
-
-      Highcharts.setOptions(Highcharts.theme);
-
-      // Create the chart
-      Highcharts.stockChart('container', {
-        chart: {
-          events: {
-            load: function() {
-
-              // var series = this.series;
-              // set up the updating of the chart each second
-              var series = this.series[0];
-              client.on('message', (message) => {
-                console.log('Got message data:', message)
-                var x = (new Date()).getTime(), // current time
-                  y = parseFloat(message.rate); //Math.round(Math.random() * 100);
-                series.addPoint([x, y], true, true);
-              })
-              // set up the updating of the chart each second
-              var series1 = this.series[1];
-              client2.on('sell', (data) => {
-                console.log('Got sell data:', data)
-                var x = (new Date()).getTime(), // current time
-                  y = parseFloat(data.rate); //Math.round(Math.random() * 100);
-                series1.addPoint([x, y], true, true);
-              })
-
-            }
-          }
-        },
-
-        rangeSelector: {
-          buttons: [{
-            count: 1,
-            type: 'minute',
-            text: '1M'
-          }, {
-            count: 5,
-            type: 'minute',
-            text: '5M'
-          }, {
-            type: 'all',
-            text: 'All'
-          }],
-          inputEnabled: false,
-          selected: 0
-        },
-
-        title: {
-          text: ''
-        },
-
-        exporting: {
-          enabled: false
-        },
-
-        yAxis: {
-          min: 1000,
-          max: 10000,
-          startOnTick: true,
-          endOnTick: true
-        },
-
-        series: [{
-            name: 'Ethereum',
-            data: (function() {
-              // generate an array of random data
-              var data1 = [],
-                time = (new Date()).getTime(),
-                i;
-
-              for (i = -10; i <= 0; i += 1) {
-                data1.push([
-                  time + i * 1000,
-                  2000 + Math.round(Math.random() * 4000)
-                ]);
-              }
-              return data1;
-            }())
-          },
-          {
-            name: 'Bitcoin',
-            data: (function() {
-              // generate an array of random data
-              var data2 = [],
-                time = (new Date()).getTime(),
-                i;
-
-              for (i = -10; i <= 0; i += 1) {
-                data2.push([
-                  time + i * 1000,
-                  2000 + Math.round(Math.random() * 4000)
-                ]);
-              }
-              return data2;
-            }())
-          }
-        ]
-      });
-    </script>
+  <!-- <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+  </script>
+ -->
   </section>
 
 </main>
