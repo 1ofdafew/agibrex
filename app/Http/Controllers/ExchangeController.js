@@ -2,10 +2,10 @@
 
 class ExchangeController {
 
-    * index (request, response) {
+  * index (request, response) {
+    yield response.sendView('exchange.main')
+  }
 
-        yield response.sendView('exchange')
-    }
 }
 
 module.exports = ExchangeController

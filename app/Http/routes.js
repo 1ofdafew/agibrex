@@ -49,6 +49,11 @@ Route.group('Authentication', function () {
 }).prefix('/auth')
 
 
+Route.group('Historical Data', function() {
+  Route.get('/bitcoin', 'Data/ChartController.bitcoin')
+  Route.get('/apple', 'Data/ChartController.apple')
+}).prefix('/data')
+
 /**
  * Dashboard
  */
