@@ -55,10 +55,15 @@ class ForgotPasswordController {
         yield user.save()
 
         // login the user
-        yield request.auth.login(user)        
+        yield request.auth.login(user)
 
         // redirect to dashboard.
         response.redirect('/dashboard')
+      } else {
+        // throw passwords not the same
+        yield request.with({error: 'Passwords are not the same'}).flash()
+        response.redirect('back')
+        
       }
       throw new Error('Passwords are not the same')
     } catch(e) {
