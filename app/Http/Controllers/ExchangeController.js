@@ -7,7 +7,15 @@ class ExchangeController {
   }
 
   * btc (request, response) {
-    yield response.sendView('exchange.btc')
+    yield response.sendView('exchange.index', {type: 'BTC'})
+  }
+
+  * eth (request, response) {
+    yield response.sendView('exchange.index', {type: 'ETH'})
+  }
+
+  * trc (request, response) {
+    yield response.sendView('exchange.index', {type: 'TRC'})
   }
 
 }
