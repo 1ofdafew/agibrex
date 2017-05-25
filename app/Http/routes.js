@@ -111,6 +111,14 @@ Route.group('User Settings', function () {
 }).prefix('/user')
 
 /**
+ * Exchange
+ */
+Route.group('Exchange', function() {
+  Route.get('/','ExchangeController.index')  
+  Route.get('/btc','ExchangeController.btc')  
+}).prefix('/exchange')
+
+/**
  * Trades
  */
 Route.group('Buy n Sell', function () {
@@ -174,5 +182,3 @@ Route.group('API',function () {
 
 }).prefix('/api/v1')
 
-//Exchange
-Route.get('/exchange','ExchangeController.index')

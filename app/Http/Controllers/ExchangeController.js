@@ -3,7 +3,11 @@
 class ExchangeController {
 
   * index (request, response) {
-    yield response.sendView('exchange.main')
+    response.redirect('/exchange/btc')
+  }
+
+  * btc (request, response) {
+    yield response.sendView('exchange.btc')
   }
 
 }

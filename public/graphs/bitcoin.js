@@ -12,12 +12,11 @@ function callback(data) {
   };
   $.each(data, function(lineNo, line) {
     // console.log('>>', lineNo, 'line:', line);
-    var ts = moment(line[0], 'YYYY-MM-DD 00,00,00').unix();
-    // console.log('ts: ', ts)
+    var ts = moment(line[0], 'YYYY-MM-DD').unix();
     series.data.push([ts, line[1]])
   });
 
-  console.log(series.data)
+  // console.log(series.data)
 
   // Create the chart
   Highcharts.stockChart('container', {
@@ -28,11 +27,19 @@ function callback(data) {
         count: 1,
         text: '1h'
       }, {
+        type: 'month',
+        count: 1,
+        text: '1m'
+      }, {
+        type: 'year',
+        count: 1,
+        text: '1y'
+      }, {
         type: 'all',
         count: 1,
         text: 'All'
       }],
-      selected: 1,
+      selected: 4,
       inputEnabled: false
     },
 
@@ -43,7 +50,7 @@ function callback(data) {
     xAxis: {
       gapGridLineWidth: 0
     },
-    
+
     series: [{
       name: 'Bitcoin',
       data: series.data,
