@@ -107,6 +107,26 @@ Route.group('User Settings', function () {
 
 }).prefix('/user')
 
+
+/**
+ * Historical data
+ */
+Route.group('Historical Data', function() {
+  Route.get('/bitcoin', 'Data/ChartController.bitcoin')
+  Route.get('/ethereum', 'Data/ChartController.ethereum')
+  Route.get('/apple', 'Data/ChartController.apple')
+}).prefix('/data')
+
+/**
+ * Exchange
+ */
+Route.group('Exchange', function() {
+  Route.get('/','ExchangeController.index')  
+  Route.get('/btc','ExchangeController.btc')  
+  Route.get('/eth','ExchangeController.eth')  
+  Route.get('/trc','ExchangeController.trc')  
+}).prefix('/exchange')
+
 /**
  * Trades
  */
@@ -171,5 +191,3 @@ Route.group('API',function () {
 
 }).prefix('/api/v1')
 
-//Exchange
-Route.get('/exchange','ExchangeController.index')

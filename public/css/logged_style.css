@@ -38,7 +38,8 @@ h1 {
 	margin-bottom: 10px;
 	font-style: normal;
 	text-align: left;
-
+	text-transform: uppercase;
+	/*font-weight: 600;*/
 }
 h2 {
 	font-size: 27px;
@@ -46,7 +47,6 @@ h2 {
 	margin-bottom: 22px;
 	font-style: normal;
 	color: #f9f9f9;
-
 }
 h2 i {
 	font-style: normal;
@@ -740,7 +740,7 @@ del {
 .one_thirdpx {
 	/*width: 34.650%;*/
 	/*width: 30.650%;*/
-	width: 32.3%;
+	width: 32.25%;
 }
 .one_fourthpx {
 	width: 29.5%;
@@ -1595,7 +1595,8 @@ a.button_slider:hover {
 .fresh_projects_list section.cheapest .small-group div.small:hover .additionnal {
 	opacity: 1;
 }
-.fresh_projects_list section.cheapest .small-group div.small:hover h1, .fresh_projects_list section.cheapest .small-group div.small:hover h2, .fresh_projects_list section.cheapest .small-group div.small:hover section#easy-to-reach .large .info h3, .fresh_projects_list section#easy-to-reach .large .info section.cheapest .small-group div.small:hover h3 {
+.fresh_projects_list section.cheapest .small-group div.small:hover h1, .fresh_projects_list section.cheapest .small-group div.small:hover
+, .fresh_projects_list section.cheapest .small-group div.small:hover section#easy-to-reach .large .info h3, .fresh_projects_list section#easy-to-reach .large .info section.cheapest .small-group div.small:hover h3 {
 	color: #fff;
 	margin: 0px;
 	padding: 0px;

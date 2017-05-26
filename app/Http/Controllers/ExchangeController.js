@@ -2,10 +2,22 @@
 
 class ExchangeController {
 
-    * index (request, response) {
+  * index (request, response) {
+    response.redirect('/exchange/btc')
+  }
 
-        yield response.sendView('exchange')
-    }
+  * btc (request, response) {
+    yield response.sendView('exchange.index', {type: 'BTC'})
+  }
+
+  * eth (request, response) {
+    yield response.sendView('exchange.index', {type: 'ETH'})
+  }
+
+  * trc (request, response) {
+    yield response.sendView('exchange.index', {type: 'TRC'})
+  }
+
 }
 
 module.exports = ExchangeController
