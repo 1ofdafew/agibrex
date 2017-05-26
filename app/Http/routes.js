@@ -67,6 +67,8 @@ Route.group('Security', function () {
   Route.get('/qrcode','Security/QrCodeController.index').middleware('auth')
   Route.post('/qrcode','Security/QrCodeController.verify').middleware('auth')
 
+  Route.post('/sms','Security/SMSController.index').middleware('auth')
+
 }).prefix('/security')
 
 
