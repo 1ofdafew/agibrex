@@ -126,6 +126,7 @@ Route.group('Exchange', function() {
   Route.get('/btc','ExchangeController.btc')
   Route.get('/eth','ExchangeController.eth')
   Route.get('/trc','ExchangeController.trc')
+  Route.post('/sell/TRC','ExchangeController.selltrc')
 }).prefix('/exchange')
 
 /**

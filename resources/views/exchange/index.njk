@@ -267,15 +267,18 @@
                </h3>
                <div class="clear"></div>
                <div class="dotted"></div>
-               <form id="sell_form" action="buy-sell.php" method="POST">
+               <form id="sell_form" action="/exchange/sell/{{type}}" method="POST">
+                 {{ csrfField }}
+                 <input type="hidden" name="type" value="{{type}}">
                  <div class="buyform">
                    <div class="spacer"></div>
                    <div class="calc dotted">
                      <div class="label">Available {{ type }}</div>
                      <div class="value">
-                       <span id="sell_user_available">0</span>
+                       <span id="sell_user_available">{{ balance }}</span>
                        {{ type }}</div>
                      <div class="clear"></div>
+                     <input type="hidden" id="sell_available" value="{{ balance }}">
                    </div>
                    <div class="spacer"></div>
                    <div class="param">
@@ -287,7 +290,7 @@
                    <div class="mar_top1"></div>
                    <div class="param">
                      <label for="sell_currency">Currency To Use</label>
-                     <select id="sell_currency" name="currency">
+                     <select id="sell_currency" name="currency" disabled>
                        <option value="aed">AED</option>
                        <option value="aud">AUD</option>
                        <option value="bgn">BGN</option>
@@ -322,9 +325,9 @@
                    </div>
                    <div class="mar_top2"></div>
                    <div class="param lessbottom">
-                     <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox">
+                     <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox" checked="checked" disabled="Disable">
                      <label for="sell_market_price">Sell At Market Price&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
+                       <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
@@ -342,7 +345,7 @@
                    <div class="param lessbottom">
                      <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
                      <label for="sell_stop">Stop Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
+                       <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
@@ -354,7 +357,7 @@
                        <span id="sell_price_limit_label">Limit Price</span>
                        <span id="sell_price_market_label" style="display:none;">Price</span>
                      </label>
-                     <input name="sell_price" id="sell_price" value="1,752.89" type="text">
+                     <input name="sell_price" id="sell_price" value="{{price}}" type="text" readonly>
                      <div class="qualify">
                        <span class="sell_currency_label">USD</span>
                      </div>
@@ -385,7 +388,7 @@
                        </a>
                      </div>
                      <div class="value">
-                       <span id="sell_user_fee">0.00</span>&nbsp;%</div>
+                       <span id="sell_user_fee">{{ fee }}</span>&nbsp;%</div>
                      <div class="clear"></div>
                    </div>
                    <div class="dotted"></div>
@@ -857,8 +860,33 @@
     <div class="clearfix mar_top20"></div>
   </div>
 
+{% endblock %}
 
+{% block docready %}
+<script type="text/javascript">
+    jQuery(document).ready(function () {
 
+        var sell_available = $("#sell_available").val();
+        var sell_price = $("#sell_price").val();
 
+        $('#sell_amount').bind('keyup blur', function () {
 
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+            var sell_amount = $("#sell_amount").val();
+            if (parseFloat(sell_amount) > sell_available) {
+                $("#sell_amount").val(sell_available);
+            }
+        });
+
+        $("#sell_amount").bind('keyup blur', function () {
+            var sell_amount = $("#sell_amount").val();
+            var total = sell_amount * sell_price;
+            var sell_subtotal = total.toFixed(2)
+            $('#sell_subtotal').html(sell_subtotal);
+            $('#sell_total').html(sell_subtotal);
+
+        });
+
+    });
+</script>
 {% endblock %}
