@@ -26,6 +26,22 @@
         <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Key Statistics - Trading Market</h3> -->
         <!-- <div class="clearfix mar_top2"></div> -->
 
+        {% if old('error') %}
+        <div class="message-box-wrap">
+          <div class="error" role="alert" id="div4">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if old('success') %}
+        <div class="message-box-wrap">
+          <div class="success" role="alert" id="div4">
+            <i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;{{ old('success') }}
+          </div>
+        </div>
+        {% endif %}
+
         <div class="fresh_projects global_stats">
         <div class="panel panel-default">
           <div class="panel-heading non-mobile">
@@ -499,13 +515,15 @@
                      <tr id="no_asks" style="display:none;">
                        <td colspan="4">No asks to show.</td>
                      </tr>
-
+                     {% for showask in showasks %}
                      <tr class="ask_tr" id="ask_35539346">
-                       <td style="">$<span class="order_price">1,823.94</span></td>
-                       <td style=""><span class="order_amount">0.04910000</span></td>
-                       <td style="">$<span class="order_value">89.56</span></td>
-                       <td style=""><span class="order_amount">0.04910000</span></td>
+                       <td style="">$<span class="order_price">{{showask.price}}</span></td>
+                       <td style=""><span class="order_amount">{{showask.amount}}</span></td>
+                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_value">{{ trcInBtc }}</span></td>
+                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_amount">{{ trcInBtc * showask.amount }}</span></td>
                      </tr>
+                     {% endfor %}
+                     <!--
 
                      <tr class="ask_tr" id="ask_35539884">
                        <td style="">$<span class="order_price">1,824.07</span></td>
@@ -540,7 +558,7 @@
                        <td style=""><span class="order_amount">0.05530000</span></td>
                        <td style="">$<span class="order_value">98.36</span></td>
                        <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                     </tr> -->
 
                    </tbody>
                  </table>

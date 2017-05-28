@@ -30,10 +30,11 @@ class OrderBookController {
     response.ok(ob)
   }
 
-  * showbid(request, response) {
+  * showbid(asset) {
     const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
     .from('order_books')
     .where('type','bid')
+    .where('asset',asset)
     .where('status','1')
     .orderBy('price', 'desc')
     .orderBy('created_at','asc')
@@ -42,16 +43,17 @@ class OrderBookController {
     response.json(bidlist)//Show where type=bid from order_book table
   }
 
-  * showask(request, response) {
+  * showask(asset) {
     const asklist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
     .from('order_books')
     .where('type', 'ask')
+    .where('asset',asset)
     .where('status','1')
     .orderBy('price', 'asc')
     .orderBy('created_at','asc')
     console.log('Display all asklist....')
     console.log(asklist)
-    response.json(asklist)//Show where type=ask from order_book table
+    return asklist//Show where type=ask from order_book table
   }
 
   * delete(request, response) {
