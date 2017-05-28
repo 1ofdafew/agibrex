@@ -191,4 +191,6 @@ Route.group('API',function () {
 
 
 Route.get('/obchart', 'ObchartController.index')
-  .as('orderbookchart')
+  .as('orderbook.chart')
+
+Route.on('/buysell').render('orderbook.chart')
