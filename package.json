@@ -30,13 +30,12 @@
     "adonis-websocket-client": "^1.0.2",
     "autobahn": "^17.5.1",
     "axios": "^0.16.1",
+    "cron": "^1.2.1",
     "debug": "^2.6.8",
-    "got": "^6.7.1",
     "handle": "^1.0.0",
     "highcharts": "^5.0.11",
     "kraken-api": "^0.1.7",
     "mysql": "^2.13.0",
-    "node-qrcode": "0.0.4",
     "npmlog": "^4.1.0",
     "qrcode": "^0.8.1",
     "speakeasy": "^2.0.0",
@@ -65,7 +64,6 @@
     "co-fs": "^1.2.0",
     "co-mocha": "^1.2.0",
     "colors": "^1.1.2",
-    "cron": "^1.2.1",
     "expect": "^1.20.2",
     "form-data": "^2.1.4",
     "globby": "^6.1.0",
@@ -79,7 +77,6 @@
     "sqlite3": "^3.1.8",
     "standard": "^10.0.1",
     "supertest": "^3.0.0",
-    "yargs": "^8.0.1",
-    "zombie": "2.0.0-alpha11"
+    "yargs": "^8.0.1"
   }
 }
