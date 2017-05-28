@@ -23,9 +23,12 @@ class ExchangeController {
 
   * trc (request, response) {
 
+    const defaultBuyCurrency = "BTC"
+    const btcBalance = '1.64320000'
+    const ethBalance = '11.48300000'
+
     // TODO : Get Balance
     const balance = '372.37490000'
-
     const price = '0.85'
     const fee = '0.00'
 
@@ -38,6 +41,7 @@ class ExchangeController {
     // response.send(result)
 
     const trcInBtc = '0.00038898' // Temporary
+    const trcInEth = ' 0.00509165' // Temporary
 
     yield response.sendView(
         'exchange.index',
@@ -47,7 +51,11 @@ class ExchangeController {
             price : price,
             fee : fee,
             trcInBtc : trcInBtc,
+            trcInEth : trcInEth,
             showasks : showask,
+            btcBalance : btcBalance,
+            ethBalance : ethBalance,
+            defaultBuyCurrency : defaultBuyCurrency,
         }
     )
   }
@@ -86,7 +94,7 @@ class ExchangeController {
         } catch(e) {
 
             debug(e)
-            const errMsg = 'Insert to OrdekBook error'
+            const errMsg = 'Error to save to OrderBook'
 
             log.error('gibrex:Unable to process new ASK', errMsg)
             debug('Sending error message: ', errMsg)

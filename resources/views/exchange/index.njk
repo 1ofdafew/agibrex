@@ -134,11 +134,11 @@
                    <div class="spacer"></div>
                    <div class="calc dotted">
                      <div class="label">Available
-                       <span class="sell_currency_label">USD</span>
+                       <span class="sell_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
                      </div>
                      <div class="value">
-                       <span class="buy_currency_char">$</span>
-                       <span id="buy_user_available">0</span>
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
+                       <span id="buy_user_available">{{btcBalance}}</span>
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -153,43 +153,16 @@
                    <div class="param">
                      <label for="buy_currency">Currency To Use</label>
                      <select id="buy_currency" name="currency">
-                       <option value="aed">AED</option>
-                       <option value="aud">AUD</option>
-                       <option value="bgn">BGN</option>
-                       <option value="cad">CAD</option>
-                       <option value="chf">CHF</option>
-                       <option value="cny">CNY</option>
-                       <option value="czk">CZK</option>
-                       <option value="dkk">DKK</option>
-                       <option value="eur">EUR</option>
-                       <option value="gbp">GBP</option>
-                       <option value="hkd">HKD</option>
-                       <option value="hrk">HRK</option>
-                       <option value="huf">HUF</option>
-                       <option value="ils">ILS</option>
-                       <option value="inr">INR</option>
-                       <option value="jpy">JPY</option>
-                       <option value="mur">MUR</option>
-                       <option value="mxn">MXN</option>
-                       <option value="nok">NOK</option>
-                       <option value="nzd">NZD</option>
-                       <option value="pln">PLN</option>
-                       <option value="ron">RON</option>
-                       <option value="rub">RUB</option>
-                       <option value="sek">SEK</option>
-                       <option value="sgd">SGD</option>
-                       <option value="thb">THB</option>
-                       <option value="try">TRY</option>
-                       <option selected="selected" value="usd">USD</option>
-                       <option value="zar">ZAR</option>
+                       <option value="BTC">BTC</option>
+                       <option value="ETH">ETH</option>
                      </select>
                      <div class="clear"></div>
                    </div>
                    <div class="mar_top2"></div>
                    <div class="param lessbottom">
-                     <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox">
+                     <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox" checked disabled>
                      <label for="buy_market_price">Buy At Market Price&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price">
+                       <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
@@ -207,7 +180,7 @@
                    <div class="param lessbottom">
                      <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
                      <label for="buy_stop">Stop Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101669-what-is-a-stop">
+                       <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
@@ -219,9 +192,9 @@
                        <span id="buy_price_limit_label">Limit Price</span>
                        <span id="buy_price_market_label" style="display:none;">Price</span>
                      </label>
-                     <input name="buy_price" id="buy_price" value="1,793.17" type="text">
+                     <input name="buy_price" id="buy_price" value="{{trcInBtc}}" type="text" readonly>
                      <div class="qualify">
-                       <span class="buy_currency_label">USD</span>
+                       <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -238,7 +211,7 @@
                    <div class="calc">
                      <div class="label">Subtotal</div>
                      <div class="value">
-                       <span class="buy_currency_char">$</span>
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
                        <span id="buy_subtotal">0.00</span>
                      </div>
                      <div class="clear"></div>
@@ -258,12 +231,12 @@
                    <div class="calc bigger">
                      <div class="label">
                        <span id="buy_total_approx_label">Approx.
-                         <span class="buy_currency_label">USD</span>
+                         <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
                          to spend</span>
                        <span id="buy_total_label" style="display:none;">{{ type }} to Receive</span>
                      </div>
                      <div class="value">
-                       <span class="buy_currency_char">$</span>
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
                        <span id="buy_total">0.00</span>
                      </div>
                      <div class="clear"></div>
@@ -842,6 +815,7 @@
     <div class="clearfix mar_top20"></div>
   </div>
 
+
 {% endblock %}
 
 {% block docready %}
@@ -850,6 +824,22 @@
 
         var sell_available = $("#sell_available").val();
         var sell_price = $("#sell_price").val();
+
+
+        $('#buy_currency').bind('change', function () {
+            var buy_currency = $("#buy_currency").val();
+
+            var currency = '';
+            if (buy_currency == 'BTC') {
+                currency = 'BTC';
+                $('#buy_price').val({{trcInBtc}});
+            } else if (buy_currency == 'ETH') {
+                currency = 'ETH';
+                $('#buy_price').val({{trcInEth}});
+            }
+            $('.changeCurrency','').html(currency);
+
+        });
 
         $('#sell_amount').bind('keyup blur', function () {
 
