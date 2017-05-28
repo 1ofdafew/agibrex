@@ -23,6 +23,23 @@
     </div> -->
 
       <div class="three_fourthpx">
+
+          {% if old('error') %}
+          <div class="message-box-wrap">
+            <div class="error" role="alert" id="div4">
+              <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if old('success') %}
+          <div class="message-box-wrap">
+            <div class="success" role="alert" id="div4">
+              <i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;{{ old('success') }}
+            </div>
+          </div>
+          {% endif %}
+
         <div class="one_halfpx">
           <div class="clearfix mar_top20"></div>
         <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
@@ -31,22 +48,6 @@
         <div class="one_halfpx last">
         <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Key Statistics - Trading Market</h3> -->
         <!-- <div class="clearfix mar_top2"></div> -->
-
-        {% if old('error') %}
-        <div class="message-box-wrap">
-          <div class="error" role="alert" id="div4">
-            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
-          </div>
-        </div>
-        {% endif %}
-
-        {% if old('success') %}
-        <div class="message-box-wrap">
-          <div class="success" role="alert" id="div4">
-            <i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;{{ old('success') }}
-          </div>
-        </div>
-        {% endif %}
 
         <div class="fresh_projects global_stats">
         <div class="panel panel-default">
@@ -291,36 +292,10 @@
                    <div class="mar_top1"></div>
                    <div class="param">
                      <label for="sell_currency">Currency To Use</label>
-                     <select id="sell_currency" name="currency" disabled>
-                       <option value="aed">AED</option>
-                       <option value="aud">AUD</option>
-                       <option value="bgn">BGN</option>
-                       <option value="cad">CAD</option>
-                       <option value="chf">CHF</option>
-                       <option value="cny">CNY</option>
-                       <option value="czk">CZK</option>
-                       <option value="dkk">DKK</option>
-                       <option value="eur">EUR</option>
-                       <option value="gbp">GBP</option>
-                       <option value="hkd">HKD</option>
-                       <option value="hrk">HRK</option>
-                       <option value="huf">HUF</option>
-                       <option value="ils">ILS</option>
-                       <option value="inr">INR</option>
-                       <option value="jpy">JPY</option>
-                       <option value="mur">MUR</option>
-                       <option value="mxn">MXN</option>
-                       <option value="nok">NOK</option>
-                       <option value="nzd">NZD</option>
-                       <option value="pln">PLN</option>
-                       <option value="ron">RON</option>
-                       <option value="rub">RUB</option>
-                       <option value="sek">SEK</option>
-                       <option value="sgd">SGD</option>
-                       <option value="thb">THB</option>
-                       <option value="try">TRY</option>
-                       <option selected="selected" value="usd">USD</option>
-                       <option value="zar">ZAR</option>
+                     <select id="sell_currency" name="sell_currency">
+                       <option value="BTC">BTC</option>
+                       <option value="ETH">ETH</option>
+
                      </select>
                      <div class="clear"></div>
                    </div>
@@ -493,8 +468,8 @@
                      <tr>
                        <th>Price</th>
                        <th>{{ type }}</th>
-                       <th>BTC</th>
-                       <th>SUM ( BTC )</th>
+                       <th>Asset</th>
+                       <th>SUM ( Asset )</th>
                      </tr>
 
                      <tr id="no_asks" style="display:none;">
@@ -504,8 +479,32 @@
                      <tr class="ask_tr" id="ask_35539346">
                        <td style="">$<span class="order_price">{{showask.price}}</span></td>
                        <td style=""><span class="order_amount">{{showask.amount}}</span></td>
-                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_value">{{ trcInBtc }}</span></td>
-                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_amount">{{ (trcInBtc * showask.amount) | round(8, 'floor') }}</span></td>
+                       <td style="">
+                            {% if showask.to_asset == 'BTC' %}
+
+                            <span class="order_value">
+                              Btc {{ trcInBtc }}
+                            </span>
+                            {% endif %}
+
+                            {% if showask.to_asset == 'ETH' %}
+                            <span class="order_value">
+                              Eth {{ trcInEth }}
+                            </span>
+                            {% endif %}
+                        </td>
+                       <td style="">
+
+                           <span class="order_amount">
+                               {% if showask.to_asset == 'BTC' %}
+                                Btc {{ (trcInBtc * showask.amount) | round(8, 'floor') }}
+                               {% endif %}
+
+                               {% if showask.to_asset == 'ETH' %}
+                                Eth {{ (trcInEth * showask.amount) | round(8, 'floor') }}
+                               {% endif %}
+                           </span>
+                       </td>
                      </tr>
                      {% endfor %}
 
