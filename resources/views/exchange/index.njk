@@ -532,45 +532,9 @@
                        <td style="">$<span class="order_price">{{showask.price}}</span></td>
                        <td style=""><span class="order_amount">{{showask.amount}}</span></td>
                        <td style=""><i class="fa fa-bitcoin"></i> <span class="order_value">{{ trcInBtc }}</span></td>
-                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_amount">{{ trcInBtc * showask.amount }}</span></td>
+                       <td style=""><i class="fa fa-bitcoin"></i> <span class="order_amount">{{ (trcInBtc * showask.amount) | round(8, 'floor') }}</span></td>
                      </tr>
                      {% endfor %}
-                     <!--
-
-                     <tr class="ask_tr" id="ask_35539884">
-                       <td style="">$<span class="order_price">1,824.07</span></td>
-                       <td style=""><span class="order_amount">0.07120000</span></td>
-                       <td style="">$<span class="order_value">129.87</span></td>
-                       <td style=""><span class="order_amount">0.04910000</span></td>
-                     </tr>
-
-                     <tr class="bid_tr" id="bid_35539799">
-                       <td style="">$<span class="order_price">1,779.52</span></td>
-                       <td style=""><span class="order_amount">0.02410000</span></td>
-                       <td style="">$<span class="order_value">42.89</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
-
-                     <tr class="bid_tr" id="bid_35539800">
-                       <td style="">$<span class="order_price">1,779.15</span></td>
-                       <td style=""><span class="order_amount">0.03420000</span></td>
-                       <td style="">$<span class="order_value">60.85</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
-
-                     <tr class="bid_tr" id="bid_35539801">
-                       <td style="">$<span class="order_price">1,778.88</span></td>
-                       <td style=""><span class="order_amount">0.04220000</span></td>
-                       <td style="">$<span class="order_value">75.07</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
-
-                     <tr class="bid_tr" id="bid_35539802">
-                       <td style="">$<span class="order_price">1,778.67</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                       <td style="">$<span class="order_value">98.36</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr> -->
 
                    </tbody>
                  </table>
