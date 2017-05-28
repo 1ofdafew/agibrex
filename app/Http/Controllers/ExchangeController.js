@@ -14,11 +14,11 @@ class ExchangeController {
   }
 
   * btc (request, response) {
-    yield response.sendView('exchange.index', {type: 'BTC'})
+    yield response.sendView('exchange.index', {type: 'BTC', name: 'Bitcoin'})
   }
 
   * eth (request, response) {
-    yield response.sendView('exchange.index', {type: 'ETH'})
+    yield response.sendView('exchange.index', {type: 'ETH', name: 'Ethereum'})
   }
 
   * trc (request, response) {
@@ -113,7 +113,6 @@ class ExchangeController {
         yield request.with({ error: errMsg }).flash()
         response.redirect('back')
     }
-
 
   }
 

@@ -15,9 +15,9 @@ section {
   text-transform: uppercase;
   /*font-weight: 600;*/
   text-align: center;
-  color: #888;
+  color: #f1f1f1;
   border: 0px solid transparent;
-  background-color: #e2e2e2;
+  background-color: #9c9c9c;
   border-bottom: 1px solid #666;
 }
 label:before {
@@ -40,7 +40,9 @@ input:checked + label {
 }
 #tab1:checked ~ #containerBTC,
 #tab2:checked ~ #containerTRC,
-#tab3:checked ~ #containerETH {
+#tab3:checked ~ #containerETH,
+#tab4:checked ~ #containerTroll,
+#tab5:checked ~ #containerComment {
   display: block;
 }
 @media screen and (max-width: 650px) {
