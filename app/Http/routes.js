@@ -67,6 +67,9 @@ Route.group('Security', function () {
   Route.get('/qrcode','Security/QrCodeController.index').middleware('auth')
   Route.post('/qrcode','Security/QrCodeController.verify').middleware('auth')
 
+  Route.get('/sms','Security/SMSController.index').middleware('auth')
+  Route.post('/sms','Security/SMSController.index').middleware('auth')
+
 }).prefix('/security')
 
 
@@ -119,10 +122,11 @@ Route.group('Historical Data', function() {
  * Exchange
  */
 Route.group('Exchange', function() {
-  Route.get('/','ExchangeController.index')  
-  Route.get('/btc','ExchangeController.btc')  
-  Route.get('/eth','ExchangeController.eth')  
-  Route.get('/trc','ExchangeController.trc')  
+  Route.get('/','ExchangeController.index')
+  Route.get('/btc','ExchangeController.btc')
+  Route.get('/eth','ExchangeController.eth')
+  Route.get('/trc','ExchangeController.trc')
+  Route.post('/sell/TRC','ExchangeController.selltrc')
 }).prefix('/exchange')
 
 /**
@@ -188,4 +192,3 @@ Route.group('API',function () {
   Route.get('/payment/show','PaymentController.show')
 
 }).prefix('/api/v1')
-
