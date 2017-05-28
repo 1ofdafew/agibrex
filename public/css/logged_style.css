@@ -177,6 +177,22 @@ sup {
 sub {
 	top: .5ex;
 }
+
+#scrollcell {
+	overflow: auto;
+  height: 610px;
+}
+
+/*#tables-wrap {
+  position: relative;
+}
+#tables-wrap table thead th .tabletext {
+  position: absolute;
+	top: 8px;
+	z-index: 1;
+	text-align: left;
+}*/
+
 .dropcap {
 	display: block;
 	float: left;
