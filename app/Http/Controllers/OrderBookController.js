@@ -44,7 +44,7 @@ class OrderBookController {
   }
 
   * showask(asset) {
-    const asklist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+    const asklist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
     .from('order_books')
     .where('type', 'ask')
     .where('asset',asset)

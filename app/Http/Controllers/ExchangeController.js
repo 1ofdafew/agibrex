@@ -23,9 +23,12 @@ class ExchangeController {
 
   * trc (request, response) {
 
+    const defaultBuyCurrency = "BTC"
+    const btcBalance = '1.64320000'
+    const ethBalance = '11.48300000'
+
     // TODO : Get Balance
     const balance = '372.37490000'
-
     const price = '0.85'
     const fee = '0.00'
 
@@ -38,6 +41,7 @@ class ExchangeController {
     // response.send(result)
 
     const trcInBtc = '0.00038898' // Temporary
+    const trcInEth = ' 0.00509165' // Temporary
 
     yield response.sendView(
         'exchange.index',
@@ -47,7 +51,11 @@ class ExchangeController {
             price : price,
             fee : fee,
             trcInBtc : trcInBtc,
+            trcInEth : trcInEth,
             showasks : showask,
+            btcBalance : btcBalance,
+            ethBalance : ethBalance,
+            defaultBuyCurrency : defaultBuyCurrency,
         }
     )
   }
@@ -58,17 +66,19 @@ class ExchangeController {
 
     const price = '0.85'
     const amount = request.input('sell_amount')
+    const sellCurrency = request.input('sell_currency')
 
     const total = amount * price
 
     if (total != '' && amount != '') {
 
         try {
-            const data=request.only(['type', 'asset', 'amount', 'price','status'])
+            const data=request.only(['type', 'asset', 'amount', 'price','status','to_asset'])
 
             const orderBook = new OrderBook(data)
             orderBook.type = 'Ask'
             orderBook.asset = 'TRC'
+            orderBook.to_asset = sellCurrency
             orderBook.amount = amount
             orderBook.price = price
             orderBook.status = 1
@@ -76,7 +86,7 @@ class ExchangeController {
             yield orderBook.save()
 
             const dataRedirect = {
-                success: 'Bid Successful!',
+                success: 'Successfully insert new Ask.',
                 type: 'TRC'
             }
 
@@ -86,7 +96,7 @@ class ExchangeController {
         } catch(e) {
 
             debug(e)
-            const errMsg = 'Insert to OrdekBook error'
+            const errMsg = 'Error to save to OrderBook.'
 
             log.error('gibrex:Unable to process new ASK', errMsg)
             debug('Sending error message: ', errMsg)

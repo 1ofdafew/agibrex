@@ -42,6 +42,7 @@ class MatcherService {
 
 	    	if(data.price > best_ask[0].price) {
 	    		const ob = new OrderBook({type: 'ask', asset:'BTC', amount: data.amount, price: data.price})
+	    		log.info('service make neworder')
 	    		return Event.fire('match:ok',data)
 	    	}else{
 	    		log.info('end')

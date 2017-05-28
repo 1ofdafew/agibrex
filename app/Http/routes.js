@@ -192,3 +192,10 @@ Route.group('API',function () {
   Route.get('/payment/show','PaymentController.show')
 
 }).prefix('/api/v1')
+
+
+//Buy/Sell chart
+Route.get('/obchart', 'ObchartController.index')
+  .as('orderbook.chart')
+Route.on('/buysell').render('orderbook.chart')
+
