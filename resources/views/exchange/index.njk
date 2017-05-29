@@ -142,7 +142,8 @@
                </h3>
                <div class="clear"></div>
                <div class="dotted"></div>
-               <form id="buy_form" action="buy-sell.php" method="POST">
+               <form id="buy_form" action="/exchange/buy/{{type}}" method="POST">
+                   {{ csrfField }}
                  <div class="buyform">
                    <div class="spacer"></div>
                    <div class="calc dotted">
@@ -152,6 +153,7 @@
                      <div class="value">
                        <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
                        <span id="buy_user_available">{{btcBalance}}</span>
+                       <input type="hidden" id="buy_available" value="{{btcBalance}}">
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -163,9 +165,10 @@
                      <div class="clear"></div>
                    </div>
                    <div class="mar_top1"></div>
+
                    <div class="param">
                      <label for="buy_currency">Currency To Use</label>
-                     <select id="buy_currency" name="currency">
+                     <select id="buy_currency" name="buy_currency">
                        <option value="BTC">BTC</option>
                        <option value="ETH">ETH</option>
                      </select>
@@ -190,7 +193,7 @@
                      </label> -->
                      <div class="clear"></div>
                    </div>
-                   <div class="param lessbottom">
+                   <!-- <div class="param lessbottom">
                      <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
                      <label for="buy_stop">Stop Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
@@ -198,16 +201,18 @@
                        </a>
                      </label>
                      <div class="clear"></div>
-                   </div>
+                   </div> -->
                    <div class="mar_top2"></div>
                    <div id="buy_price_container" class="param">
                      <label for="buy_price">
                        <span id="buy_price_limit_label">Limit Price</span>
                        <span id="buy_price_market_label" style="display:none;">Price</span>
                      </label>
-                     <input name="buy_price" id="buy_price" value="{{trcInBtc}}" type="text" readonly>
+                     <!-- <input name="buy_price" id="buy_price" value="{{trcInBtc}}" type="text" readonly> -->
+                     <input name="buy_price" id="buy_price" value="{{price}}" type="text" readonly>
                      <div class="qualify">
-                       <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
+                       <span class="buy_currency_label">USD</span>
+                       <!-- <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span> -->
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -231,7 +236,7 @@
                    </div>
                    <div class="calc">
                      <div class="label">Fee&nbsp;
-                       <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                       <a title="View fee schedule" href="#" target="_blank">
                          <i class="fa fa-question"></i>
                        </a>
                      </div>
@@ -258,6 +263,8 @@
                    <input name="buy" value="1" type="hidden">
                    <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
                    <input name="submit" value="Buy {{ type }}" class="but_user" type="submit">
+                   <input type="hidden" name="trcbtc" value="{{trcInBtc}}">
+                   <input type="hidden" name="trceth" value="{{trcInEth}}">
                  </div>
                </form>
              </div>
@@ -318,7 +325,7 @@
                      </label> -->
                      <div class="clear"></div>
                    </div>
-                   <div class="param lessbottom">
+                   <!-- <div class="param lessbottom">
                      <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
                      <label for="sell_stop">Stop Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
@@ -326,7 +333,7 @@
                        </a>
                      </label>
                      <div class="clear"></div>
-                   </div>
+                   </div> -->
                    <div class="mar_top2"></div>
                    <div id="sell_price_container" class="param">
                      <label for="sell_price">
@@ -359,7 +366,7 @@
                    </div>
                    <div class="calc">
                      <div class="label">Fee&nbsp;
-                       <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                       <a title="View fee schedule" href="#" target="_blank">
                          <i class="fa fa-question"></i>
                        </a>
                      </div>
@@ -405,52 +412,46 @@
                      <tr>
                        <th>Price</th>
                        <th>{{ type }}</th>
-                       <th>BTC</th>
-                       <th>SUM ( BTC )</th>
+                       <th>Asset</th>
+                       <th>SUM ( Asset )</th>
                      </tr>
 
+                     {% for showbid in showbids %}
                      <tr class="bid_tr" id="bid_35539796">
-                       <td style="">$<span class="order_price">1,780.84</span></td>
-                       <td style=""><span class="order_amount">0.09240000</span></td>
-                       <td style="">$<span class="order_value">164.55</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                       <td style="">$
+                           <!-- {% if showbid.to_asset == 'BTC' %}
+                            Btc
+                           {% endif %}
+                           {% if showbid.to_asset == 'ETH' %}
+                            Eth
+                           {% endif %} -->
+                           <span class="order_price">{{showbid.price}}</span></td>
+                       <td style=""><span class="order_amount">{{showbid.amount}}</span></td>
+                       <td style="">
 
-                     <tr class="bid_tr" id="bid_35539807">
-                       <td style="">$<span class="order_price">1,780.82</span></td>
-                       <td style=""><span class="order_amount">0.04450000</span></td>
-                       <td style="">$<span class="order_value">79.25</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                        <span class="order_value">
+                            {% if showbid.to_asset == 'BTC' %}
+                                Btc {{trcInBtc}}
+                            {% endif %}
+                            {% if showbid.to_asset == 'ETH' %}
+                                Eth {{trcInEth}}
+                            {% endif %}
 
-                     <tr class="bid_tr" id="bid_35539797">
-                       <td style="">$<span class="order_price">1,780.29</span></td>
-                       <td style=""><span class="order_amount">0.04390000</span></td>
-                       <td style="">$<span class="order_value">78.15</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                        </span></td>
+                       <td style="">
+                           <span class="order_amount">
 
-                     <tr class="bid_tr" id="bid_35539798">
-                       <td style="">$<span class="order_price">1,780.06</span></td>
-                       <td style=""><span class="order_amount">0.02150000</span></td>
-                       <td style="">$<span class="order_value">38.27</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                               {% if showbid.to_asset == 'BTC' %}
+                                Btc {{ (trcInBtc * showbid.amount) | round(8, 'floor') }}
+                               {% endif %}
 
-                     <tr class="bid_tr" id="bid_35539860">
-                       <td style="">$<span class="order_price">1,779.79</span></td>
-                       <td style=""><span class="order_amount">0.02660000</span></td>
-                       <td style="">$<span class="order_value">47.34</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
-                     </tr>
+                               {% if showbid.to_asset == 'ETH' %}
+                                Eth {{ (trcInEth * showbid.amount) | round(8, 'floor') }}
+                               {% endif %}
 
-                     <tr class="bid_tr" id="bid_35539803">
-                       <td style="">$<span class="order_price">1,778.30</span></td>
-                       <td style=""><span class="order_amount">0.02430000</span></td>
-                       <td style="">$<span class="order_value">43.21</span></td>
-                       <td style=""><span class="order_amount">0.05530000</span></td>
+                           </span></td>
                      </tr>
-
+                     {% endfor %}
                      <tr id="no_bids" style="display:none;">
                        <td colspan="4">No bids to show.</td>
                      </tr>
@@ -472,9 +473,11 @@
                        <th>SUM ( Asset )</th>
                      </tr>
 
+
                      <tr id="no_asks" style="display:none;">
                        <td colspan="4">No asks to show.</td>
                      </tr>
+
                      {% for showask in showasks %}
                      <tr class="ask_tr" id="ask_35539346">
                        <td style="">$<span class="order_price">{{showask.price}}</span></td>
@@ -527,21 +530,21 @@
           <div class="one_full">
             <main>
               {% if type == 'BTC' %}
-              <input class="radiobuttontab" id="tab1" type="radio" value="/exchange/btc" name="tabs" checked>
+              <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
 
               {% else %}
               <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
               {% endif %}
-              <label class="labels" for="tab1">BTC</label>
+              <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
               <!-- <a href="/exchange/btc">BTC</a> -->
 
               {% if type == 'TRC' %}
-              <input class="radiobuttontab" id="tab2" type="radio" value="/exchange/trc" name="tabs" checked>
+              <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
 
               {% else %}
               <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
               {% endif %}
-              <label class="labels" for="tab2">TRC</label>
+              <label class="labels" for="tab2" onclick="location.href = '/exchange/trc';">TRC</label>
 
               {% if type == 'ETH' %}
               <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/eth" name="tabs" checked>
@@ -549,7 +552,7 @@
               {% else %}
               <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
               {% endif %}
-              <label class="labels" for="tab3">ETH</label>
+              <label class="labels" for="tab3" onclick="location.href = '/exchange/eth';">ETH</label>
 
               <section id="containerBTC">
                 <div class="table-style" id="tables-wrap">
@@ -1198,13 +1201,46 @@
             var currency = '';
             if (buy_currency == 'BTC') {
                 currency = 'BTC';
-                $('#buy_price').val({{trcInBtc}});
+                // $('#buy_price').val({{trcInBtc}});
+                $('#buy_user_available').html({{btcBalance}});
             } else if (buy_currency == 'ETH') {
                 currency = 'ETH';
-                $('#buy_price').val({{trcInEth}});
+                // $('#buy_price').val({{trcInEth}});
+                $('#buy_user_available').html({{ethBalance}});
             }
             $('.changeCurrency','').html(currency);
 
+        });
+
+        $('#buy_amount').bind('keyup blur', function () {
+
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+
+            var buy_amount = $("#buy_amount").val();
+            var buy_currency = $("#buy_currency").val();
+            var buy_available = '';
+            // var buy_available = $("#buy_available").val();
+            var trcPerUnit = '';
+            if (buy_currency == 'BTC') {
+                trcPerUnit = parseFloat({{trcInBtc}});
+                buy_available = parseFloat({{btcBalance}});
+            } else if (buy_currency == 'ETH') {
+                trcPerUnit = parseFloat({{trcInEth}});
+                buy_available = parseFloat({{ethBalance}});
+            }
+
+            var totalBuy = buy_amount * trcPerUnit;
+            var totalBuyAmt = totalBuy.toFixed(8)
+
+            var maxBuy = buy_available / trcPerUnit;
+            var maxCanBuy = maxBuy.toFixed(0)
+
+            if (parseFloat(totalBuyAmt) > buy_available) {
+                $("#buy_amount").val(maxCanBuy);
+            }
+
+            $('#buy_subtotal').html(totalBuyAmt);
+            $('#buy_total').html(totalBuyAmt);
         });
 
         $('#sell_amount').bind('keyup blur', function () {
@@ -1214,16 +1250,21 @@
             if (parseFloat(sell_amount) > sell_available) {
                 $("#sell_amount").val(sell_available);
             }
-        });
 
-        $("#sell_amount").bind('keyup blur', function () {
-            var sell_amount = $("#sell_amount").val();
             var total = sell_amount * sell_price;
             var sell_subtotal = total.toFixed(2)
             $('#sell_subtotal').html(sell_subtotal);
             $('#sell_total').html(sell_subtotal);
-
         });
+
+        // $("#sell_amount").bind('keyup blur', function () {
+        //     var sell_amount = $("#sell_amount").val();
+        //     var total = sell_amount * sell_price;
+        //     var sell_subtotal = total.toFixed(2)
+        //     $('#sell_subtotal').html(sell_subtotal);
+        //     $('#sell_total').html(sell_subtotal);
+        //
+        // });
 
     });
 </script>

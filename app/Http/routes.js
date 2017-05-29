@@ -127,6 +127,7 @@ Route.group('Exchange', function() {
   Route.get('/eth','ExchangeController.eth')
   Route.get('/trc','ExchangeController.trc')
   Route.post('/sell/TRC','ExchangeController.selltrc')
+  Route.post('/buy/TRC','ExchangeController.buytrc')
 }).prefix('/exchange')
 
 /**
@@ -198,4 +199,3 @@ Route.group('API',function () {
 Route.get('/obchart', 'ObchartController.index')
   .as('orderbook.chart')
 Route.on('/buysell').render('orderbook.chart')
-

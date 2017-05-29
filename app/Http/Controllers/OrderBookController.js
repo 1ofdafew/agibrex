@@ -31,7 +31,7 @@ class OrderBookController {
   }
 
   * showbid(asset) {
-    const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+    const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
     .from('order_books')
     .where('type','bid')
     .where('asset',asset)
@@ -40,7 +40,7 @@ class OrderBookController {
     .orderBy('created_at','asc')
     console.log('Display all bidlist....')
     console.log(bidlist)
-    response.json(bidlist)//Show where type=bid from order_book table
+    return bidlist//Show where type=bid from order_book table
   }
 
   * showask(asset) {
