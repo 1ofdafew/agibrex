@@ -22,6 +22,7 @@ class UpdateOrderbookTableSchema extends Schema {
   down () {
     this.table('order_books', (table) => {
       table.dropColumn('asset')
+      table.dropColumn('type')
       table.dropColumn('to_asset')
     })
   }
