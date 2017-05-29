@@ -32,9 +32,12 @@ class ExchangeController {
     const price = '0.85'
     const fee = '0.00'
 
-    // Call showbid
+    // Call showask
     const orderBookCntrl = new OrderBookCntrl()
     const showask = yield orderBookCntrl.showask('TRC')
+
+    // Call showbid
+    const showbid = yield orderBookCntrl.showbid('TRC')
 
     // TODO : Get Btc Price
     // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
@@ -53,6 +56,7 @@ class ExchangeController {
             trcInBtc : trcInBtc,
             trcInEth : trcInEth,
             showasks : showask,
+            showbids : showbid,
             btcBalance : btcBalance,
             ethBalance : ethBalance,
             defaultBuyCurrency : defaultBuyCurrency,
@@ -116,6 +120,70 @@ class ExchangeController {
         response.redirect('back')
     }
 
+  }
+
+  * buytrc (request, response) {
+
+    const user = yield request.auth.getUser()
+
+    // const price = ''
+    const price = '0.85'
+    const amount = request.input('buy_amount')
+    const currency = request.input('buy_currency')
+
+    if (currency == 'BTC') {
+    //   this.price = request.input('trcbtc')
+    } else if (currency == 'ETH') {
+    //   this.price = request.input('trceth')
+    }
+
+    const total = amount * this.price
+
+    if (total != '' && amount != '') {
+
+        try {
+            const data=request.only(['type', 'asset', 'amount', 'price','status','to_asset'])
+
+            const orderBook = new OrderBook(data)
+            orderBook.type = 'Bid'
+            orderBook.asset = 'TRC'
+            orderBook.to_asset = currency
+            orderBook.amount = amount
+            orderBook.price = price
+            orderBook.status = 1
+
+            yield orderBook.save()
+
+            const dataRedirect = {
+              success: 'Successfully insert new Bid.',
+              type: 'TRC'
+            }
+
+            yield request.with(dataRedirect).flash()
+            response.redirect('/exchange/trc')
+
+        } catch(e) {
+
+            debug(e)
+            const errMsg = 'Error to save to OrderBook.'
+
+            log.error('gibrex:Unable to process new BID', errMsg)
+            debug('Sending error message: ', errMsg)
+
+            yield request.with({ error: errMsg }).flash()
+            response.redirect('back')
+        }
+
+    } else {
+
+        const errMsg = 'Amount to Buy is required.'
+
+        log.error('gibrex:Unable to process new BID', errMsg)
+        debug('Sending error message: ', errMsg)
+
+        yield request.with({ error: errMsg }).flash()
+        response.redirect('back')
+    }
   }
 
 }
