@@ -37,6 +37,10 @@ class AssetService{
     asset.type = type
 
     yield asset.save()
+
+    const freshInstance = yield this.Asset.find(asset.id)
+    
+    return freshInstance
   }
 
   //=>show some data asset

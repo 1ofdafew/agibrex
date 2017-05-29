@@ -32,7 +32,7 @@ class PaymentService {
   //=>insert data payment
   * store(trans_id, amount, type){
 
-  	const payment = new this.payment()
+  	const payment = new this.Payment()
 
   	payment.uuid = uuid()
     payment.trans_id = trans_id
@@ -40,6 +40,10 @@ class PaymentService {
     payment.type = type
 
     yield payment.save()
+
+    const freshInstance = yield this.Payment.find(payment.id)
+
+    return freshInstance
   }
 
   //=>show some data payment

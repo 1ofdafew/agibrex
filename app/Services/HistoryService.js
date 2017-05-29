@@ -39,6 +39,10 @@ class HistoryService{
     history.activities = activities 
 
     yield history.save()
+
+    const freshInstance = yield this.History.find(history.id)
+    
+    return freshInstance
   }
 
   //=>show some data history
