@@ -777,7 +777,7 @@ del {
 	margin-right: 0.5%;
 }
 .two_thirdpx {
-	width: 65.350%;
+	width: 66%;
 }
 .three_fourthpx {
 	width: 68%;
@@ -4234,11 +4234,11 @@ h3 .highlight {
 }
 .trades02 th {
 	padding: 10px;
-	color: #727272;
-	background-color: #fff;
+	color: #fff;
+	background-color: #727272;
 	font-size: 18px;
 	font-weight: normal;
-	padding: 10px;
+	padding: 16px;
 	padding-left: 18px;
 	padding-right: 18px;/*table desc*/
 	text-align: left;
@@ -4252,7 +4252,7 @@ h3 .highlight {
 	font-weight: normal;
 }
 .trades02 td {
-	padding: 10px;
+	padding: 16px;
 	padding-left: 18px;
 	padding-right: 18px; /*table padding height*/
 	color: #727272;
@@ -4264,6 +4264,9 @@ h3 .highlight {
 	margin-right: 6px;
 }
 .trades td a:hover {
+	color: #007F99;
+}
+.trades02 td a:hover {
 	color: #007F99;
 }
 .trades td .identify {
