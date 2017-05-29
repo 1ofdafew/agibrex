@@ -10,7 +10,7 @@ class ObchartController {
     .from('order_books')
     .where('type','bid')
     .where('status','1')
-    .orderBy('price', 'desc')
+    .orderBy('price', 'asc')
     .groupBy('price')
 
     const ask = yield Database.select('price', 'amount')
@@ -23,12 +23,19 @@ class ObchartController {
     // console.log('ask:', ask)
     // console.log('bid:', bid)
     // console.log(bid, ask)
+    // const data = {bid: bid, ask: ask}
+    console.log(ask)
 
-    // yield response.sendView('orderbook.chart',bid,ask)
+    yield response.sendView('orderbook.chart',{
+      bid_data : bid,
+      ask_data : ask,
+
+    })
     // const resp = `callback=([`, ask, bid,`]);`
     // console.log('resp:', resp)
 
-    response.jsonp({bid: bid, ask: ask})
+    // response.jsonp({bid: bid, ask: ask})
+    // return(bid,ask)
   }
   
 }
