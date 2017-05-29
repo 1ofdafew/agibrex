@@ -6,7 +6,7 @@ const User = use('App/Model/User')
 const UserService = make('App/Services/UserService')
 require('co-mocha')
 
-describe('User', function () {
+describe('User Test Case', function () {
   
   it('should be able to register user', function * () {
     const credentials = {
