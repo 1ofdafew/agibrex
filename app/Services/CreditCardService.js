@@ -39,6 +39,10 @@ class CreditCardService{
   	creditCard.cbb = cbb
 
   	yield creditCard.save()
+
+    const freshInstance = yield this.CreditCard.find(creditCard.id)
+
+    return freshInstance
   }
 
   //=>show some data credit card

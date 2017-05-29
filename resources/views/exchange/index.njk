@@ -1,50 +1,56 @@
-{% extends 'layout/puppet' %} {% block content %}
-<!-- <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script> -->
-<script src="/js/moment.js"></script>
-<script src="/js/jquery-3.1.1.min.js"></script>
-<script src="/js/ws.js"></script>
-<script src="/js/charts/highstock.js"></script>
-{#
-<script src="/js/charts/exporting.js"></script> #}
+{% extends 'layout/puppet' %}
 
-<link rel="stylesheet" href="/css/exchange.css" type="text/css"> {% if type == 'BTC' %}
-<script type="text/javascript" src="/graphs/bitcoin.js"></script>
-{% elseif type == 'ETH' %}
-<script type="text/javascript" src="/graphs/ethereum.js"></script>
-{% endif %}
+{% block content %}
 
-<div class="testimonials-4">
-  <div class="clearfix mar_top4"></div>
-  <!-- <div class="three_fourthpx">
+  <script src="/js/moment.js"></script>
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/ws.js"></script>
+  <script src="/js/charts/highstock.js"></script>
+  {# <script src="/js/charts/exporting.js"></script> #}
+
+  <link rel="stylesheet" href="/css/exchange.css" type="text/css">
+  <!-- <link href="/css/bootstrap.min.css" rel="stylesheet" /> -->
+
+  {% if type == 'BTC' %}
+  <script type="text/javascript" src="/graphs/bitcoin.js"></script>
+  {% elseif type == 'ETH' %}
+  <script type="text/javascript" src="/graphs/ethereum.js"></script>
+  {% endif %}
+
+  <div class="testimonials-4">
+    <div class="clearfix mar_top4"></div>
+    <!-- <div class="three_fourthpx">
       <h3>Tracto Exchange</br>TRC/BTC</h3>
     </div> -->
 
-  <div class="three_fourthpx">
+      <div class="three_fourthpx">
 
-    {% if old('error') %}
-    <div class="message-box-wrap">
-      <div class="error" role="alert" id="div4">
-        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
-      </div>
-    </div>
-    {% endif %} {% if old('success') %}
-    <div class="message-box-wrap">
-      <div class="success" role="alert" id="div4">
-        <i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;{{ old('success') }}
-      </div>
-    </div>
-    {% endif %}
+          {% if old('error') %}
+          <div class="message-box-wrap">
+            <div class="error" role="alert" id="div4">
+              <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+            </div>
+          </div>
+          {% endif %}
 
-    <div class="one_halfpx">
-      <div class="clearfix mar_top20"></div>
-      <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
-    </div>
+          {% if old('success') %}
+          <div class="message-box-wrap">
+            <div class="success" role="alert" id="div4">
+              <i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;{{ old('success') }}
+            </div>
+          </div>
+          {% endif %}
 
-    <div class="one_halfpx last">
-      <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Key Statistics - Trading Market</h3> -->
-      <!-- <div class="clearfix mar_top2"></div> -->
+        <div class="one_halfpx">
+          <div class="clearfix mar_top20"></div>
+        <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
+        </div>
 
-      <div class="fresh_projects global_stats">
+        <div class="one_halfpx last">
+        <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Key Statistics - Trading Market</h3> -->
+        <!-- <div class="clearfix mar_top2"></div> -->
+
+        <div class="fresh_projects global_stats">
         <div class="panel panel-default">
           <div class="panel-heading non-mobile">
             <div class="one_fourth">Last Price</div>
@@ -89,400 +95,408 @@
           </div>
           <!-- <div class="clear"></div> -->
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
 
 
 
-    <div class="clearfix mar_top1"></div>
-    <!-- <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
+        <div class="clearfix mar_top1"></div>
+          <!-- <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
           <div class="clearfix mar_top2"></div> -->
-    <div id="container" style="height: 500px; margin-bottom: 200px; in-width: 310px; max-width: 100%; "></div>
-    <script type="text/javascript">
-      // io refers to the above import
-      const io = ws('http://localhost:3333')
-      const client = io.channel('eth').connect(function(error, connected) {
-        console.log('Connected: ', connected)
-        console.log('Error: ', error)
-      })
+          <div id="container" style="height: 500px; margin-bottom: 200px; in-width: 310px; max-width: 100%; "></div>
+          <script type="text/javascript">
+            // io refers to the above import
+            const io = ws('http://localhost:3333')
+            const client = io.channel('eth').connect(function(error, connected) {
+              console.log('Connected: ', connected)
+              console.log('Error: ', error)
+            })
 
-      const client2 = io.channel('market').connect(function(error, connected) {
-        console.log('Connected: ', connected)
-        console.log('Error: ', error)
-      })
-      client.on('message', function(message) {
-        // console.log('Got message: ', message)
-      })
-      // client.emit('message', 'Some market data...')
+            const client2 = io.channel('market').connect(function(error, connected) {
+              console.log('Connected: ', connected)
+              console.log('Error: ', error)
+            })
+            client.on('message', function(message) {
+              // console.log('Got message: ', message)
+            })
+            // client.emit('message', 'Some market data...')
 
-      // now, process the seel signals
-      // client2.on('sell', (data) => {
-      //   console.log('Got sell data', data)
-      // })
-      //
-      // client.on('buy', (data) => {
-      //   console.log('Got buy data', data)
-      // })
-    </script>
-    <div class="clear"></div>
-    <!-- <div class="clearfix mar_top20"></div> -->
+            // now, process the seel signals
+            // client2.on('sell', (data) => {
+            //   console.log('Got sell data', data)
+            // })
+            //
+            // client.on('buy', (data) => {
+            //   console.log('Got buy data', data)
+            // })
+        </script>
+        <div class="clear"></div>
+         <!-- <div class="clearfix mar_top20"></div> -->
 
-    <div class="testimonials-4">
-      <input id="user_fee" value="0.00" type="hidden">
-      <input id="user_fee1" value="0.00" type="hidden">
-      <div class="one_halfpx">
-        <div class="contentbuy">
-          <h3 class="section_label">
+         <div class="testimonials-4">
+           <input id="user_fee" value="0.00" type="hidden">
+           <input id="user_fee1" value="0.00" type="hidden">
+           <div class="one_halfpx">
+             <div class="contentbuy">
+               <h3 class="section_label">
                  <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy {{ type }}</span>
                </h3>
-          <div class="clear"></div>
-          <div class="dotted"></div>
-          <form id="buy_form" action="buy-sell.php" method="POST">
-            <div class="buyform">
-              <div class="spacer"></div>
-              <div class="calc dotted">
-                <div class="label">Available
-                  <span class="sell_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
-                </div>
-                <div class="value">
-                  <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                  <span id="buy_user_available">{{btcBalance}}</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="spacer"></div>
-              <div class="param">
-                <label for="buy_amount">Amount To Buy</label>
-                <input name="buy_amount" id="buy_amount" value="0" type="text">
-                <div class="qualify">{{ type }}</div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top1"></div>
-              <div class="param">
-                <label for="buy_currency">Currency To Use</label>
-                <select id="buy_currency" name="currency">
+               <div class="clear"></div>
+               <div class="dotted"></div>
+               <form id="buy_form" action="buy-sell.php" method="POST">
+                 <div class="buyform">
+                   <div class="spacer"></div>
+                   <div class="calc dotted">
+                     <div class="label">Available
+                       <span class="sell_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
+                     </div>
+                     <div class="value">
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
+                       <span id="buy_user_available">{{btcBalance}}</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="spacer"></div>
+                   <div class="param">
+                       <label for="buy_amount">Amount To Buy</label>
+                     <input name="buy_amount" id="buy_amount" value="0" type="text">
+                     <div class="qualify">{{ type }}</div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top1"></div>
+                   <div class="param">
+                     <label for="buy_currency">Currency To Use</label>
+                     <select id="buy_currency" name="currency">
                        <option value="BTC">BTC</option>
                        <option value="ETH">ETH</option>
                      </select>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <div class="param lessbottom">
-                <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox" checked disabled>
-                <label for="buy_market_price">Buy At Market Price&nbsp;
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <!-- <div class="param lessbottom">
+                     <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox" checked disabled>
+                     <label for="buy_market_price">Buy At Market Price&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom">
-                <!-- <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox"> -->
-                <!-- <label for="buy_limit">Limit Order&nbsp;
+                     <div class="clear"></div>
+                   </div> -->
+                   <div class="param lessbottom">
+                     <!-- <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox"> -->
+                     <!-- <label for="buy_limit">Limit Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
                          <i class="fa fa-question"></i>
                        </a>
                      </label> -->
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom">
-                <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
-                <label for="buy_stop">Stop Order&nbsp;
+                     <div class="clear"></div>
+                   </div>
+                   <div class="param lessbottom">
+                     <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
+                     <label for="buy_stop">Stop Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <div id="buy_price_container" class="param">
-                <label for="buy_price">
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <div id="buy_price_container" class="param">
+                     <label for="buy_price">
                        <span id="buy_price_limit_label">Limit Price</span>
                        <span id="buy_price_market_label" style="display:none;">Price</span>
                      </label>
-                <input name="buy_price" id="buy_price" value="{{trcInBtc}}" type="text" readonly>
-                <div class="qualify">
-                  <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top3"></div>
-              <div id="buy_stop_container" class="param" style="display:none;">
-                <label for="buy_stop_price">Stop Price</label>
-                <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
-                <div class="qualify">
-                  <span class="buy_currency_label">USD</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="spacer"></div>
-              <div class="calc">
-                <div class="label">Subtotal</div>
-                <div class="value">
-                  <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                  <span id="buy_subtotal">0.00</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="calc">
-                <div class="label">Fee&nbsp;
-                  <a title="View fee schedule" href="fee-schedule.php" target="_blank">
-                    <i class="fa fa-question"></i>
-                  </a>
-                </div>
-                <div class="value">
-                  <span id="buy_user_fee">0.00</span>&nbsp;%</div>
-                <div class="clear"></div>
-              </div>
-              <div class="dotted"></div>
-              <div class="mar_top2"></div>
-              <div class="calc bigger">
-                <div class="label">
-                  <span id="buy_total_approx_label">Approx.
-                         <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span> to spend</span>
-                  <span id="buy_total_label" style="display:none;">{{ type }} to Receive</span>
-                </div>
-                <div class="value">
-                  <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                  <span id="buy_total">0.00</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <input name="buy" value="1" type="hidden">
-              <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
-              <input name="submit" value="Buy {{ type }}" class="but_user" type="submit">
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="one_halfpx lastpx">
-        <div class="contentsell">
-          <h3 class="section_label">
+                     <input name="buy_price" id="buy_price" value="{{trcInBtc}}" type="text" readonly>
+                     <div class="qualify">
+                       <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                     <div class="mar_top3"></div>
+                   <div id="buy_stop_container" class="param" style="display:none;">
+                     <label for="buy_stop_price">Stop Price</label>
+                     <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
+                     <div class="qualify">
+                       <span class="buy_currency_label">USD</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="spacer"></div>
+                   <div class="calc">
+                     <div class="label">Subtotal</div>
+                     <div class="value">
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
+                       <span id="buy_subtotal">0.00</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="calc">
+                     <div class="label">Fee&nbsp;
+                       <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                         <i class="fa fa-question"></i>
+                       </a>
+                     </div>
+                     <div class="value">
+                       <span id="buy_user_fee">0.00</span>&nbsp;%</div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="dotted"></div>
+                   <div class="mar_top2"></div>
+                   <div class="calc bigger">
+                     <div class="label">
+                       <span id="buy_total_approx_label">Approx.
+                         <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
+                         to spend</span>
+                       <span id="buy_total_label" style="display:none;">{{ type }} to Receive</span>
+                     </div>
+                     <div class="value">
+                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
+                       <span id="buy_total">0.00</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <input name="buy" value="1" type="hidden">
+                   <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+                   <input name="submit" value="Buy {{ type }}" class="but_user" type="submit">
+                 </div>
+               </form>
+             </div>
+           </div>
+           <div class="one_halfpx lastpx">
+             <div class="contentsell">
+               <h3 class="section_label">
                  <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell {{ type }}</span>
                </h3>
-          <div class="clear"></div>
-          <div class="dotted"></div>
-          <form id="sell_form" action="/exchange/sell/{{type}}" method="POST">
-            {{ csrfField }}
-            <input type="hidden" name="type" value="{{type}}">
-            <div class="buyform">
-              <div class="spacer"></div>
-              <div class="calc dotted">
-                <div class="label">Available {{ type }}</div>
-                <div class="value">
-                  <span id="sell_user_available">{{ balance }}</span> {{ type }}</div>
-                <div class="clear"></div>
-                <input type="hidden" id="sell_available" value="{{ balance }}">
-              </div>
-              <div class="spacer"></div>
-              <div class="param">
-                <label for="sell_amount">Amount To Sell</label>
-                <input name="sell_amount" id="sell_amount" value="0" type="text">
-                <div class="qualify">{{ type }}</div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top1"></div>
-              <div class="param">
-                <label for="sell_currency">Currency To Use</label>
-                <select id="sell_currency" name="sell_currency">
+               <div class="clear"></div>
+               <div class="dotted"></div>
+               <form id="sell_form" action="/exchange/sell/{{type}}" method="POST">
+                 {{ csrfField }}
+                 <input type="hidden" name="type" value="{{type}}">
+                 <div class="buyform">
+                   <div class="spacer"></div>
+                   <div class="calc dotted">
+                     <div class="label">Available {{ type }}</div>
+                     <div class="value">
+                       <span id="sell_user_available">{{ balance }}</span>
+                       {{ type }}</div>
+                     <div class="clear"></div>
+                     <input type="hidden" id="sell_available" value="{{ balance }}">
+                   </div>
+                   <div class="spacer"></div>
+                   <div class="param">
+                     <label for="sell_amount">Amount To Sell</label>
+                     <input name="sell_amount" id="sell_amount" value="0" type="text">
+                     <div class="qualify">{{ type }}</div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top1"></div>
+                   <div class="param">
+                     <label for="sell_currency">Currency To Use</label>
+                     <select id="sell_currency" name="sell_currency">
                        <option value="BTC">BTC</option>
                        <option value="ETH">ETH</option>
 
                      </select>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <div class="param lessbottom">
-                <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox" checked="checked" disabled="Disable">
-                <label for="sell_market_price">Sell At Market Price&nbsp;
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <!-- <div class="param lessbottom">
+                     <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox" checked="checked" disabled="Disable">
+                     <label for="sell_market_price">Sell At Market Price&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom">
-                <!-- <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
+                     <div class="clear"></div>
+                   </div> -->
+                   <div class="param lessbottom">
+                     <!-- <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
                      <label for="sell_stop">Limit Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
                          <i class="fa fa-question"></i>
                        </a>
                      </label> -->
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom">
-                <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
-                <label for="sell_stop">Stop Order&nbsp;
+                     <div class="clear"></div>
+                   </div>
+                   <div class="param lessbottom">
+                     <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
+                     <label for="sell_stop">Stop Order&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
                          <i class="fa fa-question"></i>
                        </a>
                      </label>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <div id="sell_price_container" class="param">
-                <label for="sell_price">
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <div id="sell_price_container" class="param">
+                     <label for="sell_price">
                        <span id="sell_price_limit_label">Limit Price</span>
                        <span id="sell_price_market_label" style="display:none;">Price</span>
                      </label>
-                <input name="sell_price" id="sell_price" value="{{price}}" type="text" readonly>
-                <div class="qualify">
-                  <span class="sell_currency_label">USD</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top3"></div>
-              <div id="sell_stop_container" class="param" style="display:none;">
-                <label for="sell_stop_price">Stop Price</label>
-                <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
-                <div class="qualify">
-                  <span class="sell_currency_label">USD</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="spacer"></div>
-              <div class="calc">
-                <div class="label">Subtotal</div>
-                <div class="value">
-                  <span class="sell_currency_char">$</span>
-                  <span id="sell_subtotal">0.00</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="calc">
-                <div class="label">Fee&nbsp;
-                  <a title="View fee schedule" href="fee-schedule.php" target="_blank">
-                    <i class="fa fa-question"></i>
-                  </a>
-                </div>
-                <div class="value">
-                  <span id="sell_user_fee">{{ fee }}</span>&nbsp;%</div>
-                <div class="clear"></div>
-              </div>
-              <div class="dotted"></div>
-              <div class="mar_top2"></div>
-              <div class="calc bigger">
-                <div class="label">
-                  <span id="sell_total_approx_label">Approx
-                         <span class="sell_currency_label">USD</span> to receive</span>
-                  <span id="sell_total_label" style="display:none;">
-                         <span class="sell_currency_label">USD</span> to receive</span>
-                </div>
-                <div class="value">
-                  <span class="sell_currency_char">$</span>
-                  <span id="sell_total">0.00</span>
-                </div>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <input name="sell" value="1" type="hidden">
-              <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
-              <input name="submit" value="Sell {{ type }}" class="but_user" type="submit">
-            </div>
-          </form>
-        </div>
-      </div>
+                     <input name="sell_price" id="sell_price" value="{{price}}" type="text" readonly>
+                     <div class="qualify">
+                       <span class="sell_currency_label">USD</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top3"></div>
+                   <div id="sell_stop_container" class="param" style="display:none;">
+                     <label for="sell_stop_price">Stop Price</label>
+                     <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
+                     <div class="qualify">
+                       <span class="sell_currency_label">USD</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="spacer"></div>
+                   <div class="calc">
+                     <div class="label">Subtotal</div>
+                     <div class="value">
+                       <span class="sell_currency_char">$</span>
+                       <span id="sell_subtotal">0.00</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="calc">
+                     <div class="label">Fee&nbsp;
+                       <a title="View fee schedule" href="fee-schedule.php" target="_blank">
+                         <i class="fa fa-question"></i>
+                       </a>
+                     </div>
+                     <div class="value">
+                       <span id="sell_user_fee">{{ fee }}</span>&nbsp;%</div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="dotted"></div>
+                   <div class="mar_top2"></div>
+                   <div class="calc bigger">
+                     <div class="label">
+                       <span id="sell_total_approx_label">Approx
+                         <span class="sell_currency_label">USD</span>
+                         to receive</span>
+                       <span id="sell_total_label" style="display:none;">
+                         <span class="sell_currency_label">USD</span>
+                         to receive</span>
+                     </div>
+                     <div class="value">
+                       <span class="sell_currency_char">$</span>
+                       <span id="sell_total">0.00</span>
+                     </div>
+                     <div class="clear"></div>
+                   </div>
+                   <div class="mar_top2"></div>
+                   <input name="sell" value="1" type="hidden">
+                   <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+                   <input name="submit" value="Sell {{ type }}" class="but_user" type="submit">
+                 </div>
+               </form>
+             </div>
+           </div>
 
-      <div class="clearfix mar_top4"></div>
-      <div id="filters_area">
+           <div class="clearfix mar_top4"></div>
+           <div id="filters_area">
 
-        <!-- Buy Orders -->
-        <div class="one_halfpx">
-          <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy Orders</h3>
-          <div class="table-style">
-            <table class="table-list trades" id="bids_list">
-              <tbody>
-                <tr>
-                  <th>Price</th>
-                  <th>{{ type }}</th>
-                  <th>BTC</th>
-                  <th>SUM ( BTC )</th>
-                </tr>
+            <!-- Buy Orders -->
+             <div class="one_halfpx">
+               <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy Orders</h3>
+               <div class="table-style">
+                 <table class="table-list02 trades" id="bids_list">
+                   <tbody>
+                     <tr>
+                       <th>Price</th>
+                       <th>{{ type }}</th>
+                       <th>BTC</th>
+                       <th>SUM ( BTC )</th>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539796">
-                  <td style="">$<span class="order_price">1,780.84</span></td>
-                  <td style=""><span class="order_amount">0.09240000</span></td>
-                  <td style="">$<span class="order_value">164.55</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539796">
+                       <td style="">$<span class="order_price">1,780.84</span></td>
+                       <td style=""><span class="order_amount">0.09240000</span></td>
+                       <td style="">$<span class="order_value">164.55</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539807">
-                  <td style="">$<span class="order_price">1,780.82</span></td>
-                  <td style=""><span class="order_amount">0.04450000</span></td>
-                  <td style="">$<span class="order_value">79.25</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539807">
+                       <td style="">$<span class="order_price">1,780.82</span></td>
+                       <td style=""><span class="order_amount">0.04450000</span></td>
+                       <td style="">$<span class="order_value">79.25</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539797">
-                  <td style="">$<span class="order_price">1,780.29</span></td>
-                  <td style=""><span class="order_amount">0.04390000</span></td>
-                  <td style="">$<span class="order_value">78.15</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539797">
+                       <td style="">$<span class="order_price">1,780.29</span></td>
+                       <td style=""><span class="order_amount">0.04390000</span></td>
+                       <td style="">$<span class="order_value">78.15</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539798">
-                  <td style="">$<span class="order_price">1,780.06</span></td>
-                  <td style=""><span class="order_amount">0.02150000</span></td>
-                  <td style="">$<span class="order_value">38.27</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539798">
+                       <td style="">$<span class="order_price">1,780.06</span></td>
+                       <td style=""><span class="order_amount">0.02150000</span></td>
+                       <td style="">$<span class="order_value">38.27</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539860">
-                  <td style="">$<span class="order_price">1,779.79</span></td>
-                  <td style=""><span class="order_amount">0.02660000</span></td>
-                  <td style="">$<span class="order_value">47.34</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539860">
+                       <td style="">$<span class="order_price">1,779.79</span></td>
+                       <td style=""><span class="order_amount">0.02660000</span></td>
+                       <td style="">$<span class="order_value">47.34</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr class="bid_tr" id="bid_35539803">
-                  <td style="">$<span class="order_price">1,778.30</span></td>
-                  <td style=""><span class="order_amount">0.02430000</span></td>
-                  <td style="">$<span class="order_value">43.21</span></td>
-                  <td style=""><span class="order_amount">0.05530000</span></td>
-                </tr>
+                     <tr class="bid_tr" id="bid_35539803">
+                       <td style="">$<span class="order_price">1,778.30</span></td>
+                       <td style=""><span class="order_amount">0.02430000</span></td>
+                       <td style="">$<span class="order_value">43.21</span></td>
+                       <td style=""><span class="order_amount">0.05530000</span></td>
+                     </tr>
 
-                <tr id="no_bids" style="display:none;">
-                  <td colspan="4">No bids to show.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+                     <tr id="no_bids" style="display:none;">
+                       <td colspan="4">No bids to show.</td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </div>
+             </div>
 
-        <!-- Sell Orders -->
-        <div class="one_halfpx lastpx">
-          <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell Orders</h3>
-          <div class="table-style">
-            <table class="table-list trades" id="asks_list">
-              <tbody>
-                <tr>
-                  <th>Price</th>
-                  <th>{{ type }}</th>
-                  <th>Asset</th>
-                  <th>SUM ( Asset )</th>
-                </tr>
+             <!-- Sell Orders -->
+             <div class="one_halfpx lastpx">
+               <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell Orders</h3>
+               <div class="table-style">
+                 <table class="table-list02 trades" id="asks_list">
+                   <tbody>
+                     <tr>
+                       <th>Price</th>
+                       <th>{{ type }}</th>
+                       <th>Asset</th>
+                       <th>SUM ( Asset )</th>
+                     </tr>
 
-                <tr id="no_asks" style="display:none;">
-                  <td colspan="4">No asks to show.</td>
-                </tr>
-                {% for showask in showasks %}
-                <tr class="ask_tr" id="ask_35539346">
-                  <td style="">$<span class="order_price">{{showask.price}}</span></td>
-                  <td style=""><span class="order_amount">{{showask.amount}}</span></td>
-                  <td style="">
-                    {% if showask.to_asset == 'BTC' %}
+                     <tr id="no_asks" style="display:none;">
+                       <td colspan="4">No asks to show.</td>
+                     </tr>
+                     {% for showask in showasks %}
+                     <tr class="ask_tr" id="ask_35539346">
+                       <td style="">$<span class="order_price">{{showask.price}}</span></td>
+                       <td style=""><span class="order_amount">{{showask.amount}}</span></td>
+                       <td style="">
+                            {% if showask.to_asset == 'BTC' %}
 
-                    <span class="order_value">
+                            <span class="order_value">
                               Btc {{ trcInBtc }}
-                            </span> {% endif %} {% if showask.to_asset == 'ETH' %}
-                    <span class="order_value">
-                              Eth {{ trcInEth }}
-                            </span> {% endif %}
-                  </td>
-                  <td style="">
+                            </span>
+                            {% endif %}
 
-                    <span class="order_amount">
+                            {% if showask.to_asset == 'ETH' %}
+                            <span class="order_value">
+                              Eth {{ trcInEth }}
+                            </span>
+                            {% endif %}
+                        </td>
+                       <td style="">
+
+                           <span class="order_amount">
                                {% if showask.to_asset == 'BTC' %}
                                 Btc {{ (trcInBtc * showask.amount) | round(8, 'floor') }}
                                {% endif %}
@@ -491,729 +505,604 @@
                                 Eth {{ (trcInEth * showask.amount) | round(8, 'floor') }}
                                {% endif %}
                            </span>
-                  </td>
-                </tr>
-                {% endfor %}
+                       </td>
+                     </tr>
+                     {% endfor %}
 
-              </tbody>
-            </table>
+                   </tbody>
+                 </table>
+               </div>
+               <div class="clear"></div>
+             </div>
+           </div>
+
+         </div>
+         <div class="mar_top6"></div>
+         <div class="clear"></div>
+       </div>
+       </div>
+
+        <div class="one_fourthpx lastpx">
+          <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Current Markets</h3> -->
+          <!-- <div class="clearfix mar_top2"></div> -->
+          <div class="one_full">
+            <main>
+              {% if type == 'BTC' %}
+              <input class="radiobuttontab" id="tab1" type="radio" value="/exchange/btc" name="tabs" checked>
+
+              {% else %}
+              <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
+              {% endif %}
+              <label class="labels" for="tab1">BTC</label>
+              <!-- <a href="/exchange/btc">BTC</a> -->
+
+              {% if type == 'TRC' %}
+              <input class="radiobuttontab" id="tab2" type="radio" value="/exchange/trc" name="tabs" checked>
+
+              {% else %}
+              <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
+              {% endif %}
+              <label class="labels" for="tab2">TRC</label>
+
+              {% if type == 'ETH' %}
+              <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/eth" name="tabs" checked>
+
+              {% else %}
+              <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
+              {% endif %}
+              <label class="labels" for="tab3">ETH</label>
+
+              <section id="containerBTC">
+                <!-- <div class="table-style"> -->
+                  <!-- id="tables-wrap" -->
+
+                <div id="tableWrapper">
+                  <!-- <table class="table-list trades" id="transactions_list"> -->
+                  <table id="arrestedDevelopment" class="table-list02 trades">
+                    <thead>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Koin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="order_1179970">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179969">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.03110000</td>
+                        <td style="">1,255.97</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179968">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.05660000</td>
+                        <td style="">1,256.25</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179967">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.06400000</td>
+                        <td style="">1,255.79</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179968">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.05660000</td>
+                        <td style="">1,256.25</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179967">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.06400000</td>
+                        <td style="">1,255.79</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- </div> -->
+              </section>
+              <section id="containerTRC">
+                <div class="table-style">
+                  <table class="table-list02 trades" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                      <tr id="order_1179970">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179969">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.03110000</td>
+                        <td style="">1,255.97</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179968">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.05660000</td>
+                        <td style="">1,256.25</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179967">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.06400000</td>
+                        <td style="">1,255.79</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              <section id="containerETH">
+                <div class="table-style">
+                  <table class="table-list02 trades" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                      <tr id="order_1179970">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179969">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.03110000</td>
+                        <td style="">1,255.97</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179968">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.05660000</td>
+                        <td style="">1,256.25</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179967">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.06400000</td>
+                        <td style="">1,255.79</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </main>
+            <div class="mar_top1"></div>
           </div>
-          <div class="clear"></div>
+
+          <div class="one_full">
+            <!-- <main> -->
+              <!-- {% if type == 'BTC' %}
+              <input class="radiobuttontab" id="tab4" type="radio" value="/exchange/btc" name="tabs2" checked>
+              {% else %}
+              <input class="radiobuttontab" id="tab4" type="radio" name="tabs2">
+              {% endif %}
+              <label class="labels" for="tab4">Troll Box</label>
+              {% if type == 'ETH' %}
+              <input class="radiobuttontab" id="tab5" type="radio" value="/exchange/eth" name="tabs2" checked>
+              {% else %}
+              <input class="radiobuttontab" id="tab5" type="radio" name="tabs2">
+              {% endif %}
+              <label class="labels" for="tab5">Comment</label> -->
+
+              <!-- <section id="containerTroll"> -->
+
+                <div class="table-style">
+                  <table class="table-list02 trades02" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</th>
+                      </tr>
+                      <tr>
+                        <td style="">bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="buyform">
+                 <div class="param">
+                   <input name="pin1" id="pin1" value="ghio68o6" type="text">
+                   <div class="clear"></div>
+                 </div>
+                </div>
+
+              <!-- </section> -->
+
+              <!-- <section id="containerComment">
+                <div class="table-style">
+                  <table class="table-list trades" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                      <tr id="order_1179970">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179969">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.03110000</td>
+                        <td style="">1,255.97</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179968">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.05660000</td>
+                        <td style="">1,256.25</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179967">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.06400000</td>
+                        <td style="">1,255.79</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="order_1179966">
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">TRC</td>
+                        <td style="">0.04850000</td>
+                        <td style="">1,255.43</td>
+                        <td style="">-15.47</td>
+                        <td style="">Tracto</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section> -->
+
+            <!-- </main> -->
+            <div class="mar_top1"></div>
+          </div>
+
         </div>
       </div>
+    <div class="clearfix mar_top20"></div>
 
-    </div>
-    <div class="mar_top6"></div>
-    <div class="clear"></div>
-  </div>
-</div>
-
-<div class="one_fourthpx lastpx">
-  <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Current Markets</h3> -->
-  <!-- <div class="clearfix mar_top2"></div> -->
-  <div class="one_full">
-    <main>
-      {% if type == 'BTC' %}
-      <input class="radiobuttontab" id="tab1" type="radio" value="/exchange/btc" name="tabs" checked> {% else %}
-      <input class="radiobuttontab" id="tab1" type="radio" name="tabs"> {% endif %}
-      <label class="labels" for="tab1">BTC</label>
-      <!-- <a href="/exchange/btc">BTC</a> -->
-
-      {% if type == 'TRC' %}
-      <input class="radiobuttontab" id="tab2" type="radio" value="/exchange/trc" name="tabs" checked> {% else %}
-      <input class="radiobuttontab" id="tab2" type="radio" name="tabs"> {% endif %}
-      <label class="labels" for="tab2">TRC</label> {% if type == 'ETH' %}
-      <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/eth" name="tabs" checked> {% else %}
-      <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs"> {% endif %}
-      <label class="labels" for="tab3">ETH</label>
-
-      <section id="containerBTC">
-        <div class="table-style" id="tables-wrap">
-          <div id="scrollcell">
-            <table class="table-list trades" id="transactions_list">
-              <thead>
-                <tr>
-                  <th><span class="tabletext"><i class="fa fa-star"></i></span></th>
-                  <th><span class="tabletext">Coin</span></th>
-                  <th><span class="tabletext">Price</span></th>
-                  <th><span class="tabletext">Volume</span></th>
-                  <th><span class="tabletext">Change</span></th>
-                  <th><span class="tabletext">Name</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr id="order_1179970">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.03810000</td>
-                  <td style="">1,255.04</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179969">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.03110000</td>
-                  <td style="">1,255.97</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="order_1179968">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">ETH</td>
-                  <td style="">0.05660000</td>
-                  <td style="">1,256.25</td>
-                  <td style="">-15.47</td>
-                  <td style="">Ethereum</td>
-                </tr>
-                <tr id="order_1179967">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.06400000</td>
-                  <td style="">1,255.79</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179968">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">ETH</td>
-                  <td style="">0.05660000</td>
-                  <td style="">1,256.25</td>
-                  <td style="">-15.47</td>
-                  <td style="">Ethereum</td>
-                </tr>
-                <tr id="order_1179967">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.06400000</td>
-                  <td style="">1,255.79</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">ETH</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Ethereum</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">ETH</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Ethereum</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">BTC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Bitcoin</td>
-                </tr>
-                <tr id="order_1179966">
-                  <td style=""><i class="fa fa-star"></i></td>
-                  <td style="">TRC</td>
-                  <td style="">0.04850000</td>
-                  <td style="">1,255.43</td>
-                  <td style="">-15.47</td>
-                  <td style="">Tracto</td>
-                </tr>
-                <tr id="no_transactions" style="display:none;">
-                  <td colspan="3">No transactions to show.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-      <section id="containerTRC">
-        <div class="table-style">
-          <table class="table-list trades" id="transactions_list">
-            <tbody>
-              <tr>
-                <th><i class="fa fa-star"></i></th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>Volume</th>
-                <th>Change</th>
-                <th>Name</th>
-              </tr>
-              <tr id="order_1179970">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.03810000</td>
-                <td style="">1,255.04</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179969">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.03110000</td>
-                <td style="">1,255.97</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179968">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.05660000</td>
-                <td style="">1,256.25</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179967">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.06400000</td>
-                <td style="">1,255.79</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="no_transactions" style="display:none;">
-                <td colspan="3">No transactions to show.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <section id="containerETH">
-        <div class="table-style">
-          <table class="table-list trades" id="transactions_list">
-            <tbody>
-              <tr>
-                <th><i class="fa fa-star"></i></th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>Volume</th>
-                <th>Change</th>
-                <th>Name</th>
-              </tr>
-              <tr id="order_1179970">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.03810000</td>
-                <td style="">1,255.04</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179969">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.03110000</td>
-                <td style="">1,255.97</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179968">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.05660000</td>
-                <td style="">1,256.25</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179967">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.06400000</td>
-                <td style="">1,255.79</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="no_transactions" style="display:none;">
-                <td colspan="3">No transactions to show.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-    <div class="mar_top1"></div>
   </div>
 
-  <div class="one_full">
-    <main>
-      {% if type == 'BTC' %}
-      <input class="radiobuttontab" id="tab4" type="radio" value="/exchange/btc" name="tabs2" checked> {% else %}
-      <input class="radiobuttontab" id="tab4" type="radio" name="tabs2"> {% endif %}
-      <label class="labels" for="tab4">Troll</label>
-      <!-- <a href="/exchange/btc">BTC</a> -->
 
-      {% if type == 'ETH' %}
-      <input class="radiobuttontab" id="tab5" type="radio" value="/exchange/eth" name="tabs2" checked> {% else %}
-      <input class="radiobuttontab" id="tab5" type="radio" name="tabs2"> {% endif %}
-      <label class="labels" for="tab5">Comment</label>
+{% endblock %}
 
-      <section id="containerTroll">
-        <script type="text/javascript">
-          // io refers to the above import
-          const io = ws('http://localhost:3333')
-          const client = io.channel('chat').connect(function(error, connected) {
-            console.log('Connected: ', connected)
-          })
+{% block docready %}
 
-          client.on('message', function(message) {
-            console.log('Got message: ', message)
-          })
-
-          client.emit('message', 'Hello World!')
-        </script>
-
-        <div class="table-style">
-          <table class="table-list trades" id="transactions_list">
-            <tbody>
-              <tr>
-                <th><i class="fa fa-star"></i></th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>Volume</th>
-                <th>Change</th>
-                <th>Name</th>
-              </tr>
-              <tr id="order_1179970">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.03810000</td>
-                <td style="">1,255.04</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179969">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.03110000</td>
-                <td style="">1,255.97</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179968">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.05660000</td>
-                <td style="">1,256.25</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179967">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.06400000</td>
-                <td style="">1,255.79</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="no_transactions" style="display:none;">
-                <td colspan="3">No transactions to show.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <section id="containerComment">
-        <div class="table-style">
-          <table class="table-list trades" id="transactions_list">
-            <tbody>
-              <tr>
-                <th><i class="fa fa-star"></i></th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>Volume</th>
-                <th>Change</th>
-                <th>Name</th>
-              </tr>
-              <tr id="order_1179970">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.03810000</td>
-                <td style="">1,255.04</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179969">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.03110000</td>
-                <td style="">1,255.97</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179968">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.05660000</td>
-                <td style="">1,256.25</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179967">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.06400000</td>
-                <td style="">1,255.79</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">ETH</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Ethereum</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">BTC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Bitcoin</td>
-              </tr>
-              <tr id="order_1179966">
-                <td style=""><i class="fa fa-star"></i></td>
-                <td style="">TRC</td>
-                <td style="">0.04850000</td>
-                <td style="">1,255.43</td>
-                <td style="">-15.47</td>
-                <td style="">Tracto</td>
-              </tr>
-              <tr id="no_transactions" style="display:none;">
-                <td colspan="3">No transactions to show.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-    </main>
-    <div class="mar_top1"></div>
-  </div>
-
-</div>
-</div>
-<div class="clearfix mar_top20"></div>
-
-</div>
-
-
-{% endblock %} {% block docready %}
 <script type="text/javascript">
-  jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
 
-    var sell_available = $("#sell_available").val();
-    var sell_price = $("#sell_price").val();
+        var sell_available = $("#sell_available").val();
+        var sell_price = $("#sell_price").val();
 
 
-    $('#buy_currency').bind('change', function() {
-      var buy_currency = $("#buy_currency").val();
+        $('#buy_currency').bind('change', function () {
+            var buy_currency = $("#buy_currency").val();
 
-      var currency = '';
-      if (buy_currency == 'BTC') {
-        currency = 'BTC';
-        $('#buy_price').val({
-          {
-            trcInBtc
-          }
+            var currency = '';
+            if (buy_currency == 'BTC') {
+                currency = 'BTC';
+                $('#buy_price').val({{trcInBtc}});
+            } else if (buy_currency == 'ETH') {
+                currency = 'ETH';
+                $('#buy_price').val({{trcInEth}});
+            }
+            $('.changeCurrency','').html(currency);
+
         });
-      } else if (buy_currency == 'ETH') {
-        currency = 'ETH';
-        $('#buy_price').val({
-          {
-            trcInEth
-          }
+
+        $('#sell_amount').bind('keyup blur', function () {
+
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+            var sell_amount = $("#sell_amount").val();
+            if (parseFloat(sell_amount) > sell_available) {
+                $("#sell_amount").val(sell_available);
+            }
         });
-      }
-      $('.changeCurrency', '').html(currency);
+
+        $("#sell_amount").bind('keyup blur', function () {
+            var sell_amount = $("#sell_amount").val();
+            var total = sell_amount * sell_price;
+            var sell_subtotal = total.toFixed(2)
+            $('#sell_subtotal').html(sell_subtotal);
+            $('#sell_total').html(sell_subtotal);
+
+        });
 
     });
-
-    $('#sell_amount').bind('keyup blur', function() {
-
-      $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-      var sell_amount = $("#sell_amount").val();
-      if (parseFloat(sell_amount) > sell_available) {
-        $("#sell_amount").val(sell_available);
-      }
-    });
-
-    $("#sell_amount").bind('keyup blur', function() {
-      var sell_amount = $("#sell_amount").val();
-      var total = sell_amount * sell_price;
-      var sell_subtotal = total.toFixed(2)
-      $('#sell_subtotal').html(sell_subtotal);
-      $('#sell_total').html(sell_subtotal);
-
-    });
-
-  });
 </script>
 {% endblock %}
