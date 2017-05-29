@@ -8,7 +8,7 @@ class UpdateOrderbookTableSchema extends Schema {
 
     this.table('order_books', (table) => {
       table.dropColumn('asset')
-      table.dropColumn('to_asset')
+      // table.dropColumn('to_asset')
       table.dropColumn('type')
     })
 
@@ -22,6 +22,7 @@ class UpdateOrderbookTableSchema extends Schema {
   down () {
     this.table('order_books', (table) => {
       table.dropColumn('asset')
+      table.dropColumn('type')
       table.dropColumn('to_asset')
     })
   }

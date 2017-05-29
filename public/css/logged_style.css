@@ -180,7 +180,7 @@ sub {
 
 #scrollcell {
 	overflow: auto;
-  height: 610px;
+  height: 510px;
 }
 
 /*#tables-wrap {
@@ -777,7 +777,7 @@ del {
 	margin-right: 0.5%;
 }
 .two_thirdpx {
-	width: 65.350%;
+	width: 66%;
 }
 .three_fourthpx {
 	width: 68%;
@@ -4188,7 +4188,18 @@ h3 .highlight {
 	margin-bottom: 20px;
 	width: 100%;
 }
+.table-list02 {
+	float: left;
+	background-color: #fff;
+	border: 1px solid #dddddd;
+	margin-bottom: 20px;
+	width: 100%;
+}
 .table-list th {
+	padding: 18px 10px;
+	background-color: #eee;
+}
+.table-list02 th {
 	padding: 18px 10px;
 	background-color: #eee;
 }
@@ -4198,10 +4209,14 @@ h3 .highlight {
 	background-color: #f5f5f5;
 }
 .table-list02 td {
+  padding: 13px 10px;
 	text-align: left;
 	background-color: #f5f5f5;
 }
 .table-list tr:hover td {
+	background-color: #ffeece;
+}
+.table-list02 tr:hover td {
 	background-color: #ffeece;
 }
 .trades {
@@ -4212,10 +4227,34 @@ h3 .highlight {
 	background-color: #fff;
 	font-size: 18px;
 	font-weight: normal;
-	padding: 10px; /*table desc*/
+	padding: 10px;
+	padding-left: 18px;
+	padding-right: 18px;/*table desc*/
+	text-align: left;
+}
+.trades02 th {
+	padding: 10px;
+	color: #fff;
+	background-color: #727272;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 16px;
+	padding-left: 18px;
+	padding-right: 18px;/*table desc*/
+	text-align: left;
 }
 .trades td {
-	padding: 5px;
+	padding: 2px;
+	padding-left: 18px;
+	padding-right: 18px; /*table padding height*/
+	color: #727272;
+	font-size: 17px;
+	font-weight: normal;
+}
+.trades02 td {
+	padding: 16px;
+	padding-left: 18px;
+	padding-right: 18px; /*table padding height*/
 	color: #727272;
 	font-size: 17px;
 	font-weight: normal;
@@ -4225,6 +4264,9 @@ h3 .highlight {
 	margin-right: 6px;
 }
 .trades td a:hover {
+	color: #007F99;
+}
+.trades02 td a:hover {
 	color: #007F99;
 }
 .trades td .identify {

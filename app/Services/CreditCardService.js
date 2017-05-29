@@ -30,13 +30,13 @@ class CreditCardService{
   }
 
   //=>insert data credit card
-  * store (name, card_num, cbb){
+  * store (name, card_num, cvv){
   	const creditCard = new this.CreditCard()
 
   	creditCard.uuid = uuid()
   	creditCard.name = name
   	creditCard.card_num = card_num
-  	creditCard.cbb = cbb
+  	creditCard.cvv = cvv
 
   	yield creditCard.save()
 
