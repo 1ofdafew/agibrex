@@ -2,10 +2,11 @@
 
 const Schema = use('Schema')
 
-class CreditCardTableSchema extends Schema {
+class AlterTableNamesTableSchema extends Schema {
 
   up () {
-    this.create('CreditCard', (table) => {
+    this.drop('creditCard')
+      this.create('credit_cards', (table) => {
       table.increments()
       table.string('uuid',80).notNullable().unique()
       table.string('name',254)
@@ -16,9 +17,10 @@ class CreditCardTableSchema extends Schema {
   }
 
   down () {
-    this.drop('CreditCard')
+     this.drop('credit_card')
+
   }
 
 }
 
-module.exports = CreditCardTableSchema
+module.exports = AlterTableNamesTableSchema

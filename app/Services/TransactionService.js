@@ -39,6 +39,10 @@ class TransactionService{
     transaction.acc_type = acc_type 
 
     yield transaction.save()
+
+    const freshInstance = yield this.Transaction.find(transaction.id)
+
+    return freshInstance
   }
 
   //=>show some data transaction

@@ -42,6 +42,10 @@ class ProfileService {
     profile.address = address
 
     yield profile.save()
+
+    const freshInstance = yield this.Profile.find(profile.id)
+
+    return freshInstance
   }
 
   //=>show some data profile 
