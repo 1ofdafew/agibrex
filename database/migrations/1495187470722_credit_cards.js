@@ -11,7 +11,7 @@ class CreditCardsTableSchema extends Schema {
       table.string('uuid',80).notNullable().unique()
       table.string('name',254).notNullable()
       table.string('card_num',50).notNullable()
-      table.integer('cbb',3).notNullable()
+      table.integer('cvv',3).notNullable()
       table.timestamps()
     })
   }
