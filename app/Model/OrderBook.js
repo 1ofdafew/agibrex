@@ -10,13 +10,13 @@ constructor(data){
 
 	// this.id=data.id
 	this.uuid = uuid()
-	this.type = data.type
-	this.asset = data.asset
-	this.to_asset = data.to_asset
-	this.amount = data.amount
-	this.price = data.price
-	this.status = data.status
-	this.created_at = data.created_at
+	// this.type = data.type
+	// this.asset = data.asset
+	// this.to_asset = data.to_asset
+	// this.amount = data.amount
+	// this.price = data.price
+	// this.status = data.status
+	// this.created_at = data.created_at
 }
 
 	static get visible(){
