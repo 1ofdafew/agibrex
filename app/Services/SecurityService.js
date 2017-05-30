@@ -16,7 +16,7 @@ class SecurityService {
       yield user.save()
 
       console.log('secret:', secret)
-      return secret      
+      return user.otp_secret
     }
     return user.otp_secret
   }
@@ -35,15 +35,12 @@ class SecurityService {
       throw new Error('SecurityService expects a valid instance of User Model.')
     }
 
-    console.log('token:', token)
-
     const data = {
       secret: user.otp_secret,
-      encodding: 'base32',
+      encoding: 'base32',
       token: token
     }
-    console.log('data:', data)
-    
+    console.log('verify data:', data)
     const verified = SpeakEasy.totp.verify(data)
     console.log('verified: ', verified)
 

@@ -19,7 +19,27 @@
       </div>
       <div class="mar_top4"></div>
       <div class="clear"></div>
+
+      {% if old('error') %}
+      <div class="message-box-wrap">
+        <div class="error" role="alert" id="div4">
+          <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+        </div>
+      </div>
+      {% endif %}
+
       {% block sec_content %}
+
+      <div class="message-box-wrap">
+        <div class="info" role="info" id="div4">
+          <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;
+          <ul>
+            <li>OTP Authentication Status: <strong>{{ otp_status }}</strong></li>
+            <li>SMS Authentication Status: <strong>{{ sms_status }}</strong></li>
+          </ul>          
+        </div>
+      </div>
+
       {{ form.open({ action: 'Security/SecurityController.pick' }) }}
         {{ csrfField }}
 
@@ -35,8 +55,8 @@
               <div class="param">
                 <label for="method"></label>
                 <select name="method" id="method">
-                  <option value="2FA">Authy/Google Authenticator</option>
-                  <option value="SMS">SMS</option>
+                  <option value="otp">Authy/Google Authenticator</option>
+                  <option value="sms">SMS</option>
                 </select>
                 <div class="clear"></div>
               </div>
