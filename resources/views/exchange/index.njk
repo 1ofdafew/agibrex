@@ -2,6 +2,7 @@
 
 {% block content %}
 
+  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
@@ -962,9 +963,22 @@
                 </div>
               </div>
 
+              <script type="text/javascript">
+                // io refers to the above import
+                const io = ws('http://localhost:3333')
+                const clients = io.channel('chat').connect(function(error, connected) {
+                  console.log('Connected: ', connected)
+                })
+                // client.on('message', function(message) {
+                //   console.log('Got message: ', message)
+                // })
+                //
+                // client.emit('message', 'Hello World!')
+              </script>
+
               <div class="fresh_projects02 global_stats">
                 <div class="panel-default02">
-                <div class="panel-heading02 non-mobile">
+                  <div class="panel-heading02 non-mobile">
                   <!-- <div class="clearfix mar_top-10"> -->
                     <div class="one_fullpx">
                       <div class="buyform02">
@@ -975,7 +989,7 @@
                       </div>
                     </div>
                   <!-- </div> -->
-                </div>
+                  </div>
                 </div>
               </div>
             <div class="mar_top1"></div>
