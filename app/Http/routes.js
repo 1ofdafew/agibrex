@@ -64,8 +64,8 @@ Route.group('Security', function () {
   Route.get('/options','Security/SecurityController.index').middleware('auth')
   Route.post('/options','Security/SecurityController.pick').middleware('auth')
 
-  Route.get('/qrcode','Security/QrCodeController.index').middleware('auth')
-  Route.post('/qrcode','Security/QrCodeController.verify').middleware('auth')
+  Route.get('/qrcode','Security/QRCodeController.index').middleware('auth')
+  Route.post('/qrcode','Security/QRCodeController.verify').middleware('auth')
 
   Route.get('/sms','Security/SMSController.index').middleware('auth')
   Route.post('/sms','Security/SMSController.index').middleware('auth')
