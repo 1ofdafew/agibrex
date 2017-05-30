@@ -17,19 +17,20 @@ class OrderBook extends Lucid {
     }
 
     this.uuid = uuid()
-    this.user_id = user.id 
-    this.type = data.type
-    this.asset = data.asset
-    this.to_asset = data.to_asset
-    this.amount = data.amount
-    this.price = data.price
-    this.status = data.status
-    this.created_at = data.created_at
+    // this.user_id = user.id 
+    // this.type = data.type
+    // this.asset = data.asset
+    // this.to_asset = data.to_asset
+    // this.amount = data.amount
+    // this.price = data.price
+    // this.status = data.status
+    // this.created_at = data.created_at
   }
 
   static get visible(){
     return ['id', 'uuid', 'type', 'asset', 'to_asset', 'amount', 'price', 'status','created_at']
   }
+
 
 }
 
