@@ -5337,27 +5337,27 @@ body {
 }
 *::selection {
 	color: #fafafa;
-	background: #1fdfdf
+	background: #999;
 }
 *::-khtml-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-webkit-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-moz-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-ms-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-o-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 #header {
 	margin: 0px 0 0
