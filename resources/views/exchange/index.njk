@@ -9,7 +9,6 @@
   {# <script src="/js/charts/exporting.js"></script> #}
 
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
-  <!-- <link href="/css/bootstrap.min.css" rel="stylesheet" /> -->
 
   {% if type == 'BTC' %}
   <script type="text/javascript" src="/graphs/bitcoin.js"></script>
@@ -56,7 +55,6 @@
             <div class="one_fourth">Last Price</div>
             <div class="one_fourth">Daily Change</div>
             <div class="one_fourth">Day's Range</div>
-            <!-- <div class="one_fifth">Today's Open</div> -->
             <div class="one_fourth last">24h Volume</div>
             <div class="clear"></div>
           </div>
@@ -73,10 +71,6 @@
               <div class="m_head">Day's Range</div>
               <p class="stat1">$<span id="stats_min">1,226.58</span> - <span id="stats_max">1,258.23</span></p>
             </div>
-            <!-- <div class="one_fifth">
-              <div class="m_head">Today's Open</div>
-              <p class="stat1">$<span id="stats_open">1,225.57</span></p>
-            </div> -->
             <div class="one_fourth last">
               <div class="m_head">24h Volume</div>
               <p class="stat1"><span id="stats_traded">55.81</span> BTC</p>
@@ -85,15 +79,8 @@
             <div class="one_full">
               <h4>24HR Volume :<em class="stat2">$<span id="stats_market_cap">40578.74982966 BTC / 526588.94788285 ETH</span></em></h4>
             </div>
-            <!-- <div class="one_third">
-              <h4>Total BTC :<em class="stat2"><span id="stats_total_btc">0</span></em></h4>
-            </div> -->
-            <!-- <div class="one_third last">
-              <h4>Global Volume :<em class="stat2">$<span id="stats_trade_volume">0</span></em></h4>
-            </div> -->
             <div class="clear"></div>
           </div>
-          <!-- <div class="clear"></div> -->
         </div>
         </div>
         </div>
@@ -474,7 +461,6 @@
                        <th>SUM ( Asset )</th>
                      </tr>
 
-
                      <tr id="no_asks" style="display:none;">
                        <td colspan="4">No asks to show.</td>
                      </tr>
@@ -518,7 +504,6 @@
                <div class="clear"></div>
              </div>
            </div>
-
          </div>
          <div class="mar_top6"></div>
          <div class="clear"></div>
@@ -537,7 +522,6 @@
               <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
               {% endif %}
               <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
-              <!-- <a href="/exchange/btc">BTC</a> -->
 
               {% if type == 'TRC' %}
               <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
@@ -558,9 +542,7 @@
               <section id="containerBTC">
                 <!-- <div class="table-style"> -->
                   <!-- id="tables-wrap" -->
-
-
-                  <!-- <table class="table-list trades" id="transactions_list"> -->
+                    <!-- <table class="table-list trades" id="transactions_list"> -->
                   <table class="scroll table-list02 trades">
                     <thead>
                       <tr>
@@ -570,7 +552,6 @@
                         <th>Volume</th>
                         <th>Change</th>
                         <th>Name</th>
-
                       </tr>
                     </thead>
                     <tbody>
@@ -764,8 +745,6 @@
                     </tbody>
                   </table>
 
-
-                <!-- </div> -->
               </section>
               <section id="containerTRC">
                 <div class="table-style">
@@ -954,184 +933,44 @@
           </div>
 
           <div class="one_full">
-            <!-- <main> -->
-              <!-- {% if type == 'BTC' %}
-              <input class="radiobuttontab" id="tab4" type="radio" value="/exchange/btc" name="tabs2" checked>
-              {% else %}
-              <input class="radiobuttontab" id="tab4" type="radio" name="tabs2">
-              {% endif %}
-              <label class="labels" for="tab4">Troll Box</label>
-              {% if type == 'ETH' %}
-              <input class="radiobuttontab" id="tab5" type="radio" value="/exchange/eth" name="tabs2" checked>
-              {% else %}
-              <input class="radiobuttontab" id="tab5" type="radio" name="tabs2">
-              {% endif %}
-              <label class="labels" for="tab5">Comment</label> -->
-
-
-              <!-- <section id="containerTroll"> -->
               <div class="fresh_projects02 global_stats">
-              <div class="panel02 panel-default">
-                <div class="panel-heading non-mobile">
-                  <div class="one_fullpx"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</div>
-                </div>
-                <div id="scrollcell">
-                <div class="panel-body02">
-                  <div class="one_fullpx">
-
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-
-
+                <div class="panel02 panel-default">
+                  <div class="panel-heading non-mobile">
+                    <div class="one_fullpx"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</div>
                   </div>
-                  <div class="clearfix mar_top1"></div>
-                  <!-- <div class="panel-divider"></div> -->
-                  <div class="clear"></div>
+                  <div id="scrollcell">
+                    <div class="panel-body02">
+                      <div class="one_fullpx">
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
+                      </div>                      
+                    </div>
+                  </div>
                 </div>
-                </div>
-              </div>
               </div>
 
               <div class="fresh_projects02 global_stats">
-                <div class="panel-heading non-mobile">
-                <div class="clearfix mar_top-10">
-                <div class="one_fullpx">
-                  <div class="buyform">
-                   <div class="param">
-                     <!-- <input name="pin1" id="pin1" value="Say Something..." type="text"> -->
-                     <input type="text" name="chat" value="" id="chat" placeholder="&nbsp;&nbsp;Say something...">
-                     <div class="clear"></div>
-                   </div>
-                  </div>
+                <div class="panel-default02">
+                <div class="panel-heading02 non-mobile">
+                  <!-- <div class="clearfix mar_top-10"> -->
+                    <div class="one_fullpx">
+                      <div class="buyform02">
+                        <div class="param02">
+                          <input type="text" name="chat" value="" id="chat" placeholder="&nbsp;&nbsp;Say something...">
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- </div> -->
                 </div>
                 </div>
-                </div>
-                </div>
-
-
-
-                <!-- <div class="table-style">
-                  <table class="table-list02 trades02" id="transactions_list">
-                    <tbody>
-                      <tr>
-                        <th><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</th>
-                      </tr>
-                      <tr>
-                        <td style="">bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> -->
-
-                <!-- <div class="buyform">
-                 <div class="param">
-                   <input name="pin1" id="pin1" value="ghio68o6" type="text">
-                   <div class="clear"></div>
-                 </div>
-                </div> -->
-
-              <!-- </section> -->
-
-              <!-- <section id="containerComment">
-                <div class="table-style">
-                  <table class="table-list trades" id="transactions_list">
-                    <tbody>
-                      <tr>
-                        <th><i class="fa fa-star"></i></th>
-                        <th>Coin</th>
-                        <th>Price</th>
-                        <th>Volume</th>
-                        <th>Change</th>
-                        <th>Name</th>
-                      </tr>
-                      <tr id="order_1179970">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">BTC</td>
-                        <td style="">0.03810000</td>
-                        <td style="">1,255.04</td>
-                        <td style="">-15.47</td>
-                        <td style="">Bitcoin</td>
-                      </tr>
-                      <tr id="order_1179969">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">TRC</td>
-                        <td style="">0.03110000</td>
-                        <td style="">1,255.97</td>
-                        <td style="">-15.47</td>
-                        <td style="">Tracto</td>
-                      </tr>
-                      <tr id="order_1179968">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">ETH</td>
-                        <td style="">0.05660000</td>
-                        <td style="">1,256.25</td>
-                        <td style="">-15.47</td>
-                        <td style="">Ethereum</td>
-                      </tr>
-                      <tr id="order_1179967">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">BTC</td>
-                        <td style="">0.06400000</td>
-                        <td style="">1,255.79</td>
-                        <td style="">-15.47</td>
-                        <td style="">Bitcoin</td>
-                      </tr>
-                      <tr id="order_1179966">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">BTC</td>
-                        <td style="">0.04850000</td>
-                        <td style="">1,255.43</td>
-                        <td style="">-15.47</td>
-                        <td style="">Bitcoin</td>
-                      </tr>
-                      <tr id="order_1179966">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">ETH</td>
-                        <td style="">0.04850000</td>
-                        <td style="">1,255.43</td>
-                        <td style="">-15.47</td>
-                        <td style="">Ethereum</td>
-                      </tr>
-                      <tr id="order_1179966">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">TRC</td>
-                        <td style="">0.04850000</td>
-                        <td style="">1,255.43</td>
-                        <td style="">-15.47</td>
-                        <td style="">Tracto</td>
-                      </tr>
-                      <tr id="order_1179966">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">BTC</td>
-                        <td style="">0.04850000</td>
-                        <td style="">1,255.43</td>
-                        <td style="">-15.47</td>
-                        <td style="">Bitcoin</td>
-                      </tr>
-                      <tr id="order_1179966">
-                        <td style=""><i class="fa fa-star"></i></td>
-                        <td style="">TRC</td>
-                        <td style="">0.04850000</td>
-                        <td style="">1,255.43</td>
-                        <td style="">-15.47</td>
-                        <td style="">Tracto</td>
-                      </tr>
-                      <tr id="no_transactions" style="display:none;">
-                        <td colspan="3">No transactions to show.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section> -->
-
-            <!-- </main> -->
+              </div>
             <div class="mar_top1"></div>
           </div>
-
         </div>
       </div>
     <div class="clearfix mar_top20"></div>
