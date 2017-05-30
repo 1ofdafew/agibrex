@@ -18,8 +18,6 @@ const Ws = use('Ws')
 
 Ws.channel('market', 'MarketDataController')
 Ws.channel('eth', 'MarketDataController')
+Ws.channel('chat', 'ChatController')
 Ws.channel('bidsocket','BidSocketController')
 Ws.channel('asksocket','AskSocketController')
-Ws
-  .channel('chat', 'ChatController')
-  .middleware('auth')

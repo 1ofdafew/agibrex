@@ -2,6 +2,7 @@
 
 {% block content %}
 
+  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
@@ -965,7 +966,19 @@
               </div>
               </div>
 
+              <script type="text/javascript">
+                // io refers to the above import
+                const io = ws('http://localhost:3333')
+                const clients = io.channel('chat').connect(function(error, connected) {
+                  console.log('Connected: ', connected)
+                })
 
+                // client.on('message', function(message) {
+                //   console.log('Got message: ', message)
+                // })
+                //
+                // client.emit('message', 'Hello World!')
+              </script>
                 <div class="table-style">
                   <table class="table-list02 trades02" id="transactions_list">
                     <tbody>
@@ -973,7 +986,7 @@
                         <th><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</th>
                       </tr>
                       <tr>
-                        <td style="">bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. </td>
+                        <td style="">bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just trying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. </td>
                       </tr>
                     </tbody>
                   </table>
@@ -981,7 +994,7 @@
 
                 <div class="buyform">
                  <div class="param">
-                   <input name="pin1" id="pin1" value="ghio68o6" type="text">
+                   <input name="sendMessage" id="sendMessage" value="ghio68o6" type="text">
                    <div class="clear"></div>
                  </div>
                 </div>
