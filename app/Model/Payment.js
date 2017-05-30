@@ -5,18 +5,12 @@ const uuid = require('uuid/v4');
 
 class Payment extends Lucid {
 
-// constructor(data) {
-//     super()
-
-//     console.log(`Profile data: ${data.trans_id}`)
-//     console.log(JSON.stringify(data))
-
-//     this.uuid = uuid()
-//     this.trans_id = data.trans_id
-//     this.amount = data.amount
-//     this.type = data.type
-
-//   }  
+	static boot () {
+    super.boot()
+    this.addHook('beforeCreate', 'Payment.checkTransId')
+    this.addHook('beforeCreate', 'Payment.checkAmount')
+    this.addHook('beforeCreate', 'Payment.checkType')
+  } 
 
   static get visible(){
     return ['id', 'uuid', 'trans_id', 'amount', 'type']

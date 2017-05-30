@@ -5,16 +5,11 @@ const uuid = require('uuid/v4');
 
 class Asset extends Lucid {
 
-  // constructor(data) {
-  // super()
-
-  //   console.log(`Asset data: ${data.ast_trans_id}`)
-  //   console.log(JSON.stringify(data))
-
-  //   this.uuid = uuid()
-  //   this.ast_trans_id = data.ast_trans_id
-  //   this.type = data.type
-  // }
+  static boot () {
+    super.boot()
+    this.addHook('beforeCreate', 'Asset.checkTransId')
+    this.addHook('beforeCreate', 'Asset.checkType')
+  }
 
     static get visible(){
     return ['id', 'uuid', 'ast_trans_id', 'type']

@@ -20,8 +20,8 @@ class ProfileController {
     const prfl = yield ProfileService.store(
       data.name, data.email, data.mobile_no, data.address)
 
-      console.log('ProfileController data....')
-      console.log(data)
+      //console.log('ProfileController data....')
+      //console.log(data)
    
       response.json(prfl)
     }
