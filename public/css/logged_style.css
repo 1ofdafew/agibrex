@@ -5029,7 +5029,7 @@ ul.list_empty.form_buttons {
 	float: left;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
-	padding: 7px 30px 7px 10px;
+	padding: 7px 24px 7px 10px;
 	border: 1px solid #D6D6D6;  mijahketot
 	background-color: #FFF;
 	width: 90%;
@@ -5404,7 +5404,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	border-radius: 0px;
 }
 .panel02 {
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 	background-color: #fff;
 	border: 1px solid #ddd;
 	border-radius: 0px;
@@ -5440,12 +5440,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	color: #f2f2f2;
 	background-color: #d6d6d6;
 	border-color: #ddd;
-	padding-left: 12px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 18px;
-	font-weight: 100;
-	margin-top: 100px;
+	padding-left: 16px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	/*margin-top: 100px;*/
 }
 .panel-default .m_head {
 	color: #444;
