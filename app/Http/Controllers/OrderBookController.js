@@ -25,19 +25,20 @@ class OrderBookController {
     const data=request.only(['type', 'asset', 'amount', 'price','status'])
     console.log('Storing new orderbook row....')
     console.log(data)
-    const ob = new OrderBook(data)
+    const user = yield request.auth.getUser()
+    const ob = new OrderBook(data, user)
     yield ob.save()//Save to new row table
     response.ok(ob)
   }
 
   * showbid(asset) {
     const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
-    .from('order_books')
-    .where('type','bid')
-    .where('asset',asset)
-    .where('status','1')
-    .orderBy('price', 'desc')
-    .orderBy('created_at','asc')
+      .from('order_books')
+      .where('type','bid')
+      .where('asset',asset)
+      .where('status','1')
+      .orderBy('price', 'desc')
+      .orderBy('created_at','asc')
     console.log('Display all bidlist....')
     console.log(bidlist)
     return bidlist//Show where type=bid from order_book table
@@ -45,12 +46,12 @@ class OrderBookController {
 
   * showask(asset) {
     const asklist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
-    .from('order_books')
-    .where('type', 'ask')
-    .where('asset',asset)
-    .where('status','1')
-    .orderBy('price', 'asc')
-    .orderBy('created_at','asc')
+      .from('order_books')
+      .where('type', 'ask')
+      .where('asset',asset)
+      .where('status','1')
+      .orderBy('price', 'asc')
+      .orderBy('created_at','asc')
     console.log('Display all asklist....')
     console.log(asklist)
     return asklist//Show where type=ask from order_book table
@@ -61,9 +62,9 @@ class OrderBookController {
     console.log('Disable status with uuid:')
     console.log(data)
     const updateRow = yield Database
-    .table('order_books')
-    .where('uuid', data.uuid)
-    .update('status', '0')
+      .table('order_books')
+      .where('uuid', data.uuid)
+      .update('status', '0')
     response.ok(updateRow)//Deactivate row by change status=0
   }
 
@@ -72,9 +73,9 @@ class OrderBookController {
     console.log('Enable status with uuid:')
     console.log(data)
     const updateRow = yield Database
-    .table('order_books')
-    .where('uuid', data.uuid)
-    .update('status', '1')
+      .table('order_books')
+      .where('uuid', data.uuid)
+      .update('status', '1')
     response.ok(updateRow)//Activate row by change status=1
   }
 
