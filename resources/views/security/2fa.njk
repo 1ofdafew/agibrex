@@ -1,0 +1,46 @@
+{% extends 'security/index' %}
+
+{% block sec_content %}
+
+    {% if old('error') %}
+    <div class="message-box-wrap">
+      <div class="error" role="alert" id="div4">
+        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+      </div>
+    </div>
+    {% endif %}
+
+  {{ form.open({action: 'Security/QRCodeController.verify'}) }}
+    {{ csrfField }}
+    <div class="buyform">
+      <div class="content">
+        <h3 class="section_label">
+          <span class="right">Enable Two-Factor Authentication ( 2FA )</span> 
+        </h3>
+        <div class="mar_top1"></div>
+        <div style="width: 200px;">
+        {{ old('qrcode') | safe }}
+        </div>
+        <div class="one_third"><span class="left">
+
+          <div class="param method_show">
+            <label for="authy-cellphone">1) Scan the above image on your Authenticator</em></label>
+            <label for="authy-cellphone">2) Enter the code below to activate your 2FA</em></label>
+            <input name="token" id="token" type="text" value="", placeholder="Enter your security token">
+            <div class="clear"></div>
+          </div>
+
+        </span></div>
+        <div class="mar_top2"></div>
+        <ul class="list_empty">
+          <li>
+            <span><input type="submit" id="submit" size="6" name="submit" value="Verify Security Token" class="but_user"></span>
+          </li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+  {{ form.close() }}
+
+{% endblock %}

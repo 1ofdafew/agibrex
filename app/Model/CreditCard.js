@@ -5,6 +5,10 @@ const uuid = require('uuid/v4');
 
 class CreditCard extends Lucid {
 
+  user () {
+    return this.belongsTo('App/Model/User')
+  }
+
   static boot () {
     super.boot()
     this.addHook('beforeCreate', 'CreditCard.checkNumber')
@@ -15,9 +19,6 @@ class CreditCard extends Lucid {
     return ['id', 'uuid', 'name', 'card_num', 'cvv']
   }
 
-  user () {
-    return this.belongsTo('App/Model/User')
-  }
 }
 
 module.exports = CreditCard
