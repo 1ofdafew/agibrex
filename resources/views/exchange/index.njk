@@ -42,8 +42,9 @@
           {% endif %}
 
         <div class="one_thirdpx">
-          <div class="clearfix mar_top20"></div>
-        <h1>{{ name }} Exchange&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;{{ type }}/TRC</h1>
+          <div class="clearfix mar_top9"></div>
+            <h1>{{ type }}</h1>
+            <h1>{{ name }} Exchange</h1>
         </div>
 
         <div class="two_thirdpx lastpx">
@@ -520,36 +521,40 @@
        </div>
        </div>
 
-        <div class="one_fourthpx lastpx">
+      <div class="one_fourthpx lastpx">
           <!-- <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Current Markets</h3> -->
           <!-- <div class="clearfix mar_top2"></div> -->
           <div class="one_full">
-            <main>
-              {% if type == 'BTC' %}
-              <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
+            <div id="titleheader" class="right02">
+              <h3><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Current Markets</h3>
+            </div>
 
-              {% else %}
-              <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
-              {% endif %}
-              <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
+              <main>
+                {% if type == 'BTC' %}
+                <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
 
-              {% if type == 'TRC' %}
-              <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
+                {% else %}
+                <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
 
-              {% else %}
-              <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
-              {% endif %}
-              <label class="labels" for="tab2" onclick="location.href = '/exchange/trc';">TRC</label>
+                {% if type == 'TRC' %}
+                <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
 
-              {% if type == 'ETH' %}
-              <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/eth" name="tabs" checked>
+                {% else %}
+                <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab2" onclick="location.href = '/exchange/trc';">TRC</label>
 
-              {% else %}
-              <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
-              {% endif %}
-              <label class="labels" for="tab3" onclick="location.href = '/exchange/eth';">ETH</label>
+                {% if type == 'ETH' %}
+                <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/eth" name="tabs" checked>
 
-              <section id="containerBTC">
+                {% else %}
+                <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab3" onclick="location.href = '/exchange/eth';">ETH</label>
+
+                <section id="containerBTC">
                 <!-- <div class="table-style"> -->
                   <!-- id="tables-wrap" -->
                     <!-- <table class="table-list trades" id="transactions_list"> -->
@@ -756,7 +761,7 @@
                   </table>
 
               </section>
-              <section id="containerTRC">
+                <section id="containerTRC">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
                     <tbody>
@@ -847,7 +852,7 @@
                   </table>
                 </div>
               </section>
-              <section id="containerETH">
+                <section id="containerETH">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
                     <tbody>
@@ -938,7 +943,8 @@
                   </table>
                 </div>
               </section>
-            </main>
+
+              </main>
             <div class="mar_top1"></div>
           </div>
 
@@ -946,18 +952,52 @@
               <div class="fresh_projects02 global_stats">
                 <div class="panel02 panel-default">
                   <div class="panel-heading non-mobile">
-                    <div class="one_fullpx"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts</div>
+                    <div class="one_fullpx">
+                      <div id="titleheader">
+                        <div class="left">
+                          <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts
+                        </div>
+                        <div class="right">
+                          <i class="fa fa-cog"></i>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div id="scrollcell">
-                    <div class="panel-body02">
-                      <div class="one_fullpx">
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                        <p>bitcoinsbrain.com/?a34610 guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat? <br>Do you just come here putting money down, hoping for the best? lol<br>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here.</p>
-                      </div>
+                    <div class="panel-body03">
+                      <table class="table-list04 trades02">
+                        <tbody>
+                          <tr>
+                            <td><b>nimarama72&nbsp;-&nbsp;</b>Guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat?
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>syahronsulaiman&nbsp;-&nbsp;</b>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. WTF!
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-shield"></i>&nbsp;<b>irwanhanafy&nbsp;-&nbsp;</b>Oii <b>syahronsulaiman</b> mu blebe bender? hahahaha!
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>dyslexicstoner24&nbsp;-&nbsp;</b>Withasmile, like 12 days, I submitted all the info but the selfie was a little blurry. I submitted two more times HD selfies so they are perfectly readable.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>mijah94&nbsp;-&nbsp;</b>Yelled a coin got hacked in the troll box is exactly what you want to stay away from.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-shield"></i>&nbsp;<b>irwanhanafy&nbsp;-&nbsp;</b>Diam je laa <b>mijah94</b> Bising bendenye...hahahahhahahahahahahahahahaaha hahahahahahahahahahahahahahah
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td><b>flatearth&nbsp;-&nbsp;</b>Sticking to factual information and claims you can back will get you better results than hype/fud spamming a coin. Research/question/protect yourself!
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -975,12 +1015,10 @@
                 //
                 // client.emit('message', 'Hello World!')
               </script>
-
-
+              {% if currentUser %}
               <div class="fresh_projects02 global_stats">
                 <div class="panel-default02">
                   <div class="panel-heading02 non-mobile">
-                  <!-- <div class="clearfix mar_top-10"> -->
                     <div class="one_fullpx">
                       <div class="buyform02">
                         <div class="param02">
@@ -989,16 +1027,75 @@
                         </div>
                       </div>
                     </div>
-                  <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            <div class="mar_top3"></div>
+          </div>
+
+          <div class="one_full">
+              <div class="fresh_projects02 global_stats">
+                <div class="panel03 panel-default">
+                  <div class="panel-heading non-mobile">
+                    <div class="one_fullpx">
+                      <div id="titleheader">
+                        <div class="left">
+                          <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;Announcement
+                        </div>
+                        <div class="right">
+                          <i class="fa fa-twitter"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="panel-body03">
+                      <div class="one_fullpx">
+                        <table class="table-list03 trades03">
+                          <tbody>
+                            <tr>
+                              <td>The stop-limit issue has been resolved. We're in the process of crediting stuck/missing balances that resulted from the issue.
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>We are experiencing abnormally high traffic at this time. We are working hard at resolving these issues. We appreciate your patience and understanding.
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>The Stop-Limit feature has been temporarily disabled as we investigate an issue.
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>GNO/BTC and GNO/ETH #gnosis markets added.
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>We are experiencing abnormally high traffic at this time. We are working hard at resolving these issues. We appreciate your patience and understanding.
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             <div class="mar_top1"></div>
+          </div>
 
-        </div>
       </div>
     <div class="clearfix mar_top20"></div>
-
   </div>
 
 
