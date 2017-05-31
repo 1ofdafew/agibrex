@@ -11,10 +11,6 @@ class MatcherService {
     return ['App/Model/OrderBook']
   }
 
-  // constructor (User) {
-  //   this.User = User
-  // }
-
   * test() {
 
  		return log.info('test service')
