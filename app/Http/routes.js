@@ -57,6 +57,13 @@ Route.get('/dashboard', 'DashboardController.index')
   .middleware('auth')
 
 /**
+  * Temporary Page
+*/
+Route.get('/temp','TempController.index')
+Route.get('/coming_soon','ComingSoonController.index')
+
+
+/**
  * Security
  */
 Route.group('Security', function () {
@@ -197,4 +204,3 @@ Route.group('API',function () {
 
 //Buy/Sell chart
 Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
-
