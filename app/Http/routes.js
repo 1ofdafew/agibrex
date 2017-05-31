@@ -57,6 +57,13 @@ Route.get('/dashboard', 'DashboardController.index')
   .middleware('auth')
 
 /**
+  * Temporary Page
+*/
+Route.get('/temp','TempController.index')
+Route.get('/coming_soon','ComingSoonController.index')
+
+
+/**
  * Security
  */
 Route.group('Security', function () {
@@ -177,10 +184,6 @@ Route.group('API',function () {
 
   //Matching
   Route.post('match/process', 'MatchController.process')
-  Route.post('match/bid', 'MatchController.bidprocess')
-  Route.post('match/ask', 'MatchController.askprocess')
-  Route.post('match/neworder', 'MatchController.neworder')
-  Route.get('match', 'MatchController.index')
 
   //Asset
   Route.get('/asset','AssetController.index')
@@ -197,4 +200,3 @@ Route.group('API',function () {
 
 //Buy/Sell chart
 Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
-

@@ -1,6 +1,6 @@
 'use strict'
 
-const SpeakEasy = use('SpeakEasy')
+const SpeakEasy = require('speakeasy')
 const QR = require('qr-image')
 
 class SecurityService {

@@ -51,13 +51,11 @@
         <div class="top_contact_info">
           <div class="container">
             <ul class="tci_list_left">
-              <li><a href="">FAQ</a></li>
+              <li><a href="/coming_soon">FAQ</a></li>
               <li>|</li>
-              <li><a href="">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
+              <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
               <li>|</li>
-              <li><a href="">Contact Us</a></li>
-              <li>|</li>
-              <li><i class="fa fa-phone-square"></i>&nbsp;&nbsp;+44.702.499.885</li>
+              <li><a href="/coming_soon">Contact Us</a></li>
             </ul>
             <ul class="tci_list">
               {% if not currentUser %}
@@ -101,6 +99,12 @@
         <!-- Logo -->
         <div class="one_fourth"><a href="/" id="logo"></a></div>
 
+        <!-- 1. dapatkan route
+        2. if else route
+            eg. exchange
+            $exchangeactive = "class='active'"
+            eg. home
+            $homeactive == "class='active'" -->
         <!-- Menu -->
         <div class="three_fourth last">
             <nav id="access" class="access" role="navigation">
@@ -177,13 +181,13 @@
            </ul>
         </li>
         <!-- <li><a href=""><i class="fa fa-caret-right"></i> Open Orders</a></li> -->
-        <li><a href=""><i class="fa fa-caret-right"></i> Transactions</a></li>
+        <li><a href="/temp"><i class="fa fa-caret-right"></i> Transactions</a></li>
         <li><a href="/security/options"><i class="fa fa-caret-right"></i> Security</a></li>
         <li><a href="/user/profile"><i class="fa fa-caret-right"></i> Settings</a></li>
         <!-- <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li> -->
 
-        <li><a href=""><i class="fa fa-caret-right"></i> History</a></li>
-        <li><a href=""><i class="fa fa-caret-right"></i> API Access</a></li>
+        <li><a href="/temp"><i class="fa fa-caret-right"></i> History</a></li>
+        <li><a href="/temp"><i class="fa fa-caret-right"></i> API Access</a></li>
         <!-- <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li> -->
       </ul>
     </div>
@@ -257,9 +261,10 @@
         <ul class="tci_list_left">
           <li><b>Copyright © All Right Reserved 2017 Gibrex.com - The World Trusted Digital Exchange.</b></li>
           <li>|</li>
-          <li><a href="Privacy.htm"> Privacy Policy</a></li>
+          <li><a href="/coming_soon"> Privacy Policy</a></li>
           <li>|</li>
-          <li><a target="_blank" href="#"> Terms &amp; Condition</a></li>
+          <li><a target="_blank" href="/coming_soon"> Terms &amp; Condition</a></li>
+
         </ul>
       </div>
       <!-- <div class="one_half last">
