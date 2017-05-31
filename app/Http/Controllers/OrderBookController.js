@@ -2,22 +2,17 @@
 
 const OrderBook = use('App/Model/OrderBook')
 const Database = use('Database')
+const OBService = make('App/Services/OrderBookService')
 
 class OrderBookController {
 
   * index(request, response) {
-    const ob = yield Database.table('order_books')
-    .where('status','1')
-    console.log('Display all orderbook....')
-    console.log(ob)
-    response.json(ob)//Show all from order_books table in json
+    const ob = yield OBService.index()
+    response.json(ob)
   }
 
   * showdelete(request, response) {
-    const ob = yield Database.table('order_books')
-    .where('status','0')
-    console.log('Display deleted orderbook....')
-    console.log(ob)
+    const ob = yield OBService.showdelete()
     response.json(ob)//Show all from order_books table in json
   }
 
@@ -59,24 +54,14 @@ class OrderBookController {
 
   * delete(request, response) {
     const data=request.only(['uuid'])
-    console.log('Disable status with uuid:')
-    console.log(data)
-    const updateRow = yield Database
-      .table('order_books')
-      .where('uuid', data.uuid)
-      .update('status', '0')
-    response.ok(updateRow)//Deactivate row by change status=0
+    const ob = yield OBService.delete(data)
+    response.ok(data)//Deactivate row by change status=0
   }
 
   * activate(request, response) {
     const data=request.only(['uuid'])
-    console.log('Enable status with uuid:')
-    console.log(data)
-    const updateRow = yield Database
-      .table('order_books')
-      .where('uuid', data.uuid)
-      .update('status', '1')
-    response.ok(updateRow)//Activate row by change status=1
+    const ob = yield OBService.activate(data)
+    response.ok(data)//Activate row by change status=1
   }
 
 }

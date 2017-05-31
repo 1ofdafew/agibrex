@@ -184,10 +184,6 @@ Route.group('API',function () {
 
   //Matching
   Route.post('match/process', 'MatchController.process')
-  Route.post('match/bid', 'MatchController.bidprocess')
-  Route.post('match/ask', 'MatchController.askprocess')
-  Route.post('match/neworder', 'MatchController.neworder')
-  Route.get('match', 'MatchController.index')
 
   //Asset
   Route.get('/asset','AssetController.index')

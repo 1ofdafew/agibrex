@@ -11,15 +11,6 @@ class MatcherService {
     return ['App/Model/OrderBook']
   }
 
-  // constructor (User) {
-  //   this.User = User
-  // }
-
-  * test() {
-
- 		return log.info('test service')
-  }
-
   * compare(data) {
    	const db_ob = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
     .from('order_books')
