@@ -56,6 +56,8 @@
               <li><a href="">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
               <li>|</li>
               <li><a href="">Contact Us</a></li>
+              <li>|</li>
+              <li><i class="fa fa-phone-square"></i>&nbsp;&nbsp;+44.702.499.885</li>
             </ul>
             <ul class="tci_list">
               {% if not currentUser %}
@@ -70,6 +72,7 @@
               <li>
                 <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
               </li>
+              <li>|</li>
               <li>
                 <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
               </li>
@@ -112,7 +115,7 @@
                   <li><a href="">Order Book</a></li>
                   <li><a href="">Gibrex</a></li>
                   {% if currentUser %}
-                  <li><a href="/accounts" class="active">My Account</a></li>
+                  <li><a href="/accounts" class="active">Account</a></li>
                   {% endif %}
                 </ul>
                 <select class="selectnav" id="selectnav1">
@@ -140,7 +143,7 @@
       <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}</h4>
     </div>
     <div class="title02">
-      <h4><div class="pagenation">&nbsp;<a href="">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">My Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Buy/Sell</a></div></h4>
+      <h4><div class="pagenation">&nbsp;<a href="">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Buy/Sell</a></div></h4>
     </div>
   </div>
 </div>
@@ -257,8 +260,6 @@
           <li><a href="Privacy.htm"> Privacy Policy</a></li>
           <li>|</li>
           <li><a target="_blank" href="#"> Terms &amp; Condition</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="#"> API Documentation</a></li>
         </ul>
       </div>
       <!-- <div class="one_half last">

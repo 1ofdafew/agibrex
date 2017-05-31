@@ -34,8 +34,8 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 h1 {
 	font-size: 26px;
-	line-height: 35px;
-	margin-bottom: 10px;
+	line-height: 30px;
+	/*margin-bottom: 10px;*/
 	font-style: normal;
 	text-align: left;
 	text-transform: uppercase;
@@ -84,9 +84,9 @@ h5 {
 	font-style: normal;
 }
 h6 {
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 22px;
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 	font-style: normal;
 }
 /* Text elements */
@@ -1017,6 +1017,7 @@ ul.tci_list {
 }
 .tci_list li i {
 	color: #f2f2f2;
+	line-height: 26px;
 }
 .tci_list li a:hover {
 	/*background-color: #e3e3e3;*/
@@ -1027,7 +1028,7 @@ ul.tci_list {
 	width: auto;
 	line-height: 40px;
 	padding: 0px 0px 0px 0px;
-	margin: 14px 18px 0px 0px;
+	margin: 14px 6px 0px 0px;
 	background: none;
 	border-radius: 0px;
 }
@@ -4217,6 +4218,13 @@ h3 .highlight {
 	margin-bottom: 15px;
 	width: 100%;
 }
+.table-list03 {
+	float: left;
+	background-color: #fff;
+	/*border: 1px solid #dddddd;*/
+	margin-bottom: 0px;
+	width: 100%;
+}
 .table-list th {
 	padding: 18px 10px;
 	background-color: #eee;
@@ -4234,13 +4242,25 @@ h3 .highlight {
   padding: 13px 10px;
 	text-align: left;
 	background-color: #f1f1f1;
-
+}
+.table-list03 td {
+  padding: 13px 10px;
+	text-align: left;
+	background-color: #f1f1f1;
+}
+.table-list04 td {
+  padding: 13px 10px;
+	text-align: left;
+	background-color: #fff;
 }
 .table-list tr:hover td {
 	background-color: #ffeece;
 }
 .table-list02 tr:hover td {
 	background-color: #ffeece;
+}
+.table-list03 tr:hover td {
+	background-color: #f9f9f9;
 }
 .trades {
 }
@@ -4275,11 +4295,19 @@ h3 .highlight {
 	font-weight: normal;
 }
 .trades02 td {
-	padding: 16px;
+	padding: 9px;
 	padding-left: 18px;
 	padding-right: 18px; /*table padding height*/
 	color: #727272;
 	font-size: 17px;
+	font-weight: normal;
+}
+.trades03 td {
+	padding: 16px;
+	padding-left: 18px;
+	padding-right: 18px; /*table padding height*/
+	color: #727272;
+	font-size: 18px;
 	font-weight: normal;
 }
 .trades td a {
@@ -5410,6 +5438,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	border-radius: 0px;
 	height: 490px;
 }
+.panel03 {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0px;
+}
 .panel-body {
 	padding: 10px;
 }
@@ -5420,8 +5453,19 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	margin-top: 5px;
 	/*margin-bottom: 15px;*/
 }
+.panel-body03 {
+	padding: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	/*margin-bottom: 15px;*/
+}
 .global_stats .panel {
 	margin-bottom: 15px;
+	overflow: hidden;
+}
+.global_stats .panel03 {
+	margin-bottom: 1px;
 	overflow: hidden;
 }
 .panel-group .panel-heading {
@@ -5435,7 +5479,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	font-size: 18px;
 	font-weight: 100;
 	text-transform: uppercase;
+	/*border-bottom: 4px solid #efa006;*/
 }
+/*.panel-heading .left {
+	float: left;
+}
+.panel-heading .right {
+	float: right;
+}*/
 .panel-default02 > .panel-heading02 {
 	color: #f2f2f2;
 	background-color: #d6d6d6;
@@ -5444,6 +5495,15 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	padding-top: 16px;
 	padding-bottom: 16px;
 	/*margin-top: 100px;*/
+}
+.panel-default03 > .panel-heading03 {
+	color: #f2f2f2;
+	background-color: #666;
+	border-color: #ddd;
+	padding: 14px 20px;
+	font-size: 18px;
+	font-weight: 100;
+	text-transform: uppercase;
 }
 .panel-default .m_head {
 	color: #444;
@@ -5480,6 +5540,13 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
+.panel-divider4 {
+	clear: both;
+	border: none;
+  border-top: 1px dotted #9b9b9b;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
 .panel-body h5 {
 	padding: 10px 0;
 	margin-bottom: 2px;
@@ -5498,6 +5565,23 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	margin-bottom: 10px;
 	position: relative;
 }
+
+#titleheader {
+	clear: both;
+	overflow: auto;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.right02 {
+	float: right;
+	padding-top: 10px;
+	padding-right: 20px;
+}
+
 .currencies a {
 	color: #727272;
 	display: inline-block;
