@@ -26,7 +26,7 @@ class MatcherService {
   	  	log.info('matched:result')
   		return Event.fire('match:ok',data)
     } else {	//failed, initially not match
-      	if (data.type = 'bid') {
+      	if (data.type == 'bid') {
       		log.info('recheck')
   	  		const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
   	    	.from('order_books')
@@ -43,11 +43,10 @@ class MatcherService {
   	    		log.info('end')
   	    		return Event.fire('match:failed',data)
   	    	}
-  		
-    	} else {
+        } else {
     		log.info('end')
-      	return Event.fire('match:failed',data)
-      	} 
+      	    return Event.fire('match:failed',data)
+      	}
       }
   }
 

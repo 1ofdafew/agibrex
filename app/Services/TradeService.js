@@ -1,6 +1,7 @@
 'use strict'
 
 // const OrderBook = use('App/Model/OrderBook')
+const MatcherService = make('App/Services/MatcherService')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
@@ -30,6 +31,15 @@ class TradeService {
                 orderBook.status = 1
 
                 yield orderBook.save()
+
+                if (orderBook.isNew()) {
+                  throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
+                }
+
+                // const freshInstance = yield this.OrderBook.find(orderBook.id)
+
+                // match to do the matching new ask/bid
+                const matching = yield MatcherService.compare(data)
 
                 const dataRedirect = {
                     status: 'ok',

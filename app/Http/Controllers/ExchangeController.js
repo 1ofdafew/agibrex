@@ -162,11 +162,11 @@ class ExchangeController {
         type: 'BID'
     }
 
-    if (to_asset == 'BTC') {
-    //   this.price = request.input('trcbtc')
-    } else if (to_asset == 'ETH') {
-    //   this.price = request.input('trceth')
-    }
+    // if (to_asset == 'BTC') {
+    // //   this.price = request.input('trcbtc')
+    // } else if (to_asset == 'ETH') {
+    // //   this.price = request.input('trceth')
+    // }
 
     const doAsk = yield TradeService.doAskBid(data)
 
