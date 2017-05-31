@@ -116,7 +116,12 @@
                   <li><a href="#" class="active">Home</a></li>
                   {% endif %}
                   <li><a href="/exchange">Exchange</a></li>
+                  {% if currentUser %}
                   <li><a href="">Order Book</a></li>
+                  {% endif %}
+                  {% if not currentUser %}
+                  <li><a href="/coming_soon">News</a></li>
+                  {% endif %}
                   <li><a href="">Gibrex</a></li>
                   {% if currentUser %}
                   <li><a href="/accounts" class="active">Account</a></li>
