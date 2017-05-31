@@ -7,7 +7,7 @@ const History = exports = module.exports = {}
 
 
 History.checkLocation = function * (next) {
-  const re = /.*/.exec(this.trace)
+  const re = /^[a-zA-Z]*$/.exec(this.location)
   console.log('re:', re)
 
   if (!re) {
@@ -45,6 +45,16 @@ History.checkTrace = function * (next) {
 
   if (!re) {
     throw new Error('Invalid Trace Number')
+  }
+  yield next
+}
+
+History.checkActivities = function * (next) {
+  const re = /^[a-zA-Z]*$/.exec(this.activities)
+  console.log('re:', re)
+
+  if (!re) {
+    throw new Error('Invalid activities')
   }
   yield next
 }

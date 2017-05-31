@@ -4,9 +4,6 @@ const Hash = use('Hash')
 const uuid = require('uuid/v4');
 const Profile = exports = module.exports = {}
 
-//(/\w):Matches any alphanumeric character including the underscore. 
-//Equivalent to [A-Za-z0-9_].
-
 Profile.checkEmail = function * (next) {
   const re = /^hotmail\.com|gmail\.com|live\.com${foo@bar.com}/.exec(this.email)
 

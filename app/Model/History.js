@@ -15,6 +15,7 @@ class History extends Lucid {
     this.addHook('beforeCreate', 'History.checkLocation')
     this.addHook('beforeCreate', 'History.checkIpAddress')
     this.addHook('beforeCreate', 'History.checkTrace')
+    this.addHook('beforeCreate', 'History.checkActivities')
   }
 
   static get visible(){

@@ -2,7 +2,7 @@
 
 class ChatController {
 
-  constructor(socket, request) {
+  constructor (socket, request) {
     this.socket = socket
     this.request = request
 
@@ -22,12 +22,6 @@ class ChatController {
     this.socket.toEveryone().emit('message', data)
   }
 
-  * joinRoom (room) {
-    const user = this.socket.currentUser
-    // throw error to deny a socket from joining room
-  }
-
 }
-
 
 module.exports = ChatController

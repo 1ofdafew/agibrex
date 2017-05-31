@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 const Transaction = exports = module.exports = {}
 
 Transaction.checkAction = function * (next) {
-  const re = /.*/.exec(this.action)
+  const re = /^[a-zA-Z]*$/.exec(this.action)
   console.log('re:', re)
 
   if (!re) {
@@ -15,7 +15,7 @@ Transaction.checkAction = function * (next) {
 }
 
 Transaction.checkStatus = function * (next) {
-  const re = /.*/.exec(this.status)
+  const re = /^[a-zA-Z]*$/.exec(this.status)
   console.log('re:', re)
 
   if (!re) {
@@ -25,7 +25,7 @@ Transaction.checkStatus = function * (next) {
 }
 
 Transaction.checkAcc = function * (next) {
-  const re = /.*/.exec(this.acc_type)
+  const re = /^[a-zA-Z]*$/.exec(this.acc_type)
   console.log('re:', re)
 
   if (!re) {

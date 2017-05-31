@@ -25,7 +25,7 @@ Payment.checkAmount = function * (next) {
 }
 
 Payment.checkType = function * (next) {
-  const re = /.*/.exec(this.type)
+  const re = /^[a-zA-Z]*$/.exec(this.type)
   console.log('re:', re)
 
   if (!re) {

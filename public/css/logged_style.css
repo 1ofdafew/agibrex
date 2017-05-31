@@ -93,10 +93,10 @@ h6 {
 p {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-weight: 300;
-	font-size: 18px;
+	font-size: 17.5px;
 	color: #727272;
 	font-style: normal;
-	line-height: 25px;
+	line-height: 28px;
 	/*width: 800px;*/
 }
 ul, ol {
@@ -181,7 +181,7 @@ sub {
 #scrollcell {
 	overflow-y: auto;
 	overflow-x: hidden;
-  height: 450px;
+  height: 440px;
 }
 
 table.scroll {
@@ -5001,7 +5001,6 @@ ul.list_empty.form_buttons {
 }
 .buyform .param {
 	position: relative;
-
 }
 .buyform .param.marginleft {
 	margin-left: 15px;
@@ -5025,11 +5024,25 @@ ul.list_empty.form_buttons {
 	background-color: #FFF;
 	width: 95%;
 }
+.buyform02 .param02 input {
+	clear: both;
+	float: left;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	padding: 7px 24px 7px 10px;
+	border: 1px solid #D6D6D6;  mijahketot
+	background-color: #FFF;
+	width: 90%;
+}
 #authy-token {
 	background-color: #FFFFFF;
 	padding: 7px 0 7px 25px !important;
 }
 .buyform .param input:focus {
+	color: #444;
+	border: 1px solid #efaa06;
+}
+.buyform02 .param02 input:focus {
 	color: #444;
 	border: 1px solid #efaa06;
 }
@@ -5324,27 +5337,27 @@ body {
 }
 *::selection {
 	color: #fafafa;
-	background: #1fdfdf
+	background: #999;
 }
 *::-khtml-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-webkit-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-moz-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-ms-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 *::-o-selection {
 color:#fafafa;
-background:#1fdfdf
+background:#999;
 }
 #header {
 	margin: 0px 0 0
@@ -5391,19 +5404,19 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	border-radius: 0px;
 }
 .panel02 {
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 	background-color: #fff;
 	border: 1px solid #ddd;
 	border-radius: 0px;
-	height: 500px;
+	height: 490px;
 }
 .panel-body {
 	padding: 10px;
 }
 .panel-body02 {
 	padding: 10px;
-	margin-left: 12px;
-	margin-right: 20px;
+	margin-left: 8px;
+	margin-right: 8px;
 	margin-top: 5px;
 	/*margin-bottom: 15px;*/
 }
@@ -5423,17 +5436,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	font-weight: 100;
 	text-transform: uppercase;
 }
-.panel-default > .panel-heading02 {
+.panel-default02 > .panel-heading02 {
 	color: #f2f2f2;
 	background-color: #d6d6d6;
 	border-color: #ddd;
-	padding-left: 14px;
-	padding-right: 24px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 18px;
-	font-weight: 100;
-	margin-top: 100px;
+	padding-left: 16px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	/*margin-top: 100px;*/
 }
 .panel-default .m_head {
 	color: #444;
