@@ -19,7 +19,7 @@ Asset.checkTransId = function * (next) {
 }
 
 Asset.checkType = function * (next) {
-  const re = /.*/.exec(this.type)
+  const re = /^[a-zA-Z]*$/.exec(this.type)
   console.log('re:', re)
 
   if (!re) {

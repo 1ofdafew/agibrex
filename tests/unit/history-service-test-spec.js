@@ -70,6 +70,22 @@ describe('History Test Cases', function () {
     assert.equal(foo, null)
   })
 
+   it('should fail for invalid activities', function * () {
+    const hstry = {
+      location: 'damansara',
+      ip_address: '127.0.0.1',
+      trace: '555',
+      activities: '454545'
+    }
+
+    var foo
+    try {
+      foo = yield HistoryService.store(hstry.location, hstry.ip_address, hstry.trace, hstry.activities)      
+    } catch (e) {}
+    
+    assert.equal(foo, null)
+  })
+
    it('should pass for complete detailed', function * () {
     const hstry = {
       location: 'damansara',
