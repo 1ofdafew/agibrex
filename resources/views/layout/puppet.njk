@@ -50,7 +50,7 @@
             <ul class="tci_list_left">
               <li><a href="/coming_soon">FAQ</a></li>
               <li>|</li>
-              <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-life-ring"></i></li>
+              <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
               <li>|</li>
               <li><a href="/coming_soon">Contact Us</a></li>
             </ul>
@@ -60,14 +60,15 @@
               <li>
                 <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
               </li>
-              <li>|</li>
+              <!-- <li>|</li> -->
               <li>
                 <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
               </li>
               {% else %}
               <li>
-                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}&nbsp;&nbsp;&nbsp;
               </li>
+              <!-- <li>|</li> -->
               <li>
                 <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
               </li>
@@ -131,10 +132,11 @@
 <div class="page_title">
   <div class="container">
     <div class="title">
-      <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}</h4>
+      <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+      </h4>
     </div>
     <div class="title02">
-      <h4><div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">My Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div></h4>
+      <h4><div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div></h4>
     </div>
   </div>
 </div>

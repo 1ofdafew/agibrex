@@ -25,7 +25,7 @@
 <!-- ######### CSS STYLES ######### -->
 <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
-{# <link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"> #}
+<link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 <!-- responsive devices styles -->
 <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
@@ -62,15 +62,15 @@
               <li>
                 <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
               </li>
-              <li>|</li>
+              <!-- <li>|</li> -->
               <li>
                 <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
               </li>
               {% else %}
               <li>
-                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}&nbsp;&nbsp;&nbsp;
               </li>
-              <li>|</li>
+              <!-- <li>|</li> -->
               <li>
                 <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
               </li>
@@ -144,7 +144,10 @@
 <div class="page_title">
   <div class="container">
     <div class="title">
-      <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}</h4>
+      <h4>
+        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+        <a href="order-book.php" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a>
+      </h4>
     </div>
     <div class="title02">
       <h4><div class="pagenation">&nbsp;<a href="">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Buy/Sell</a></div></h4>
