@@ -125,9 +125,19 @@
                   {% endif %}
                   <li><a href="">Gibrex</a></li>
                   {% if currentUser %}
-                  <li><a href="/accounts" class="active">Account</a></li>
+                  <li><a href="" class="active">Account&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+                    <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                      <li><a href="/accounts">Dashboard</a></li>
+                      <li><a href="/accounts">Coin Account</a></li>
+                      <li><a href="/user/profile">User Profile</a></li>
+                      <li><a href="/security/options">Security</a></li>
+                      <li><a href="/accounts">Settings</a></li>
+                      <li><a href="/auth/logout">Log Out</a></li>
+                    </ul>
+                  </li>
                   {% endif %}
                 </ul>
+                <img class="stickylogo" src="/images/favicon-32.png">
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
                   <option value="">HOME</option>
@@ -294,6 +304,10 @@
 
 <script src="/js/jquery.color.min.js"></script>
 <script src="/js/jquery.animateNumber.min.js"></script>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery_004.js"></script>
+<script src="/js/ops.js"></script>
 <!-- <script src="https://www.authy.com/form.authy.min.js" type="text/javascript"></script> -->
 
 

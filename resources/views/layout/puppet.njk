@@ -35,6 +35,8 @@
 <link rel="stylesheet" href="/css/colour.css">
 
 
+
+
 </head>
 
 <body>
@@ -104,13 +106,23 @@
               <div id="menu" class="menu">
                 <ul id="tiny">
                   <li><a href="#">Home</a></li>
-                  <li><a href="/exchange">Exchange</a></li>
-                  <li><a href="">Order Book</a></li>
+                  <li><a href="/exchange" class="active">Exchange</a></li>
+                  <li><a href="/accounts">Open Book</a></li>
                   <li><a href="">Gibrex</a></li>
                   {% if currentUser %}
-                  <li><a href="/accounts" class="active">Account</a></li>
+                  <li><a href="">Account&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+                    <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                      <li><a href="/accounts">Dashboard</a></li>
+                      <li><a href="/accounts">Coin Account</a></li>
+                      <li><a href="/user/profile">User Profile</a></li>
+                      <li><a href="/security/options">Security</a></li>
+                      <li><a href="/accounts">Settings</a></li>
+                      <li><a href="/auth/logout">Log Out</a></li>
+                    </ul>
+                  </li>
                   {% endif %}
                 </ul>
+                <img class="stickylogo" src="/images/favicon-32.png">
                 <select class="selectnav" id="selectnav1">
                   <option value="">--- Navigation --- </option>
                   <option value="">HOME</option>
@@ -123,7 +135,6 @@
             </nav>
             <!-- end nav menu -->
 
-          </div>
       </div>
     </div>
   </div>
@@ -131,14 +142,22 @@
 <!-- end header -->
 {% if currentUser %}
 <div class="page_title">
-  <div class="container">
-    <div class="title">
-      <h4><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
-      </h4>
+  <div class="container title">
+    <div id="titleheader">
+      <div class="left">
+        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
+      </div>
+      <div class="right">
+        <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
+
+
+      </div>
     </div>
-    <div class="title02">
-      <h4><div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div></h4>
-    </div>
+
+
+
+
+
   </div>
 </div>
 {% endif %}
@@ -223,6 +242,10 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.color.min.js"></script>
 <script src="/js/jquery.animateNumber.min.js"></script>
+
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/ops.js"></script>
 
 
  {% block docready %}{% endblock %}

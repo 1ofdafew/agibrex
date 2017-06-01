@@ -13,26 +13,26 @@ class OrderBookService {
 
   * index() {
  	return yield Database.table('order_books')
-    .where('status','1')
+    .where('status','ACTIVE')
   }
 
   * showdelete() {
   	return yield Database.table('order_books')
-    .where('status','0')
+    .where('status','CANCELLED')
   }
 
   * delete(data) {
     return yield Database
       .table('order_books')
       .where('uuid', data.uuid)
-      .update('status', '0')
+      .update('status', 'CANCELLED')
   }
 
   * activate(data) {
     return yield Database
       .table('order_books')
       .where('uuid', data.uuid)
-      .update('status', '1')
+      .update('status', 'ACTIVE')
   }
 
   // * store(data) {
@@ -46,7 +46,7 @@ class OrderBookService {
   //     .from('order_books')
   //     .where('type','bid')
   //     .where('asset',asset)
-  //     .where('status','1')
+  //     .where('status','ACTIVE')
   //     .orderBy('price', 'desc')
   //     .orderBy('created_at','asc')
   // }
@@ -56,7 +56,7 @@ class OrderBookService {
   //     .from('order_books')
   //     .where('type','ask')
   //     .where('asset',asset)
-  //     .where('status','1')
+  //     .where('status','ACTIVE')
   //     .orderBy('price', 'asc')
   //     .orderBy('created_at','asc')
   // }
