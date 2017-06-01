@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 const Asset = exports = module.exports = {}
 
 
-
+//check transaction ID
 Asset.checkTransId = function * (next) {
   const re = /^\d+$/.exec(this.ast_trans_id)
  
@@ -18,6 +18,7 @@ Asset.checkTransId = function * (next) {
   yield next
 }
 
+//check type
 Asset.checkType = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.type)
   console.log('re:', re)

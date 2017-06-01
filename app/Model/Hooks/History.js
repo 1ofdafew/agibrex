@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 const History = exports = module.exports = {}
 
 
-
+//check location
 History.checkLocation = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.location)
   console.log('re:', re)
@@ -29,6 +29,7 @@ History.checkLocation = function * (next) {
 // ....            # repeat with 3 times (3x)
 // $   #end of the line
 
+//check IP address
 History.checkIpAddress= function * (next) {
   const re = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.exec(this.ip_address)
   console.log('re:', re)
@@ -39,6 +40,7 @@ History.checkIpAddress= function * (next) {
   yield next
 }
 
+//check trace
 History.checkTrace = function * (next) {
   const re = /^\d+$/.exec(this.trace)
   console.log('re:', re)
@@ -49,6 +51,7 @@ History.checkTrace = function * (next) {
   yield next
 }
 
+//check activities
 History.checkActivities = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.activities)
   console.log('re:', re)

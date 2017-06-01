@@ -35,7 +35,7 @@ describe('Profile Test Cases', function () {
       fareez = yield ProfileService.store(prfl.name, prfl.email, prfl.mobile_no, prfl.address)      
     } catch (e) {}
     
-   // assert.equal(fareez, null)
+    assert.equal(fareez, null)
   })
 
 it('should fail for invalid mobile number', function * () {
@@ -51,7 +51,7 @@ it('should fail for invalid mobile number', function * () {
       fareez = yield ProfileService.store(prfl.name, prfl.email, prfl.mobile_no, prfl.address)      
     } catch (e) {}
     
-    //assert.equal(fareez, null)
+    assert.equal(fareez, null)
   })
 
  it('should pass for complete detailed', function * () {
@@ -67,7 +67,42 @@ it('should fail for invalid mobile number', function * () {
       fareez = yield ProfileService.store(prfl.name, prfl.email, prfl.mobile_no, prfl.address)      
     } catch (e) {}
     
-   // assert.equal(fareez, null)
+    //assert.equal(fareez, null)
     assert.instanceOf(fareez, Profile)
+  })
+
+
+ //update email
+ it('should fail for invalid email', function * () {
+    const prfl = {
+      name: 'fareez',
+      email: '123df',
+      mobile_no: '0127899546',
+      address: 'taman mas puchong'
+    }    
+
+    var fareez
+    try {
+      fareez = yield ProfileService.update(prfl.name, prfl.email, prfl.mobile_no, prfl.address)      
+    } catch (e) {}
+    
+    assert.equal(fareez, null)
+  })
+
+//update mobile number
+it('should fail for invalid mobile number', function * () {
+    const prfl = {
+      name: 'fareez',
+      email: 'fareez@gmail.com',
+      mobile_no: 'qwertyujkh',
+      address: 'taman mas puchong'
+    }
+
+    var fareez
+    try {
+      fareez = yield ProfileService.update(prfl.name, prfl.email, prfl.mobile_no, prfl.address)      
+    } catch (e) {}
+    
+    assert.equal(fareez, null)
   })
 })

@@ -16,7 +16,7 @@ class MatcherService {
   	const db_ob = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
     .from('order_books')
     .whereNot('type', data.type)//type not same
-    .where('status','1')
+    .where('status','ACTIVE')
     .where('price',data.price)
     .groupBy('price')//price same
 
@@ -31,7 +31,7 @@ class MatcherService {
   	  		const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
   	    	.from('order_books')
   	    	.where('type', 'ask')
-  	    	.where('status','1')
+  	    	.where('status','ACTIVE')
   	    	.orderBy('price', 'asc')
   	    	.orderBy('created_at','asc')
 

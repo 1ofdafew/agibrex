@@ -9,14 +9,14 @@ class ObchartController {
     const bid = yield Database.select('price', 'amount')
     .from('order_books')
     .where('type','bid')
-    .where('status','1')
+    .where('status','ACTIVE')
     .orderBy('price', 'asc')
     .groupBy('price')
 
     const ask = yield Database.select('price', 'amount')
     .from('order_books')
     .where('type', 'ask')
-    .where('status','1')
+    .where('status','ACTIVE')
     .orderBy('price', 'asc')
     .groupBy('price')
 
