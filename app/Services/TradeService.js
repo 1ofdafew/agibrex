@@ -1,10 +1,11 @@
 'use strict'
 
 // const OrderBook = use('App/Model/OrderBook')
+const MatcherService = make('App/Services/MatcherService')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
-class ExchangeService {
+class TradeService {
 
     static get inject () {
       return ['App/Model/OrderBook']
@@ -14,26 +15,35 @@ class ExchangeService {
         this.OrderBook = OrderBook
     }
 
-    * doAsk (total, amount, asset, to_asset, price) {
+    * doAskBid (data) {
 
-        if (total != '' && amount != '' && asset != '' && to_asset != '' && price != '') {
+        if (data) {
 
             try {
                 // const data=request.only(['type', 'asset', 'amount', 'price','status','to_asset'])
-                const orderBook = new this.OrderBook()
+                const orderBook = new this.OrderBook(data, data.user)
                 // const orderBook = new OrderBook(data)
-                orderBook.type = 'ASK'
-                orderBook.asset = asset
-                orderBook.to_asset = to_asset
-                orderBook.amount = amount
-                orderBook.price = price
+                orderBook.type = data.type
+                orderBook.asset = data.asset
+                orderBook.to_asset = data.to_asset
+                orderBook.amount = data.amount
+                orderBook.price = data.price
                 orderBook.status = 1
 
                 yield orderBook.save()
 
+                if (orderBook.isNew()) {
+                  throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
+                }
+
+                // const freshInstance = yield this.OrderBook.find(orderBook.id)
+
+                // match to do the matching new ask/bid
+                const matching = yield MatcherService.compare(data)
+
                 const dataRedirect = {
                     status: 'ok',
-                    success: 'Successfully insert new Ask.'
+                    success: `Successfully insert new ${data.type}.`
                 }
 
                 return dataRedirect
@@ -41,9 +51,9 @@ class ExchangeService {
             } catch(e) {
 
                 debug(e)
-                const errMsg = 'Error to save to OrderBook.'
+                const errMsg = `Error to save new ${data.type} to OrderBook.`
 
-                log.error('gibrex:Unable to process new ASK', e)
+                log.error(`gibrex:Unable to process new ${data.type} `, e)
                 debug('Sending error message: ', errMsg)
 
                 const dataRedirect = {
@@ -55,9 +65,9 @@ class ExchangeService {
             }
         } else {
 
-            const errMsg = 'Amount to Sell is required.'
+            const errMsg = 'Amount is required.'
 
-            log.error('gibrex:Unable to process new ASK', errMsg)
+            log.error(`gibrex:Unable to process new ${data.type} `, errMsg)
             debug('Sending error message: ', errMsg)
 
             const dataRedirect = {
@@ -72,4 +82,4 @@ class ExchangeService {
 
 }
 
-module.exports = ExchangeService
+module.exports = TradeService
