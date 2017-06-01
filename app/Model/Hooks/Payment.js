@@ -4,6 +4,7 @@ const Hash = use('Hash')
 const uuid = require('uuid/v4');
 const Payment = exports = module.exports = {}
 
+//check transaction ID
 Payment.checkTransId= function * (next) {
   const re = /^\d+$/.exec(this.trans_id)
   console.log('re:', re)
@@ -14,6 +15,7 @@ Payment.checkTransId= function * (next) {
   yield next
 }
 
+//check amount
 Payment.checkAmount = function * (next) {
   const re = /[-+]?[0-9]*\.?[0-9]*./.exec(this.amount)
   console.log('re:', re)
@@ -24,6 +26,7 @@ Payment.checkAmount = function * (next) {
   yield next
 }
 
+//check type
 Payment.checkType = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.type)
   console.log('re:', re)
