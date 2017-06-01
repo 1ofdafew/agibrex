@@ -2,5 +2,6 @@ node_modules
 storage
 !.gitkeep
 .env
+.env.test
 npm-debug.log
 database/development.sqlite
