@@ -28,6 +28,12 @@ Event.when('user:sendResetPassword', 'UserRegistered.sendResetPassword')
 Event.when('user:resendConfirmation', 'UserRegistered.resendConfirmation')
 
 //Matching bid/ask
-Event.when('match:ok', 'MatchedResult.ok')
+Event.when('match:ok', 'MatchListener.ok')
 // Event.when('match:recheck', 'MatchedResult.recheck')
-Event.when('match:failed', 'MatchedResult.failed')
+Event.when('match:failed', 'MatchListener.failed')
+
+// Transfer status
+// Event.when('transfer:ok', 'MatchListener.ok')
+//
+// // BTC Status
+// Event.when('btc:ok', 'TradeListener.ok')
