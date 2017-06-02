@@ -13,9 +13,9 @@ class UpdateOrderbookTableSchema extends Schema {
     })
 
     this.table('order_books', (table) => {
-        table.enum('asset', ['TRC', 'BTC', 'ETH', 'NONE']).after('uuid').defaultTo('NONE').notNullable()
-        table.enum('to_asset',['TRC', 'BTC', 'ETH', 'NONE']).after('asset').defaultTo('NONE').notNullable()
-        table.enum('type',['ASK', 'BID', 'NONE']).after('to_asset').defaultTo('NONE').notNullable()
+        table.enum('asset', ['TRC', 'BTC', 'ETH', 'ANY']).after('uuid').defaultTo('ANY').notNullable()
+        table.enum('to_asset',['TRC', 'BTC', 'ETH', 'ANY']).after('asset').defaultTo('ANY').notNullable()
+        table.enum('type',['ASK', 'BID', 'ANY']).after('to_asset').defaultTo('ANY').notNullable()
     })
   }
 

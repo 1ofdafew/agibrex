@@ -2,6 +2,7 @@
 
 const Lucid = use('Lucid')
 const uuid = require('uuid/v4')
+const log = use('npmlog')
 
 class OrderBook extends Lucid {
 
@@ -9,18 +10,18 @@ class OrderBook extends Lucid {
     return this.belongsTo('App/Model/User')
   }
 
-  constructor(data) {
-    super()
-
-    // save all fields data
-    this.user_id = data.user_id,
-    this.amount = data.amount,
-    this.price = data.price,
-    this.status = data.status,
-    this.asset = data.asset,
-    this.to_asset = data.to_asset,
-    this.type = data.type
-  }
+  // constructor(data, user) {
+  //   super()
+  //   log.info('Constructor:', data, user)
+  //   // save all fields data
+  //   this.user_id = user.id,
+  //   this.amount = data.amount,
+  //   this.price = data.price,
+  //   this.status = data.status,
+  //   this.asset = data.asset,
+  //   this.to_asset = data.to_asset,
+  //   this.type = data.type
+  // }
 
   static boot () {
     super.boot()
