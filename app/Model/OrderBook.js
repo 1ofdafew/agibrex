@@ -10,6 +10,14 @@ class OrderBook extends Lucid {
     return this.belongsTo('App/Model/User')
   }
 
+  bids () {
+    return this.hasMany('App/Model/OrderBook')
+  }
+
+  asks () {
+    return this.hasMany('App/Model/OrderBook')
+  }
+
   // constructor(data, user) {
   //   super()
   //   log.info('Constructor:', data, user)
