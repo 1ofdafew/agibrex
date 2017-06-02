@@ -2,6 +2,7 @@
 
 const chai = use('chai')
 const assert = chai.assert
+const expect = require('chai').expect
 
 const Transaction = use('App/Model/Transaction')
 const User = use('App/Model/User')
@@ -12,6 +13,7 @@ const UserService = make('App/Services/UserService')
 const OrderBookService = make('App/Services/OrderBookService')
 
 require('co-mocha')
+chai.should()
 
 describe('Transaction Test Cases', () => {
 
@@ -44,9 +46,14 @@ describe('Transaction Test Cases', () => {
 
   afterEach(function * () {
     const Db = use('Database')
+
+    // can't use truncate due to relations. Delete instead
     yield Db.table('transactions').having('id', '>', 0).delete()
     yield Db.table('order_books').having('id', '>', 0).delete()
     yield Db.table('users').having('id', '>', 0).delete()
+    // yield Db.truncate('transactions')
+    // yield Db.truncate('order_books')
+    // yield Db.truncate('users')
   })
 
   it ('should create user, and order book for this transaction', function * () {
@@ -54,7 +61,6 @@ describe('Transaction Test Cases', () => {
     assert.instanceOf(user, User)
 
     const ob = {
-      user_id: user.id,
       amount: 10,
       price: 0.85,
       status: 'ACTIVE',
@@ -62,16 +68,16 @@ describe('Transaction Test Cases', () => {
       to_asset: 'TRC',
       type: 'BID'
     }
-    const ob1 = yield OrderBookService.store(ob)    
+    const ob1 = yield OrderBookService.store(ob, user)
     ob.amount = 50
-    const ob2 = yield OrderBookService.store(ob)
+    const ob2 = yield OrderBookService.store(ob, user)
 
     assert.instanceOf(ob1, OrderBook)
     assert.instanceOf(ob2, OrderBook)
 
     // select from DB, should be 2 OrderBooks
     const all = yield OrderBookService.findByUser(user)
-    // console.log(all)
+    assert.lengthOf(all.toJSON(), 2, 'should have 2 orderbooks')
   })
 
   it ('should store a few orderbooks', function *() {

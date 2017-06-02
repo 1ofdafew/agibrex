@@ -11,12 +11,14 @@ class OrderBookService {
 
   static get inject () {
     return [
-      'App/Model/OrderBook'
+      'App/Model/OrderBook',
+      'App/Model/User'
     ]
   }
 
-  constructor (OrderBook) {
+  constructor (OrderBook, User) {
     this.OrderBook = OrderBook
+    this.User = User
   }
 
   * index() {
@@ -43,8 +45,15 @@ class OrderBookService {
       .update('status', 'ACTIVE')
   }
 
-  * store(data) {
-    const ob = new OrderBook(data)
+  * store(data, user) {
+    const ob = new OrderBook()
+    ob.user_id = user.id,
+    ob.amount = data.amount,
+    ob.price = data.price,
+    ob.status = data.status,
+    ob.asset = data.asset,
+    ob.to_asset = data.to_asset,
+    ob.type = data.type    
     yield ob.save()
 
     if (ob.isNew()) {
@@ -57,7 +66,9 @@ class OrderBookService {
     if (!user || typeof (user.toJSON) !== 'function') {
       throw new Error('OrderBook expects a valid instance of User Model.')
     }
-    return yield this.OrderBook.query().where('user_id', user.id).fetch()
+    const all = yield this.OrderBook.query().where('user_id', user.id).fetch()
+    // console.log(all)
+    return all
   }
 
   // * showbid(asset) {
