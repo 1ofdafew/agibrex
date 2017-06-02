@@ -32,8 +32,8 @@ class ProfileService {
   // => insert data profile user
   * store (name, email, mobile_no, address) {
   	const profile = new this.Profile()
-  	console.log('Profileservice data....')
-  	console.log(name)
+  	// console.log('Profileservice data....')
+  	// console.log(name)
 
   	profile.uuid = uuid()
   	profile.name = name

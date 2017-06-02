@@ -14,15 +14,17 @@ const expect = chai.expect
 chai.use(chaiHttp)
 process.env.NODE_ENV = 'test';
 
-describe('API Test Directly to URL', function() {
+describe('API Test Directly to URL', () => {
 
   const URL = Env.get('COIN_URL', 'http://147.135.171.127')
   console.log('URL:', URL)
 
   it('shall print no impl for /auth', (done) => {
+    this.timeout(10000)
     chai.request(URL)
       .get('/auth')
       .end((err, res) => {
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('error').equal('enoimpl')
@@ -31,17 +33,19 @@ describe('API Test Directly to URL', function() {
   })
 
   it('shall allow us to delete the user', (done) => {
+    this.timeout(10000)
     chai.request(URL)
       .delete('/auth/mhishami')
       .send({})
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res.body).to.have.property('status').eql('ok')
         done()
       })
   })
 
   it('shall allow us to register user', (done) => {
+    this.timeout(10000)
     const data = {
       username: 'mhishami',
       email: 'mhishami@gmail.com',
@@ -51,7 +55,7 @@ describe('API Test Directly to URL', function() {
       .post('/auth')
       .send(data)
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('ok')
@@ -67,10 +71,11 @@ describe('API Test Directly to URL', function() {
   })
 
   it('shall give us the user details', (done) => {
+    this.timeout(10000)
     chai.request(URL)
       .get('/auth/mhishami')
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('ok')
@@ -86,34 +91,35 @@ describe('API Test Directly to URL', function() {
   })
 
   it('shall give us the authentication token', (done) => {
+    this.timeout(10000)
     chai.request(URL)
       .post('/auth/mhishami')
       .send({ password: 'secret' })
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('status').eql('ok')
         expect(res.body).to.have.property('data')
-        expect(res.body).data.to.have.property('token')
+        expect(res.body.data).to.have.property('token')
         done()
       })    
   })
 
-  // it('shall give us the authentication error')
-  // function(done) {
-  //   chai.request(URL)
-  //     .post('/auth/mhishami')
-  //     .send({ password: 'badpass' })
-  //     .end(function(err, res) {
-  //       console.log('res:', res.body)
+  it('shall give us the authentication error', (done) => {
+    this.timeout(10000)
+    chai.request(URL)
+      .post('/auth/mhishami')
+      .send({ password: 'badpass' })
+      .end((err, res) => {
+        // console.log(res.body)
 
-  //       // expect(res).to.have.status(200)
-  //       // expect(res).body.to.be.a('object')
-  //       // expect(res).body.to.have.property('status').eql('error')
-  //       // expect(res).body.to.have.property('message').eql('Invalid username, or password')
-  //       done()
-  //     })    
-  // }
+        expect(res).to.have.status(400)
+        expect(res.body).to.be.a('object')
+        expect(res.body).to.have.property('status').eql('error')
+        expect(res.body).to.have.property('message').eql('Invalid username, or password')
+        done()
+      })    
+  })
 
 })
