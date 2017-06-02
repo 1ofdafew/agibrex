@@ -8,6 +8,7 @@ class TransactionsTableSchema extends Schema {
     this.create('transactions', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
+      // table.integer('orderbook_id').unsigned().references('id').inTable('order_books')      
       table.string('uuid',80).notNullable().unique()
       table.string('action',254).notNullable()
       table.string('status',254).notNullable()

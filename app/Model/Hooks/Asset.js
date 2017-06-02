@@ -10,7 +10,7 @@ Asset.checkTransId = function * (next) {
   const re = /^\d+$/.exec(this.ast_trans_id)
  
  const inflect = require('inflect')
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid transaction id')
@@ -21,7 +21,7 @@ Asset.checkTransId = function * (next) {
 //check type
 Asset.checkType = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.type)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid type')

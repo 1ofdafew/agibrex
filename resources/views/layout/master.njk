@@ -112,9 +112,9 @@
               <div id="menu" class="menu">
                 <ul id="tiny">
                   {% if currentUser %}
-                  <li><a href="#">Home</a></li>
+                  <li><a href="http://localhost:3333/">Home</a></li>
                   {% else %}
-                  <li><a href="#" class="active">Home</a></li>
+                  <li><a href="http://localhost:3333/" class="active">Home</a></li>
                   {% endif %}
                   <li><a href="/exchange">Exchange</a></li>
                   {% if currentUser %}
@@ -123,9 +123,16 @@
                   {% if not currentUser %}
                   <li><a href="/coming_soon">News</a></li>
                   {% endif %}
-                  <li><a href="">Gibrex</a></li>
+                  <li><a href="">Gibrex</a>
+                    <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                      <li><a href="/accounts">About Gibrex</a></li>
+                      <li><a href="/accounts">Our Security</a></li>
+                      <li><a href="/user/profile">Exchange Fees</a></li>
+                      <li><a href="/security/options">Contact Us</a></li>
+                    </ul>
+                  </li>
                   {% if currentUser %}
-                  <li><a href="" class="active">Account&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+                  <li><a href="" class="active">Dashboard</a>
                     <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                       <li><a href="/accounts">Dashboard</a></li>
                       <li><a href="/accounts">Coin Account</a></li>
@@ -158,16 +165,31 @@
 <!-- end header -->
 {% if currentUser %}
 <div class="page_title">
-  <div class="container">
-    <div class="title">
-      <h4>
-        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;User Account&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}
-        <a href="order-book.php" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a>
-      </h4>
+  <div class="container title">
+    <div id="titleheader02">
+      <div class="left">
+          <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.username }}
+      </div>
+        <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
     </div>
-    <div class="title02">
-      <h4><div class="pagenation">&nbsp;<a href="">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="">Buy/Sell</a></div></h4>
-    </div>
+  </div>
+  <div class="container title">
+    <nav id="access02" class="access02" role="navigation">
+      <div id="menu" class="menu">
+        <ul id="tiny">
+          <li><a href="">Inbox</a></li>
+          <li><a href="">Balance</a></li>
+          <li><a href=""><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
+            <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+              <li><a href="/accounts">Bitcoin</a></li>
+              <li><a href="/accounts">Tracto</a></li>
+              <li><a href="/user/profile">Ethreum</a></li>
+              <li><a href="/user/profile">Litecoin</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </div>
 {% endif %}

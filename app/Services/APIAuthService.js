@@ -30,6 +30,7 @@ class APIAuthService extends GibrexService {
   }
 
   * delete (username) {
+    // console.log('delete user :: URL=', URL)
     const response = yield this.send('delete', `${URL}/auth/${username}`, {})
     if (response.status === 'ok') {
       // delete from table as well
@@ -78,23 +79,23 @@ class APIAuthService extends GibrexService {
     const response = yield this.send('post', `${URL}/auth/${username}`, payload)
     if (response.status === 'ok') {
       try {
-        console.log('findByOrFail:', response.data)
+        // console.log('findByOrFail:', response.data)
         const prev = yield this.APIAuth.findByOrFail('username', username, function() {
           throw new Exceptions.ApplicationException('Unable to logging you in, please try after some time', 400)
         })
         prev.token = response.data.token
-        console.log('Saving a previous record: findByOrFail -', prev)
+        // console.log('Saving a previous record: findByOrFail -', prev)
         yield prev.save()
         return yield this.APIAuth.find(prev.id)
 
       } catch(e) {
-        console.log('Creating new auth record', response.data)
+        // console.log('Creating new auth record', response.data)
         const auth = new this.APIAuth()
         auth.username = username
         auth.token = response.data.token
         yield auth.save()
 
-        console.log('Auth =>', auth)
+        // console.log('Auth =>', auth)
 
         if (auth.isNew()) {
           log.error('Error in authentication via API')
@@ -112,7 +113,7 @@ class APIAuthService extends GibrexService {
   }
 
   * createToken(username, email, password) {
-    log.info('Creating new token for authentication for ', username)
+    // log.info('Creating new token for authentication for ', username)
     if (NEED_REG === 'yes') {
       log.info(`Registering new user for API auth`, {username, email})
       const user = yield this.register(username, email, password)

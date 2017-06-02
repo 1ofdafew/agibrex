@@ -14,7 +14,7 @@ const expect = chai.expect
 chai.use(chaiHttp)
 process.env.NODE_ENV = 'test';
 
-describe('API Test Directly to URL', function() {
+describe('API Test Directly to URL', () => {
 
   const URL = Env.get('COIN_URL', 'http://147.135.171.127')
   console.log('URL:', URL)
@@ -36,7 +36,7 @@ describe('API Test Directly to URL', function() {
       .delete('/auth/mhishami')
       .send({})
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res.body).to.have.property('status').eql('ok')
         done()
       })
@@ -52,7 +52,7 @@ describe('API Test Directly to URL', function() {
       .post('/auth')
       .send(data)
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('ok')
@@ -71,7 +71,7 @@ describe('API Test Directly to URL', function() {
     chai.request(URL)
       .get('/auth/mhishami')
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('ok')
@@ -91,7 +91,7 @@ describe('API Test Directly to URL', function() {
       .post('/auth/mhishami')
       .send({ password: 'secret' })
       .end((err, res) => {
-        console.log('res:', res.body)
+        // console.log(res.body)
         expect(res).to.have.status(200)
         expect(res.body).to.be.a('object')
         expect(res.body).to.have.property('status').eql('ok')
@@ -101,20 +101,19 @@ describe('API Test Directly to URL', function() {
       })    
   })
 
-  // it('shall give us the authentication error')
-  // function(done) {
-  //   chai.request(URL)
-  //     .post('/auth/mhishami')
-  //     .send({ password: 'badpass' })
-  //     .end(function(err, res) {
-  //       console.log('res:', res.body)
+  it('shall give us the authentication error', (done) => {
+    chai.request(URL)
+      .post('/auth/mhishami')
+      .send({ password: 'badpass' })
+      .end((err, res) => {
+        // console.log(res.body)
 
-  //       // expect(res).to.have.status(200)
-  //       // expect(res).body.to.be.a('object')
-  //       // expect(res).body.to.have.property('status').eql('error')
-  //       // expect(res).body.to.have.property('message').eql('Invalid username, or password')
-  //       done()
-  //     })    
-  // }
+        expect(res).to.have.status(400)
+        expect(res.body).to.be.a('object')
+        expect(res.body).to.have.property('status').eql('error')
+        expect(res.body).to.have.property('message').eql('Invalid username, or password')
+        done()
+      })    
+  })
 
 })

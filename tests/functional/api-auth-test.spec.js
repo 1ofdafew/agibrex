@@ -2,11 +2,7 @@
 
 const chai = use('chai')
 const assert = chai.assert
-const chaiHttp = require('chai-http')
 const APIAuthService = make('App/Services/APIAuthService')
-require('co-mocha')
-
-chai.use(chaiHttp)
 
 describe('API Test', function() {
 
@@ -55,6 +51,7 @@ describe('API Test', function() {
   it('should allow us to delete existing user', function * () {
     this.timeout(10000)
     const resp = yield APIAuthService.delete('foo')
+    // console.log('resp:', resp)
     assert.equal(resp.status, 'ok')
   })
 

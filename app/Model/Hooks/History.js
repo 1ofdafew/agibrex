@@ -8,7 +8,7 @@ const History = exports = module.exports = {}
 //check location
 History.checkLocation = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.location)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid location')
@@ -32,7 +32,7 @@ History.checkLocation = function * (next) {
 //check IP address
 History.checkIpAddress= function * (next) {
   const re = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.exec(this.ip_address)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid ip address')
@@ -43,7 +43,7 @@ History.checkIpAddress= function * (next) {
 //check trace
 History.checkTrace = function * (next) {
   const re = /^\d+$/.exec(this.trace)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid Trace Number')
@@ -54,7 +54,7 @@ History.checkTrace = function * (next) {
 //check activities
 History.checkActivities = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.activities)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid activities')

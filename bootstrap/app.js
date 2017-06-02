@@ -33,7 +33,8 @@ const providers = [
   'adonis-websocket/providers/WsProvider',
   'adonis-redis/providers/RedisFactoryProvider',
   'adonis-redis/providers/RedisProvider',
-  'adonis-mail-provider/providers/MailProvider'
+  'adonis-mail-provider/providers/MailProvider',
+  'adonis-ally/providers/AllyProvider'
 ]
 
 /*

@@ -1430,8 +1430,10 @@ $(document).ready(function() {
 
     ddsmoothmenu.init({
     	mainmenuid: "menu",
+			// mainmenuid: "menusub",
     	orientation: 'h',
     	classname: 'menu',
+			// classname: 'menusub',
     	contentsource: "markup"
     })
 

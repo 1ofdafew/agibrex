@@ -7,7 +7,7 @@ const Transaction = exports = module.exports = {}
 //check action
 Transaction.checkAction = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.action)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid Action data')
@@ -18,7 +18,7 @@ Transaction.checkAction = function * (next) {
 //check status
 Transaction.checkStatus = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.status)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid Status data')
@@ -29,7 +29,7 @@ Transaction.checkStatus = function * (next) {
 //check account
 Transaction.checkAcc = function * (next) {
   const re = /^[a-zA-Z]*$/.exec(this.acc_type)
-  console.log('re:', re)
+  // console.log('re:', re)
 
   if (!re) {
     throw new Error('Invalid Account Type data')

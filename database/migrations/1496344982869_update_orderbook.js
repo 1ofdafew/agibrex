@@ -11,7 +11,7 @@ class UpdateOrderbookTableSchema extends Schema {
     })
 
     this.table('order_books', (table) => {
-        table.enum('status', ['ACTIVE', 'CANCELLED', 'PENDING', 'CLOSED']).after('price').defaultTo('ACTIVE').notNullable()
+      table.enum('status', ['ACTIVE', 'CANCELLED', 'PENDING', 'CLOSED']).after('price').defaultTo('ACTIVE').notNullable()
     })
   }
 
