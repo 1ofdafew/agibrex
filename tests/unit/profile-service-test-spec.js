@@ -9,18 +9,18 @@ require('co-mocha')
 describe('Profile Test Cases', function () {
   
   it('should be able to store', function * () {
-    const credentials = {
+    const profile = {
       name: 'fareez',
       email: 'fareez@gmail.com',
       mobile_no: '0127899546',
       address: 'taman mas puchong'
     }
-    const profile = yield ProfileService.store(credentials.name,
-      credentials.email, credentials.mobile_no, credentials.address)
+    const savedProfile = yield ProfileService.store(profile.name,
+      profile.email, profile.mobile_no, profile.address)
 
     // test the results
-    assert.instanceOf(profile, Profile)
-  })  
+    assert.instanceOf(savedProfile, Profile)
+  }) 
 
   it('should fail for invalid email', function * () {
     const prfl = {

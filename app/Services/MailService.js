@@ -21,12 +21,15 @@ MailService.sendVerificationEmail = function * (user) {
     throw new Error('Mailer expects a valid instance of User Model.')
   }
 
-  log.info(`MailService: sending verification email for ${user.email}`)
-  return yield Mail.send('emails.userVerification', user.toJSON(), (message) => {
-    message.to(user.email, user.name)
-    message.from(Env.get('MAIL_FROM_EMAIL'), Env.get('MAIL_FROM_NAME'))
-    message.subject('Verify Gibrex Account Email Address')
-  })
+  const mode = Env.get('NODE_ENV')
+  if (mode === 'production') {
+    log.info(`MailService: sending verification email for ${user.email}`)
+    return yield Mail.send('emails.userVerification', user.toJSON(), (message) => {
+      message.to(user.email, user.name)
+      message.from(Env.get('MAIL_FROM_EMAIL'), Env.get('MAIL_FROM_NAME'))
+      message.subject('Verify Gibrex Account Email Address')
+    })    
+  }
 }
 
 MailService.sendResetPasswordEmail = function * (user) {
@@ -34,10 +37,13 @@ MailService.sendResetPasswordEmail = function * (user) {
     throw new Error('Mailer expects a valid instance of User Model.')
   }
 
-  log.info(`MailService: sending reset password for ${user.email}`)
-  return yield Mail.send('emails.resetPassword', user.toJSON(), (message) => {
-    message.to(user.email, user.name)
-    message.from(Env.get('MAIL_FROM_EMAIL'), Env.get('MAIL_FROM_NAME'))
-    message.subject('Reset Gibrex Account')
-  })  
+  const mode = Env.get('NODE_ENV')
+  if (mode === 'production') {
+    log.info(`MailService: sending reset password for ${user.email}`)
+    return yield Mail.send('emails.resetPassword', user.toJSON(), (message) => {
+      message.to(user.email, user.name)
+      message.from(Env.get('MAIL_FROM_EMAIL'), Env.get('MAIL_FROM_NAME'))
+      message.subject('Reset Gibrex Account')
+    })
+  }
 }
