@@ -9,7 +9,7 @@ const MatcherService = make('App/Services/MatcherService')
 class MatchController {
 
 * process(request, response) {
-    const ws = request.only(['type', 'asset', 'amount', 'price'])
+    const ws = request.only(['id', 'type', 'asset', 'amount', 'price'])
     const data = yield MatcherService.compare(ws)
     response.ok(data)
   }
