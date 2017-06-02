@@ -11,6 +11,7 @@ const OrderBook = use('App/Model/OrderBook')
 const TransactionService = make('App/Services/TransactionService')
 const UserService = make('App/Services/UserService')
 const OrderBookService = make('App/Services/OrderBookService')
+const MatcherService = make('App/Services/MatcherService')
 
 require('co-mocha')
 chai.should()
@@ -39,9 +40,9 @@ describe('Transaction Test Cases', () => {
   // table.double('amount')
   // table.double('price')
   // table.enum('status', ['ACTIVE', 'CANCELLED', 'PENDING', 'CLOSED']).after('price').defaultTo('ACTIVE').notNullable()
-  // table.enum('asset', ['TRC', 'BTC', 'ETH', 'NONE']).after('uuid').defaultTo('NONE').notNullable()
-  // table.enum('to_asset',['TRC', 'BTC', 'ETH', 'NONE']).after('asset').defaultTo('NONE').notNullable()
-  // table.enum('type',['ASK', 'BID', 'NONE']).after('to_asset').defaultTo('NONE').notNullable()
+  // table.enum('asset', ['TRC', 'BTC', 'ETH', 'ANY']).after('uuid').defaultTo('ANY').notNullable()
+  // table.enum('to_asset',['TRC', 'BTC', 'ETH', 'ANY']).after('asset').defaultTo('ANY').notNullable()
+  // table.enum('type',['ASK', 'BID', 'ANY']).after('to_asset').defaultTo('ANY').notNullable()
 
 
   afterEach(function * () {
@@ -80,7 +81,31 @@ describe('Transaction Test Cases', () => {
     assert.lengthOf(all.toJSON(), 2, 'should have 2 orderbooks')
   })
 
-  it ('should store a few orderbooks', function *() {
+  it ('should match the orderbooks', function * () {
+    const user = yield UserService.register('foo', 'foo@bar.com', 'secret')
+    assert.instanceOf(user, User)
+
+    // seller of TRC
+    const ob = {
+      amount: 10000000,
+      price: 0.85,
+      status: 'ACTIVE',
+      asset: 'TRC',
+      type: 'ASK'
+    }
+    const seller = yield OrderBookService.store(ob, user)
+    assert.instanceOf(seller, OrderBook)
+
+    // set buyer, buys from BTC
+    ob.amount = 100
+    ob.asset = 'BTC'
+    ob.to_asset = 'TRC'
+    ob.type = 'BID'
+    const buyer = yield OrderBookService.store(ob, user)
+    assert.instanceOf(buyer, OrderBook)
+
+    yield MatcherService.tryMatch(buyer)
+
   })
 
   it ('should store matching orders')

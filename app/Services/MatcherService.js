@@ -11,43 +11,47 @@ class MatcherService {
   //   return ['App/Model/OrderBook']
   // }
 
-  * compare(data) {
+  * tryMatch(orderBook) {
 
-  	const db_ob = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
-    .from('order_books')
-    .whereNot('type', data.type)//type not same
-    .where('status','ACTIVE')
-    .where('price',data.price)
-    .groupBy('price')//price same
+    if (!orderBook || typeof (orderBook.toJSON) !== 'function') {
+      throw new Error('MatcherService expects a valid instance of OrderBook Model.')
+    }
 
-    log.info(db_ob.length)
+    const possibleMatch = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+      .from('order_books')
+      .whereNot('type', orderBook.type)//type not same
+      .where('status', 'ACTIVE')
+      .where('price', orderBook.price)
+      .groupBy('price')//price same
 
-  	if (db_ob.length != 0) {	//ok,matched
-  	  	log.info('matched:result')
-  		return Event.fire('match:ok',data)
-    } else {	//failed, initially not match
-      	if (data.type == 'bid') {
-      		log.info('recheck')
-  	  		const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
-  	    	.from('order_books')
-  	    	.where('type', 'ask')
-  	    	.where('status','ACTIVE')
-  	    	.orderBy('price', 'asc')
-  	    	.orderBy('created_at','asc')
+    log.info(possibleMatch.length)
 
-  	    	if(data.price > best_ask[0].price) { //create new orderbook
-  	    		const ob = new OrderBook({type: 'ask', asset:'BTC', amount: data.amount, price: data.price})
-  	    		log.info('service make neworder')
-  	    		return Event.fire('match:ok',data)
-  	    	}else{
-  	    		log.info('end')
-  	    		return Event.fire('match:failed',data)
-  	    	}
-        } else {
-    		log.info('end')
-      	    return Event.fire('match:failed',data)
-      	}
-      }
+    if (possibleMatch.length != 0) {  //ok,matched
+      log.info('matched:result')
+      return Event.fire('matcher:ok', orderBook, possibleMatch[0])
+    } else {  //failed, initially not match
+      // if (orderBook.type === 'BID') {
+      //   log.info('recheck')
+      //   const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+      //     .from('order_books')
+      //     .where('type', 'ASK')
+      //     .where('status','ACTIVE')
+      //     .orderBy('price', 'asc')
+      //     .orderBy('created_at','asc')
+
+      //   if (data.price > best_ask[0].price) { //create new orderbook
+      //     const ob = new OrderBook({type: 'ASK', asset:'BTC', amount: data.amount, price: data.price})
+      //     log.info('service make neworder')
+      //     return Event.fire('match:ok',data)
+      //   } else {
+      //     log.info('end')
+      //     return Event.fire('match:failed',data)
+      //   }
+      // } else {
+      // log.info('end')
+      //     return Event.fire('match:failed',data)
+      // }
+    }
   }
 
 }

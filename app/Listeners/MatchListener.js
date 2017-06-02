@@ -4,9 +4,10 @@ const log = use('npmlog')
 
 const MatchListener = exports = module.exports = {}
 
-MatchListener.ok = function (data) {
+MatchListener.ok = function (buyer, seller) {
   // this.emitter gives access to the event instance
-  log.info('Listener: Matched,ok',data)//,data.type, data.price, data.amount, data.id, data.uuid, data.status)
+  log.info('Listener: Matched,ok: buyer', buyer)
+  log.info('Listener: Matched,ok: seller', seller)
   //send execute trade
 }
 

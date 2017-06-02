@@ -28,9 +28,9 @@ Event.when('user:sendResetPassword', 'UserRegistered.sendResetPassword')
 Event.when('user:resendConfirmation', 'UserRegistered.resendConfirmation')
 
 //Matching bid/ask
-Event.when('match:ok', 'MatchListener.ok')
+Event.when('matcher:ok', 'MatchListener.ok')
 // Event.when('match:recheck', 'MatchedResult.recheck')
-Event.when('match:failed', 'MatchListener.failed')
+Event.when('matcher:failed', 'MatchListener.failed')
 
 // Transfer status
 // Event.when('transfer:ok', 'MatchListener.ok')
