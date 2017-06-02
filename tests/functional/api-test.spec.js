@@ -20,7 +20,6 @@ describe('API Test Directly to URL', () => {
   console.log('URL:', URL)
 
   it('shall print no impl for /auth', (done) => {
-    this.timeout(10000)
     chai.request(URL)
       .get('/auth')
       .end((err, res) => {
@@ -33,7 +32,6 @@ describe('API Test Directly to URL', () => {
   })
 
   it('shall allow us to delete the user', (done) => {
-    this.timeout(10000)
     chai.request(URL)
       .delete('/auth/mhishami')
       .send({})
@@ -45,7 +43,6 @@ describe('API Test Directly to URL', () => {
   })
 
   it('shall allow us to register user', (done) => {
-    this.timeout(10000)
     const data = {
       username: 'mhishami',
       email: 'mhishami@gmail.com',
@@ -71,7 +68,6 @@ describe('API Test Directly to URL', () => {
   })
 
   it('shall give us the user details', (done) => {
-    this.timeout(10000)
     chai.request(URL)
       .get('/auth/mhishami')
       .end((err, res) => {
@@ -91,7 +87,6 @@ describe('API Test Directly to URL', () => {
   })
 
   it('shall give us the authentication token', (done) => {
-    this.timeout(10000)
     chai.request(URL)
       .post('/auth/mhishami')
       .send({ password: 'secret' })
@@ -107,7 +102,6 @@ describe('API Test Directly to URL', () => {
   })
 
   it('shall give us the authentication error', (done) => {
-    this.timeout(10000)
     chai.request(URL)
       .post('/auth/mhishami')
       .send({ password: 'badpass' })
