@@ -4,10 +4,6 @@ const Lucid = use('Lucid')
 
 class Wallet extends Lucid {
 
-  user () {
-    return this.belongsTo('App/Model/User')
-  }
-
   // static get traits () {
   //   return ['App/Model/Wallet']
   // }  
@@ -30,6 +26,11 @@ class Wallet extends Lucid {
       'pin2.required': 'Confirmation PIN is required to create your account'
     }
   }
+
+  user () {
+    return this.belongsTo('App/Model/User')
+  }
+
 }
 
 module.exports = Wallet
