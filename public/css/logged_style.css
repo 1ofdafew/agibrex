@@ -1008,7 +1008,7 @@ del {
 	color: #f5f5f5;
 	background-color: #727272;
 	margin: 0;
-	padding: 10px 22px 10px 18px;
+	padding: 10px 22px 10px 22px;
 	text-align: center;
   text-transform: none;
 	border-top-left-radius: 4px;
@@ -1040,7 +1040,7 @@ del {
 	width: 180px;
 	padding: 0;
 	margin-top: -3px;
-	text-align: left;
+	text-align: center;
 	background: #727272;
 	border-radius: 4px;
 	border-top-left-radius: 4px;
@@ -1064,7 +1064,7 @@ del {
 	border: none;
 	display: block;
 	padding: 14px 17px 14px 17px;
-		font-size: 18px;
+	font-size: 18px;
 	font-family: 'Roboto Condensed', sans-serif;
 	font-weight: normal;
 	text-transform: none;
@@ -1095,6 +1095,36 @@ del {
 	margin-left: 20px;
 }
 
+.buttoninbox {
+  color: white;
+  display: inline-block; /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
+  position: relative; /* All 'absolute'ly positioned elements are relative to this one */
+  padding: 0px 0px; /* Add some padding so it looks nice */
+}
+/* Make the badge float in the top right corner of the button */
+.buttonbadge {
+  background-color: #fa3e3e;
+  border-radius: 4px;
+  color: white;
+  padding: 1px 7px;
+  font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+	float: none;
+  position: absolute; /* Position the badge within the relatively positioned button */
+  top: -8px;
+  left: -11px;
+}
+
+.iconright {
+	padding: 0 8px;
+}
+.iconright a:hover {
+	color: #efa006;
+}
+.iconright i:hover {
+	color: #efa006;
+}
 /*------------------*/
 /*	PAGES
 /*------------------------------------------------------*/
@@ -5733,6 +5763,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 }
 #titleheader02 {
 	clear: both;
+	overflow: none;
 }
 .left {
 	float: left;
@@ -5740,10 +5771,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 .right {
 	float: right;
 }
+.left02 {
+	float: left;
+	padding-left: 10px;
+}
 .right02 {
 	float: right;
-	padding-top: 10px;
-	padding-right: 20px;
+	padding-right: 10px;
+	/*padding-top: 10px;*/
 }
 
 .currencies a {

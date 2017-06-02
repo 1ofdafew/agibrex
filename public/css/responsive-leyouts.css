@@ -17,6 +17,53 @@
 	display: none;
 }
 }
+@media only screen and (min-width: 1960px) {
+.mobilebanner {
+	height: 420px;
+	padding: 120px 0 0 0;
+}
+.mobilebanner h1 {
+	font-size: 58px;
+	margin-bottom: 20px;
+}
+.mobilebanner .text {
+	font-size: 16px;
+	line-height: 26px;
+}
+.m_head {
+	display: none;
+}
+.trades th {
+	padding: 10px;
+	color: #727272;
+	background-color: #fff;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 10px;
+	padding-left: 7px;
+	padding-right: 7px;/*table desc*/
+	text-align: left;
+}
+.trades td {
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 11px; /*table padding height*/
+	color: #727272;
+	font-size: 17px;
+	font-weight: normal;
+}
+.buyform02 .param02 input {
+	clear: both;
+	float: left;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	padding: 7px 24px 7px 10px;
+	border: 1px solid #D6D6D6;  mijahketot
+	background-color: #FFF;
+	width: 87%;
+}
+}
+
  @media only screen and (max-width: 1169px) {
 .mobilebanner .container {
 	padding-bottom: 50px;
@@ -27,8 +74,10 @@
 	display: none;
 }
 .container {
-	width: 1000px;
-	margin: auto auto auto auto;
+	/*width: 100%;
+	margin: auto auto auto auto;*/
+	padding-right: 40px;
+	padding-left: 40px;
 }
 a.button_slider {
 	padding: 13px 18px;
@@ -88,6 +137,9 @@ ul.post_meta_links {
 	margin: -10px 0px 0px 10.3%;
 	width: 80%;
 }
+
+
+
 }
  @media only screen and (min-width: 768px) and (max-width: 999px) {
 .global_stats .stat1 {
@@ -2063,7 +2115,7 @@ a.show_hide {
 	width: 100%;
 	float: left;
 	margin: 0px auto auto auto;
-	
+
 }
 .container {
 	width: 300px;
@@ -2098,7 +2150,7 @@ a.show_hide {
 	width: 388px;
 	height: 60px;
 	margin-left: 45px;
-	margin-top: 30px;	
+	margin-top: 30px;
 	text-indent: -999em;
 	background: url(../images/gibrex-mini.png) no-repeat left bottom !important;
 }
