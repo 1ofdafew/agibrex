@@ -44,8 +44,9 @@ describe('Transaction Test Cases', () => {
 
   afterEach(function * () {
     const Db = use('Database')
-    yield Db.truncate('users')
-    yield Db.truncate('order_books')
+    yield Db.table('transactions').having('id', '>', 0).delete()
+    yield Db.table('order_books').having('id', '>', 0).delete()
+    yield Db.table('users').having('id', '>', 0).delete()
   })
 
   it ('should create user, and order book for this transaction', function * () {
@@ -61,9 +62,9 @@ describe('Transaction Test Cases', () => {
       to_asset: 'TRC',
       type: 'BID'
     }
-    const ob1 = yield OrderBookService.store(ob, user)    
+    const ob1 = yield OrderBookService.store(ob)    
     ob.amount = 50
-    const ob2 = yield OrderBookService.store(ob, user)
+    const ob2 = yield OrderBookService.store(ob)
 
     assert.instanceOf(ob1, OrderBook)
     assert.instanceOf(ob2, OrderBook)
