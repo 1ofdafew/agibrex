@@ -9,23 +9,23 @@ class OrderBook extends Lucid {
     return this.belongsTo('App/Model/User')
   }
 
-  constructor(data, user){
+  constructor(data) {
     super()
 
-    if (!user || typeof (user.toJSON) !== 'function') {
-      throw new Error('OrderBook expects a valid instance of User Model.')
-    }
-
-    this.uuid = uuid()
-    this.user_id = user.id
-    // this.type = data.type
-    // this.asset = data.asset
-    // this.to_asset = data.to_asset
-    // this.amount = data.amount
-    // this.price = data.price
-    // this.status = data.status
-    // this.created_at = data.created_at
+    // save all fields data
+    this.user_id = data.user_id,
+    this.amount = data.amount,
+    this.price = data.price,
+    this.status = data.status,
+    this.asset = data.asset,
+    this.to_asset = data.to_asset,
+    this.type = data.type
   }
+
+  static boot () {
+    super.boot()
+    this.addHook('beforeCreate', 'OrderBook.createUUID')
+  }  
 
   static get visible(){
     return ['id', 'uuid', 'type', 'asset', 'to_asset', 'amount', 'price', 'status','created_at']

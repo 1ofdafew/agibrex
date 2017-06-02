@@ -1,14 +1,25 @@
 'use strict'
 
+const Exceptions = use('App/Exceptions')
 const Database = use('Database')
 const log = use('npmlog')
 const Event = use('Event')
 const OrderBook = use('App/Model/OrderBook')
+const User = use('App/Model/User')
 
 class OrderBookService {
 
   static get inject () {
-    return ['App/Model/OrderBook']
+    return [
+      'App/Model/User',
+      'App/Model/OrderBook'
+    ]
+  }
+
+  constructor (OrderBook, User) {
+    OrderBook.user_id = User.id
+    this.OrderBook = OrderBook
+    this.User = User
   }
 
   * index() {
@@ -35,11 +46,31 @@ class OrderBookService {
       .update('status', 'ACTIVE')
   }
 
-  // * store(data) {
-  //   const user = yield request.auth.getUser()
-  //   const ob = new OrderBook(data, user)
-  //   return yield ob.save()
-  // }
+  * store(data, user) {
+    if (!user || typeof (user.toJSON) !== 'function') {
+      throw new Error('OrderBook expects a valid instance of User Model.')
+    }
+
+    data.user_id = user.id
+    const ob = new OrderBook(data)
+    yield ob.save()
+
+    if (ob.isNew()) {
+      throw new Exceptions.ApplicationException('Unable to create new OrderBook, pls try again', 400)
+    }
+    return ob
+  }
+
+  * findByUser(user) {
+    if (!user || typeof (user.toJSON) !== 'function') {
+      throw new Error('OrderBook expects a valid instance of User Model.')
+    }
+
+    const all = yield this.OrderBook.query().where('user_id', user.id).fetch()
+    log.info(`OrderBook:findByUser`, all)
+
+    return all
+  }
 
   // * showbid(asset) {
   // 	return yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
