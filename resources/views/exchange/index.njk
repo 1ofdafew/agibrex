@@ -950,17 +950,20 @@
           <div class="one_full">
               <div class="fresh_projects02 global_stats">
                 <div class="panel02 panel-default">
-                  <div class="panel-heading non-mobile">
+                  <div class="panel-heading02 non-mobile">
                     <div class="one_fullpx">
-                      <div id="titleheader">
-                        <div class="left">
-                          <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts
-                        </div>
-                        <div class="right">
-                          <i class="fa fa-cog"></i>
-                        </div>
+                      <div class="title02">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;BABBLEBOX
+                          <div class="iconright size">
+                            <i class="fa fa-window-maximize field"></i>
+                              <ul class="list">
+                                <li>Pop Out Babblebox</li>
+                                <!-- <li>API Documentation</li> -->
+                              </ul>
+                          </div>
                       </div>
                     </div>
+
                   </div>
                   <div id="scrollcell">
                     <div class="panel-body03">
@@ -1202,5 +1205,47 @@ $(window).resize(function() {
         // });
 
     });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+(function($){
+	$.fn.styleddropdown = function(){
+		return this.each(function(){
+			var obj = $(this)
+			obj.find('.field').click(function() { //onclick event, 'list' fadein
+			obj.find('.list').fadeIn(400);
+
+			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+				if(event.keyCode == 27) {
+				obj.find('.list').fadeOut(400);
+				}
+			});
+
+			obj.find('.list').hover(function(){ },
+				function(){
+					$(this).fadeOut(400);
+
+				});
+			});
+
+			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+			obj.find('.field')
+				.val($(this).html())
+				// .css({
+				// 	'background':'#fff',
+				// 	'color':'#333'
+				// });
+			obj.find('.list').fadeOut(400);
+			});
+		});
+	};
+})(jQuery);
+
+$(function(){
+	$('.size').styleddropdown();
+});
+
+});
 </script>
 {% endblock %}
