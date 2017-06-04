@@ -9,11 +9,23 @@ const HPService = make('App/Services/HistoricalPriceService')
 
 class CoindeskService {
 
-  * fetchLatest () {
+  * fetchBTCLatest () {
+		const data = HPService.fetchBitcoinData()
+		log.info('Data:', data)
+		if (Object.keys(data).length === 0) {
+			log.error('No BTC data yet....')
+			return true //yield this.fetchBTCData()
+		} else {
+		  log.info('len of BTC data:', data)
+			return true
+		}
+  }
+
+	* fetchBTCData () {
     log.info(`Fetching latest data from Coindesk`)
 
     const URL = 'http://api.coindesk.com/v1/bpi/historical/close.json'
-    const start = '2016-09-01'
+    const start = '2010-07-18'
     const end = moment().format('YYYY-MM-DD') 
 
 		axios.get(`${URL}?start=${start}&end=${end}`) 
@@ -27,6 +39,7 @@ class CoindeskService {
 					}
 				})
 			})
+		return true
   }
 
   * processData(date, price) {

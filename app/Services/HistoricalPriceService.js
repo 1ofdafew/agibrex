@@ -36,7 +36,9 @@ class HistoricalPriceService {
 
 	* fetchBitcoinData () {
 		log.info('Fething BTC data')
-		return yield this.HistoricalPrice.query().where('type', 'BTC').fetch()
+		return yield Database.table('historical_prices')
+			.query().where('type', 'BTC')
+			.orderBy('date', 'asc')
 	}
 
 	* saveEthereum(date, price) {

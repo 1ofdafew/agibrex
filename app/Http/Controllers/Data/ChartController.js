@@ -8,12 +8,10 @@ const log = require('npmlog')
 class BitcoinController {
 
   * bitcoin (request, response) {
-    const data = Helpers.publicPath('exchange/bitcoin.json')
-    response.download(data)
-
-		// const data = yield HPSvc.fetchBitcoinData()
-		// log.info('Returning JSONP data...')
-		// response.jsonp(data)
+		const data = yield HPSvc.fetchBitcoinData()
+		log.info('Returning JSONP data...')
+		log.info('data:', data)
+		response.jsonp(data)
   }
 
   * ethereum (request, response) {

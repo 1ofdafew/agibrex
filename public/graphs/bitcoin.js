@@ -1,11 +1,7 @@
-// $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=new-intraday.json&callback=?', function (data) {
-$.ajax({
-  url: '/data/bitcoin',
-  dataType: 'jsonp'
-});
-
-function callback(data) {
-  console.log('data: ', data)
+// get JSON data from our own server
+//
+$.getJSON('/data/bitcoin?callback=?', function (data) {
+  // console.log('data: ', data)
   // import Highcharts from '../parts/Globals.js';
 	Highcharts.createElement('link', {
 		href: 'https://fonts.googleapis.com/css?family=Unica+One',
@@ -220,8 +216,8 @@ function callback(data) {
 	};
 	$.each(data, function(lineNo, line) {
 		// console.log('>>', lineNo, 'line:', line);
-		var ts = moment(line[0], 'YYYY-MM-DD').unix();
-		series.data.push([ts, line[1]])
+		var ts = moment(line.date, 'YYYY-MM-DD').unix();
+		series.data.push([ts, line.price])
 	});
 
 	// console.log(series.data)
@@ -267,4 +263,4 @@ function callback(data) {
 			}
 		}]
 	});
-};
+});
