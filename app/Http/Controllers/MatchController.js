@@ -10,7 +10,7 @@ class MatchController {
 
 * process(request, response) {
     const ws = request.only(['id', 'type', 'asset', 'amount', 'price'])
-    const data = yield MatcherService.compare(ws)
+    const data = yield MatcherService.tryMatch(ws)
     response.ok(data)
   }
 
