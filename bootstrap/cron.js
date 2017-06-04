@@ -5,9 +5,9 @@ const CronJob = require('cron').CronJob
 console.log('Preparing cron...')
 
 const data = new CronJob({
-	crontime: '0 * * * * *',
+	cronTime: '5 0 * * * *',
 	onTick: function() {
-		Redis.publish('graph', 'HistoricalData')
+		Redis.publish('data', 'fetchData')
 	},
 	start: false,
 	timeZone: 'Australia/Sydney'
@@ -20,8 +20,8 @@ const job = new CronJob({
     // runs every minute
     // console.log('Running cron for poloniex...')
     // Redis.publish('cron', 'poloniex')
-    // Redis.publish('cron', 'Kraken')
-    // Redis.publish('cron', 'GDAX')
+    Redis.publish('cron', 'Kraken')
+    Redis.publish('cron', 'GDAX')
   },
   start: false,
   timeZone: 'Australia/Sydney'

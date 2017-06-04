@@ -1,12 +1,10 @@
 // $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=new-intraday.json&callback=?', function (data) {
-//$.ajax({
-//  url: '/data/bitcoin',
-//	url: 'http://api.coindesk.com/v1/bpi/historical/close.json',
-//  dataType: 'jsonp'
-//});
+$.ajax({
+  url: '/data/bitcoin',
+  dataType: 'jsonp'
+});
 
-//function callback(data) {
-$.getJSON('http://api.coindesk.com/v1/bpi/historical/close.json?callback=?', function(data) {
+function callback(data) {
   console.log('data: ', data)
   // import Highcharts from '../parts/Globals.js';
 	Highcharts.createElement('link', {

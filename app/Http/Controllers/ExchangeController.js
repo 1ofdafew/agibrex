@@ -8,10 +8,13 @@ const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
+// temporary
+const CoindeskService = make('App/Services/CoindeskService')
 
 class ExchangeController {
 
   * index (request, response) {
+		yield CoindeskService.fetchLatest()
     response.redirect('/exchange/btc')
   }
 

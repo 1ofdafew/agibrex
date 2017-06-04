@@ -3,13 +3,20 @@
 const Redis = use('Redis')
 const Event = use('Event')
 const Ws = use('Ws')
+const log = require('npmlog')
 
 const KrakenPoller = use('App/Services/KrakenPoller')
 // const GDAXPoller = use('App/Services/GDAXPoller')
+const CoindeskService = make('App/Services/CoindeskService')
 
 // Grab historical data from coindesk
 // url: http://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-10-01
 //
+Redis.subscribe('data', function * (action) {
+	log.info('Processing cron for ', action)
+	yield CoindeskService.fetchLatest()
+})
+
 Redis.subscribe('cron', function * (location) {
   // console.log('received location to pull from: ', location)
   const channel = Ws.channel('market')
