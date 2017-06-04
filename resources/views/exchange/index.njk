@@ -55,31 +55,61 @@
         <div class="panel panel-default">
           <div class="panel-heading non-mobile">
             <div class="one_fourth">Last Price</div>
-            <div class="one_fourth">Daily Change</div>
-            <div class="one_fourth">Day's Range</div>
+            <div class="one_fourth">1h Change</div>
+            <div class="one_fourth">24h Change</div>
             <div class="one_fourth last">24h Volume</div>
             <div class="clear"></div>
           </div>
           <div class="panel-body">
             <div class="one_fourth">
               <div class="m_head">Last Price</div>
-              <p class="stat1 price-red"><i id="up_or_down1" class="fa fa-caret-down price-red"></i> $<span id="stats_last_price">1,255.04</span><small id="stats_last_price_curr"></small></p>
+              {% if currentData.change1h > 0 %}
+              <p class="stat1 price-green">
+                <i id="up_or_down1" class="fa fa-caret-up price-green"></i> 
+              {% else %}
+              <p class="stat1 price-red">
+                <i id="up_or_down1" class="fa fa-caret-down price-red"></i> 
+              {% endif %}
+                $<span id="stats_last_price">{{ currentData.price }}</span>
+                <small id="stats_last_price_curr"></small>
+              </p>
             </div>
             <div class="one_fourth">
-              <div class="m_head">Daily Change</div>
-              <p class="stat1"><i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i> <span id="stats_daily_change_abs">29.47</span> <small><span id="stats_daily_change_perc">2.35</span>%</small></p>
+              <div class="m_head">1h Change</div>
+              <p class="stat1">
+              {% if currentData.change1h > 0 %}
+                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i> 
+              {% else %}
+                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i> 
+              {% endif %}
+                <span id="stats_daily_change_abs">{{ currentData.change1h }}</span> 
+              </p>
             </div>
             <div class="one_fourth">
-              <div class="m_head">Day's Range</div>
-              <p class="stat1">$<span id="stats_min">1,226.58</span> - <span id="stats_max">1,258.23</span></p>
+              <div class="m_head">24h Change</div>
+              <p class="stat1">
+              {% if currentData.change24h > 0 %}
+                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i> 
+              {% else %}
+                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i> 
+              {% endif %}
+                <span id="stats_daily_change_abs">{{ currentData.change24h }}</span> 
+              </p>
             </div>
             <div class="one_fourth last">
               <div class="m_head">24h Volume</div>
-              <p class="stat1"><span id="stats_traded">55.81</span> BTC</p>
+              <p class="stat1">
+                <!--i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i--> 
+                <span id="stats_daily_change_abs">{{ currentData.volume24h.btc }}</span> 
+              </p>
             </div>
             <div class="panel-divider"></div>
             <div class="one_full">
-              <h4>24HR Volume :<em class="stat2">$<span id="stats_market_cap">40578.74982966 BTC / 526588.94788285 ETH</span></em></h4>
+              <h4>24HR Volume :
+                <em class="stat2">
+                  $<span id="stats_market_cap"> {{ currentData.volume24h.usd }} USD / 
+                  &euro;{{ currentData.volume24h.eur }} EUR</span></em>
+              </h4>
             </div>
             <div class="clear"></div>
           </div>

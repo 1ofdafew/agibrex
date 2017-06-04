@@ -8,8 +8,8 @@ const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
-// temporary
 const CoindeskService = make('App/Services/CoindeskService')
+const MDService = make('App/Services/MarketDataService')
 
 class ExchangeController {
 
@@ -19,6 +19,8 @@ class ExchangeController {
 
   * btc (request, response) {
 		yield CoindeskService.maybeFetchBitcoinData()
+		const currentData = yield MDService.getBitcoinCurrentData()
+		log.info('BTC current data:', currentData)
 
 		const user = yield request.auth.getUser()
 		//   const wallet = yield WalletService.getWallet(user.username)
@@ -68,13 +70,20 @@ class ExchangeController {
 				curBalance1 : curBalance1,
 				curBalance2 : curBalance2,
 				defaultBuyCurrency : defaultBuyCurrency,
+				currentData: currentData
 			}
 		)
   }
 
   * eth (request, response) {
 		yield CoindeskService.maybeFetchEthereumData()
-    yield response.sendView('exchange.index', {type: 'ETH', name: 'Ethereum'})
+		const currentData = yield MDService.getEthereumCurrentData()
+		const args = {
+			type: 'ETH',
+			name: 'Ethereum',
+			currentData: currentData
+		}
+    yield response.sendView('exchange.index', args)
   }
 
   * trc (request, response) {
