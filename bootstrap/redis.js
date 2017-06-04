@@ -7,6 +7,9 @@ const Ws = use('Ws')
 const KrakenPoller = use('App/Services/KrakenPoller')
 // const GDAXPoller = use('App/Services/GDAXPoller')
 
+// Grab historical data from coindesk
+// url: http://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-10-01
+//
 Redis.subscribe('cron', function * (location) {
   // console.log('received location to pull from: ', location)
   const channel = Ws.channel('market')
