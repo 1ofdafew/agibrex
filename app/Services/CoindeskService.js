@@ -10,40 +10,63 @@ const HPService = make('App/Services/HistoricalPriceService')
 class CoindeskService {
 
   * maybeFetchBTCData () {
-		const data = yield HPService.fetchBitcoinData()
-		if (JSON.stringify(data) === '{}') {
-			log.error('No BTC data yet....')
-			return yield this.fetchBTCData()
-		} else {
-			log.info('BTC data is already populated')
-			return true
-		}
+    const data = yield HPService.fetchBitcoinData()
+		//log.info('Data:', JSON.stringify(data))
+
+    if (JSON.stringify(data) === '{}') {
+      log.error('No BTC data yet....')
+      return yield this.fetchBTCData('all')
+    } else {
+      log.info('BTC data is already populated')
+      return true
+    }
   }
 
-	* fetchBTCData () {
+  * fetchBTCData (which) {
     log.info(`Fetching latest data from Coindesk`)
 
     const URL = 'http://api.coindesk.com/v1/bpi/historical/close.json'
-    const start = '2010-07-18'
+    // set since when to pull the data from
+		var start
+    if (which === 'all') {
+      start = '2010-07-18'
+    } else {
+      start = which
+    }
     const end = moment().format('YYYY-MM-DD') 
+    const Location = `${URL}?start=${start}&end=${end}`
+		log.info('Location:', Location)
 
-		axios.get(`${URL}?start=${start}&end=${end}`) 
-			.then(function (resp) {
-				const bpi = resp.data.bpi
-
-				co(function * () {
-					for (const key in bpi) {
-						log.info('bpi:', key, bpi[key])
-						yield HPService.saveBitcoinData(key, bpi[key])
-					}
-				})
-			})
-		return true
+    return yield this.fetchData('BTC', Location)
   }
 
-  * processData(date, price) {
-    log.info('Saving data - ${date}, ${price}')
-    yield HPService.saveBitcoinData(date, price)
+  * fetchData(type, URL) {
+		log.info(`Fetching BTC data from ${URL}`)
+    axios.get(URL)
+      .then(function (resp) {
+        const bpi = resp.data.bpi
+
+        co(function * () {
+					switch (type) {
+						case 'BTC':
+							log.info('Saving BTC data...')
+							for (const key in bpi) {
+								yield HPService.saveBitcoinData(key, bpi[key]) 
+							}
+							break;
+						case 'ETH':
+							log.info('Saving ETH data...')
+							for (const key in bpi) {
+								yield HPService.saveEthereumData(key, bpi[key]) 
+							}
+							break;
+						default:
+							log.error('Unknown coin type:', type)
+							break;
+					}
+				})
+      })
+    return true
   }
 
 }

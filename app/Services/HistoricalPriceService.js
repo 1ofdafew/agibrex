@@ -26,22 +26,35 @@ class HistoricalPriceService {
   }
 
 	* saveBitcoinData(date, price) {
-		const hp = new HistoricalPrice()
-		hp.date = date
-		hp.price = price
-		hp.type = 'BTC'
+		yield this._saveData('BTC', date, price)
+	}
 
-		yield hp.save()
+	* saveEthereumData(date, price) {
+		yield this._saveData('ETH', date, price)
 	}
 
 	* fetchBitcoinData () {
+		return yield this._fetchData('BTC')
+	}
+
+	* fetchEthereumData () {
+		return yield this._fetchData('ETH')
+	}
+
+	* _fetchData (type) {
 		log.info('Fething BTC data')
 		return yield Database.table('historical_prices')
-			.where('type', 'BTC')
+			.where('type', type)
 			.orderBy('date', 'asc')
 	}
 
-	* saveEthereum(date, price) {
+	* _saveData(type, date, price) {
+		const hp = new HistoricalPrice()
+		hp.date = date
+		hp.price = price
+		hp.type = type
+
+		yield hp.save()
   }		
 
 }
