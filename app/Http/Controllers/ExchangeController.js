@@ -18,7 +18,7 @@ class ExchangeController {
   }
 
   * btc (request, response) {
-		yield CoindeskService.fetchBTCLatest()
+		yield CoindeskService.maybeFetchBTCData()
 
 		const user = yield request.auth.getUser()
 		//   const wallet = yield WalletService.getWallet(user.username)

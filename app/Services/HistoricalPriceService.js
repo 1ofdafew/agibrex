@@ -37,7 +37,7 @@ class HistoricalPriceService {
 	* fetchBitcoinData () {
 		log.info('Fething BTC data')
 		return yield Database.table('historical_prices')
-			.query().where('type', 'BTC')
+			.where('type', 'BTC')
 			.orderBy('date', 'asc')
 	}
 

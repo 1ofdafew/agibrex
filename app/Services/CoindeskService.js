@@ -9,14 +9,13 @@ const HPService = make('App/Services/HistoricalPriceService')
 
 class CoindeskService {
 
-  * fetchBTCLatest () {
-		const data = HPService.fetchBitcoinData()
-		log.info('Data:', data)
-		if (Object.keys(data).length === 0) {
+  * maybeFetchBTCData () {
+		const data = yield HPService.fetchBitcoinData()
+		if (JSON.stringify(data) === '{}') {
 			log.error('No BTC data yet....')
-			return true //yield this.fetchBTCData()
+			return yield this.fetchBTCData()
 		} else {
-		  log.info('len of BTC data:', data)
+			log.info('BTC data is already populated')
 			return true
 		}
   }

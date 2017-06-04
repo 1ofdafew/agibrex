@@ -10,7 +10,6 @@ class BitcoinController {
   * bitcoin (request, response) {
 		const data = yield HPSvc.fetchBitcoinData()
 		log.info('Returning JSONP data...')
-		log.info('data:', data)
 		response.jsonp(data)
   }
 
