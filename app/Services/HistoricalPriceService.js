@@ -14,7 +14,7 @@ class HistoricalPriceService {
    * @return {Array}
    */
   static get inject () {
-   	return ['App/Model/HistoricalPrice']
+     return ['App/Model/HistoricalPrice']
   }
 
   /**
@@ -25,37 +25,56 @@ class HistoricalPriceService {
     this.HistoricalPrice = HistoricalPrice
   }
 
-	* saveBitcoinData(date, price) {
-		yield this._saveData('BTC', date, price)
-	}
+  * saveBitcoinData(bpi) {
+    for (const key in bpi) {
+      yield this.saveData('BTC', key, bpi[key])
+    }
+  }
 
-	* saveEthereumData(date, price) {
-		yield this._saveData('ETH', date, price)
-	}
+  * saveEthereumData (data) {
+		for (var i=0; i < data.length;i++) {
+			yield this.saveData('ETH', data[i].time, data[i].usd)
+		}
+  }
 
-	* fetchBitcoinData () {
-		return yield this._fetchData('BTC')
-	}
+  * countBitcoinData () {
+    return yield this.count('BTC')
+  }
 
-	* fetchEthereumData () {
-		return yield this._fetchData('ETH')
-	}
+  * countEthereumData () {
+    return yield this.count('ETH')
+  }
 
-	* _fetchData (type) {
-		log.info('Fething BTC data')
-		return yield Database.table('historical_prices')
-			.where('type', type)
-			.orderBy('date', 'asc')
-	}
+  * count (type) {
+    return yield Database  
+      .from('historical_prices')
+      .count('id as id')
+      .where('type', type)
+  }
+  * fetchBitcoinData () {
+    return yield this.fetchData('BTC')
+  }
 
-	* _saveData(type, date, price) {
-		const hp = new HistoricalPrice()
-		hp.date = date
-		hp.price = price
-		hp.type = type
+  * fetchEthereumData () {
+    return yield this.fetchData('ETH')
+  }
 
-		yield hp.save()
-  }		
+  * fetchData (type) {
+    log.info(`Fething ${type} data...`)
+    return yield Database.table('historical_prices')
+      .where('type', type)
+      .orderBy('date', 'asc')
+  }
+
+  * saveData(type, date, price) {
+    const hp = new HistoricalPrice()
+    hp.date = date
+    hp.price = price
+    hp.type = type
+
+    yield hp.save()
+		// log.info('<< HP saved:', hp)
+  }    
 
 }
 module.exports = HistoricalPriceService
