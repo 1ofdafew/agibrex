@@ -5,3 +5,4 @@ storage
 .env.test
 npm-debug.log
 database/development.sqlite
+*.swp
