@@ -18,7 +18,7 @@ class ExchangeController {
   }
 
   * btc (request, response) {
-		yield CoindeskService.maybeFetchBTCData()
+		yield CoindeskService.maybeFetchBitcoinData()
 
 		const user = yield request.auth.getUser()
 		//   const wallet = yield WalletService.getWallet(user.username)
@@ -73,6 +73,7 @@ class ExchangeController {
   }
 
   * eth (request, response) {
+		yield CoindeskService.maybeFetchEthereumData()
     yield response.sendView('exchange.index', {type: 'ETH', name: 'Ethereum'})
   }
 

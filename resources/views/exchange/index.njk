@@ -759,7 +759,6 @@
                       </tr>
                     </tbody>
                   </table>
-
               </section>
                 <section id="containerTRC">
                 <div class="table-style">
@@ -951,17 +950,20 @@
           <div class="one_full">
               <div class="fresh_projects02 global_stats">
                 <div class="panel02 panel-default">
-                  <div class="panel-heading non-mobile">
+                  <div class="panel-heading02 non-mobile">
                     <div class="one_fullpx">
-                      <div id="titleheader">
-                        <div class="left">
-                          <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Let's Share Your Thoughts
-                        </div>
-                        <div class="right">
-                          <i class="fa fa-cog"></i>
-                        </div>
+                      <div class="title02">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;BABBLEBOX
+                          <div class="iconright size">
+                            <i class="fa fa-window-maximize field"></i>
+                              <ul class="list">
+                                <li>Pop Out Babblebox</li>
+                                <!-- <li>API Documentation</li> -->
+                              </ul>
+                          </div>
                       </div>
                     </div>
+
                   </div>
                   <div id="scrollcell">
                     <div class="panel-body03">
@@ -1034,6 +1036,8 @@
             <div class="mar_top3"></div>
           </div>
 
+          <!-- Display tweet on website -->
+
           <div class="one_full">
               <div class="fresh_projects02 global_stats">
                 <div class="panel03 panel-default">
@@ -1044,7 +1048,7 @@
                           <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;Announcement
                         </div>
                         <div class="right">
-                          <i class="fa fa-twitter"></i>
+                          <a href="https://twitter.com/gibrex_"><i class="fa fa-twitter"></i></a>
                         </div>
                       </div>
                     </div>
@@ -1055,33 +1059,11 @@
                         <table class="table-list03 trades03">
                           <tbody>
                             <tr>
-                              <td>The stop-limit issue has been resolved. We're in the process of crediting stuck/missing balances that resulted from the issue.
+                              <td><a class="twitter-timeline" data-width="570" data-height="600" data-theme="light" data-link-color="#FAB81E"
+                              href="https://twitter.com/gibrex_">Tweets by gibrex_</a>
+                              <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                                 <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>We are experiencing abnormally high traffic at this time. We are working hard at resolving these issues. We appreciate your patience and understanding.
-                                <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>The Stop-Limit feature has been temporarily disabled as we investigate an issue.
-                                <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>GNO/BTC and GNO/ETH #gnosis markets added.
-                                <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>We are experiencing abnormally high traffic at this time. We are working hard at resolving these issues. We appreciate your patience and understanding.
-                                <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by Gbxadmin @ 2017-05-16 04:17:42</h6>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
                               </td>
                             </tr>
                           </tbody>
@@ -1203,5 +1185,47 @@ $(window).resize(function() {
         // });
 
     });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+(function($){
+	$.fn.styleddropdown = function(){
+		return this.each(function(){
+			var obj = $(this)
+			obj.find('.field').click(function() { //onclick event, 'list' fadein
+			obj.find('.list').fadeIn(400);
+
+			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+				if(event.keyCode == 27) {
+				obj.find('.list').fadeOut(400);
+				}
+			});
+
+			obj.find('.list').hover(function(){ },
+				function(){
+					$(this).fadeOut(400);
+
+				});
+			});
+
+			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+			obj.find('.field')
+				.val($(this).html())
+				// .css({
+				// 	'background':'#fff',
+				// 	'color':'#333'
+				// });
+			obj.find('.list').fadeOut(400);
+			});
+		});
+	};
+})(jQuery);
+
+$(function(){
+	$('.size').styleddropdown();
+});
+
+});
 </script>
 {% endblock %}

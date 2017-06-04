@@ -51,10 +51,8 @@
         <div class="top_contact_info">
           <div class="container">
             <ul class="tci_list_left">
-              <li><a href="/coming_soon">FAQ</a></li>
-              <li>|</li>
               <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
-              <li>|</li>
+              <!-- <li>|</li> -->
               <li><a href="/coming_soon">Contact Us</a></li>
             </ul>
             <ul class="tci_list">
@@ -150,8 +148,8 @@
 <div class="page_title">
   <div class="container title">
     <div id="titleheader02">
-      <div class="left">
-          <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.username }}
+      <div class="left02">
+          <i class="fa fa-smile-o"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.username }}
       </div>
         <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
     </div>
@@ -160,9 +158,14 @@
     <nav id="access02" class="access02" role="navigation">
       <div id="menu" class="menu">
         <ul id="tiny">
-          <li><a href="">Inbox</a></li>
+          <li>
+            <div class="buttoninbox">
+              <span class="buttonbadge">12</span>
+                <a href="">Inbox</a>
+            </div>
+          </li>
           <li><a href="">Balance</a></li>
-          <li><a href=""><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
+          <li><a><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
             <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
               <li><a href="/accounts">Bitcoin</a></li>
               <li><a href="/accounts">Tracto</a></li>
@@ -173,6 +176,25 @@
         </ul>
       </div>
     </nav>
+  </div>
+  <div class="container">
+    <div class="title02">
+      <div id="btnFullscreen" type="button" class="right02 iconright">
+          <h3><i class="fa fa-arrows-alt"></i></h3>
+      </div>
+      <div class="right02 iconright size">
+
+          <h3><i class="fa fa-arrow-down field"></i></h3>
+            <ul class="list">
+		          <li><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;&nbsp;Gibrex_Exchanger.pdf</li>
+              <li><i class="fa fa-code"></i>&nbsp;&nbsp;&nbsp;API Documentation</li>
+	          </ul>
+      </div>
+      <div class="right02 iconright">
+          <!-- <h3><a href=""><i class="fa fa-headphones"></i></a></h3> -->
+      </div>
+        <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
+    </div>
   </div>
 </div>
 {% endif %}
@@ -257,10 +279,87 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.color.min.js"></script>
 <script src="/js/jquery.animateNumber.min.js"></script>
-
-
+<!-- <script src="/js/jquery.paddlepop.js"></script> -->
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/ops.js"></script>
+<script>
+function toggleFullscreen(elem) {
+  elem = elem || document.documentElement;
+  if (!document.fullscreenElement && !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+document.getElementById('btnFullscreen').addEventListener('click', function() {
+  toggleFullscreen();
+});
+
+document.getElementById('exampleImage').addEventListener('click', function() {
+  toggleFullscreen(this);
+});
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+(function($){
+	$.fn.styleddropdown = function(){
+		return this.each(function(){
+			var obj = $(this)
+			obj.find('.field').click(function() { //onclick event, 'list' fadein
+			obj.find('.list').fadeIn(400);
+
+			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+				if(event.keyCode == 27) {
+				obj.find('.list').fadeOut(400);
+				}
+			});
+
+			obj.find('.list').hover(function(){ },
+				function(){
+					$(this).fadeOut(400);
+
+				});
+			});
+
+			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+			obj.find('.field')
+				.val($(this).html())
+				// .css({
+				// 	'background':'#fff',
+				// 	'color':'#333'
+				// });
+			obj.find('.list').fadeOut(400);
+			});
+		});
+	};
+})(jQuery);
+
+$(function(){
+	$('.size').styleddropdown();
+});
+
+});
+</script>
 
 
  {% block docready %}{% endblock %}
