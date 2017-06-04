@@ -8,6 +8,8 @@ const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
+// temporary
+const CoindeskService = make('App/Services/CoindeskService')
 
 class ExchangeController {
 
@@ -16,60 +18,62 @@ class ExchangeController {
   }
 
   * btc (request, response) {
+		yield CoindeskService.maybeFetchBitcoinData()
 
-      const user = yield request.auth.getUser()
-    //   const wallet = yield WalletService.getWallet(user.username)
-    //   const wallet = yield WalletService.getBalance('ETH', address)
+		const user = yield request.auth.getUser()
+		//   const wallet = yield WalletService.getWallet(user.username)
+		//   const wallet = yield WalletService.getBalance('ETH', address)
 
-    //   response.send(wallet)
+		//   response.send(wallet)
 
-      const defaultBuyCurrency = "ETH"
-      const curBalance1 = '11.48300000'  //ETH
-      const curBalance2 = '11.48300000'
+		const defaultBuyCurrency = "ETH"
+		const curBalance1 = '11.48300000'  //ETH
+		const curBalance2 = '11.48300000'
 
-      // TODO : Get Balance BTC
-      const balance = '1.49'
-      const price = '2228.00'
-      const fee = '0.00'
+		// TODO : Get Balance BTC
+		const balance = '1.49'
+		const price = '2228.00'
+		const fee = '0.00'
 
-      // Call showask
-      const orderBookCntrl = new OrderBookCntrl()
-      const showask = yield orderBookCntrl.showask('BTC')
+		// Call showask
+		const orderBookCntrl = new OrderBookCntrl()
+		const showask = yield orderBookCntrl.showask('BTC')
 
-      // Call showbid
-      const showbid = yield orderBookCntrl.showbid('BTC')
+		// Call showbid
+		const showbid = yield orderBookCntrl.showbid('BTC')
 
-      // TODO : Get Btc Price
-      // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
-      // response.send(result)
+		// TODO : Get Btc Price
+		// const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
+		// response.send(result)
 
-      const coinInBtc = '' // Temporary
+		const coinInBtc = '' // Temporary
 
-      // 1 BTC = 2228.00
-      // 1 ETH = 199.00
-      // 1 BTC = 2228 / 199 = 11.19
-      const coinInEth = '11.19' // Temporary
+		// 1 BTC = 2228.00
+		// 1 ETH = 199.00
+		// 1 BTC = 2228 / 199 = 11.19
+		const coinInEth = '11.19' // Temporary
 
-      yield response.sendView(
-          'exchange.index',
-          {
-              type: 'BTC',
-              name: 'Bitcoin',
-              balance : balance,
-              price : price,
-              fee : fee,
-              coinInBtc : coinInBtc,
-              coinInEth : coinInEth,
-              showasks : showask,
-              showbids : showbid,
-              curBalance1 : curBalance1,
-              curBalance2 : curBalance2,
-              defaultBuyCurrency : defaultBuyCurrency,
-          }
-      )
+		yield response.sendView(
+			'exchange.index',
+			{
+				type: 'BTC',
+				name: 'Bitcoin',
+				balance : balance,
+				price : price,
+				fee : fee,
+				coinInBtc : coinInBtc,
+				coinInEth : coinInEth,
+				showasks : showask,
+				showbids : showbid,
+				curBalance1 : curBalance1,
+				curBalance2 : curBalance2,
+				defaultBuyCurrency : defaultBuyCurrency,
+			}
+		)
   }
 
   * eth (request, response) {
+		yield CoindeskService.maybeFetchEthereumData()
     yield response.sendView('exchange.index', {type: 'ETH', name: 'Ethereum'})
   }
 
@@ -99,49 +103,49 @@ class ExchangeController {
     const coinInEth = ' 0.00509165' // Temporary
 
     yield response.sendView(
-        'exchange.index',
-        {
-            type: 'TRC',
-            name: 'Tracto',
-            balance : balance,
-            price : price,
-            fee : fee,
-            coinInBtc : coinInBtc,
-            coinInEth : coinInEth,
-            showasks : showask,
-            showbids : showbid,
-            curBalance1 : curBalance1,
-            curBalance2 : curBalance2,
-            defaultBuyCurrency : defaultBuyCurrency,
-        }
+			'exchange.index',
+			{
+				type: 'TRC',
+				name: 'Tracto',
+				balance : balance,
+				price : price,
+				fee : fee,
+				coinInBtc : coinInBtc,
+				coinInEth : coinInEth,
+				showasks : showask,
+				showbids : showbid,
+				curBalance1 : curBalance1,
+				curBalance2 : curBalance2,
+				defaultBuyCurrency : defaultBuyCurrency,
+			}
     )
   }
 
   * selltrc (request, response) {
 
-    const user = yield request.auth.getUser()
+		const user = yield request.auth.getUser()
 
-    const amount = request.input('sell_amount')
-    const price = '0.85'
+		const amount = request.input('sell_amount')
+		const price = '0.85'
 
-    const data = {
-        user: user,
-        price: price,
-        amount: amount,
-        to_asset: request.input('sell_currency'),
-        total: amount * price,
-        asset: 'TRC',
-        type: 'ASK'
+		const data = {
+			user: user,
+			price: price,
+			amount: amount,
+			to_asset: request.input('sell_currency'),
+			total: amount * price,
+			asset: 'TRC',
+			type: 'ASK'
 
-    }
+		}
 
-    const doAsk = yield TradeService.doAskBid(data)
+		const doAsk = yield TradeService.doAskBid(data)
 
 
-    if (doAsk) {
-        yield request.with(doAsk).flash()
-        response.redirect('/exchange/trc')
-    }
+		if (doAsk) {
+			yield request.with(doAsk).flash()
+			response.redirect('/exchange/trc')
+		}
 
   }
 
