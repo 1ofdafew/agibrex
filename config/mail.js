@@ -34,8 +34,8 @@ module.exports = {
       pass: Env.get('MAIL_PASSWORD')
     },
     tls: {
-      key: fs.readFileSync('/home/sa/certs/gibrex.com.key'),
-      cert: fs.readFileSync('/home/sa/certs/gibrex.com.crt'),
+      key: fs.readFileSync('certs/gibrex.com.key'),
+      cert: fs.readFileSync('certs/gibrex.com.crt'),
       rejectUnauthorized: false
     },
     maxConnections: 5,
