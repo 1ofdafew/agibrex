@@ -34,7 +34,7 @@ module.exports = {
     },
     tls: {
       key: '/home/sa/certs/gibrex.com.key',
-      cert: '/home/sa/certs/gibrex.com.cert',
+      cert: '/home/sa/certs/gibrex.com.pem',
       rejectUnauthorized: false
     },
     maxConnections: 5,
