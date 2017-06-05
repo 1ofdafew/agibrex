@@ -10,14 +10,14 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 	}, null, document.getElementsByTagName('head')[0]);
 
 	Highcharts.theme = {
-		colors: ['#efa006', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+		colors: ['#00bdca', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
 			'#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
 		chart: {
 			backgroundColor: {
 				linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
 				stops: [
-					[0, '#2a2a2b'],
-					[1, '#3e3e40']
+					[0, '#232a34'],
+					[1, '#232a34']
 				]
 			},
 			style: {
@@ -39,15 +39,15 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 			}
 		},
 		xAxis: {
-			gridLineColor: '#707073',
+			gridLineColor: '#4c5b71',
 			labels: {
 				style: {
 					color: '#E0E0E3'
 				}
 			},
-			lineColor: '#707073',
+			lineColor: '#4c5b71',
 			minorGridLineColor: '#505053',
-			tickColor: '#707073',
+			tickColor: '#4c5b71',
 			title: {
 				style: {
 					color: '#A0A0A3'
@@ -56,15 +56,15 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 			}
 		},
 		yAxis: {
-			gridLineColor: '#707073',
+			gridLineColor: '#4c5b71',
 			labels: {
 				style: {
 					color: '#E0E0E3'
 				}
 			},
-			lineColor: '#707073',
+			lineColor: '#4c5b71',
 			minorGridLineColor: '#505053',
-			tickColor: '#707073',
+			tickColor: '#4c5b71',
 			tickWidth: 1,
 			title: {
 				style: {
@@ -115,7 +115,7 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 		},
 		labels: {
 			style: {
-				color: '#707073'
+				color: '#4c5b71'
 			}
 		},
 
@@ -147,7 +147,7 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 				},
 				states: {
 					hover: {
-						fill: '#707073',
+						fill: '#4c5b71',
 						stroke: '#000000',
 						style: {
 							color: 'white'
