@@ -60,7 +60,7 @@ class TradeService {
       }
     } else {
       const errMsg = 'Amount is required.'
-      log.error(`gibrex:Unable to process new ${data.type} `, errMsg)
+      log.error(`gibrex:Unable to process new orderbook: ${errMsg}`)
       debug('Sending error message: ', errMsg)
       const dataRedirect = {
         status: 'error',
