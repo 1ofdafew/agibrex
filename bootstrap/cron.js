@@ -10,7 +10,7 @@ const dailyData = new CronJob({
 		Redis.publish('data', 'fetchDailyData')
 	},
 	start: false,
-	timeZone: 'Australia/Sydney'
+	timeZone: 'Europe/Gibraltar'
 })
 dailyData.start()
 
@@ -20,14 +20,11 @@ const tickerData = new CronJob({
 		Redis.publish('data', 'fetchTickerData')
 	},
 	start: false,
-	timeZone: 'Australia/Sydney'
+	timeZone: 'Europe/Gibraltar'
 })
 tickerData.start()
-=======
-data.start()
->>>>>>> Stashed changes
 
-const job = new CronJob({
+const exchangeData = new CronJob({
   cronTime: '0,10,20,30,40,50 * * * * *',
   onTick: function() {
     // runs every minute
@@ -37,6 +34,7 @@ const job = new CronJob({
     Redis.publish('cron', 'GDAX')
   },
   start: false,
-  timeZone: 'Australia/Sydney'
+	timeZone: 'Europe/Gibraltar'
 })
-job.start()
+exchangeData.start()
+
