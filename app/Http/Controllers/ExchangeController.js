@@ -28,7 +28,7 @@ class ExchangeController {
 
     //   response.send(wallet)
 
-    const defaultBuyCurrency = "ETH"
+    const defaultBuyCurrency = 'ETH'
     const curBalance1 = '11.48300000'  //ETH
     const curBalance2 = '11.48300000'
 
@@ -40,8 +40,6 @@ class ExchangeController {
     // Call showask
     const orderBookCntrl = new OrderBookCntrl()
     const showask = yield orderBookCntrl.showask('BTC')
-
-    // Call showbid
     const showbid = yield orderBookCntrl.showbid('BTC')
 
     // TODO : Get Btc Price
@@ -58,7 +56,8 @@ class ExchangeController {
     // 1 BTC = 2228.00
     // 1 ETH = 199.00
     // 1 BTC = 2228 / 199 = 11.19
-    const coinInEth = '11.19' // Temporary
+    // const coinInEth = '11.19' // Temporary
+    const coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
 
     yield response.sendView(
       'exchange.index',
@@ -82,18 +81,42 @@ class ExchangeController {
 
   * eth (request, response) {
     yield CoindeskService.maybeFetchEthereumData()
+
+    const defaultBuyCurrency = 'BTC'
     const currentData = yield MDService.getEthereumCurrentData()
+    const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+    const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+
+    const coinInBtc = parseFloat(ETHSpotPrice / BTCSpotPrice)
+
+    // Call showask
+    const orderBookCntrl = new OrderBookCntrl()
+    const showask = yield orderBookCntrl.showask('ETH')
+    const showbid = yield orderBookCntrl.showbid('ETH')
+
     const args = {
       type: 'ETH',
       name: 'Ethereum',
-      currentData: currentData
+      coinInBtc: coinInBtc,
+      coinInEth: coinInEth,
+      showasks : showask,
+      showbids : showbid,
+      currentData: currentData,
+
+      // temp data
+      balance : '30000.00',
+      price : parseFloat(ETHSpotPrice),
+      fee : '0.025',
+      curBalance1 : '0.001',
+      curBalance2 : '1.02',
+      defaultBuyCurrency : defaultBuyCurrency,
     }
     yield response.sendView('exchange.index', args)
   }
 
   * trc (request, response) {
 
-    const defaultBuyCurrency = "BTC"
+    const defaultBuyCurrency = 'BTC'
     const curBalance1 = '1.64320000'
     const curBalance2 = '11.48300000'
 
