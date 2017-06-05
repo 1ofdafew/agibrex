@@ -17,41 +17,22 @@ class MatcherService {
       throw new Error('MatcherService expects a valid instance of OrderBook Model.')
     }
 
-    const possibleMatch = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
+    const matched = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
       .from('order_books')
-      .whereNot('type', orderBook.type)//type not same
+      .whereNot('type', orderBook.type)
+      .where('to_asset', orderBook.asset)
       .where('status', 'ACTIVE')
       .where('price', orderBook.price)
       .groupBy('price')//price same
 
-    log.info(possibleMatch.length)
+    log.info(matched.length)
 
-    if (possibleMatch.length != 0) {  //ok,matched
+    if (matched.length != 0) {  //ok,matched
       log.info('matched:result')
-      return Event.fire('matcher:ok', orderBook, possibleMatch[0])
-    } else {  //failed, initially not match
-      // if (orderBook.type === 'BID') {
-      //   log.info('recheck')
-      //   const best_ask = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
-      //     .from('order_books')
-      //     .where('type', 'ASK')
-      //     .where('status','ACTIVE')
-      //     .orderBy('price', 'asc')
-      //     .orderBy('created_at','asc')
-
-      //   if (data.price > best_ask[0].price) { //create new orderbook
-      //     const ob = new OrderBook({type: 'ASK', asset:'BTC', amount: data.amount, price: data.price})
-      //     log.info('service make neworder')
-      //     return Event.fire('match:ok',data)
-      //   } else {
-      //     log.info('end')
-      //     return Event.fire('match:failed',data)
-      //   }
-      // } else {
-      // log.info('end')
-      //     return Event.fire('match:failed',data)
-      // }
+      Event.fire('matcher:ok', orderBook, matched)
+      return true
     }
+    return false
   }
 
 }
