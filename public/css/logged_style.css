@@ -601,6 +601,7 @@ del {
 	color: #FF5151 !important;
 }
 .mobilebanner {
+	background: url(../images/footer_lodyas.png) left top / cover;
 	padding: 20px 0px;
 	position: relative;
 	-webkit-animation: 50s scroll infinite linear;
