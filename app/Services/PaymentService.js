@@ -3,7 +3,6 @@
 const Database = use('Database')
 const uuid = require('uuid/v4');
 
-
 class PaymentService {
 
   /**
@@ -32,9 +31,9 @@ class PaymentService {
   //=>insert data payment
   * store(trans_id, amount, type){
 
-  	const payment = new this.Payment()
+    const payment = new this.Payment()
 
-  	payment.uuid = uuid()
+    payment.uuid = uuid()
     payment.trans_id = trans_id
     payment.amount = amount
     payment.type = type
@@ -49,10 +48,10 @@ class PaymentService {
   //=>show some data payment
   * show(){
 
-  	return yield Database
-    .table('payments')
-    .select('trans_id', 'amount', 'type')
-    .where({id:id})
+    return yield Database
+      .table('payments')
+      .select('trans_id', 'amount', 'type')
+      .where({id:id})
 
   }
 }

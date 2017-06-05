@@ -2,8 +2,9 @@
 
 const Database = use('Database')
 const uuid = require('uuid/v4');
-const HistoricalPrice = use('App/Model/HistoricalPrice')
 const log = require('npmlog')
+
+const HistoricalPrice = use('App/Model/HistoricalPrice')
 
 class HistoricalPriceService {
 
@@ -32,9 +33,9 @@ class HistoricalPriceService {
   }
 
   * saveEthereumData (data) {
-		for (var i=0; i < data.length;i++) {
-			yield this.saveData('ETH', data[i].time, data[i].usd)
-		}
+    for (var i=0; i < data.length;i++) {
+      yield this.saveData('ETH', data[i].time, data[i].usd)
+    }
   }
 
   * countBitcoinData () {
@@ -73,7 +74,7 @@ class HistoricalPriceService {
     hp.type = type
 
     yield hp.save()
-		// log.info('<< HP saved:', hp)
+    // log.info('<< HP saved:', hp)
   }    
 
 }
