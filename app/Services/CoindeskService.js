@@ -33,6 +33,7 @@ class CoindeskService {
     }
     return true
   }
+  
   * fetchBitcoinData (which) {
     log.info(`Fetching latest data from Coindesk`)
 

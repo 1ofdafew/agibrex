@@ -173,11 +173,9 @@ class ExchangeController {
       total: amount * price,
       asset: 'TRC',
       type: 'ASK'
-
     }
 
     const doAsk = yield TradeService.doAskBid(data)
-
 
     if (doAsk) {
       yield request.with(doAsk).flash()
@@ -273,3 +271,4 @@ class ExchangeController {
 }
 
 module.exports = ExchangeController
+

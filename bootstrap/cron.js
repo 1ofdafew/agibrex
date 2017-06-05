@@ -23,6 +23,9 @@ const tickerData = new CronJob({
 	timeZone: 'Australia/Sydney'
 })
 tickerData.start()
+=======
+data.start()
+>>>>>>> Stashed changes
 
 const job = new CronJob({
   cronTime: '0,10,20,30,40,50 * * * * *',
