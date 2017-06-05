@@ -21,7 +21,7 @@ MailService.sendVerificationEmail = function * (user) {
     throw new Error('Mailer expects a valid instance of User Model.')
   }
 
-  const mode = Env.get('NODE_ENV')
+  const mode = 'production' //Env.get('NODE_ENV')
   if (mode === 'production') {
     log.info(`MailService: sending verification email for ${user.email}`)
     return yield Mail.send('emails.userVerification', user.toJSON(), (message) => {

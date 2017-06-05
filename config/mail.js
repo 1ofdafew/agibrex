@@ -32,6 +32,11 @@ module.exports = {
       user: Env.get('MAIL_USERNAME'),
       pass: Env.get('MAIL_PASSWORD')
     },
+    tls: {
+      key: '/home/sa/certs/gibrex.com.key',
+      cert: '/home/sa/certs/gibrex.com.cert',
+      rejectUnauthorized: false
+    },
     maxConnections: 5,
     maxMessages: 100,
     rateLimit: 10
