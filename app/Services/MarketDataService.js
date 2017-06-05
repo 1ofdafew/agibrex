@@ -53,6 +53,20 @@ class MarketDataService {
     // return freshInstance
   }
 
+  * getSpotPrice (type) {
+    const URL = `https://api.coinbase.com/v2/prices/${type}-USD/spot`
+    var num
+    yield axios.get(URL)
+      .then(function (resp) {
+        co(function * () {
+          const value = parseInt(parseFloat(resp.data.data.amount) * 100)
+          // log.info('spot value for', type, ' =', value)
+          num = value
+        })
+    })
+    return num
+  }
+
   * getBitcoinCurrentData () {
     return yield this.getCurrentData('BTC')
   }
@@ -67,7 +81,7 @@ class MarketDataService {
         .orderBy('created_at', 'desc')
         .limit(1)
 
-    log.info('current data:', data)
+    // log.info('current data:', data)
     if (JSON.stringify(data) === '[]') {
       yield this.fetchCurrentData(type)
       return yield this.getCurrentData(type)

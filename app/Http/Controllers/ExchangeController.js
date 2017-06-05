@@ -20,7 +20,7 @@ class ExchangeController {
   * btc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
     const currentData = yield MDService.getBitcoinCurrentData()
-    log.info('BTC current data:', currentData)
+    // log.info('BTC current data:', currentData)
 
     const user = yield request.auth.getUser()
     //   const wallet = yield WalletService.getWallet(user.username)
@@ -47,6 +47,11 @@ class ExchangeController {
     // TODO : Get Btc Price
     // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
     // response.send(result)
+
+    // These spot price are in cents, to eliminate rounding errors
+    const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+    const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+    log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
 
     const coinInBtc = '' // Temporary
 
