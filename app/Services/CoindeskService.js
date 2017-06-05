@@ -70,6 +70,10 @@ class CoindeskService {
 			})
   }
 
+	* cronFetchBitcoinData() { }
+	
+	* cronFetchEthereumData() { }
+
   * fetchData(type, URL) {
     log.info(`Fetching BTC data from ${URL}`)
     axios.get(URL)

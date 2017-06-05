@@ -4,15 +4,25 @@ const CronJob = require('cron').CronJob
 
 console.log('Preparing cron...')
 
-const data = new CronJob({
+const dailyData = new CronJob({
 	cronTime: '5 0 * * * *',
 	onTick: function() {
-		Redis.publish('data', 'fetchData')
+		Redis.publish('data', 'fetchDailyData')
 	},
 	start: false,
 	timeZone: 'Australia/Sydney'
 })
-data.start()
+dailyData.start()
+
+const tickerData = new CronJob({
+	cronTime: '0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *',
+	onTick: function() {
+		Redis.publish('data', 'fetchTickerData')
+	},
+	start: false,
+	timeZone: 'Australia/Sydney'
+})
+tickerData.start()
 
 const job = new CronJob({
   cronTime: '0,10,20,30,40,50 * * * * *',

@@ -4,6 +4,9 @@ const Exceptions = use('App/Exceptions')
 const Event = use('Event')
 const Hash = use('Hash')
 
+const MarketData = use('App/Model/MarketData')
+const Db = use('Database')
+
 const log = require('npmlog')
 const axios = require('axios')
 const co = require('co')
@@ -58,9 +61,23 @@ class MarketDataService {
 		return yield this.getCurrentData('ETH')
 	}
 
-	* getCurrentData (type) {
+	* getCurrentData(type) {
+		const data = yield Db.table('market_data')
+				.where('symbol', type)
+				.orderBy('created_at', 'desc')
+				.limit(1)
+
+		log.info('current data:', data)
+		if (JSON.stringify(data) === '[]') {
+			yield this.fetchCurrentData(type)
+			return yield this.getCurrentData(type)
+		} else {
+			return data[0]
+		}
+	}
+
+	* fetchCurrentData (type) {
 		const URL = `http://coinmarketcap.northpole.ro/api/v6/${type}.json`
-		var mdata 
 		yield axios.get(URL)
 			.then(function (resp) {
 				co(function * () {
@@ -75,11 +92,10 @@ class MarketDataService {
 							btc: resp.data.volume24.btc
 						}
 					}
-					mdata = data
+					const md = new MarketData(data)
+					yield md.save()
 				})
 			})
-		// log.info('BTC data:', mdata)
-		return mdata
 	}
 
 
