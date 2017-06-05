@@ -35,20 +35,18 @@ class AssetService{
     asset.uuid = uuid()
     asset.ast_trans_id = ast_trans_id
     asset.type = type
-
     yield asset.save()
 
     const freshInstance = yield this.Asset.find(asset.id)
-    
     return freshInstance
   }
 
   //=>show some data asset
   * show(){
     return yield Database
-    .table('assets')
-    .select('ast_trans_id', 'type')
-    .where({ id: id })
+      .table('assets')
+      .select('ast_trans_id', 'type')
+      .where({ id: id })
   }
 }
 
