@@ -2,7 +2,7 @@
 
 const OrderBook = use('App/Model/OrderBook')
 const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
-const TradeService = make('App/Services/TradeService')
+// const TradeService = make('App/Services/TradeService')
 const WalletService = make('App/Services/WalletService')
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
@@ -271,4 +271,3 @@ class ExchangeController {
 }
 
 module.exports = ExchangeController
-

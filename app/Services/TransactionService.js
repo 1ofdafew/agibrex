@@ -1,6 +1,7 @@
 'use strict'
 
 const CoinFactory = make('App/Services/Coins/CoinFactory')
+const TradeService = make('App/Services/TradeService')
 const Database = use('Database')
 const uuid = require('uuid/v4');
 const debug = require('debug')('gibrex')
@@ -108,7 +109,7 @@ class TransactionService{
         const dataTrace  = {
           tx_id: transaction.id,
           trace: '2', // Deduct Asset
-          status 'PENDING'
+          status: 'PENDING'
         }
 
         const trace = yield this.doUpdateTrace(dataTrace)
@@ -117,7 +118,7 @@ class TransactionService{
         const dataTrace  = {
           tx_id: transaction.id,
           trace: '2', // Deduct Asset
-          status 'ERROR'
+          status: 'ERROR'
         }
 
         const trace = yield this.doUpdateTrace(dataTrace)
@@ -169,7 +170,7 @@ class TransactionService{
       const dataTrace  = {
         tx_id: data.tx_id,
         trace: '7', // Execute Transaction Service
-        status 'PENDING'
+        status: 'PENDING'
       }
       const trace = yield this.doUpdateTrace(dataTrace)
 
@@ -185,7 +186,7 @@ class TransactionService{
       const dataTrace  = {
         tx_id: data.tx_id,
         trace: '7', // Execute Transaction Service
-        status 'FAILED'
+        status: 'FAILED'
       }
       const trace = yield this.doUpdateTrace(dataTrace)
 
@@ -252,7 +253,7 @@ class TransactionService{
         const dataTrace  = {
           tx_id: transaction.id,
           trace: '2', // Deduct Asset
-          status 'PENDING'
+          status: 'PENDING'
         }
 
         const trace = yield this.doUpdateTrace(dataTrace)
@@ -261,7 +262,7 @@ class TransactionService{
         const dataTrace  = {
           tx_id: transaction.id,
           trace: '2', // Deduct Asset
-          status 'ERROR'
+          status: 'ERROR'
         }
 
         const trace = yield this.doUpdateTrace(dataTrace)
@@ -309,15 +310,26 @@ class TransactionService{
         value: '',
         pin: ''
       }
-      const matching = yield CoinFactory.transfer(dataDeduct)
 
       // Update trace
       const dataTrace  = {
         tx_id: data.tx_id,
         trace: '7', // Execute Transaction Service
-        status 'PENDING'
+        status: 'PENDING'
       }
-      const trace = yield this.doUpdateTrace(dataTrace)
+      yield this.doUpdateTrace(dataTrace)
+
+      const matching = yield CoinFactory.transfer(dataDeduct)
+
+      if (matching) {
+           // Update trace
+           const dataTraceMatching  = {
+             tx_id: data.tx_id,
+             trace: '8', // Transfer ToAsset
+             status: 'PENDING'
+           }
+           yield this.doUpdateTrace(dataTraceMatching)
+      }
 
     } catch (e) {
 
@@ -331,7 +343,7 @@ class TransactionService{
       const dataTrace  = {
         tx_id: data.tx_id,
         trace: '7', // Execute Transaction Service
-        status 'FAILED'
+        status: 'FAILED'
       }
       const trace = yield this.doUpdateTrace(dataTrace)
 
@@ -345,8 +357,25 @@ class TransactionService{
     }
   }
 
-  * doSuccessTxProcess () {
+  * doSuccessTxProcess (data) {
 
+       // From Transfer (CoinFactory)
+       // @params
+       //      - tx_id : interger
+
+       if (data.tx_id) {
+
+         const dataTrace = {
+           tx_id: data.tx_id,
+           trace: '9', //Success ToAsset
+           status: 'PENDING'
+         }
+
+         const trace = yield this.doUpdateTrace(dataTrace)
+
+         const doAsk = yield TradeService.doUpdateOrderbook(data)
+
+       }
 
   }
 
