@@ -31,14 +31,14 @@ class CreditCardService{
 
   //=>insert data credit card
   * store (name, card_num, cvv){
-  	const creditCard = new this.CreditCard()
+    const creditCard = new this.CreditCard()
 
-  	creditCard.uuid = uuid()
-  	creditCard.name = name
-  	creditCard.card_num = card_num
-  	creditCard.cvv = cvv
+    creditCard.uuid = uuid()
+    creditCard.name = name
+    creditCard.card_num = card_num
+    creditCard.cvv = cvv
 
-  	yield creditCard.save()
+    yield creditCard.save()
 
     const freshInstance = yield this.CreditCard.find(creditCard.id)
 
@@ -47,19 +47,19 @@ class CreditCardService{
 
   //=>show some data credit card
   * show(){
-  	return yield Database
-    .table('credit_cards')
-    .select('name', 'card_num', 'cbb')
-    .where({id:id})
+    return yield Database
+      .table('credit_cards')
+      .select('name', 'card_num', 'cbb')
+      .where({id:id})
   }
 
   //=>update some data credit card
   * update (card_num, cbb){
     const updateRow = yield Database
-    .table('credit_cards')
-    .where({ id: id})
-    .update('card_num', card_num)
-    .update('cbb', cbb)
+      .table('credit_cards')
+      .where({ id: id})
+      .update('card_num', card_num)
+      .update('cbb', cbb)
   }
 }
 

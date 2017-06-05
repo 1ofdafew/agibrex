@@ -2,6 +2,7 @@
 
 const Helpers = use('Helpers')
 const Env = use('Env')
+const fs = require('fs')
 
 module.exports = {
   /*
@@ -31,6 +32,11 @@ module.exports = {
     auth: {
       user: Env.get('MAIL_USERNAME'),
       pass: Env.get('MAIL_PASSWORD')
+    },
+    tls: {
+      key: fs.readFileSync('certs/gibrex.com.key'),
+      cert: fs.readFileSync('certs/gibrex.com.crt'),
+      rejectUnauthorized: false
     },
     maxConnections: 5,
     maxMessages: 100,

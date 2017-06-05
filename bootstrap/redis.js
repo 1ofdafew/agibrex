@@ -7,14 +7,24 @@ const log = require('npmlog')
 
 const KrakenPoller = use('App/Services/KrakenPoller')
 // const GDAXPoller = use('App/Services/GDAXPoller')
-const CoindeskService = make('App/Services/CoindeskService')
-
-// Grab historical data from coindesk
-// url: http://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-10-01
 //
+const CoindeskService = make('App/Services/CoindeskService')
+const MarketDataService = make('App/Services/MarketDataService')
+
 Redis.subscribe('data', function * (action) {
 	log.info('Processing cron for ', action)
-	yield CoindeskService.fetchLatest()
+	switch (action) {
+		case 'fetchTickerData':
+			yield MarketDataService.fetchCurrentData('BTC')
+			yield MarketDataService.fetchCurrentData('ETH')
+			break;
+		case 'fetchDailyData':
+			yield CoindeskService.cronFetchBitcoinData()
+			yield CoindeskService.cronFetchEthereumData()
+			break;
+		default:
+			log.error('Unknown cron job, action:', action)
+	}
 })
 
 Redis.subscribe('cron', function * (location) {

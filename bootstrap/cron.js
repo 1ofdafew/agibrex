@@ -4,17 +4,27 @@ const CronJob = require('cron').CronJob
 
 console.log('Preparing cron...')
 
-const data = new CronJob({
+const dailyData = new CronJob({
 	cronTime: '5 0 * * * *',
 	onTick: function() {
-		Redis.publish('data', 'fetchData')
+		Redis.publish('data', 'fetchDailyData')
 	},
 	start: false,
-	timeZone: 'Australia/Sydney'
+	timeZone: 'Europe/Gibraltar'
 })
-data.start()
+dailyData.start()
 
-const job = new CronJob({
+const tickerData = new CronJob({
+	cronTime: '0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *',
+	onTick: function() {
+		Redis.publish('data', 'fetchTickerData')
+	},
+	start: false,
+	timeZone: 'Europe/Gibraltar'
+})
+tickerData.start()
+
+const exchangeData = new CronJob({
   cronTime: '0,10,20,30,40,50 * * * * *',
   onTick: function() {
     // runs every minute
@@ -24,6 +34,7 @@ const job = new CronJob({
     Redis.publish('cron', 'GDAX')
   },
   start: false,
-  timeZone: 'Australia/Sydney'
+	timeZone: 'Europe/Gibraltar'
 })
-job.start()
+exchangeData.start()
+

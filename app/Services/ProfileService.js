@@ -31,12 +31,12 @@ class ProfileService {
 
   // => insert data profile user
   * store (name, email, mobile_no, address) {
-  	const profile = new this.Profile()
-  	// console.log('Profileservice data....')
-  	// console.log(name)
+    const profile = new this.Profile()
+    // console.log('Profileservice data....')
+    // console.log(name)
 
-  	profile.uuid = uuid()
-  	profile.name = name
+    profile.uuid = uuid()
+    profile.name = name
     profile.email = email
     profile.mobile_no = mobile_no
     profile.address = address
@@ -51,19 +51,19 @@ class ProfileService {
   //=>show some data profile 
   * show(){
     return yield Database
-    .table('profiles')
-    .select('name', 'email', 'mobile_no', 'address')
-    .where({ id: id})
+      .table('profiles')
+      .select('name', 'email', 'mobile_no', 'address')
+      .where({ id: id})
   }
 
   //=>update data email, mobile_no, address 
   * update (email, mobile_no, address){
-  	const updateRow = yield Database
-    .table('profiles')
-    .where({ id: id})
-    .update('email', email)
-    .update('mobile_no', mobile_no)
-    .update('address', address)
+    const updateRow = yield Database
+      .table('profiles')
+      .where({ id: id})
+      .update('email', email)
+      .update('mobile_no', mobile_no)
+      .update('address', address)
   }
 }
 
