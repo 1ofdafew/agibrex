@@ -58,15 +58,15 @@ class AccountVerifyController {
     const email = request.input('email')
 
     try {
-      const resp = yield UserService.findByOrFail('email', email)
-      const user = resp.toJSON()
+      const user = yield UserService.findByOrFail('email', email)
       yield UserService.resendEmail(user)
       
       const args = {
         info: 'Confirmation email sent.',
         email: email
       }
-      yield response.sendView('auth.resendConf', args)      
+      yield request.with(args).flash()
+      response.redirect('verify')
     } catch(e) {
       const args = {
         info: 'Sorry, cannot find that user.'
