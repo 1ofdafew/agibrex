@@ -45,7 +45,10 @@ class AccountVerifyController {
         response.redirect('login')
       }
     } catch (e) {
-      yield request.with({error: 'Unable to activate your account. Invalid Verification Code'}).flash()
+      const args = {
+        error: 'Unable to activate your account. Invalid Verification Code'
+      }
+      yield request.with(args).flash()
       response.redirect('verify')
     }
   }

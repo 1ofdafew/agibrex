@@ -26,6 +26,13 @@ Route.post('/', 'PreviewController.invited')
 Route.on('/home').render('welcome')
 
 /**
+ * POC Pages
+ */
+Route.group('Proof of Concept', function () {
+  Route.get('/', 'PocController.index')
+}).prefix('/poc')
+
+/**
  * Login
  */
 Route.group('Authentication', function () {
