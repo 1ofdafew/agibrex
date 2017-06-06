@@ -1,0 +1,451 @@
+{% extends 'layout/puppet' %}
+
+{% block content %}
+
+  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
+  <script src="/js/moment.js"></script>
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/ws.js"></script>
+  <script src="/js/charts/highstock.js"></script>
+  {# <script src="/js/charts/exporting.js"></script> #}
+
+  <link rel="stylesheet" href="/css/exchange.css" type="text/css">
+<!--
+  {% if type == 'BTC' %}
+  <script type="text/javascript" src="/graphs/bitcoin.js"></script>
+  {% elseif type == 'ETH' %}
+  <script type="text/javascript" src="/graphs/ethereum.js"></script>
+  {% endif %} -->
+    <div class="clearfix mar_top2"></div>
+      <div class="one_fourthpx lastpx">
+          <div class="one_full">
+          <table class="table-list03 trades03">
+            <thead>
+              <tr>
+                <th>Last Price</th>
+                <th>1h Change</th>
+                <th>24h Change</th>
+                <th>24h Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="price-red"><i id="up_or_down1" class="fa fa-caret-down price-red"></i>&nbsp;&nbsp;$&nbsp;2602.64</td>
+                <td style=""><i id="up_or_down1" class="fa fa-caret-up" style="color:#60FF51;"></i>&nbsp;&nbsp;1.05</td>
+                <td style=""><i id="up_or_down1" class="fa fa-caret-up" style="color:#60FF51;"></i>&nbsp;&nbsp;3.47</td>
+                <td style="">460466&nbsp;BTC</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="mar_top2"></div>
+          <div class="one_full">
+              <main>
+                {% if type == 'BTC' %}
+                <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
+
+                {% else %}
+                <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
+
+                {% if type == 'ETH' %}
+                <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
+
+                {% else %}
+                <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab2" onclick="location.href = '/exchange/eth';">ETH</label>
+
+                {% if type == 'USD' %}
+                <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/usd" name="tabs" checked>
+
+                {% else %}
+                <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
+                {% endif %}
+                <label class="labels" for="tab3" onclick="location.href = '/exchange/usd';">USDT</label>
+
+                <section id="containerBTC">
+                  <!-- <table class="scroll table-list02 trades"> -->
+                  <table class="table-list02 trades">
+                    <thead>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.03110000</td>
+                        <td style="">1,255.97</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </section>
+                <section id="containerTRC">
+                <div class="table-style">
+                  <table class="table-list02 trades" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                      <tr>
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+                <section id="containerETH">
+                <div class="table-style">
+                  <table class="table-list02 trades" id="transactions_list">
+                    <tbody>
+                      <tr>
+                        <th><i class="fa fa-star"></i></th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>Volume</th>
+                        <th>Change</th>
+                        <th>Name</th>
+                      </tr>
+                      <tr>
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">BTC</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Bitcoin</td>
+                      </tr>
+                      <tr>
+                        <td style=""><i class="fa fa-star"></i></td>
+                        <td style="">ETH</td>
+                        <td style="">0.03810000</td>
+                        <td style="">1,255.04</td>
+                        <td style="">-15.47</td>
+                        <td style="">Ethereum</td>
+                      </tr>
+                      <tr id="no_transactions" style="display:none;">
+                        <td colspan="3">No transactions to show.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              </main>
+            <div class="mar_top1"></div>
+          </div>
+
+          <div class="one_full">
+              <div class="fresh_projects02 global_stats">
+                <div class="panel02 panel-default">
+                  <div class="panel-heading non-mobile">
+                    <div class="one_fullpx">
+                      <div class="title02">
+                        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;BABBLEBOX
+                          <div class="iconright size">
+                            <i class="fa fa-window-maximize field"></i>
+                              <ul class="list">
+                                <li>Pop Out Babblebox</li>
+                              </ul>
+                          </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div id="scrollcell">
+                    <div class="panel-body03">
+                      <table class="table-list04 trades02">
+                        <tbody>
+                          <tr>
+                            <td><b>nimarama72&nbsp;-&nbsp;</b>Guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat?
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>syahronsulaiman&nbsp;-&nbsp;</b>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. WTF!
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-shield"></i>&nbsp;<b>irwanhanafy&nbsp;-&nbsp;</b>Oii <b>syahronsulaiman</b> mu blebe bender? hahahaha!
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>dyslexicstoner24&nbsp;-&nbsp;</b>Withasmile, like 12 days, I submitted all the info but the selfie was a little blurry. I submitted two more times HD selfies so they are perfectly readable.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>mijah94&nbsp;-&nbsp;</b>Yelled a coin got hacked in the troll box is exactly what you want to stay away from.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><i class="fa fa-shield"></i>&nbsp;<b>irwanhanafy&nbsp;-&nbsp;</b>Diam je laa <b>mijah94</b> Bising bendenye...hahahahhahahahahahahahahahaaha hahahahahahahahahahahahahahah
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td><b>mijah94&nbsp;-&nbsp;</b>Hai shumeee.. hari ni mija tak puwasheee lagikkkk hikhikhik...
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script type="text/javascript">
+                // io refers to the above import
+                const io = ws('')
+                const clients = io.channel('chat').connect(function(error, connected) {
+                  console.log('Connected: ', connected)
+                })
+                // client.on('message', function(message) {
+                //   console.log('Got message: ', message)
+                // })
+                //
+                // client.emit('message', 'Hello World!')
+              </script>
+              {% if currentUser %}
+              <div class="fresh_projects02 global_stats">
+                <div class="panel-default02">
+                  <div class="panel-heading02 non-mobile">
+                    <div class="one_fullpx">
+                      <div class="buyform02">
+                        <div class="param02">
+                          <input type="text" name="invite" value="" id="chat" placeholder="Say something...">
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            <div class="mar_top3"></div>
+          </div>
+
+          <!-- Display tweet on website -->
+
+            <div class="one_full">
+              <div class="fresh_projects02 global_stats">
+                <div class="panel03 panel-default">
+                  <div class="panel-heading non-mobile">
+                    <div class="one_fullpx">
+                      <div id="titleheader">
+                        <div class="left">
+                          <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;Announcement
+                        </div>
+                        <div class="right">
+                          <a href="https://twitter.com/gibrex_"><i class="fa fa-twitter"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="panel-body03">
+                      <div class="one_fullpx">
+                        <table class="table-list03 trades04">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <a class="twitter-timeline" data-width="570" data-height="600" data-theme="light"
+                                   data-link-color="#FAB81E" href="https://twitter.com/gibrex_">Tweets by gibrex_
+                                </a>
+                                <div class="panel-divider4"></div>
+                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Test tweet </td>
+                            </tr>
+                            <tr>
+                              <td>Test tweet </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="mar_top1"></div>
+          </div>
+
+      </div>
+    <div class="clearfix mar_top20"></div>
+  </div>
+
+
+{% endblock %}
+
+{% block docready %}
+
+<script type="text/javascript">
+var $table = $('table.scroll'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
+
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });
+}).resize(); // Trigger resize handler
+</script>
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        var sell_available = $("#sell_available").val();
+        var sell_price = $("#sell_price").val();
+
+
+        $('#buy_currency').bind('change', function () {
+            var buy_currency = $("#buy_currency").val();
+
+            var currency = '';
+            if (buy_currency == 'BTC') {
+                currency = 'BTC';
+                // $('#buy_price').val({{coinInBtc}});
+                $('#buy_user_available').html({{curBalance1}});
+            } else if (buy_currency == 'ETH') {
+                currency = 'ETH';
+                // $('#buy_price').val({{coinInEth}});
+                $('#buy_user_available').html({{curBalance2}});
+            }
+            $('.changeCurrency','').html(currency);
+
+        });
+
+        $('#buy_amount').bind('keyup blur', function () {
+
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+
+            var buy_amount = $("#buy_amount").val();
+            var buy_currency = $("#buy_currency").val();
+            var buy_available = '';
+            // var buy_available = $("#buy_available").val();
+            var trcPerUnit = '';
+            if (buy_currency == 'BTC') {
+                trcPerUnit = parseFloat({{coinInBtc}});
+                buy_available = parseFloat({{curBalance1}});
+            } else if (buy_currency == 'ETH') {
+                trcPerUnit = parseFloat({{coinInEth}});
+                buy_available = parseFloat({{curBalance2}});
+            }
+
+            var totalBuy = buy_amount * trcPerUnit;
+            var totalBuyAmt = totalBuy.toFixed(8)
+
+            var maxBuy = buy_available / trcPerUnit;
+            var maxCanBuy = maxBuy.toFixed(0)
+
+            if (parseFloat(totalBuyAmt) > buy_available) {
+                $("#buy_amount").val(maxCanBuy);
+            }
+
+            $('#buy_subtotal').html(totalBuyAmt);
+            $('#buy_total').html(totalBuyAmt);
+        });
+
+        $('#sell_amount').bind('keyup blur', function () {
+
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+            var sell_amount = $("#sell_amount").val();
+            if (parseFloat(sell_amount) > sell_available) {
+                $("#sell_amount").val(sell_available);
+            }
+
+            var total = sell_amount * sell_price;
+            var sell_subtotal = total.toFixed(2)
+            $('#sell_subtotal').html(sell_subtotal);
+            $('#sell_total').html(sell_subtotal);
+        });
+
+        // $("#sell_amount").bind('keyup blur', function () {
+        //     var sell_amount = $("#sell_amount").val();
+        //     var total = sell_amount * sell_price;
+        //     var sell_subtotal = total.toFixed(2)
+        //     $('#sell_subtotal').html(sell_subtotal);
+        //     $('#sell_total').html(sell_subtotal);
+        //
+        // });
+
+    });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+(function($){
+	$.fn.styleddropdown = function(){
+		return this.each(function(){
+			var obj = $(this)
+			obj.find('.field').click(function() { //onclick event, 'list' fadein
+			obj.find('.list').fadeIn(400);
+
+			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+				if(event.keyCode == 27) {
+				obj.find('.list').fadeOut(400);
+				}
+			});
+
+			obj.find('.list').hover(function(){ },
+				function(){
+					$(this).fadeOut(400);
+
+				});
+			});
+
+			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+			obj.find('.field')
+				.val($(this).html())
+				// .css({
+				// 	'background':'#fff',
+				// 	'color':'#333'
+				// });
+			obj.find('.list').fadeOut(400);
+			});
+		});
+	};
+})(jQuery);
+
+$(function(){
+	$('.size').styleddropdown();
+});
+
+});
+</script>
+{% endblock %}

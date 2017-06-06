@@ -65,6 +65,13 @@ Route.get('/dashboard', 'DashboardController.index')
 Route.get('/temp','TempController.index')
 Route.get('/coming_soon','ComingSoonController.index')
 
+/**
+ * Inbox
+ */
+Route.get('/inbox', 'InboxController.index')
+  .as('inbox')
+  .middleware('auth')
+
 
 /**
  * Security
@@ -208,4 +215,3 @@ Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
 Route.get('/obchart/bid', 'ObchartController.bid')
 Route.get('/obchart/ask', 'ObchartController.ask')
 Route.on('/mdepth').render('orderbook.chart')
-
