@@ -17,13 +17,13 @@ class OrderBookController {
   }
 
   * store(request, response) {
-    const data=request.only(['type', 'asset', 'amount', 'price','status'])
-    console.log('Storing new orderbook row....')
-    console.log(data)
+    const data = request.post()
+    console.log('Storing new orderbook row:', data)
+    // console.log(data)
     const user = yield request.auth.getUser()
     const ob = new OrderBook(data, user)
     yield ob.save()//Save to new row table
-    response.ok(ob)
+    response.json({status: 'ok', data: ob})
   }
 
   * showbid(asset) {
