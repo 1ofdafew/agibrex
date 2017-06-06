@@ -45,7 +45,10 @@ class AccountVerifyController {
         response.redirect('login')
       }
     } catch (e) {
-      yield request.with({error: 'Unable to activate your account. Invalid Verification Code'}).flash()
+      const args = {
+        error: 'Unable to activate your account. Invalid Verification Code'
+      }
+      yield request.with(args).flash()
       response.redirect('verify')
     }
   }
@@ -58,15 +61,15 @@ class AccountVerifyController {
     const email = request.input('email')
 
     try {
-      const resp = yield UserService.findByOrFail('email', email)
-      const user = resp.toJSON()
+      const user = yield UserService.findByOrFail('email', email)
       yield UserService.resendEmail(user)
       
       const args = {
         info: 'Confirmation email sent.',
         email: email
       }
-      yield response.sendView('auth.resendConf', args)      
+      yield request.with(args).flash()
+      response.redirect('verify')
     } catch(e) {
       const args = {
         info: 'Sorry, cannot find that user.'

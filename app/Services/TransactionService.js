@@ -1,6 +1,6 @@
 'use strict'
 
-const CoinFactory = make('App/Services/Coins/CoinFactory')
+// const CoinFactory = make('App/Services/Coins/CoinFactory')
 const TradeService = make('App/Services/TradeService')
 const Database = use('Database')
 const uuid = require('uuid/v4');
@@ -97,7 +97,9 @@ class TransactionService{
         value: '',
         pin: ''
       }
-      const deduct = yield CoinFactory.transfer(dataDeduct)
+
+      const deductFactory = new CoinFactory(bid.asset)
+      const deduct = yield deductFactory.transfer(dataDeduct)
 
       if ( deduct ) {
         // Update trace
@@ -139,6 +141,7 @@ class TransactionService{
      *            - bid_id: interger
      *            - ask_id: interger
      *            - tx_id: interger
+     *
      */
 
     const bid = yield Database.select('user_id', 'type')
@@ -159,7 +162,8 @@ class TransactionService{
         value: '',
         pin: ''
       }
-      const matching = yield CoinFactory.transfer(dataDeduct)
+      const factory = new CoinFactory(bid.to_asset)
+      const matching = yield factory.transfer(dataDeduct)
 
       // Update trace
       const dataTrace  = {
@@ -241,7 +245,8 @@ class TransactionService{
         value: '',
         pin: ''
       }
-      const deduct = yield CoinFactory.transfer(dataDeduct)
+      const deductFactory = new CoinFactory(bid.asset)
+      const deduct = yield deductFactory.transfer(dataDeduct)
 
       if ( deduct ) {
         // Update trace
@@ -292,7 +297,7 @@ class TransactionService{
       .where('status','ACTIVE')
       .where('id',data.bid_id)
 
-    const asl = yield Database.select('user_id', 'type')
+    const ask = yield Database.select('user_id', 'type')
       .from('order_books')
       .where('status','ACTIVE')
       .where('id',data.ask_id)
@@ -314,7 +319,8 @@ class TransactionService{
       }
       yield this.doUpdateTrace(dataTrace)
 
-      const matching = yield CoinFactory.transfer(dataDeduct)
+      const deductFactory = new CoinFactory(bid.asset)
+      const matching = yield deductFactory.transfer(dataDeduct)
 
       if (matching) {
            // Update trace

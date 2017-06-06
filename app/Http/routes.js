@@ -26,6 +26,13 @@ Route.post('/', 'PreviewController.invited')
 Route.on('/home').render('welcome')
 
 /**
+ * POC Pages
+ */
+Route.group('Proof of Concept', function () {
+  Route.get('/', 'PocController.index')
+}).prefix('/poc')
+
+/**
  * Login
  */
 Route.group('Authentication', function () {
@@ -64,6 +71,25 @@ Route.get('/dashboard', 'DashboardController.index')
 */
 Route.get('/temp','TempController.index')
 Route.get('/coming_soon','ComingSoonController.index')
+
+/**
+ * Inbox
+ */
+Route.get('/inbox', 'InboxController.index')
+  .as('inbox')
+  .middleware('auth')
+
+  /**
+   * Gibrex
+   */
+   Route.group('Gibrex', function () {
+
+     Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
+     Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
+     Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
+     Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
+
+   }).prefix('/gibrex')
 
 
 /**
@@ -208,4 +234,3 @@ Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
 Route.get('/obchart/bid', 'ObchartController.bid')
 Route.get('/obchart/ask', 'ObchartController.ask')
 Route.on('/mdepth').render('orderbook.chart')
-

@@ -1,360 +1,360 @@
 <!DOCTYPE html>
 
 <html lang="en" class="no-js js">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gibrex - The World Trusted Digital Exchange</title>
-<base href="/">
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="publisher" content="Gibrex">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gibrex - The World Trusted Digital Exchange</title>
+    <base href="/">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="publisher" content="Gibrex">
+    {{ cspMeta }}
 
-<!-- Favicon -->
-<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 
-<!-- this styles only adds some repairs on idevices  -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- this styles only adds some repairs on idevices  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<!-- Google fonts - witch you want to use - (rest you can just remove) -->
-<link rel="stylesheet" href="/css/css.css" type="text/css">
+    <!-- Google fonts - witch you want to use - (rest you can just remove) -->
+    <link rel="stylesheet" href="/css/css.css" type="text/css">
 
-<!--[if lt IE 9]>
-		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<!-- ######### CSS STYLES ######### -->
-<link rel="stylesheet" href="/css/logged_style.css" type="text/css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-<link href="https://cdn.materialdesignicons.com/1.9.32/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
-<!-- responsive devices styles -->
-<link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
-<link rel="stylesheet" href="/css/colour.css">
+    <!-- ######### CSS STYLES ######### -->
+    <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/1.9.32/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+    <!-- responsive devices styles -->
+    <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
+    <link rel="stylesheet" href="/css/colour.css">
 
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous">
-</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-</head>
-
-<body>
-<div class="site_wrapper">
-
-<!-- HEADER -->
-<header id="header" class="" style="height: 131px;">
-
-  <!-- Top header bar -->
-  <div id="topHeader">
-      <div class="wrapper">
-        <div class="top_contact_info">
-          <div class="container">
-            <ul class="tci_list_left">
-              <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
-              <!-- <li>|</li> -->
-              <li><a href="/coming_soon">Contact Us</a></li>
-            </ul>
-            <ul class="tci_list">
-              {% if not currentUser %}
-              <li>
-                <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
-              </li>
-              <!-- <li>|</li> -->
-              <li>
-                <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
-              </li>
-              {% else %}
-              <li>
-                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}&nbsp;&nbsp;&nbsp;
-              </li>
-              <!-- <li>|</li> -->
-              <li>
-                <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
-              </li>
-              {% endif %}
-
-              <li class="empty margin-left">
-                <label for="language_selector"><img src="/images/language/en.png"></label>
-                <select id="language_selector" class="lang">
-                  <option value="en" selected="selected">English</option>
-                  <option value="es">Español</option>
-                  <option value="ru">Pусский</option>
-                  <option value="zh">中文</option>
-                </select>
-              </li>
-            </ul>
-          </div>
-        </div>
-      <!-- end top contact info -->
-
-    </div>
-  </div>
-  <div id="trueHeader">
-    <div class="wrapper">
-      <div class="container">
-
-        <!-- Logo -->
-        <div class="one_fourth"><a href="/home" id="logo"></a></div>
-
-        <!-- 1. dapatkan route
-        2. if else route
-            eg. exchange
-            $exchangeactive = "class='active'"
-            eg. home
-            $homeactive == "class='active'" -->
-        <!-- Menu -->
-        <div class="three_fourth last">
-            <nav id="access" class="access" role="navigation">
-              <div id="menu" class="menu">
-                <ul id="tiny">
-                  {% if currentUser %}
-                  <li><a href="/home" class="active">Home</a></li>
-                  {% else %}
-                  <li><a href="/home" class="active">Home</a></li>
-                  {% endif %}
-                  <li><a href="/exchange">Exchange</a></li>
-                  {% if currentUser %}
-                  <li><a href="">Order Book</a></li>
-                  {% endif %}
-                  {% if not currentUser %}
-                  <li><a href="/coming_soon">News</a></li>
-                  {% endif %}
-                  <li><a href="">Gibrex</a>
-                    <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                      <li><a href="">About Gibrex</a></li>
-                      <li><a href="">Our Security</a></li>
-                      <li><a href="">Exchange Fees</a></li>
-                      <li><a href="">Contact Us</a></li>
-                    </ul>
-                  </li>
-                  {% if currentUser %}
-                  <li><a href="/dashboard">Dashboard</a>
-                    <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                      <li><a href="/accounts">Dashboard</a></li>
-                      <li><a href="/accounts">Coin Account</a></li>
-                      <li><a href="/user/profile">User Profile</a></li>
-                      <li><a href="/security/options">Security</a></li>
-                      <li><a href="/accounts">Settings</a></li>
-                      <li><a href="/auth/logout">Log Out</a></li>
-                    </ul>
-                  </li>
-                  {% endif %}
-                </ul>
-                <img class="stickylogo" src="/images/favicon-32.png">
-                <select class="selectnav" id="selectnav1">
-                  <option value="">--- Navigation --- </option>
-                  <option value="">HOME</option>
-                  <option value="">ORDER BOOK</option>
-                  <option value="">ABOUT Gibrex</option>
-                  <option value="/auth/login">Login</option>
-                  <option value="/auth/register">Register</option>
-                </select>
-              </div>
-            </nav>
-            <!-- end nav menu -->
-
-          </div>
-      </div>
-    </div>
-  </div>
-</header>
-<!-- end header -->
-{% if currentUser %}
-<div class="page_title">
-  <div class="container title">
-    <div id="titleheader02">
-      <div class="left02">
-          <i class="fa fa-smile-o"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.username }}
-      </div>
-        <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
-    </div>
-  </div>
-  <div class="container title">
-    <nav id="access02" class="access02" role="navigation">
-      <div id="menu" class="menu">
-        <ul id="tiny">
-          <li>
-            <div class="buttoninbox">
-              <span class="buttonbadge">12</span>
-                <a href="">Inbox</a>
-            </div>
-          </li>
-          <li><a href="">Balance</a></li>
-          <li><a href="">Trade History</a></li>
-          <li><a href=""><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
-            <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-              <li><a href="/accounts">Bitcoin</a></li>
-              <li><a href="/accounts">Tracto</a></li>
-              <li><a href="/user/profile">Ethreum</a></li>
-              <li><a href="/user/profile">Litecoin</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <div class="container">
-    <div class="title02">
-      <div id="btnFullscreen" type="button" class="right02 iconright">
-          <h3><i class="fa fa-arrows-alt"></i></h3>
-      </div>
-      <div class="right02 iconright">
-          <h3><a href=""><i class="fa fa-arrow-down"></i></a></h3>
-      </div>
-      <div class="right02 iconright">
-          <h3><a href=""><i class="fa fa-headphones"></i></a></h3>
-      </div>
-        <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{% block fullview %}
-<div class="container">
-  <div class="content_right">
-    {% block content %}
+    {% block head %}
     {% endblock %}
-  </div>
-  {% if currentUser %}
-  <div class="left_sidebar">
-    <div class="sidebar_widget">
-      <div class="sidebar_title">
-        <!--<h3>Account Navigation</h3>-->
-      </div>
-      <ul class="arrows_list1">
-        <li><a href="/dashboard"><i class="fa fa-caret-right"></i> Dashboard</a></li>
-        <li><a ><i class="fa fa-caret-right"></i> My Account</a>
-           <ul class="" style="margin-left:15px;">
-            <li>
-              <a href="/accounts/bitcoin"><i class="fa fa-angle-right"></i> Bitcoin</a>
-            </li>
-            <li>
-              <a href="/accounts/tracto"><i class="fa fa-angle-right"></i> Tracto</a>
-            </li>
-            <li>
-              <a href="/accounts/ethereum"><i class="fa fa-angle-right"></i> Ethereum</a>
-            </li>
-           </ul>
-        </li>
-        <!-- <li><a href=""><i class="fa fa-caret-right"></i> Open Orders</a></li> -->
-        <li><a href="/temp"><i class="fa fa-caret-right"></i> Transactions</a></li>
-        <li><a href="/security/options"><i class="fa fa-caret-right"></i> Security</a></li>
-        <li><a href="/user/profile"><i class="fa fa-caret-right"></i> Settings</a></li>
-        <!-- <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li> -->
 
-        <li><a href="/temp"><i class="fa fa-caret-right"></i> History</a></li>
-        <li><a href="/temp"><i class="fa fa-caret-right"></i> API Access</a></li>
-        <!-- <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li> -->
-      </ul>
+  </head>
+
+  <body>
+    <div class="site_wrapper">
+
+      <!-- HEADER -->
+      <header id="header" class="" style="height: 131px;">
+
+        <!-- Top header bar -->
+        <div id="topHeader">
+          <div class="wrapper">
+            <div class="top_contact_info">
+              <div class="container">
+                <ul class="tci_list_left">
+                  <li><a href="/coming_soon">Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
+                  <!-- <li>|</li> -->
+                  <li><a href="/coming_soon">Contact Us</a></li>
+                </ul>
+                <ul class="tci_list">
+                  {% if not currentUser %}
+                  <li>
+                    <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
+                  </li>
+                  <!-- <li>|</li> -->
+                  <li>
+                    <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
+                  </li>
+                  {% else %}
+                  <li>
+                    <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}&nbsp;&nbsp;&nbsp;
+                  </li>
+                  <!-- <li>|</li> -->
+                  <li>
+                    <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+                  </li>
+                  {% endif %}
+
+                  <li class="empty margin-left">
+                    <label for="language_selector"><img src="/images/language/en.png"></label>
+                    <select id="language_selector" class="lang">
+                      <option value="en" selected="selected">English</option>
+                      <option value="es">Español</option>
+                      <option value="ru">Pусский</option>
+                      <option value="zh">中文</option>
+                    </select>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- end top contact info -->
+
+          </div>
+        </div>
+        <div id="trueHeader">
+          <div class="wrapper">
+            <div class="container">
+
+              <!-- Logo -->
+              <div class="one_fourth"><a href="/home" id="logo"></a></div>
+
+              <!-- 1. dapatkan route
+                2. if else route
+                eg. exchange
+                $exchangeactive = "class='active'"
+                eg. home
+                $homeactive == "class='active'" -->
+                <!-- Menu -->
+                <div class="three_fourth last">
+                  <nav id="access" class="access" role="navigation">
+                    <div id="menu" class="menu">
+                      <ul id="tiny">
+                        {% if currentUser %}
+                        <li><a href="/home" class="active">Home</a></li>
+                        {% else %}
+                        <li><a href="/home" class="active">Home</a></li>
+                        {% endif %}
+                        <li><a href="/exchange">Exchange</a></li>
+                        {% if currentUser %}
+                        <li><a href="">Order Book</a></li>
+                        {% endif %}
+                        {% if not currentUser %}
+                        <li><a href="/coming_soon">News</a></li>
+                        {% endif %}
+                        <li><a href="">Gibrex</a>
+                          <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                            <li><a href="/gibrex/about_Gibrex">About Gibrex</a></li>
+                            <li><a href="/gibrex/about_Gibrex">Our Security</a></li>
+                            <li><a href="/gibrex/exchange_Fees">Exchange Fees</a></li>
+                            <li><a href="/gibrex/contactUs">Contact Us</a></li>
+                          </ul>
+                        </li>
+                        {% if currentUser %}
+                        <li><a href="/dashboard">Dashboard</a>
+                          <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                            <li><a href="/accounts">Dashboard</a></li>
+                            <li><a href="/accounts">Coin Account</a></li>
+                            <li><a href="/user/profile">User Profile</a></li>
+                            <li><a href="/security/options">Security</a></li>
+                            <li><a href="/accounts">Settings</a></li>
+                            <li><a href="/auth/logout">Log Out</a></li>
+                          </ul>
+                        </li>
+                        {% endif %}
+                      </ul>
+                      <img class="stickylogo" src="/images/favicon-32.png">
+                      <select class="selectnav" id="selectnav1">
+                        <option value="">--- Navigation --- </option>
+                        <option value="">HOME</option>
+                        <option value="">ORDER BOOK</option>
+                        <option value="">ABOUT Gibrex</option>
+                        <option value="/auth/login">Login</option>
+                        <option value="/auth/register">Register</option>
+                      </select>
+                    </div>
+                  </nav>
+                  <!-- end nav menu -->
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- end header -->
+      {% if currentUser %}
+      <div class="page_title">
+        <div class="container title">
+          <div id="titleheader02">
+            <div class="left02">
+              <i class="fa fa-smile-o"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.username }}
+            </div>
+            <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
+          </div>
+        </div>
+        <div class="container title">
+          <nav id="access02" class="access02" role="navigation">
+            <div id="menu" class="menu">
+              <ul id="tiny">
+                <li>
+                  <div class="buttoninbox">
+                    <span class="buttonbadge">12</span>
+                    <a href="/inbox">Inbox</a>
+                  </div>
+                </li>
+                <li><a href="">Balance</a></li>
+                <li><a href="">Trade History</a></li>
+                <li><a href=""><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
+                  <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                    <li><a href="/accounts">Bitcoin</a></li>
+                    <li><a href="/accounts">Tracto</a></li>
+                    <li><a href="/user/profile">Ethreum</a></li>
+                    <li><a href="/user/profile">Litecoin</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="container">
+          <div class="title02">
+            <div id="btnFullscreen" type="button" class="right02 iconright">
+              <h3><i class="fa fa-arrows-alt"></i></h3>
+            </div>
+            <div class="right02 iconright">
+              <h3><a href=""><i class="fa fa-arrow-down"></i></a></h3>
+            </div>
+            <div class="right02 iconright">
+              <h3><a href=""><i class="fa fa-headphones"></i></a></h3>
+            </div>
+            <!-- <div class="pagenation">&nbsp;<a href="https://1btcxe.com/index.php">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/account.php">Account</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Bitcoin</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;<a href="https://1btcxe.com/buy-sell.php">Buy/Sell</a></div> -->
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      {% block fullview %}
+      <div class="container">
+        <div class="content_right">
+          {% block content %}
+          {% endblock %}
+        </div>
+        {% if currentUser %}
+        <div class="left_sidebar">
+          <div class="sidebar_widget">
+            <div class="sidebar_title">
+              <!--<h3>Account Navigation</h3>-->
+            </div>
+            <ul class="arrows_list1">
+              <li><a href="/dashboard"><i class="fa fa-caret-right"></i> Dashboard</a></li>
+              <li><a ><i class="fa fa-caret-right"></i> My Account</a>
+                <ul class="" style="margin-left:15px;">
+                  <li>
+                    <a href="/accounts/bitcoin"><i class="fa fa-angle-right"></i> Bitcoin</a>
+                  </li>
+                  <li>
+                    <a href="/accounts/tracto"><i class="fa fa-angle-right"></i> Tracto</a>
+                  </li>
+                  <li>
+                    <a href="/accounts/ethereum"><i class="fa fa-angle-right"></i> Ethereum</a>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li><a href=""><i class="fa fa-caret-right"></i> Open Orders</a></li> -->
+              <li><a href="/temp"><i class="fa fa-caret-right"></i> Transactions</a></li>
+              <li><a href="/security/options"><i class="fa fa-caret-right"></i> Security</a></li>
+              <li><a href="/user/profile"><i class="fa fa-caret-right"></i> Settings</a></li>
+              <!-- <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li> -->
+
+              <li><a href="/temp"><i class="fa fa-caret-right"></i> History</a></li>
+              <li><a href="/temp"><i class="fa fa-caret-right"></i> API Access</a></li>
+              <!-- <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li> -->
+            </ul>
+          </div>
+          <div class="clearfix mar_top3"></div>
+          <!-- <div class="sidebar_widget">
+            <div class="sidebar_title">
+            <h3>Transactions</h3>
+            </div>
+            <ul class="arrows_list1">
+            <li><a href="https://1btcxe.com/buy-sell.php"><i class="fa fa-angle-right"></i> Buy/Sell</a></li>
+            <li><a href="https://1btcxe.com/deposit.php"><i class="fa fa-angle-right"></i> Deposit</a></li>
+            <li><a href="https://1btcxe.com/withdraw.php"><i class="fa fa-angle-right"></i> Withdraw</a></li>
+            </ul>
+            </div> -->
+            <div class="mar_top8"></div>
+            <div class="clear"></div>
+        </div>
+        {% endif %}
+      </div>
+      {% endblock %}
+      <!-- Footer
+        ======================================= -->
+
+        <div class="footer">
+          <div class="arrow_02"></div>
+          <div class="clearfix mar_top3"></div>
+          <div class="container">
+            <div class="one_fourth">
+              <div class="footer_logo"><img src="/images/gibrex02.png" alt=""></div>
+              <div class="one_half">
+                <!--
+                  <ul class="contact_address">
+                  <li><i class="fa  fa-clock-o"></i>&nbsp;&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
+                  <li><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Users Currently Online - 16,684</li>
+                  </ul>
+                -->
+              </div>
+            </div>
+            <!-- <div class="one_half">
+              <div class="one_fourth">
+              <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Navigation</h3>
+              <ul class="list">
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Home</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="/exchange">&nbsp;&nbsp;Exchange</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Margin Trading</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Lending</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Fees</a></li>
+              </ul>
+              </div>
+              <div class="one_fourth">
+              <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Gibrex</h3>
+              <ul class="list">
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;About Gibrex</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;News Feed</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Security</a></li>
+              </ul>
+              </div>
+              <div class="one_fourth last">
+              <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Support</h3>
+              <ul class="list">
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Resources</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;FAQ</a></li>
+              <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Contact Us</a></li>
+              </ul>
+              </div>
+              </div> -->
+          </div>
+          <div class="clearfix mar_top5"></div>
+        </div>
+        <div class="copyright_info">
+          <div class="container">
+            <div class="one_half">
+              <ul class="tci_list_left">
+                <li><b>Copyright © All Right Reserved 2017 Gibrex.com - The World Trusted Digital Exchange.</b></li>
+                <li>|</li>
+                <li><a href="/coming_soon"> Privacy Policy</a></li>
+                <li>|</li>
+                <li><a target="_blank" href="/coming_soon"> Terms &amp; Condition</a></li>
+
+              </ul>
+            </div>
+            <!-- <div class="one_half last">
+              <ul class="footer_social_links">
+              <li><a href="http://158.69.170.180/#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="http://158.69.170.180/#"><i class="fa fa-linkedin"></i></a></li>
+              </ul>
+              </div>-->
+          </div>
+        </div>
+        <!-- end copyright info -->
+
     </div>
-    <div class="clearfix mar_top3"></div>
-    <!-- <div class="sidebar_widget">
-      <div class="sidebar_title">
-        <h3>Transactions</h3>
-      </div>
-      <ul class="arrows_list1">
-        <li><a href="https://1btcxe.com/buy-sell.php"><i class="fa fa-angle-right"></i> Buy/Sell</a></li>
-        <li><a href="https://1btcxe.com/deposit.php"><i class="fa fa-angle-right"></i> Deposit</a></li>
-        <li><a href="https://1btcxe.com/withdraw.php"><i class="fa fa-angle-right"></i> Withdraw</a></li>
-      </ul>
-    </div> -->
-    <div class="mar_top8"></div>
-    <div class="clear"></div>
-  </div>
-  {% endif %}
-</div>
-{% endblock %}
-<!-- Footer
-======================================= -->
 
-<div class="footer">
-  <div class="arrow_02"></div>
-  <div class="clearfix mar_top3"></div>
-    <div class="container">
-      <div class="one_fourth">
-        <div class="footer_logo"><img src="/images/gibrex02.png" alt=""></div>
-        <div class="one_half">
-        <!--
-        <ul class="contact_address">
-          <li><i class="fa  fa-clock-o"></i>&nbsp;&nbsp;&nbsp;Server time - 2017-04-14 19:53 UTC</li>
-          <li><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Users Currently Online - 16,684</li>
-        </ul>
-        -->
-        </div>
-      </div>
-      <!-- <div class="one_half">
-        <div class="one_fourth">
-          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Navigation</h3>
-          <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Home</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="/exchange">&nbsp;&nbsp;Exchange</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Margin Trading</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Lending</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Fees</a></li>
-          </ul>
-        </div>
-        <div class="one_fourth">
-          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Gibrex</h3>
-          <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;About Gibrex</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;News Feed</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Security</a></li>
-          </ul>
-        </div>
-        <div class="one_fourth last">
-          <h3><i class="fa fa-caret-right"></i>&nbsp;&nbsp;Support</h3>
-          <ul class="list">
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Support Centre</a>&nbsp;&nbsp;<i class="fa fa-cog fa-spin"></i></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Resources</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;FAQ</a></li>
-            <li><i class="fa fa-angle-right"></i><a href="#">&nbsp;&nbsp;Contact Us</a></li>
-          </ul>
-        </div>
-      </div> -->
-    </div>
-    <div class="clearfix mar_top5"></div>
-  </div>
-  <div class="copyright_info">
-    <div class="container">
-      <div class="one_half">
-        <ul class="tci_list_left">
-          <li><b>Copyright © All Right Reserved 2017 Gibrex.com - The World Trusted Digital Exchange.</b></li>
-          <li>|</li>
-          <li><a href="/coming_soon"> Privacy Policy</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="/coming_soon"> Terms &amp; Condition</a></li>
+    <!-- ######### JS FILES ######### -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popap.js"></script>
 
-        </ul>
-      </div>
-      <!-- <div class="one_half last">
-        <ul class="footer_social_links">
-          <li><a href="http://158.69.170.180/#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="http://158.69.170.180/#"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-      </div>-->
-    </div>
-  </div>
-  <!-- end copyright info -->
+    <script src="/js/jquery.color.min.js"></script>
+    <script src="/js/jquery.animateNumber.min.js"></script>
 
-</div>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery_004.js"></script>
+    <script src="/js/ops.js"></script>
+    <!-- <script src="https://www.authy.com/form.authy.min.js" type="text/javascript"></script> -->
 
-<!-- ######### JS FILES ######### -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/popap.js"></script>
-
-<script src="/js/jquery.color.min.js"></script>
-<script src="/js/jquery.animateNumber.min.js"></script>
-
-<script src="/js/jquery.js"></script>
-<script src="/js/jquery_004.js"></script>
-<script src="/js/ops.js"></script>
-<!-- <script src="https://www.authy.com/form.authy.min.js" type="text/javascript"></script> -->
-
-<script>
+    <script>
 function toggleFullscreen(elem) {
   elem = elem || document.documentElement;
   if (!document.fullscreenElement && !document.mozFullScreenElement &&
@@ -388,8 +388,8 @@ document.getElementById('btnFullscreen').addEventListener('click', function() {
 document.getElementById('exampleImage').addEventListener('click', function() {
   toggleFullscreen(this);
 });
-</script>
- {% block docready %}{% endblock %}
+    </script>
+    {% block docready %}{% endblock %}
 
-</body>
+  </body>
 </html>
