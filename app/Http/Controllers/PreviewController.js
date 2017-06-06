@@ -31,7 +31,7 @@ class PreviewController {
       try {
         yield UserService.findByOrFail('verification_code', data.code)
         response.redirect('/home')
-      } else {
+      } catch(e) {
         response.redirect('/')
       }
     }
