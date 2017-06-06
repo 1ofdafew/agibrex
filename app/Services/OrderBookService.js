@@ -71,24 +71,21 @@ class OrderBookService {
     return all
   }
 
-  // * showbid(asset) {
-  // 	return yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
-  //     .from('order_books')
-  //     .where('type','bid')
-  //     .where('asset',asset)
-  //     .where('status','ACTIVE')
-  //     .orderBy('price', 'desc')
-  //     .orderBy('created_at','asc')
-  // }
+  * getLowestBid(assetFrom, assetTo) {
+    return yield Database.table('order_books')
+      .where('asset', assetFrom)
+      .where('to_asset', assetTo)
+      .orderBy('price', desc)
+      .limit(1)
+  }
 
-  // * showask(asset) {
-  // 	return yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
-  //     .from('order_books')
-  //     .where('type','ask')
-  //     .where('asset',asset)
-  //     .where('status','ACTIVE')
-  //     .orderBy('price', 'asc')
-  //     .orderBy('created_at','asc')
-  // }
+  * getHighestBid(assetFrom, assetTo) {
+    return yield Database.table('order_books')
+      .where('asset', assetFrom)
+      .where('to_asset', assetTo)
+      .orderBy('price', asc)
+      .limit(1)
+  }
 }
 module.exports = OrderBookService
+

@@ -94,7 +94,7 @@
           <div id="container" style="height: 500px; margin-bottom: 90px; in-width: 310px; max-width: 100%; "></div>
           <script type="text/javascript">
             // io refers to the above import
-            const io = ws('http://localhost:3333')
+            const io = ws('')
             const client = io.channel('eth').connect(function(error, connected) {
               console.log('Connected: ', connected)
               console.log('Error: ', error)

@@ -20,7 +20,10 @@ const Route = use('Route')
 /**
  * Main Page
  */
-Route.on('/').render('welcome')
+Route.get('/', 'PreviewController.index')
+Route.post('/', 'PreviewController.invited')
+
+Route.on('/home').render('welcome')
 
 /**
  * Login
@@ -204,4 +207,5 @@ Route.group('API',function () {
 Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
 Route.get('/obchart/bid', 'ObchartController.bid')
 Route.get('/obchart/ask', 'ObchartController.ask')
-Route.on('/test').render('orderbook.chart')//test
+Route.on('/mdepth').render('orderbook.chart')
+

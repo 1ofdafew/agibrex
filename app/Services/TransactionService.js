@@ -35,17 +35,12 @@ class TransactionService{
   //=>insert data transaction
   * store (action, status, acc_type){
     const transaction = new this.Transaction()
-
     transaction.uuid = uuid()
     transaction.action = action
     transaction.status = status
-    transaction.acc_type = acc_type
-
     yield transaction.save()
 
-    const freshInstance = yield this.Transaction.find(transaction.id)
-
-    return freshInstance
+    return yield this.Transaction.find(transaction.id)
   }
 
   //=>show some data transaction

@@ -1,0 +1,25 @@
+video {
+	position: fixed;
+	top: 35%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	/*background: url(images/gibrex-mini.png);*/
+	background-size: cover;
+	-webkit-transition: 1s opacity;
+	transition: 1s opacity;
+}
+.stopfade {
+	opacity: .5;
+}
+
+ @media only screen and (max-width: 390px) {
+video {
+	display: none;
+}
+}

@@ -1,4 +1,6 @@
-{% extends 'layout/master' %} {% block fullview %}
+{% extends 'layout/master' %} 
+
+{% block fullview %}
 
 <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -116,7 +118,7 @@
 
     <script type="text/javascript">
       // io refers to the above import
-      const io = ws('http://localhost:3333')
+      const io = ws('')
       const client = io.channel('eth').connect(function(error, connected) {
         console.log('Connected: ', connected)
         console.log('Error: ', error)
