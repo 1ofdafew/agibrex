@@ -63,10 +63,10 @@
               <div class="m_head">Last Price</div>
               {% if currentData.change1h > 0 %}
               <p class="stat1 price-green">
-                <i id="up_or_down1" class="fa fa-caret-up price-green"></i> 
+                <i id="up_or_down1" class="fa fa-caret-up price-green"></i>
               {% else %}
               <p class="stat1 price-red">
-                <i id="up_or_down1" class="fa fa-caret-down price-red"></i> 
+                <i id="up_or_down1" class="fa fa-caret-down price-red"></i>
               {% endif %}
                 $<span id="stats_last_price">{{ currentData.price }}</span>
                 <small id="stats_last_price_curr"></small>
@@ -76,36 +76,36 @@
               <div class="m_head">1h Change</div>
               <p class="stat1">
               {% if currentData.change1h > 0 %}
-                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i> 
+                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i>
               {% else %}
-                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i> 
+                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i>
               {% endif %}
-                <span id="stats_daily_change_abs">{{ currentData.change1h }}</span> 
+                <span id="stats_daily_change_abs">{{ currentData.change1h }}</span>
               </p>
             </div>
             <div class="one_fourth">
               <div class="m_head">24h Change</div>
               <p class="stat1">
               {% if currentData.change24h > 0 %}
-                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i> 
+                <i id="up_or_down" class="fa fa-caret-up price-green" style="color:#60FF51;"></i>
               {% else %}
-                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i> 
+                <i id="up_or_down" class="fa fa-caret-down price-red" style="color:#60FF51;"></i>
               {% endif %}
-                <span id="stats_daily_change_abs">{{ currentData.change24h }}</span> 
+                <span id="stats_daily_change_abs">{{ currentData.change24h }}</span>
               </p>
             </div>
             <div class="one_fourth last">
               <div class="m_head">24h Volume</div>
               <p class="stat1">
-                <!--i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i--> 
-                <span id="stats_daily_change_abs">{{ currentData.vol24h_btc }} BTC</span> 
+                <!--i id="up_or_down" class="fa fa-caret-up" style="color:#60FF51;"></i-->
+                <span id="stats_daily_change_abs">{{ currentData.vol24h_btc }} BTC</span>
               </p>
             </div>
             <div class="panel-divider"></div>
             <div class="one_full">
               <h4>24HR Volume :
                 <em class="stat2">
-                  $<span id="stats_market_cap"> {{ currentData.vol24h_usd }} USD</span> / 
+                  $<span id="stats_market_cap"> {{ currentData.vol24h_usd }} USD</span> /
                   &euro;<span id="stats_market_cap"> {{ currentData.vol24h_eur }} EUR</span></em>
               </h4>
             </div>
@@ -1034,7 +1034,7 @@
 
               <script type="text/javascript">
                 // io refers to the above import
-                // const io = ws('http://localhost:3333')
+                const io = ws('http://localhost:3333')
                 const clients = io.channel('chat').connect(function(error, connected) {
                   console.log('Connected: ', connected)
                 })
@@ -1086,7 +1086,7 @@
                         <table class="table-list03 trades03">
                           <tbody>
                             <tr>
-                              <td><a class="twitter-timeline" data-width="570" data-height="600" data-theme="light" data-link-color="#FAB81E"
+                              <td><a class="twitter-timeline" data-width="570" data-height="600" data-theme="light" data-link-color="#FAB81E" data-chrome="noborders nofooter"
                               href="https://twitter.com/gibrex_">Tweets by gibrex_</a>
                               <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                                 <div class="panel-divider4"></div>
