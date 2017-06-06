@@ -13,7 +13,7 @@ class Transaction extends Lucid {
   }
 
   static get visible(){
-    return ['id', 'uuid', 'action', 'status', 'acc_type']
+    return ['id', 'uuid', 'action', 'status','trace']
   }
 
   user () {

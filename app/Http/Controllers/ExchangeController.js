@@ -2,7 +2,7 @@
 
 const OrderBook = use('App/Model/OrderBook')
 const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
-// const TradeService = make('App/Services/TradeService')
+const TradeService = make('App/Services/TradeService')
 const WalletService = make('App/Services/WalletService')
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
@@ -23,18 +23,18 @@ class ExchangeController {
     // log.info('BTC current data:', currentData)
 
     const user = yield request.auth.getUser()
-    //   const wallet = yield WalletService.getWallet(user.username)
-    //   const wallet = yield WalletService.getBalance('ETH', address)
-
-    //   response.send(wallet)
+    const w = yield WalletService.getWallet(user.username)
+    const ethWallet = yield WalletService.getBalance('ethereum', w.address)
+    const btcWallet = yield WalletService.getBalance('bitcoin', w.address)
+    // response.send(btcWallet)
 
     const defaultBuyCurrency = 'ETH'
-    const curBalance1 = '11.48300000'  //ETH
-    const curBalance2 = '11.48300000'
+    const curBalance1 = ethWallet.data.balance.available //ETH
+    const curBalance2 = ethWallet.data.balance.available
 
     // TODO : Get Balance BTC
-    const balance = '1.49'
-    const price = '2228.00'
+    const balance = '0.0'
+    const price = '2782.99'
     const fee = '0.00'
 
     // Call showask
@@ -221,7 +221,18 @@ class ExchangeController {
     const user = yield request.auth.getUser()
 
     const amount = request.input('buy_amount')
+    const buy_available = request.input('buy_available')
     const price = '2228.00'
+
+    if (buy_available == 0) {
+
+         const dataError = {
+           status: 'error',
+           error: 'Insufficient balance. Please deposit your account.'
+         }
+         yield request.with(dataError).flash()
+         response.redirect('/exchange/btc')
+    }
 
     const data = {
       user: user,
