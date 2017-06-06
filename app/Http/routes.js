@@ -72,6 +72,18 @@ Route.get('/inbox', 'InboxController.index')
   .as('inbox')
   .middleware('auth')
 
+  /**
+   * Gibrex
+   */
+   Route.group('Gibrex', function () {
+
+     Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
+     Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
+     Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
+     Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
+
+   }).prefix('/gibrex')
+
 
 /**
  * Security
