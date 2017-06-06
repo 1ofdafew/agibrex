@@ -213,7 +213,11 @@
                    <div class="mar_top2"></div>
                    <input name="buy" value="1" type="hidden">
                    <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+                   {% if currentUser %}
                    <input name="submit" value="Buy {{ type }}" class="but_user" type="submit">
+                   {% else %}
+                   <a class="but_user" href="/auth/login">Login to Trade</a>
+                   {% endif %}
                    <input type="hidden" name="trcbtc" value="{{coinInBtc}}">
                    <input type="hidden" name="trceth" value="{{coinInEth}}">
                  </div>
@@ -262,7 +266,8 @@
                      <div class="clear"></div>
                    </div>
                    <div class="mar_top2"></div>
-                   <!-- <div class="param lessbottom">
+                   <!--
+                   <div class="param lessbottom">
                      <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox" checked="checked" disabled="Disable">
                      <label for="sell_market_price">Sell At Market Price&nbsp;
                        <a target="_blank" title="Click for info on how this works." href="#">
@@ -287,9 +292,10 @@
                        </a>
                      </label>
                      <div class="clear"></div>
-                   </div> -->
-                   <!-- <div class="mar_top2"></div>
-
+                   </div> 
+                   -->
+                   <!-- 
+                   <div class="mar_top2"></div>
                    <div id="sell_price_container" class="param">
                      <label for="sell_price">
                        <span id="sell_price_limit_label">Limit Price</span>
@@ -300,7 +306,8 @@
                        <span class="sell_currency_label">USD</span>
                      </div>
                      <div class="clear"></div>
-                   </div> -->
+                   </div> 
+                   -->
                    <!-- <div class="mar_top3"></div> -->
                    <div id="sell_stop_container" class="param" style="display:none;">
                      <label for="sell_stop_price">Stop Price</label>
@@ -349,7 +356,11 @@
                    <div class="mar_top2"></div>
                    <input name="sell" value="1" type="hidden">
                    <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+                   {% if currentUser %}
                    <input name="submit" value="Sell {{ type }}" class="but_usersell" type="submit">
+                   {% else %}
+                   <a class="but_user" href="/auth/login">Login to Trade</a>
+                   {% endif %}
                  </div>
                </form>
              </div>

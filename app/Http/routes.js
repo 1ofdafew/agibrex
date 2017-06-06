@@ -20,7 +20,10 @@ const Route = use('Route')
 /**
  * Main Page
  */
-Route.on('/').render('welcome')
+Route.get('/', 'PreviewController.index')
+Route.post('/', 'PreviewController.invited')
+
+Route.on('/home').render('welcome')
 
 /**
  * Login
