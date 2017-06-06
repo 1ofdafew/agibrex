@@ -2,6 +2,7 @@
 
 // const OrderBook = use('App/Model/OrderBook')
 const MatcherService = make('App/Services/MatcherService')
+const TxService = make('App/Services/TransactionService')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
@@ -59,7 +60,7 @@ class TradeService {
       }
     } else {
       const errMsg = 'Amount is required.'
-      log.error(`gibrex:Unable to process new ${data.type} `, errMsg)
+      log.error(`gibrex:Unable to process new orderbook: ${errMsg}`)
       debug('Sending error message: ', errMsg)
       const dataRedirect = {
         status: 'error',
@@ -67,6 +68,45 @@ class TradeService {
       }
       return dataRedirect
     }
+
+  }
+
+  * doUpdateOrderbook(data) {
+
+     /** From TxSvc (doSuccessTxProcess)
+     * @params data
+     *            - tx_id: interger
+     */
+     const tx = yield Database.select('orderbook_id','amount')
+      .from('transactions')
+      .where('id',data.tx_id)
+
+     const bid = yield Database.select('bid_id','ask_id','amount')
+      .from('matchings')
+      .where('bid_id',tx.orderbook_id)
+
+     // TODO : looping bid checking amount
+     const totalAskAmount = '';
+
+     if (totalAskAmount == tx.amount) {
+
+          yield Database
+            .table('order_books')
+            .where('id', tx.orderbook_id)
+            .update('balance', '0')
+            .update('status', 'CLOSED')
+
+          const dataTrace  = {
+            tx_id: data.tx_id,
+            trace: '10', // Update Trade Service
+            status:'SUCCESS'
+          }
+
+          yield TxService.doUpdateTrace(dataTrace)
+     } else {
+          
+     }
+
 
   }
 
