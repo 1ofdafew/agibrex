@@ -642,11 +642,16 @@
                           <div class="iconright size">
                             <i class="fa fa-window-maximize field"></i>
                               <ul class="list">
-                                <li>Pop Out Babblebox</li>
+                                <li onclick="myFunction()">Pop Out Babblebox</li>
                               </ul>
                           </div>
                       </div>
                     </div>
+                    <script>
+                      function myFunction() {
+                          var myWindow = window.open("http://localhost:3333/babblebox", "", "width=300,height=400");
+                      }
+                    </script>
 
                   </div>
                   <div id="scrollcell">
@@ -744,7 +749,7 @@
                           <tbody>
                             <tr>
                               <td>
-                                <a class="twitter-timeline" data-width="570" data-height="600" data-theme="light" 
+                                <a class="twitter-timeline" data-width="570" data-height="600" data-theme="light"
                                    data-link-color="#FAB81E" href="https://twitter.com/gibrex_">Tweets by gibrex_
                                 </a>
                                 <div class="panel-divider4"></div>
@@ -765,7 +770,7 @@
                 </div>
               </div>
             <div class="mar_top1"></div>
-          </div> 
+          </div>
 
       </div>
     <div class="clearfix mar_top20"></div>

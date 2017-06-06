@@ -51,6 +51,8 @@ Route.group('Authentication', function () {
 
 }).prefix('/auth')
 
+//BabbleBox
+Route.get('/babblebox', 'BabbleBoxController.index')
 
 /**
  * Dashboard
@@ -63,6 +65,7 @@ Route.get('/dashboard', 'DashboardController.index')
   * Temporary Page
 */
 Route.get('/temp','TempController.index')
+Route.get('/apiAccess/api_Access','TempController.index')
 Route.get('/coming_soon','ComingSoonController.index')
 
 /**
@@ -72,17 +75,17 @@ Route.get('/inbox', 'InboxController.index')
   .as('inbox')
   .middleware('auth')
 
-  /**
-   * Gibrex
-   */
-   Route.group('Gibrex', function () {
+/**
+ * Gibrex
+ */
+ Route.group('Gibrex', function () {
 
-     Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
-     Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
-     Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
-     Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
+   Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
+   Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
+   Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
+   Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
 
-   }).prefix('/gibrex')
+ }).prefix('/gibrex')
 
 
 /**
