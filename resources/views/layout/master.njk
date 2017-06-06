@@ -111,7 +111,7 @@
               <div id="menu" class="menu">
                 <ul id="tiny">
                   {% if currentUser %}
-                  <li><a href="/home">Home</a></li>
+                  <li><a href="/home" class="active">Home</a></li>
                   {% else %}
                   <li><a href="/home" class="active">Home</a></li>
                   {% endif %}
@@ -124,14 +124,14 @@
                   {% endif %}
                   <li><a href="">Gibrex</a>
                     <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                      <li><a href="/accounts">About Gibrex</a></li>
-                      <li><a href="/accounts">Our Security</a></li>
-                      <li><a href="/user/profile">Exchange Fees</a></li>
-                      <li><a href="/security/options">Contact Us</a></li>
+                      <li><a href="">About Gibrex</a></li>
+                      <li><a href="">Our Security</a></li>
+                      <li><a href="">Exchange Fees</a></li>
+                      <li><a href="">Contact Us</a></li>
                     </ul>
                   </li>
                   {% if currentUser %}
-                  <li><a href="" class="active">Dashboard</a>
+                  <li><a href="/dashboard">Dashboard</a>
                     <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                       <li><a href="/accounts">Dashboard</a></li>
                       <li><a href="/accounts">Coin Account</a></li>
