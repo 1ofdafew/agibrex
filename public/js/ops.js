@@ -349,7 +349,7 @@ function updateTransactions() {
 					sort_column = '.order_amount';
 			}
 
-			$.getJSON("includes/ajax.trades.php?currency="+currency+((order_by) ? '&order_by='+order_by : '')+((notrades) ? '&notrades=1' : '')+((open_orders_user) ? '&user=1' : '&last_price=1')+((get_10) ? '&get10=1' : ''),function(json_data) {
+			$.getJSON(""+currency+((order_by) ? '&order_by='+order_by : '')+((notrades) ? '&notrades=1' : '')+((open_orders_user) ? '&user=1' : '&last_price=1')+((get_10) ? '&get10=1' : ''),function(json_data) {
 				var depth_chart_data = {bids:[],asks: []};
 				if (!notrades && json_data.transactions[0] != null) {
 					var i = 0;
@@ -1074,34 +1074,7 @@ function calculateBuy() {
 	});
 }
 
-function calculateBuyPrice() {
-	var user_fee = parseFloat($('#user_fee').val());
-	var user_fee1 = parseFloat($('#user_fee1').val());
 
-	var first_ask = ($('#asks_list .order_price').length > 0) ?  parseFloat($('#asks_list .order_price:first').html().replace(',','')) : 0;
-	var buy_amount = ($('#buy_amount').val()) ? parseFloat($('#buy_amount').val().replace(',','')) : 0;
-	var buy_price = ($('#buy_price').val()) ? parseFloat($('#buy_price').val().replace(',','')) : 0;
-	var buy_stop_price = ($('#buy_stop_price').val()) ? parseFloat($('#buy_stop_price').val().replace(',','')) : 0;
-	var buy_fee = (buy_price >= first_ask || $('#buy_market_price').is(':checked')) ? user_fee : user_fee1;
-	var buy_subtotal = buy_amount * (($('#buy_stop').is(':checked') && !$('#buy_limit').is(':checked')) ? buy_stop_price : buy_price);
-	var buy_commision = (buy_fee * 0.01) * buy_subtotal;
-	var buy_total = buy_subtotal + buy_commision;
-	$('#buy_subtotal').html(formatCurrency(buy_subtotal));
-	$('#buy_total').html(formatCurrency(buy_total));
-	$('#buy_user_fee').html((buy_price >= first_ask || $('#buy_market_price').is(':checked')) ? user_fee.toFixed(2) : user_fee1.toFixed(2));
-
-	var first_bid = ($('#bids_list .order_price').length > 0) ? parseFloat($('#bids_list .order_price:first').html().replace(',','')) : 0;
-	var sell_amount = ($('#sell_amount').val()) ? parseFloat($('#sell_amount').val().replace(',','')) : 0;
-	var sell_price = ($('#sell_price').val()) ? parseFloat($('#sell_price').val().replace(',','')) : 0;
-	var sell_stop_price = ($('#sell_stop_price').val()) ? parseFloat($('#sell_stop_price').val().replace(',','')) : 0;
-	var sell_fee = ((sell_price > 0 && sell_price <= first_bid) || $('#sell_market_price').is(':checked')) ? user_fee : user_fee1;
-	var sell_subtotal = sell_amount * (($('#sell_stop').is(':checked') && !$('#sell_limit').is(':checked')) ? sell_stop_price : sell_price);
-	var sell_commision = (sell_fee * 0.01) * sell_subtotal;
-	var sell_total = sell_subtotal - sell_commision;
-	$('#sell_subtotal').html(formatCurrency(sell_subtotal));
-	$('#sell_total').html(formatCurrency(sell_total));
-	$('#sell_user_fee').html(((sell_price > 0 && sell_price <= first_bid) || $('#sell_market_price').is(':checked')) ? user_fee.toFixed(2) : user_fee1.toFixed(2));
-}
 
 function buttonDisable() {
 	$('form').submit(function() {
@@ -1187,17 +1160,7 @@ function switchAccount1() {
 	});
 }
 
-function calculateWithdrawal() {
-	var btc_amount = ($('#btc_amount').val()) ? parseFloat($('#btc_amount').val().replace(',','')) : 0;
-	var btc_fee = ($('#withdraw_btc_network_fee').html()) ? parseFloat($('#withdraw_btc_network_fee').html().replace(',','')) : 0;
-	var btc_total = (btc_amount > 0) ? btc_amount - btc_fee : 0;
-	var fiat_amount = ($('#fiat_amount').val()) ? parseFloat($('#fiat_amount').val().replace(',','')) : 0;
-	var fiat_fee = ($('#withdraw_fiat_fee').html()) ? parseFloat($('#withdraw_fiat_fee').html().replace(',','')) : 0;
-	var fiat_total = (fiat_amount > 0) ? fiat_amount - fiat_fee : 0;
 
-	$('#withdraw_btc_total').html(formatCurrency(btc_total,1));
-	$('#withdraw_fiat_total').html(formatCurrency(fiat_total));
-}
 
 function expireSession() {
 	if ($('#is_logged_in').val() > 0) {

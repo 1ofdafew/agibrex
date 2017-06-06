@@ -18,7 +18,7 @@
   {% endif %}
 
   <div class="testimonials-4">
-    <div class="clearfix mar_top2"></div>
+    <div class="clearfix mar_top3"></div>
       <div class="three_fourthpx">
           {% if old('error') %}
           <div class="message-box-wrap">
@@ -494,8 +494,8 @@
             <thead>
               <tr>
                 <th>Last Price</th>
-                <th>1h Change</th>
-                <th>24h Change</th>
+                <th>1h</th>
+                <th>24h</th>
                 <th>24h Volume</th>
               </tr>
             </thead>
@@ -642,11 +642,16 @@
                           <div class="iconright size">
                             <i class="fa fa-window-maximize field"></i>
                               <ul class="list">
-                                <li>Pop Out Babblebox</li>
+                                <li onclick="myFunction()">Pop Out Babblebox</li>
                               </ul>
                           </div>
                       </div>
                     </div>
+                    <script>
+                      function myFunction() {
+                          var myWindow = window.open("http://localhost:3333/babblebox", "", "width=300,height=400");
+                      }
+                    </script>
 
                   </div>
                   <div id="scrollcell">
