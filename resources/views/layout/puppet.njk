@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<!-- saved from url=(0030)https://1btcxe.com/account.php -->
 <html lang="en" class="no-js js">
-  <!--<![endif]-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Gibrex - The World Trusted Digital Exchange</title>
-    <!--<base href="https://1btcxe.com/">-->
     <base href="/">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -35,8 +32,8 @@
     <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
     <link rel="stylesheet" href="/css/colour.css">
 
-    {% block head %}
-    {% endblock %}
+
+
 
   </head>
 
@@ -109,10 +106,10 @@
                       <li><a href="/accounts">Order Book</a></li>
                       <li><a href="">Gibrex</a>
                         <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                          <li><a href="/accounts">About Gibrex</a></li>
-                          <li><a href="/accounts">Our Security</a></li>
-                          <li><a href="/user/profile">Exchange Fees</a></li>
-                          <li><a href="/security/options">Contact Us</a></li>
+                          <li><a href="/gibrex/about_Gibrex">About Gibrex</a></li>
+                          <li><a href="/gibrex/our_Security">Our Security</a></li>
+                          <li><a href="/gibrex/exchange_Fees">Exchange Fees</a></li>
+                          <li><a href="/gibrex/contactUs">Contact Us</a></li>
                         </ul>
                       </li>
                       {% if currentUser %}
@@ -162,7 +159,7 @@
                 <li>
                   <div class="buttoninbox">
                     <span class="buttonbadge">12</span>
-                    <a href="">Inbox</a>
+                    <a href="/inbox">Inbox</a>
                   </div>
                 </li>
                 <li><a href="">Balance</a></li>
@@ -322,50 +319,51 @@ document.getElementById('exampleImage').addEventListener('click', function() {
         </script>
 
         <script type="text/javascript">
-  jQuery(document).ready(function () {
-  
-    (function($){
-      $.fn.styleddropdown = function(){
-        return this.each(function(){
-          var obj = $(this)
-          obj.find('.field').click(function() { //onclick event, 'list' fadein
-            obj.find('.list').fadeIn(400);
-  
-            $(document).keyup(function(event) { //keypress event, fadeout on 'escape'
-              if(event.keyCode == 27) {
-                obj.find('.list').fadeOut(400);
-              }
+jQuery(document).ready(function () {
+
+  (function($){
+    $.fn.styleddropdown = function(){
+      return this.each(function(){
+        var obj = $(this)
+        obj.find('.field').click(function() { //onclick event, 'list' fadein
+          obj.find('.list').fadeIn(400);
+
+          $(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+            if(event.keyCode == 27) {
+              obj.find('.list').fadeOut(400);
+            }
+          });
+
+          obj.find('.list').hover(function(){ },
+            function(){
+              $(this).fadeOut(400);
+
             });
-  
-            obj.find('.list').hover(function(){ },
-              function(){
-                $(this).fadeOut(400);
-  
-              });
-          });
-  
-          obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-            obj.find('.field')
-              .val($(this).html())
-            // .css({
-            // 	'background':'#fff',
-            // 	'color':'#333'
-            // });
-            obj.find('.list').fadeOut(400);
-          });
         });
-      };
-    })(jQuery);
-  
-    $(function(){
-      $('.size').styleddropdown();
-    });
-  
+
+        obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+          obj.find('.field')
+            .val($(this).html())
+          // .css({
+          // 	'background':'#fff',
+          // 	'color':'#333'
+          // });
+          obj.find('.list').fadeOut(400);
+        });
+      });
+    };
+  })(jQuery);
+
+  $(function(){
+    $('.size').styleddropdown();
   });
-          </script>
+
+});
+        </script>
 
 
         {% block docready %}{% endblock %}
 
   </body>
 </html>
+
