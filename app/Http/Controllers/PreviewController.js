@@ -31,8 +31,12 @@ class PreviewController {
       try {
         yield UserService.findByOrFail('verification_code', data.code)
         response.redirect('/home')
-      } else {
-        response.redirect('/')
+      } catch(e) {
+        // ok, error in verification code
+        //
+        const errMsg = 'Invalid invitation code.'
+        yield request.with({ error: errMsg }).flash()
+        response.redirect('back')
       }
     }
   }
