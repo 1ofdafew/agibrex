@@ -22,15 +22,24 @@ class ExchangeController {
     const currentData = yield MDService.getBitcoinCurrentData()
     // log.info('BTC current data:', currentData)
 
+    // user maybe null as exchange is public, until he logs in.
+    var ethWallet = ''
+      , btcWallet = ''
+      , curBalance1 = 0
+      , curBalance2 = 0
+
     const user = yield request.auth.getUser()
-    const w = yield WalletService.getWallet(user.username)
-    const ethWallet = yield WalletService.getBalance('ethereum', w.address)
-    const btcWallet = yield WalletService.getBalance('bitcoin', w.address)
+    if (user ) {
+      const w = yield WalletService.getWallet(user.username)
+      ethWallet = yield WalletService.getBalance('ethereum', w.address)
+      btcWallet = yield WalletService.getBalance('bitcoin', w.address)
+
+      const curBalance1 = ethWallet.data.balance.available //ETH
+      const curBalance2 = ethWallet.data.balance.available
+    }
     // response.send(btcWallet)
 
     const defaultBuyCurrency = 'ETH'
-    const curBalance1 = ethWallet.data.balance.available //ETH
-    const curBalance2 = ethWallet.data.balance.available
 
     // TODO : Get Balance BTC
     const balance = '0.0'
