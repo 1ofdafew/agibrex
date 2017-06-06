@@ -97,7 +97,7 @@
       <div class="container">
 
         <!-- Logo -->
-        <div class="one_fourth"><a href="/" id="logo"></a></div>
+        <div class="one_fourth"><a href="/home" id="logo"></a></div>
 
         <!-- 1. dapatkan route
         2. if else route
@@ -111,9 +111,9 @@
               <div id="menu" class="menu">
                 <ul id="tiny">
                   {% if currentUser %}
-                  <li><a href="http://localhost:3333/">Home</a></li>
+                  <li><a href="/home">Home</a></li>
                   {% else %}
-                  <li><a href="http://localhost:3333/" class="active">Home</a></li>
+                  <li><a href="/home" class="active">Home</a></li>
                   {% endif %}
                   <li><a href="/exchange">Exchange</a></li>
                   {% if currentUser %}
