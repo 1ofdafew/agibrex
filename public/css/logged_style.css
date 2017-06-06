@@ -1315,6 +1315,28 @@ a.button_slider:hover {
 	-khtml-opacity: 1;
 	opacity: 1;
 }
+a.button_slider02 {
+	float: left;
+	padding: 13px 30px;
+	margin: 30px 20px 0 0;
+	font-weight: medium;
+	font-size: 18px;
+	text-transform: uppercase;
+	color: #fff;
+	border: 3px solid #00bdca;
+	border-radius: 8px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-moz-opacity: 1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
+a.button_slider02:hover {
+	background-color: #00bdca;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	-moz-opacity: 1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
 .slider_sec_box {
 	position: absolute;
 	width: 280px;
@@ -4376,31 +4398,7 @@ h3 .highlight {
 	background: #9325ea;
 }
 /* buttons */
-.button, button {
-	text-decoration: none;
-	text-align: center;
-	color: #585656;
-	display: inline-block;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	height: 32px;
-	line-height: 32px;
-	padding: 0px 15px;
-	position: relative;
-	outline: none;
-	overflow: hidden; /* removes extra side padding in IE */
-	cursor: pointer;
-	border: 1px solid #dcdcdc;/* IE */
-	border: rgba(0, 0, 0, .2) 1px solid;/* Saf4+, Chrome, FF3.6 */
-	border-bottom: rgba(0, 0, 0, .4) 1px solid;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: normal;
-	text-transform: uppercase;
-	/*background: -moz-linear-gradient( center top, rgba(255, 255, 255, .1) 0%, rgba(0, 0, 0, .1) 100% );/* FF3.6 */*/
-	background: -webkit-gradient( linear, center top, center bottom, from(rgba(255, 255, 255, .1)), to(rgba(0, 0, 0, .1)) );/* Saf4+, Chrome */
-	background-color: white;
-}
+
  .button::-moz-focus-inner {
  border: none; /* overrides extra padding in Firefox */
 }
