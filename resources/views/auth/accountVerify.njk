@@ -16,9 +16,9 @@
   <div class="container">
     <!--<h2>Login</h2>-->
     {% if old('error') %}
-      <div class="alert alert-warning" role="alert">
-        {{ old('error') }}
-      </div>
+    <div class="alert alert-warning" role="alert">
+       <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+    </div>
     {% endif %}
 
     {{ form.open({ action: 'Auth/AccountVerifyController.verify' }) }}
@@ -29,7 +29,7 @@
         <div class="separate" style="margin-top: 10px;"></div>
 
         <br>
-        <h4>
+        <h4 style="color: #666">
           Please enter the verification code sent to you via {{ old('verifyMethod', 'email') }}
           at {{ old('email') }}
         </h4>
