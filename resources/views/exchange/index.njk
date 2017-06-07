@@ -95,7 +95,7 @@
                      <div class="value">
                        <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
                        <span id="buy_user_available">{{curBalance1}}</span>
-                       <input type="hidden" id="buy_available" value="{{curBalance1}}">
+                       <input type="hidden" id="buy_available" name="buy_available" value="{{curBalance1}}">
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -367,6 +367,15 @@
            </div>
 
            <div class="clearfix mar_top4"></div>
+
+           <div id="container_mdepth" style="min-width: 310px; height: 00px; margin: 0 auto"></div>
+           <script type="text/javascript" src="/graphs/mdepth.js"></script>
+
+           <div class="clearfix mar_top20"></div>
+           <div class="clearfix mar_top20"></div>
+           <div class="clearfix mar_top20"></div>
+           <div class="clearfix mar_top20"></div>
+
            <div id="filters_area">
 
             <!-- Buy Orders -->
@@ -675,7 +684,7 @@
                             <td><b>Zlatan&nbsp;-&nbsp;</b>Yelled a coin got hacked in the troll box is exactly what you want to stay away from.
                             </td>
                           </tr>
-                          
+
                         </tbody>
                       </table>
                     </div>
@@ -838,12 +847,19 @@ $(window).resize(function() {
             var maxBuy = buy_available / trcPerUnit;
             var maxCanBuy = maxBuy.toFixed(0)
 
+
             if (parseFloat(totalBuyAmt) > buy_available) {
-                $("#buy_amount").val(maxCanBuy);
+               $("#buy_amount").val(maxCanBuy);
             }
 
-            $('#buy_subtotal').html(totalBuyAmt);
-            $('#buy_total').html(totalBuyAmt);
+            if (maxCanBuy == 0) {
+               $('#buy_subtotal').html(0.0);
+               $('#buy_total').html(0.0);
+            } else {
+               $('#buy_subtotal').html(totalBuyAmt);
+               $('#buy_total').html(totalBuyAmt);
+            }
+
         });
 
         $('#sell_amount').bind('keyup blur', function () {

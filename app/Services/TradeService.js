@@ -29,7 +29,7 @@ class TradeService {
         orderBook.to_asset = data.to_asset
         orderBook.amount = data.amount
         orderBook.price = data.price
-        orderBook.status = 1
+        orderBook.status = 'ACTIVE'
         yield orderBook.save()
 
         if (orderBook.isNew()) {
