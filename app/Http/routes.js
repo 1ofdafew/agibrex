@@ -209,6 +209,7 @@ Route.group('API',function () {
   Route.get('/transaction/show','TransactionController.show')
 
   //OrderBook
+  Route.get('order_book', 'OrderBookController.view')
   Route.get('orderbook', 'OrderBookController.index')
   Route.post('orderbook', 'OrderBookController.store')
   Route.post('orderbook/delete', 'OrderBookController.delete')
