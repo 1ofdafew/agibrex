@@ -88,10 +88,10 @@ Route.get('/inbox', 'InboxController.index')
  */
  Route.group('Gibrex', function () {
 
-   Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
-   Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
-   Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
-   Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
+   Route.get('/about/us', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
+   Route.get('/security/info', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
+   Route.get('/exchange/fees', 'Gibrex/GibrexController.fees').middleware('auth')
+   Route.get('/contact/us', 'Gibrex/GibrexController.contactUs').middleware('auth')
 
  }).prefix('/gibrex')
 
