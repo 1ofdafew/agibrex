@@ -6,6 +6,10 @@ const OBService = make('App/Services/OrderBookService')
 
 class OrderBookController {
 
+  * view(request, response) {
+    yield response.sendView('order_book')
+  }
+
   * index(request, response) {
     const ob = yield OBService.index()
     response.json(ob)

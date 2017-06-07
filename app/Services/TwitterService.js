@@ -7,10 +7,6 @@ const log = require('npmlog')
 
 class TwitterService {
 
-  // static get inject () {
-  //   return ['App/Model/OrderBook']
-  // }
-
   * getTweet() {
 
     const client = new Twitter({
@@ -25,9 +21,8 @@ class TwitterService {
     client.get('statuses/user_timeline', params, (error, tweets, response) => {
       if (!error) {
         tweets.forEach((tweet, idx) => {
-          data.push(tweet.text);
+          data.push(tweet.text)
           log.info('tweet: >> ', tweet.text)
-          // console.log('tweet: >> ', tweet.text)
         })
       }
       // return data
