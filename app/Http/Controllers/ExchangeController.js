@@ -275,9 +275,9 @@ class ExchangeController {
       user: user,
       price: price,
       amount: amount,
-      to_asset: request.input('buy_currency'),
+      to_asset: 'BTC',
       total: amount * price,
-      asset: 'BTC',
+      asset: request.input('buy_currency'),
       type: 'BID'
     }
 
@@ -307,7 +307,7 @@ class ExchangeController {
       type: 'ASK'
 
     }
-    
+
     const doAsk = yield TradeService.doAskBid(data)
 
 

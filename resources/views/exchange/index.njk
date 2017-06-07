@@ -406,22 +406,22 @@
                        <td style="">
 
                         <span class="order_value">
-                            {% if showbid.to_asset == 'BTC' %}
-                                Btc {{coinInBtc}}
-                            {% endif %}
                             {% if showbid.to_asset == 'ETH' %}
-                                Eth {{coinInEth}}
+                                Btc {{coinInBtc | round(8, 'floor')}}
+                            {% endif %}
+                            {% if showbid.to_asset == 'BTC' %}
+                                Eth {{coinInEth | round(8, 'floor')}}
                             {% endif %}
 
                         </span></td>
                        <td style="">
                            <span class="order_amount">
 
-                               {% if showbid.to_asset == 'BTC' %}
+                               {% if showbid.to_asset == 'ETH' %}
                                 Btc {{ (coinInBtc * showbid.amount) | round(8, 'floor') }}
                                {% endif %}
 
-                               {% if showbid.to_asset == 'ETH' %}
+                               {% if showbid.to_asset == 'BTC' %}
                                 Eth {{ (coinInEth * showbid.amount) | round(8, 'floor') }}
                                {% endif %}
 
@@ -461,13 +461,13 @@
                             {% if showask.to_asset == 'BTC' %}
 
                             <span class="order_value">
-                              Btc {{ coinInBtc }}
+                              Btc {{ coinInBtc | round(8, 'floor') }}
                             </span>
                             {% endif %}
 
                             {% if showask.to_asset == 'ETH' %}
                             <span class="order_value">
-                              Eth {{ coinInEth }}
+                              Eth {{ coinInEth | round(8, 'floor') }}
                             </span>
                             {% endif %}
                         </td>
