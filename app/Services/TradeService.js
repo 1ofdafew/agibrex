@@ -18,26 +18,36 @@ class TradeService {
 
   * doAskBid (data) {
 
+    log.info(`doAskBid:Starting doAskBid Process...`)
+
     if (data) {
 
+      log.info(`doAskBid:Data founded...`)
+
       try {
-        // const data=request.only(['type', 'asset', 'amount', 'price','status','to_asset'])
-        const orderBook = new this.OrderBook(data, data.user)
-        // const orderBook = new OrderBook(data)
+
+        log.info(`doAskBid:Try processing data...`)
+
+        //const orderBook = new this.OrderBook(data, data.user)
+        const orderBook = new this.OrderBook()
+
         orderBook.type = data.type
         orderBook.asset = data.asset
         orderBook.to_asset = data.to_asset
         orderBook.amount = data.amount
+        orderBook.balance = data.amount
         orderBook.price = data.price
         orderBook.status = 'ACTIVE'
         yield orderBook.save()
+
+        log.info(`doAskBid:OrderBook saved...`)
 
         if (orderBook.isNew()) {
           throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
         }
         // const freshInstance = yield this.OrderBook.find(orderBook.id)
         // match to do the matching new ask/bid
-        const matching = yield MatcherService.compare(data)
+        const matching = yield MatcherService.tryMatch(data)
         const dataRedirect = {
           status: 'ok',
           success: `Successfully insert new ${data.type}.`

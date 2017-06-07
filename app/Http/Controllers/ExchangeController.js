@@ -43,13 +43,16 @@ class ExchangeController {
         log.info('No wallets for user yet')
       }
     }
-    // response.send(btcWallet)
+    // response.send(ethWallet)
+    // curBalance1 = '10' // Testing
+    // curBalance2 = '10' // Testing
 
     const defaultBuyCurrency = 'ETH'
 
-    // TODO : Get Balance BTC
-    const balance = '0.0'
-    const price = '2782.99'
+    // Asset Balance
+    // const balance = btcWallet.data.balance.available
+    const balance = '1.0' // Testing
+    // const price = '2782.99'
     const fee = '0.00'
 
     // Call showask
@@ -71,13 +74,17 @@ class ExchangeController {
     // const coinInEth = '11.19' // Temporary
     try {
       // These spot price are in cents, to eliminate rounding errors
-      const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
-      const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+      var BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+      var ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+
       log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
       coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
+
     } catch (e) {
       log.error('Unable to find the spot price')
     }
+
+    const price = (BTCSpotPrice/100).toFixed( 2 )
 
     yield response.sendView(
       'exchange.index',
@@ -254,6 +261,16 @@ class ExchangeController {
          response.redirect('/exchange/btc')
     }
 
+    if (amount == 0) {
+
+         const dataError = {
+           status: 'error',
+           error: 'Amount is required. Please enter valid amount.'
+         }
+         yield request.with(dataError).flash()
+         response.redirect('/exchange/btc')
+    }
+
     const data = {
       user: user,
       price: price,
@@ -263,6 +280,8 @@ class ExchangeController {
       asset: 'BTC',
       type: 'BID'
     }
+
+    // response.send(data)
 
     const doAsk = yield TradeService.doAskBid(data)
 
@@ -276,7 +295,7 @@ class ExchangeController {
   * sellbtc (request, response) {
     const user = yield request.auth.getUser()
     const amount = request.input('sell_amount')
-    const price = '2228.00'
+    const price = request.input('sell_price')
 
     const data = {
       user: user,
@@ -288,7 +307,7 @@ class ExchangeController {
       type: 'ASK'
 
     }
-
+    
     const doAsk = yield TradeService.doAskBid(data)
 
 
