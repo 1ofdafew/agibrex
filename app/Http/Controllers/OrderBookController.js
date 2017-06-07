@@ -30,11 +30,11 @@ class OrderBookController {
     response.json({status: 'ok', data: ob})
   }
 
-  * showbid(asset) {
+  * showbid(to_asset) {
     const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
       .from('order_books')
       .where('type','bid')
-      .where('asset',asset)
+      .where('to_asset',to_asset)
       .where('status','ACTIVE')
       .orderBy('price', 'desc')
       .orderBy('created_at','asc')
