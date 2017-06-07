@@ -1,13 +1,14 @@
 'use strict'
 
-const OrderBook = use('App/Model/OrderBook')
-const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
-const TradeService = make('App/Services/TradeService')
-const WalletService = make('App/Services/WalletService')
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
 const log = require('npmlog')
 
+const OrderBook = use('App/Model/OrderBook')
+const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
+
+const TradeService = make('App/Services/TradeService')
+const WalletService = make('App/Services/WalletService')
 const CoindeskService = make('App/Services/CoindeskService')
 const MDService = make('App/Services/MarketDataService')
 
@@ -30,12 +31,17 @@ class ExchangeController {
 
     const user = yield request.auth.getUser()
     if (user ) {
-      const w = yield WalletService.getWallet(user.username)
-      ethWallet = yield WalletService.getBalance('ethereum', w.address)
-      btcWallet = yield WalletService.getBalance('bitcoin', w.address)
+      try {
+        const w = yield WalletService.getWallet(user.username)
+        ethWallet = yield WalletService.getBalance('ethereum', w.address)
+        btcWallet = yield WalletService.getBalance('bitcoin', w.address)
 
-      const curBalance1 = ethWallet.data.balance.available //ETH
-      const curBalance2 = ethWallet.data.balance.available
+        const curBalance1 = ethWallet.data.balance.available //ETH
+        const curBalance2 = ethWallet.data.balance.available
+      } catch (e) {
+        // user don't create the wallet yet
+        log.info('No wallets fo ruser yet')
+      }
     }
     // response.send(btcWallet)
 
@@ -55,18 +61,23 @@ class ExchangeController {
     // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
     // response.send(result)
 
-    // These spot price are in cents, to eliminate rounding errors
-    const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
-    const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
-    log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
 
-    const coinInBtc = '' // Temporary
+    var coinInBtc = '' // Temporary
+      , coinInEth = ''
 
     // 1 BTC = 2228.00
     // 1 ETH = 199.00
     // 1 BTC = 2228 / 199 = 11.19
     // const coinInEth = '11.19' // Temporary
-    const coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
+    try {
+      // These spot price are in cents, to eliminate rounding errors
+      const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+      const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+      log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
+      coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
+    } catch (e) {
+      log.error('Unable to find the spot price')
+    }
 
     yield response.sendView(
       'exchange.index',
