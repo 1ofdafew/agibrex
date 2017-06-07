@@ -4,8 +4,13 @@ const Env = use('Env')
 
 const Twitter = require('twitter')
 const log = require('npmlog')
+const co = require('co')
 
 class TwitterService {
+
+  constructor() {
+    this.data = []
+  }
 
   * getTweet() {
 
@@ -17,17 +22,19 @@ class TwitterService {
     })
 
     const params = { screen_name: 'gibrex_' }
-    var data =new Array;
-    client.get('statuses/user_timeline', params, (error, tweets, response) => {
-      if (!error) {
-        tweets.forEach((tweet, idx) => {
-          data.push(tweet.text)
-          log.info('tweet: >> ', tweet.text)
-        })
-      }
-      // return data
+    const self = this
+    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+      co(function * () {
+        if (!error) {
+          self.data = []
+          yield tweets.forEach(function (tweet, idx) {
+            self.data.push(tweet.text)
+          })
+        }
+      })
     })
-    return data
+    log.info('data-return:', this.data)
+    return this.data
   }
 
 }
