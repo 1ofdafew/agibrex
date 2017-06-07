@@ -40,7 +40,7 @@ class ExchangeController {
         const curBalance2 = ethWallet.data.balance.available
       } catch (e) {
         // user don't create the wallet yet
-        log.info('No wallets fo ruser yet')
+        log.info('No wallets for user yet')
       }
     }
     // response.send(btcWallet)
