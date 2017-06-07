@@ -3,6 +3,7 @@
 {% block content %}
 
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/marked@0.3.6"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
@@ -309,6 +310,7 @@
                    </div>
                    -->
                    <!-- <div class="mar_top3"></div> -->
+                   <input name="sell_price" id="sell_price" value="{{price}}" type="hidden" readonly>
                    <div id="sell_stop_container" class="param" style="display:none;">
                      <label for="sell_stop_price">Stop Price</label>
                      <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
@@ -405,22 +407,22 @@
                        <td style="">
 
                         <span class="order_value">
-                            {% if showbid.to_asset == 'BTC' %}
-                                Btc {{coinInBtc}}
-                            {% endif %}
                             {% if showbid.to_asset == 'ETH' %}
-                                Eth {{coinInEth}}
+                                Btc {{coinInBtc | round(8, 'floor')}}
+                            {% endif %}
+                            {% if showbid.to_asset == 'BTC' %}
+                                Eth {{coinInEth | round(8, 'floor')}}
                             {% endif %}
 
                         </span></td>
                        <td style="">
                            <span class="order_amount">
 
-                               {% if showbid.to_asset == 'BTC' %}
+                               {% if showbid.to_asset == 'ETH' %}
                                 Btc {{ (coinInBtc * showbid.amount) | round(8, 'floor') }}
                                {% endif %}
 
-                               {% if showbid.to_asset == 'ETH' %}
+                               {% if showbid.to_asset == 'BTC' %}
                                 Eth {{ (coinInEth * showbid.amount) | round(8, 'floor') }}
                                {% endif %}
 
@@ -460,13 +462,13 @@
                             {% if showask.to_asset == 'BTC' %}
 
                             <span class="order_value">
-                              Btc {{ coinInBtc }}
+                              Btc {{ coinInBtc | round(8, 'floor') }}
                             </span>
                             {% endif %}
 
                             {% if showask.to_asset == 'ETH' %}
                             <span class="order_value">
-                              Eth {{ coinInEth }}
+                              Eth {{ coinInEth | round(8, 'floor') }}
                             </span>
                             {% endif %}
                         </td>
@@ -741,15 +743,14 @@
                     </div>
                   </div>
                   <div>
+                    {% verbatim %}
                     <div class="panel-body03">
                       <div class="one_fullpx">
                         <table class="table-list03 trades04">
                           <tbody>
                             <tr>
                               <td>
-                                <a class="twitter-timeline" data-width="570" data-height="600" data-theme="light"
-                                   data-link-color="#FAB81E" href="https://twitter.com/gibrex_">Tweets by gibrex_
-                                </a>
+                                <a> {{ index }} </a>
                                 <div class="panel-divider4"></div>
                                 <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
                               </td>
@@ -764,6 +765,7 @@
                         </table>
                       </div>
                     </div>
+                    {% endverbatim %}
                   </div>
                 </div>
               </div>
@@ -845,8 +847,8 @@ $(window).resize(function() {
             var totalBuyAmt = totalBuy.toFixed(8)
 
             var maxBuy = buy_available / trcPerUnit;
-            var maxCanBuy = maxBuy.toFixed(0)
 
+            var maxCanBuy = maxBuy.toFixed(8)
 
             if (parseFloat(totalBuyAmt) > buy_available) {
                $("#buy_amount").val(maxCanBuy);
@@ -870,20 +872,21 @@ $(window).resize(function() {
                 $("#sell_amount").val(sell_available);
             }
 
-            var total = sell_amount * sell_price;
+            var total = parseFloat(sell_amount * sell_price);
             var sell_subtotal = total.toFixed(2)
+
+            var maxSell = parseFloat(sell_available);
+
+            if (sell_amount > maxSell) {
+
+               $("#sell_amount").val(maxSell);
+               sell_subtotal = maxSell * sell_price;
+            }
+
             $('#sell_subtotal').html(sell_subtotal);
             $('#sell_total').html(sell_subtotal);
-        });
 
-        // $("#sell_amount").bind('keyup blur', function () {
-        //     var sell_amount = $("#sell_amount").val();
-        //     var total = sell_amount * sell_price;
-        //     var sell_subtotal = total.toFixed(2)
-        //     $('#sell_subtotal').html(sell_subtotal);
-        //     $('#sell_total').html(sell_subtotal);
-        //
-        // });
+        });
 
     });
 </script>

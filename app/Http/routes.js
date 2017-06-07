@@ -238,5 +238,6 @@ Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
 Route.get('/obchart/bid', 'ObchartController.bid')
 Route.get('/obchart/ask', 'ObchartController.ask')
 Route.on('/mdepth').render('orderbook.chart')
+Route.get('/order_book', 'OrderBookController.view')
 
 Route.get('/twitter', 'TwitterController.index')

@@ -9,10 +9,10 @@ class OrderBook extends Lucid {
   static boot () {
     super.boot()
     this.addHook('beforeCreate', 'OrderBook.createUUID')
-  }  
+  }
 
   static get visible(){
-    return ['id', 'uuid', 'type', 'asset', 'to_asset', 'amount', 'price', 'status','created_at']
+    return ['id', 'uuid', 'type', 'asset', 'to_asset', 'amount', 'balance', 'price', 'status','created_at']
   }
 
   user () {

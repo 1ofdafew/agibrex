@@ -7,8 +7,9 @@ class TwitterController {
 
   * index(request, response) {
     const twt = yield TwitterService.getTweet()
-    response.send(1)
-    response.json(twt)
+    log.info('this tweet: >> ', twt)
+    response.ok(twt)
+    // response.ok(1)
   }
 
 }
