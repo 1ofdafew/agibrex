@@ -112,10 +112,10 @@ class WalletService {
       var resp = []
       for (var i=0; i < accounts.length; i++) {
         const acc = accounts[i]
-        // log.info('const acc =', accounts[i])
+        //log.info('const acc =', accounts[i])
         const bal = yield this.getBalance(acc.type.toLowerCase(), acc.address)
         log.info(`Balance for ${acc.address}:`, bal)
-        resp.push({type: acc.type, balance: bal.data.balance})
+        resp.push({type: acc.type, address: acc.address, balance: bal.data.balance})
       }
       return resp 
     } catch(e) {

@@ -14,29 +14,30 @@
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Bitcoin</span>
           </h3>
           <div class="clear"></div>
+          {% if accounts.bitcoin %}
+          <h6>{{ accounts.bitcoin.address }}</h6>
           <div class="dotted"></div>
-        {% if accounts.bitcoin %}
-          <!-- <h3 class="section_label01"> <span class="right">&nbsp;&nbsp;&nbsp;Bitcoin Available Balance</span> </h3> -->
           <div class="section_label02">
-
             <h6>Available</h6>
-            <div class="amountbalance" id="decimals1">{{ accounts.bitcoin.balance.available }}</div>
+            <div class="amountbalance" id="decimals1">
+              {{ accounts.bitcoin.balance.available }}
+            </div>
           </div>
           <div class="clear"></div>
           <div class="section_label02">
-
             <h6>Pending</h6>
-            <div class="amountbalance" id="decimals1">{{ accounts.bitcoin.balance.pending }}</div>
-
+            <div class="amountbalance" id="decimals1">
+              {{ accounts.bitcoin.balance.pending }}
+            </div>
           </div>
           <div class="clear"></div>
-        {% else %}
+          {% else %}
           <p class="notice" style="margin-top: 20px;">
             <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
           <div class="mar_top2"></div>
           <a href="/accounts/bitcoin" class="but_user">Create Account</a>
-        {% endif %}
+          {% endif %}
         </div>
       </div>
       <div class="one_thirdpx">
@@ -45,11 +46,10 @@
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Tracto</span>
           </h3>
           <div class="clear"></div>
+          {% if accounts.tracto %}
+          <h6>{{ accounts.tracto.address | truncate(40) }}</h6>
           <div class="dotted"></div>
-        {% if accounts.tracto %}
-          <!-- <h4 class="section_label01">&nbsp;&nbsp;&nbsp;Tracto Available Balance</h4> -->
           <div class="section_label02">
-
             <h6>Available</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.tracto.balance.available }}</div>
 
@@ -60,13 +60,13 @@
             <div class="amountbalance" id="decimals1">{{ accounts.tracto.balance.pending }}</div>
           </div>
           <div class="clear"></div>
-        {% else %}
+          {% else %}
           <p class="notice" style="margin-top: 20px;">
             <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
           <div class="mar_top2"></div>
           <a href="/accounts/tracto" class="but_user">Create Account</a>
-        {% endif %}
+          {% endif %}
         </div>
       </div>
       <div class="one_thirdpx lastpx">
@@ -75,9 +75,9 @@
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Ethereum</span>
           </h3>
           <div class="clear"></div>
+          {% if accounts.ethereum %}
+          <h6>{{ accounts.ethereum.address }}</h6>
           <div class="dotted"></div>
-          <!-- <h3 class="section_label01"> <span class="right">&nbsp;&nbsp;&nbsp;Ethereum Available Balance</span> </h3> -->
-        {% if accounts.ethereum %}
           <div class="section_label02">
             <h6>Available</h6>
             <div class="amountbalance" id="decimals1">{{ accounts.ethereum.balance.available }}</div>
@@ -89,14 +89,13 @@
           </div>
           <div class="clear"></div>
           -->
-        {% else %}
+          {% else %}
           <p class="notice" style="margin-top: 20px;">
             <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;No account created.
           </p>
           <div class="mar_top2"></div>
           <a href="/accounts/ethereum" class="but_user">Create Account</a>
-
-        {% endif %}
+          {% endif %}
         </div>
       </div>
 
