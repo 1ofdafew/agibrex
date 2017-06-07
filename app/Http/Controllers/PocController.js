@@ -4,9 +4,13 @@ const log = require('npmlog')
 
 class PocController {
 
-  * index (request, response) {
+  * orderbook (request, response) {
     log.info('Sending to POC index page')
-    yield response.sendView('poc.index')
+    yield response.sendView('poc.orderbook')
+  }
+
+  * message (request, response) {
+    yield response.sendView('poc.message')
   }
 
 }

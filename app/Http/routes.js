@@ -29,7 +29,8 @@ Route.on('/home').render('welcome')
  * POC Pages
  */
 Route.group('Proof of Concept', function () {
-  Route.get('/', 'PocController.index')
+  Route.get('/', 'PocController.orderbook')
+  Route.get('/message', 'PocController.message')
 }).prefix('/poc')
 
 /**

@@ -1,0 +1,72 @@
+{% extends 'poc/index.njk' %}
+
+{% block content %}
+
+  <script type="text/javascript" src="https://unpkg.com/marked@0.3.6"></script>
+
+  {% verbatim %}
+  <div id="editor">
+    <div class="mar_top10"></div>
+    <div id="container" class="col-md-4 col-md-offset-1">
+    <h4>{{ message }}</h4>
+    <hr /> 
+      <textarea :value="input" @input="update"></textarea>
+      <div v-html="compiledMarkdown"></div>
+    </div>
+    <div class="mar_top10"></div>
+  </div>
+  {% endverbatim %}
+
+  <style>
+    textarea, #editor div {
+      display: inline-block;
+      width: 49%;
+      height: 100%;
+      vertical-align: top;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+    
+    textarea {
+      border: none;
+      border-right: 1px solid #ccc;
+      resize: none;
+      outline: none;
+      background-color: #f6f6f6;
+      font-size: 14px;
+      font-family: 'Monaco', courier, monospace;
+      padding: 20px;
+    }
+    
+    code {
+      color: #f66;
+    }
+  </style>
+
+{% endblock %}
+
+{% block docready %}
+
+  <script type="text/javascript">
+    new Vue({
+      el: '#editor',
+      //delimiters: ['${', '}'],
+      data: {
+        input: '# hello',
+        message: 'Markdown'
+      },
+      computed: {
+        compiledMarkdown: function () {
+          return marked(this.input, { sanitize: true })
+        },
+      },
+      methods: {
+        update: _.debounce(function (e) {
+          this.input = e.target.value
+        }, 300)
+      }
+    })
+  </script>
+
+{% endblock %}
+

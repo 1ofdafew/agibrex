@@ -1,0 +1,166 @@
+{% extends 'poc/index.njk' %}
+
+{% block content %}
+
+  {% verbatim %}
+  <div id="app">
+    <div class="mar_top10"></div>
+    <div id="container" class="col-md-4 col-md-offset-1">
+      <h4>Add OrderBook</h4>
+      <hr />
+      <div class="alert alert-success" role="alert" v-show="message">{{ message }}</div>
+      <div class="alert alert-danger" role="alert" v-show="error">{{ error }}</div>
+      <form class="form-horizontal" method="post" v-on:submit.prevent="addOrderBook">
+        <div class="form-group">
+          <label for="asset">Asset</label>
+          <select name="asset" class="form-control" v-model="newOrder.asset">
+            <option value="" selected>Select one...</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="TRC">TRC</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="asset">To Asset</label>
+          <select name="asset" class="form-control" v-model="newOrder.to_asset">
+            <option value="" selected>Select one...</option>
+            <option value="BTC">BTC</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="TRC">TRC</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input type="text" class="form-control" name="amount" placeholder="Enter amount" v-model="newOrder.amount">
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text" class="form-control" name="price" v-model="newOrder.price">
+        </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <div class="">
+            <div class="radio">
+              <label>
+                <input type="radio" name="type" value="BID" v-model="newOrder.type" checked>Bid&nbsp;&nbsp;&nbsp;
+              </label>
+              <label>
+                <input type="radio" name="type" value="ASK" v-model="newOrder.type">Ask
+              </label>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" :disabled="order_added">Add Order</button>
+        </div>
+      </form>
+    </div>
+    <div id="container" class="col-md-4 col-md-offset-1">
+      <h4>Results</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Asset</th>
+            <th>To Asset</th>
+            <th>Amount</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="o in orders">
+            <td>{{ o.id }}</td>
+            <td>{{ o.type }}</td>
+            <td>{{ o.asset }}</td>
+            <td>{{ o.to_asset }}</td>
+            <td>{{ o.amount }}</td>
+            <td>{{ o.price }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mar_top10"></div>
+  </div>
+  {% endverbatim %} 
+
+{% endblock %}
+
+
+{% block docready %}
+
+  <script type="text/javascript">
+    const URL = '/api/v1/orderbook'
+    new Vue({
+      el: '#app',
+      data: {
+        error: null,
+        message: null,
+        orders: null,
+        order_added: false,
+        newOrder: {
+          asset: '',
+          to_asset: '',
+          amount: '',
+          price: '',
+          type: ''
+        },
+        items: [
+          {name: 'foo', email: 'foo@gmail.com'},
+          {name: 'bar', email: 'bar@gmail.com'}
+        ],
+      },
+      created: function () {
+        this.fetchOrderBook()
+      },
+      computed: {
+      },
+      methods: {
+        clearForm: function () {
+          this.newOrder.asset = '',
+          this.newOrder.to_asset = '',
+          this.newOrder.price = 0,
+          this.newOrder.amount = 0
+        },
+        fetchOrderBook: function () {
+          const xhr = new XMLHttpRequest()
+          const self = this
+          xhr.open('GET', URL)
+          xhr.onload = function () {
+            self.orders = JSON.parse(xhr.responseText)
+            console.log('response:', self.orders)
+          }
+          xhr.send()
+        },
+        addOrderBook: function () {
+          this.order_added = true
+          console.log('Adding new order: {',
+            'asset=', this.newOrder.asset,
+            ', to_asset=', this.newOrder.to_asset,
+            ', amount=', this.newOrder.amount,
+            ', price=', this.newOrder.price,
+            '}')
+
+          const xhr = new XMLHttpRequest()
+          xhr.open('POST', URL, true)
+          xhr.setRequestHeader('Content-type', 'application/json');
+          xhr.onload = function () {
+            console.log(xhr.responseText)
+          }
+          xhr.send(JSON.stringify(this.newOrder))
+          this.clearForm()
+          this.message = 'Order added'
+          this.clearMessage()
+          this.fetchOrderBook()
+        },
+        clearMessage: _.debounce(function () {
+          this.message = ''
+          this.order_added = false
+        }, 3000)
+      }
+    })
+  </script>
+
+{% endblock %}
