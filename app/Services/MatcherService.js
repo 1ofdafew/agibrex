@@ -77,27 +77,37 @@ class MatcherService {
                yield matching_ask.save()
            }
 
+           log.info(`Matching ${i+1}: Saved matching to table...`)
+
            // update balance to orderbooks
+           var status = 'ACTIVE'
+           if (to_asset_balance == 0) {
+               status = 'CLOSED'
+           }
+
+           const updateOb = yield Database
+             .table('order_books')
+             .where('id', matched[i].id)
+             .update('status', status)
+             .update('balance', to_asset_balance)
+
+           log.info(`Matching ${i+1}: Updated balance for Orderbook ID : ${matched[i].id}`)
 
            log.info(`_______________Matching ${i+1} End_______________`)
        }
 
-       // insert to matchings table
+       var statusAssetOb = 'ACTIVE'
+       if (asset_balance == 0) {
+          statusAssetOb = 'CLOSED'
+       }
+       const updateOb = yield Database
+         .table('order_books')
+         .where('id', orderBook.id)
+         .update('status', statusAssetOb)
+         .update('balance', asset_balance)
 
-       // update balance seller and buyer
-
+       log.info(`tryMatch: Updated balance for Asset's Orderbook ID : ${orderBook.id}`)
      }
-      //store in matchings table
-     //  if (orderBook.type == bid) {
-     //    const matching = yield Database
-     //    .table('matchings')
-     //    .insert({ask_id: matched.id, bid_id: orderBook.id, amount: orderBook.amount })
-     //  }else{
-     //    const matching = yield Database
-     //    .table('matchings')
-     //    .insert({ask_id: orderBook.id, bid_id: matched.id, amount: orderBook.amount })
-     //  }
-
 
      //  Event.fire('matcher:ok', orderBook, matched)
       return true

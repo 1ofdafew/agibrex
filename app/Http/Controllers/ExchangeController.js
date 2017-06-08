@@ -52,7 +52,7 @@ class ExchangeController {
 
     // Asset Balance
     // const balance = btcWallet.data.balance.available
-    const balance = '0.0' // Testing
+    const balance = '20.0' // Testing
     // const price = '2782.99'
     const fee = '0.00'
 
