@@ -88,10 +88,10 @@ Route.get('/inbox', 'InboxController.index')
  */
  Route.group('Gibrex', function () {
 
-   Route.get('/about_Gibrex', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
-   Route.get('/our_Security', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
-   Route.get('/exchange_Fees', 'Gibrex/GibrexController.fees').middleware('auth')
-   Route.get('/contactUs', 'Gibrex/GibrexController.contactUs').middleware('auth')
+   Route.get('/about/us', 'Gibrex/GibrexController.aboutGibrex').middleware('auth')
+   Route.get('/security/info', 'Gibrex/GibrexController.ourSecurity').middleware('auth')
+   Route.get('/exchange/fees', 'Gibrex/GibrexController.fees').middleware('auth')
+   Route.get('/contact/us', 'Gibrex/GibrexController.contactUs').middleware('auth')
 
  }).prefix('/gibrex')
 
@@ -166,6 +166,7 @@ Route.group('Exchange', function() {
   Route.get('/btc','ExchangeController.btc')
   Route.get('/eth','ExchangeController.eth')
   Route.get('/trc','ExchangeController.trc')
+  Route.get('/twitter','ExchangeController.twitter')
   Route.post('/sell/TRC','ExchangeController.selltrc')
   Route.post('/buy/TRC','ExchangeController.buytrc')
   Route.post('/sell/BTC','ExchangeController.sellbtc')
@@ -238,5 +239,8 @@ Route.get('/obchart', 'ObchartController.index').as('orderbook.chart')
 Route.get('/obchart/bid', 'ObchartController.bid')
 Route.get('/obchart/ask', 'ObchartController.ask')
 Route.on('/mdepth').render('orderbook.chart')
+Route.get('/order_book', 'OrderBookController.view')
 
-Route.get('/twitter', 'TwitterController.index')
+Route.group('Social Feeds', function() {
+  Route.get('/twitter', 'Social/TwitterController.twitter')
+}).prefix('/social')

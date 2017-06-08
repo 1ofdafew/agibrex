@@ -11,6 +11,7 @@ const TradeService = make('App/Services/TradeService')
 const WalletService = make('App/Services/WalletService')
 const CoindeskService = make('App/Services/CoindeskService')
 const MDService = make('App/Services/MarketDataService')
+const TwitterService = make('App/Services/TwitterService')
 
 class ExchangeController {
 
@@ -43,13 +44,16 @@ class ExchangeController {
         log.info('No wallets for user yet')
       }
     }
-    // response.send(btcWallet)
+    // response.send(ethWallet)
+    // curBalance1 = '10' // Testing
+    // curBalance2 = '10' // Testing
 
     const defaultBuyCurrency = 'ETH'
 
-    // TODO : Get Balance BTC
-    const balance = '0.0'
-    const price = '2782.99'
+    // Asset Balance
+    // const balance = btcWallet.data.balance.available
+    const balance = '12.0' // Testing
+    // const price = '2782.99'
     const fee = '0.00'
 
     // Call showask
@@ -71,13 +75,18 @@ class ExchangeController {
     // const coinInEth = '11.19' // Temporary
     try {
       // These spot price are in cents, to eliminate rounding errors
-      const BTCSpotPrice = yield MDService.getSpotPrice('BTC')
-      const ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+      var BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+      var ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+
       log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
       coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
+
     } catch (e) {
       log.error('Unable to find the spot price')
     }
+
+    // const price = (BTCSpotPrice/100).toFixed( 2 )
+    const price = '2653.00' // Testing
 
     yield response.sendView(
       'exchange.index',
@@ -254,15 +263,27 @@ class ExchangeController {
          response.redirect('/exchange/btc')
     }
 
+    if (amount == 0) {
+
+         const dataError = {
+           status: 'error',
+           error: 'Amount is required. Please enter valid amount.'
+         }
+         yield request.with(dataError).flash()
+         response.redirect('/exchange/btc')
+    }
+
     const data = {
       user: user,
       price: price,
       amount: amount,
-      to_asset: request.input('buy_currency'),
+      to_asset: 'BTC',
       total: amount * price,
-      asset: 'BTC',
+      asset: request.input('buy_currency'),
       type: 'BID'
     }
+
+    // response.send(data)
 
     const doAsk = yield TradeService.doAskBid(data)
 
@@ -276,12 +297,13 @@ class ExchangeController {
   * sellbtc (request, response) {
     const user = yield request.auth.getUser()
     const amount = request.input('sell_amount')
-    const price = '2228.00'
+    const price = request.input('sell_price')
 
     const data = {
       user: user,
       price: price,
       amount: amount,
+      balance: amount,
       to_asset: request.input('sell_currency'),
       total: amount * price,
       asset: 'BTC',
@@ -297,6 +319,18 @@ class ExchangeController {
       response.redirect('/exchange/btc')
     }
 
+  }
+
+  * twitter(request, response) {
+    const twt = yield TwitterService.getTweet()
+    log.info('this tweet: >> ', twt)
+    // response.ok(twt)
+    yield response.sendView(
+      'exchange.index',
+      {
+        twt : twt,
+      }
+    )
   }
 
 }
