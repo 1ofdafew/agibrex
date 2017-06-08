@@ -51,7 +51,7 @@ class ExchangeController {
 
     // Asset Balance
     // const balance = btcWallet.data.balance.available
-    const balance = '1.0' // Testing
+    const balance = '12.0' // Testing
     // const price = '2782.99'
     const fee = '0.00'
 
@@ -84,7 +84,8 @@ class ExchangeController {
       log.error('Unable to find the spot price')
     }
 
-    const price = (BTCSpotPrice/100).toFixed( 2 )
+    // const price = (BTCSpotPrice/100).toFixed( 2 )
+    const price = '2653.00' // Testing
 
     yield response.sendView(
       'exchange.index',
@@ -301,6 +302,7 @@ class ExchangeController {
       user: user,
       price: price,
       amount: amount,
+      balance: amount,
       to_asset: request.input('sell_currency'),
       total: amount * price,
       asset: 'BTC',
