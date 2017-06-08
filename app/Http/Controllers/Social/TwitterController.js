@@ -5,7 +5,7 @@ const TwitterService = make('App/Services/TwitterService')
 
 class TwitterController {
 
-  * index(request, response) {
+  * twitter(request, response) {
     const twt = yield TwitterService.getTweet()
     log.info('this tweet: >> ', twt)
     response.ok(twt)
