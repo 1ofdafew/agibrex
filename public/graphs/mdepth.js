@@ -3,15 +3,15 @@ $.getJSON('/obchart?callback=?', function (data) {
   var bidLength = data.bid.length;
   var biddata =new Array;
   for (var i=0; i < bidLength;i++) {
-    // console.log(data.bid[i].price,data.bid[i].price*data.bid[i].amount)
-    biddata.push([data.bid[i].price, data.bid[i].price*data.bid[i].amount]);
+    // console.log(data.bid[i].price,data.bid[i].price*data.bid[i].balance)
+    biddata.push([data.bid[i].price, data.bid[i].price*data.bid[i].balance]);
   }
 
   var askLength = data.ask.length;
   var askdata =new Array;
   for (var i=0; i < askLength;i++) {
-    // console.log(data.ask[i].price,data.ask[i].price*data.ask[i].amount)
-    askdata.push([data.ask[i].price,data.ask[i].price*data.ask[i].amount]);
+    // console.log(data.ask[i].price,data.ask[i].price*data.ask[i].balance)
+    askdata.push([data.ask[i].price,data.ask[i].price*data.ask[i].balance]);
   }
 
   Highcharts.createElement('link', {
