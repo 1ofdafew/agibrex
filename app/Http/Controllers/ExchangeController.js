@@ -11,6 +11,7 @@ const TradeService = make('App/Services/TradeService')
 const WalletService = make('App/Services/WalletService')
 const CoindeskService = make('App/Services/CoindeskService')
 const MDService = make('App/Services/MarketDataService')
+const TwitterService = make('App/Services/TwitterService')
 
 class ExchangeController {
 
@@ -316,6 +317,18 @@ class ExchangeController {
       response.redirect('/exchange/btc')
     }
 
+  }
+
+  * twitter(request, response) {
+    const twt = yield TwitterService.getTweet()
+    log.info('this tweet: >> ', twt)
+    // response.ok(twt)
+    yield response.sendView(
+      'exchange.index',
+      {
+        twt : twt,
+      }
+    )
   }
 
 }
