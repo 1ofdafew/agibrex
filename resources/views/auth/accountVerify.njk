@@ -1,4 +1,4 @@
-{% extends 'layout/master' %}
+{% extends 'layout/puppet' %}
 
 {% block content %}
 
@@ -24,7 +24,7 @@
     {{ form.open({ action: 'Auth/AccountVerifyController.verify' }) }}
       {{ csrfField }}
 
-      <div class="loginform"> 
+      <div class="loginform">
         <a href="/auth/resend">Send it again?</a>
         <div class="separate" style="margin-top: 10px;"></div>
 
@@ -42,7 +42,7 @@
         <br>
         <input type="submit" name="submit" value="Verify" class="but_user">
       </div>
-    
+
     {{ form.close() }}
 
   <div class="clearfix mar_top8"></div>
