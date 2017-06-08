@@ -9,9 +9,6 @@
         <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Personal Information</span>
           </h3>
-        <div class="form_button">
-          <input type="submit" name="submit" value="Save Info" class="but_user">
-        </div>
         <div class="clear"></div>
         <div class="dotted"></div>
         <form name="settings" action="#" class="form form1" method="POST">
@@ -32,50 +29,16 @@
               <label for="settings_email">Email </label>
               <input type="text" name="settings[email]" value="john.doe@gmail.com" id="settings_email">
             </li>
-            <li class="alt">
-              <div class="label_extend"></div>
-              <label for="settings_default_currency">Default Currency </label>
-              <select name="settings[default_currency]" id="settings_default_currency">
-                  <option value=""></option>
-                  <option value="41">AED</option>
-                  <option value="39">AUD</option>
-                  <option value="6">BGN</option>
-                  <option value="5">CAD</option>
-                  <option value="40">CHF</option>
-                  <option value="2">CNY</option>
-                  <option value="7">CZK</option>
-                  <option value="8">DKK</option>
-                  <option value="1">EUR</option>
-                  <option value="3">GBP</option>
-                  <option value="9">HKD</option>
-                  <option value="10">HRK</option>
-                  <option value="11">HUF</option>
-                  <option value="12">ILS</option>
-                  <option value="13">INR</option>
-                  <option value="4">JPY</option>
-                  <option value="37">MUR</option>
-                  <option value="16">MXN</option>
-                  <option value="17">NOK</option>
-                  <option value="18">NZD</option>
-                  <option value="19">PLN</option>
-                  <option value="20">RON</option>
-                  <option value="21">RUB</option>
-                  <option value="22">SEK</option>
-                  <option value="23">SGD</option>
-                  <option value="24">THB</option>
-                  <option value="25">TRY</option>
-                  <option value="27" selected="selected">USD</option>
-                  <option value="26">ZAR</option>
-                </select>
-            </li>
             <div class="clearfix mar_top3"></div>
-
 
             <input type="hidden" name="submitted" value="1">
             <input type="hidden" name="settings[uniq]" value="0b7f08405e9da5785d97dc48bff3b487" class="hidden_input" id="settings_uniq">
           </ul>
           <input type="hidden" name="verify_fields[email]" value="email">
           <input type="hidden" class="compare_fields" name="compare_fields[pass2]" value="pass">
+          <div class="form_button">
+            <input type="submit" name="submit" value="Save Info" class="but_user">
+          </div>
         </form>
         <div class="clear"></div>
       </div>
@@ -101,7 +64,7 @@
             <div class="param lessbottom marginleft">
               <input class="checkbox" name="confirm_withdrawal_email_bank" id="confirm_withdrawal_email_bank" type="checkbox" value="Y" checked="checked">
               <label for="confirm_withdrawal_email_bank">Confirm bank withdrawals by email.</label>
-              <div class="clear"></div>
+              <!-- <div class="clear"></div> -->
             </div>
             <div class="param lessbottom marginleft">
               <input class="checkbox" name="notify_deposit_btc" id="notify_deposit_btc" type="checkbox" value="Y" checked="checked">
