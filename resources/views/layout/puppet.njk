@@ -53,14 +53,13 @@
                   <li><a href="/coming_soon">Contact Us</a></li>
                 </ul>
                 <ul class="tci_list">
-
                   {% if not currentUser %}
                   <li>
-                    <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
+                    <a href="/auth/login">Login</a>
                   </li>
                   <!-- <li>|</li> -->
                   <li>
-                    <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
+                    <a href="/auth/register">Create Account</a>
                   </li>
                   {% else %}
                   <li>
@@ -68,11 +67,11 @@
                   </li>
                   <!-- <li>|</li> -->
                   <li>
-                    <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+                    <a href="/auth/logout">Logout</a>
                   </li>
                   {% endif %}
 
-                  <li class="empty margin-left">
+                  <!-- <li class="empty margin-left">
                     <label for="language_selector"><img src="/images/language/en.png"></label>
                     <select id="language_selector" class="lang">
                       <option value="en" selected="selected">English</option>
@@ -80,7 +79,7 @@
                       <option value="ru">Pусский</option>
                       <option value="zh">中文</option>
                     </select>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -365,4 +364,3 @@ jQuery(document).ready(function () {
 
   </body>
 </html>
-

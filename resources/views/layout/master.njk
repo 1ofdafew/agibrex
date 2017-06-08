@@ -26,6 +26,7 @@
 
     <!-- ######### CSS STYLES ######### -->
     <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
+
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
@@ -57,26 +58,21 @@
                   <!-- <li>|</li> -->
                   <li><a href="/coming_soon">Contact Us</a></li>
                 </ul>
+
                 <ul class="tci_list">
                   {% if not currentUser %}
                   <li>
-                    <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
-                  </li>
-                  <!-- <li>|</li> -->
-                  <li>
-                    <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
+                    <a href="/auth/register">Registration</a>
                   </li>
                   {% else %}
                   <li>
                     <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;{{ currentUser.email }}&nbsp;&nbsp;&nbsp;
                   </li>
-                  <!-- <li>|</li> -->
                   <li>
-                    <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+                    <a href="/auth/logout">Logout</a>
                   </li>
                   {% endif %}
-
-                  <li class="empty margin-left">
+                  <!-- <li class="empty margin-left">
                     <label for="language_selector"><img src="/images/language/en.png"></label>
                     <select id="language_selector" class="lang">
                       <option value="en" selected="selected">English</option>
@@ -84,6 +80,11 @@
                       <option value="ru">Pусский</option>
                       <option value="zh">中文</option>
                     </select>
+                  </li> -->
+                </ul>
+                <ul class="tci_list02">
+                  <li>
+                    <a href="/auth/login">Log In</a>
                   </li>
                 </ul>
               </div>
@@ -111,16 +112,16 @@
                     <div id="menu" class="menu">
                       <ul id="tiny">
                         {% if currentUser %}
-                        <li><a href="/home" class="active">Home</a></li>
+                        <li><a href="/home">Home</a></li>
                         {% else %}
-                        <li><a href="/home" class="active">Home</a></li>
+                        <li><a href="/home">Home</a></li>
                         {% endif %}
                         <li><a href="/exchange">Exchange</a></li>
                         {% if currentUser %}
                         <li><a href="">Order Book</a></li>
                         {% endif %}
                         {% if not currentUser %}
-                        <li><a href="/coming_soon">News</a></li>
+                        <li><a href="/coming_soon">Fees</a></li>
                         {% endif %}
                         <li><a href="">Gibrex</a>
                           <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
@@ -323,10 +324,10 @@
             <div class="one_half">
               <ul class="tci_list_left">
                 <li><b>Copyright © All Right Reserved 2017 Gibrex.com - The World Trusted Digital Exchange.</b></li>
-                <li>|</li>
+                <!-- <li>|</li>
                 <li><a href="/coming_soon"> Privacy Policy</a></li>
                 <li>|</li>
-                <li><a target="_blank" href="/coming_soon"> Terms &amp; Condition</a></li>
+                <li><a target="_blank" href="/coming_soon"> Terms &amp; Condition</a></li> -->
 
               </ul>
             </div>
