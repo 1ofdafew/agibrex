@@ -27,29 +27,45 @@ class RegisterController {
    */
   * register (request, response) {
 
-    try {
-      const userDetails = request.only('username', 'email', 'password')
-      yield Validator.validate(userDetails, User.newUserRules, User.newUserMessages)
+    const userDetails = request.only('code', 'username', 'email', 'password')
+    if (userDetails.code === '') {
+      const errMsg = 'Invalid invitation code.'
+      yield request.with({ error: errMsg }).flash()
+      response.redirect('back')
+    } else {
+      // fetch verification id by that code.
+      try {
+        yield UserService.findByOrFail('verification_code', userDetails.code)
 
-      const user = yield UserService.register(
-          userDetails.username, userDetails.email, userDetails.password)
+        // try to register
+        try {
+          // above should fail for invalid code, and threw exception below
+          yield Validator.validate(userDetails, User.newUserRules, User.newUserMessages)
 
-      const data = {
-        verifyMethod: 'email',
-        email: user.email
+          const user = yield UserService.register(
+              userDetails.username, userDetails.email, userDetails.password)
+
+          const data = {
+            verifyMethod: 'email',
+            email: user.email
+          }
+          yield request.with(data).flash()
+          response.redirect('verify')
+        } catch (e) {
+          // log.error('Invalid data for registration: ', e.fields)
+          console.log(e.fields)
+          if (e.fields != undefined) {
+            yield request.with({ error: e.fields[0].message }).flash()
+          } else {
+            yield request.with({ error: 'Unable to register you at the moment' }).flash()
+          }
+          response.redirect('register')
+        }
+      } catch (e) {
+        const errMsg = 'Invalid invitation code.'
+        yield request.with({ error: errMsg }).flash()
+        response.redirect('back')
       }
-      yield request.with(data).flash()
-      response.redirect('verify')
-
-    } catch(e) {
-      // log.error('Invalid data for registration: ', e.fields)
-      console.log(e.fields)
-      if (e.fields != undefined) {
-        yield request.with({ error: e.fields[0].message }).flash()
-      } else {
-        yield request.with({ error: 'Unable to register you at the moment' }).flash()
-      }
-      response.redirect('register')
     }
   }
 
