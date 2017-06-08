@@ -1,16 +1,21 @@
 {% extends 'layout/puppet' %}
 
-{% block content %}
 
-  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
+{% block head %}
+  <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/lodash@4.16.0"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/marked@0.3.6"></script>
+  <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
   <script src="/js/charts/highstock.js"></script>
   {# <script src="/js/charts/exporting.js"></script> #}
-
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
+{% endblock %}
+
+{% block content %}
 
   {% if type == 'BTC' %}
   <script type="text/javascript" src="/graphs/bitcoin.js"></script>
@@ -744,23 +749,23 @@
                   </div>
                   <div>
                     {% verbatim %}
-                    <div class="panel-body03">
+                    <div id="twitter" class="panel-body03">
                       <div class="one_fullpx">
                         <table class="table-list03 trades04">
                           <tbody>
-                            <tr>
+                            <tr v-for="t in tweets">
                               <td>
-                                <a> {{ index }} </a>
+                                <a>{{ t }}</a>
                                 <div class="panel-divider4"></div>
                                 <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
                               </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                               <td>Test tweet </td>
                             </tr>
                             <tr>
                               <td>Test tweet </td>
-                            </tr>
+                            </tr> -->
                           </tbody>
                         </table>
                       </div>
@@ -932,4 +937,5 @@ $(function(){
 
 });
 </script>
+<script type="text/javascript" src="/vue/twitter.js"></script>
 {% endblock %}

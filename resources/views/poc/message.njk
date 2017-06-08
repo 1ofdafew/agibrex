@@ -9,7 +9,7 @@
     <div class="mar_top10"></div>
     <div id="container" class="col-md-4 col-md-offset-1">
     <h4>{{ message }}</h4>
-    <hr /> 
+    <hr />
       <textarea :value="input" @input="update"></textarea>
       <div v-html="compiledMarkdown"></div>
     </div>
@@ -26,7 +26,7 @@
       box-sizing: border-box;
       padding: 0 20px;
     }
-    
+
     textarea {
       border: none;
       border-right: 1px solid #ccc;
@@ -37,7 +37,7 @@
       font-family: 'Monaco', courier, monospace;
       padding: 20px;
     }
-    
+
     code {
       color: #f66;
     }
@@ -69,4 +69,3 @@
   </script>
 
 {% endblock %}
-
