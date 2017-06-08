@@ -21,7 +21,7 @@ class RegisterController {
     const from = request.input('f')
 
     // checking if uuid already register (if registered, redirect to login)
-    const checkUser = yield Database.select('tvn_id','amount')
+    const checkUser = yield Database.select('tvn_id')
      .from('transactions')
      .where('id',data.tx_id)
     // if not register, check uuid is valid from tvn
