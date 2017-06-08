@@ -4,6 +4,7 @@ const Database = use('Database')
 const log = use('npmlog')
 const Event = use('Event')
 const OrderBook = use('App/Model/OrderBook')
+const Matching = use('App/Model/Matching')
 
 class MatcherService {
 
@@ -45,7 +46,7 @@ class MatcherService {
            log.info(`Matching ${i+1}: Uuid = ${matched[i].uuid}`)
 
            to_asset_balance = matched[i].balance
-          //  this.asset_balance = asset_balance - matched[i].balance
+
            if (asset_balance >= to_asset_balance) {
                 diff = to_asset_balance.toFixed(8)
            } else {
@@ -57,14 +58,26 @@ class MatcherService {
            asset_balance = (asset_balance - diff).toFixed(8)
            to_asset_balance = (to_asset_balance - diff).toFixed(8)
 
-          //  this.to_asset_balance = matched[i].balance - this.asset_balance
-
-
            log.info(`Matching ${i+1}: ToAsset Balance after: ${to_asset_balance}`)
-
-          //  var asset_balance = this.asset_balance
-
            log.info(`Matching ${i+1}: Asset balance after matching : ${asset_balance}`)
+
+           // insert to matchings table
+           if (orderBook.type == 'BID') {
+               const matching_bid = new Matching()
+               matching_bid.ask_id = matched[i].id
+               matching_bid.bid_id = orderBook.id
+               matching_bid.amount = diff
+               yield matching_bid.save()
+
+           }else{
+               const matching_ask = new Matching()
+               matching_ask.ask_id = orderBook.id
+               matching_ask.bid_id = matched[i].id
+               matching_ask.amount = diff
+               yield matching_ask.save()
+           }
+
+           // update balance to orderbooks
 
            log.info(`_______________Matching ${i+1} End_______________`)
        }
