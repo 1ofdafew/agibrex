@@ -100,6 +100,7 @@ class MarketDataService {
             price: resp.data.price.usd,
             change1h: resp.data.change1h,
             change24h: resp.data.change24h,
+            change7d: resp.data.change7d,
             volume24h: {
               usd: resp.data.volume24.usd,
               eur: resp.data.volume24.eur,

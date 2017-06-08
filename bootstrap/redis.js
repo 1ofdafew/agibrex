@@ -40,18 +40,17 @@ Redis.subscribe('cron', function * (location) {
       //
       // const data = yield gdax.poll()
       // and send event data
-      channel.emit('message', 'Some market data from GDAX...')
+      // channel.emit('message', 'Some market data from GDAX...')
       return
 
     case 'Kraken':
       // console.log('Polling data from Kraken')
 
-      const kraken = new KrakenPoller()
+      // const kraken = new KrakenPoller()
 
       // konon nya, data ni dari Kraken lah.
-      const data = yield kraken.poll()
-
-      channel.emit('message', data)
+      // const data = yield kraken.poll()
+      // channel.emit('message', data)
 
       return
     default:
