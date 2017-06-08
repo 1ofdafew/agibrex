@@ -25,7 +25,6 @@
           <select name="asset" class="form-control" v-model="newOrder.to_asset">
             <option value="" selected>Select one...</option>
             <option value="BTC">BTC</option>
-            <option value="BTC">BTC</option>
             <option value="ETH">ETH</option>
             <option value="TRC">TRC</option>
           </select>
@@ -102,10 +101,10 @@
         order_added: false,
         newOrder: {
           asset: '',
-          to_asset: '',
-          amount: '',
-          price: '',
-          type: ''
+          to_asset: 'ETH',
+          amount: '10',
+          price: '500',
+          type: 'BID'
         },
         items: [
           {name: 'foo', email: 'foo@gmail.com'},

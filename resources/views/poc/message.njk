@@ -13,7 +13,7 @@
       <textarea :value="input" @input="update"></textarea>
       <div v-html="compiledMarkdown"></div>
     </div>
-    <div class="mar_top10"></div>
+    <div class="mar_top20"></div>
   </div>
   {% endverbatim %}
 
@@ -53,7 +53,7 @@
       //delimiters: ['${', '}'],
       data: {
         input: '# hello',
-        message: 'Markdown'
+        message: 'Markdown Editor'
       },
       computed: {
         compiledMarkdown: function () {
