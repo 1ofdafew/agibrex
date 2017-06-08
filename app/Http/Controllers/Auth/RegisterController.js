@@ -14,6 +14,20 @@ class RegisterController {
    * @param  {Object} response
    */
   * index(request, response) {
+
+    // if user come from tvn
+    const tvn_uuid = request.input('u')
+    const from = request.input('f')
+
+    // checking if uuid already register (if registered, redirect to login)
+    const checkUser = yield Database.select('tvn_id')
+     .from('transactions')
+     .where('id',data.tx_id)
+    // if not register, check uuid is valid from tvn
+
+
+
+    // response.send(from)
     yield response.sendView('auth.register')
   }
 

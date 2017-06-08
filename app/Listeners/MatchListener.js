@@ -2,13 +2,15 @@
 
 const log = use('npmlog')
 
+const TxService = use('App/Services/TransactionService')
 const MatchListener = exports = module.exports = {}
 
-MatchListener.ok = function (buyer, seller) {
+MatchListener.ok = function (id, type) {
   // this.emitter gives access to the event instance
-  log.info('Listener: Matched,ok: buyer', buyer)
-  log.info('Listener: Matched,ok: seller', seller)
+  log.info('Listener: Matched,ok: orderBook id', id)
+  log.info('Listener: Matched,ok: orderBook type', type)
   //send execute trade
+  TxService.createTx(id, type)
 }
 
 MatchListener.recheck = function (data) {
