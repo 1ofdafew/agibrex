@@ -118,17 +118,17 @@
                         {% endif %}
                         <li><a href="/exchange">Exchange</a></li>
                         {% if currentUser %}
-                        <li><a href="">Order Book</a></li>
+                        <li><a href="/order_book">Order Book</a></li>
                         {% endif %}
                         {% if not currentUser %}
                         <li><a href="/coming_soon">Fees</a></li>
                         {% endif %}
                         <li><a href="">Gibrex</a>
                           <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                            <li><a href="/gibrex/about_Gibrex">About Gibrex</a></li>
-                            <li><a href="/gibrex/about_Gibrex">Our Security</a></li>
-                            <li><a href="/gibrex/exchange_Fees">Exchange Fees</a></li>
-                            <li><a href="/gibrex/contactUs">Contact Us</a></li>
+                            <li><a href="/gibrex/about/us">About Gibrex</a></li>
+                            <li><a href="/gibrex/security/info">Our Security</a></li>
+                            <li><a href="/gibrex/exchange/fees">Exchange Fees</a></li>
+                            <li><a href="/gibrex/contact/us">Contact Us</a></li>
                           </ul>
                         </li>
                         {% if currentUser %}
@@ -248,7 +248,7 @@
               <!-- <li><a href=""><i class="fa fa-caret-right"></i> Bank Accounts</a></li> -->
 
               <li><a href="/temp"><i class="fa fa-caret-right"></i> History</a></li>
-              <li><a href="/temp"><i class="fa fa-caret-right"></i> API Access</a></li>
+              <li><a href="/apiAccess/api_Access"><i class="fa fa-caret-right"></i> API Access</a></li>
               <!-- <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li> -->
             </ul>
           </div>

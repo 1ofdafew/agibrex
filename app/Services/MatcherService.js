@@ -13,9 +13,11 @@ class MatcherService {
 
   * tryMatch(orderBook) {
 
-    if (!orderBook || typeof (orderBook.toJSON) !== 'function') {
-      throw new Error('MatcherService expects a valid instance of OrderBook Model.')
-    }
+    log.info('tryMatch:Trying to matching Orderbook...')
+
+    // if (!orderBook || typeof (orderBook.toJSON) !== 'function') {
+    //   throw new Error('MatcherService expects a valid instance of OrderBook Model.')
+    // }
 
     const matched = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status')
       .from('order_books')
@@ -25,7 +27,8 @@ class MatcherService {
       .where('price', orderBook.price)
       .groupBy('price')//price same
 
-    log.info(matched.length)
+    log.info(`tryMatch:Matching Sql executed..`)
+    log.info(`tryMatch:Matched Total = ${matched.length}`)
 
     if (matched.length != 0) {  //ok,matched
       log.info('matched:result')

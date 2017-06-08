@@ -29,11 +29,11 @@ class SecurityController {
         response.redirect('/security/options')              
       } else {
 
-        const secret = yield SecurityService.getOrCreateSecret(user)
-        const qrcode = yield SecurityService.getQRCode(secret, user.username)
+        // const secret = yield SecurityService.getOrCreateSecret(user)
+        // const qrcode = yield SecurityService.getQRCode(secret, user.username)
 
-        // console.log('QRCode:', qrcode)
-        yield request.with({ qrcode: qrcode }).flash()
+        // // console.log('QRCode:', qrcode)
+        // yield request.with({ qrcode: qrcode }).flash()
         response.redirect('/security/qrcode')      
       }
     } else {

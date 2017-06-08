@@ -6,6 +6,10 @@ const OBService = make('App/Services/OrderBookService')
 
 class OrderBookController {
 
+  * view(request, response) {
+    yield response.sendView('order_book')
+  }
+
   * index(request, response) {
     const ob = yield OBService.index()
     response.json(ob)
@@ -17,20 +21,20 @@ class OrderBookController {
   }
 
   * store(request, response) {
-    const data=request.only(['type', 'asset', 'amount', 'price','status'])
-    console.log('Storing new orderbook row....')
-    console.log(data)
+    const data = request.post()
+    console.log('Storing new orderbook row:', data)
+    // console.log(data)
     const user = yield request.auth.getUser()
     const ob = new OrderBook(data, user)
     yield ob.save()//Save to new row table
-    response.ok(ob)
+    response.json({status: 'ok', data: ob})
   }
 
-  * showbid(asset) {
+  * showbid(to_asset) {
     const bidlist = yield Database.select('type', 'price', 'amount', 'id', 'uuid', 'status', 'to_asset')
       .from('order_books')
       .where('type','bid')
-      .where('asset',asset)
+      .where('to_asset',to_asset)
       .where('status','ACTIVE')
       .orderBy('price', 'desc')
       .orderBy('created_at','asc')

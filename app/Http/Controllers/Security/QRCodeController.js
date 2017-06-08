@@ -5,7 +5,10 @@ const SecurityService = make('App/Services/SecurityService')
 class QRCodeController {
 
   * index (request, response) {
-    yield response.sendView('security.2fa')
+    const user = yield request.auth.getUser()
+    const secret = yield SecurityService.getOrCreateSecret(user)
+    const qrcode = yield SecurityService.getQRCode(secret, user.username)
+    yield response.sendView('security.2fa', { qrcode: qrcode })
   }
 
   * verify(request, response) {

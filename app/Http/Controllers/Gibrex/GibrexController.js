@@ -3,19 +3,19 @@
 class GibrexController {
 
   * aboutGibrex (request, response) {
-    yield response.sendView('gibrex/about_Gibrex')
+    yield response.sendView('gibrex.aboutGibrex')
   }
 
   * ourSecurity (request, response) {
-    yield response.sendView('gibrex/our_Security')
+    yield response.sendView('gibrex.ourSecurity')
   }
 
   * fees (request, response) {
-    yield response.sendView('gibrex/exchange_Fees')
+    yield response.sendView('gibrex.exchangeFees')
   }
 
   * contactUs (request, response) {
-    yield response.sendView('gibrex/contactUs')
+    yield response.sendView('gibrex.contactUs')
   }
 
 }

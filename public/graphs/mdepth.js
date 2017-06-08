@@ -220,7 +220,7 @@ $.getJSON('/obchart?callback=?', function (data) {
   };
   Highcharts.setOptions(Highcharts.theme);
 
-  Highcharts.chart('container', {
+  Highcharts.chart('container_mdepth', {
       chart: {
           type: 'area'
       },
