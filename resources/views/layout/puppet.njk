@@ -78,11 +78,13 @@
                     </select>
                   </li> -->
                 </ul>
+                {% if not currentUser %}
                 <ul class="tci_list02">
                   <li>
                     <a href="/auth/login">Log In</a>
                   </li>
                 </ul>
+                {% endif %}
               </div>
             </div>
             <!-- end top contact info -->
@@ -103,7 +105,6 @@
                     <ul id="tiny">
                       <li><a href="/home">Home</a></li>
                       <li><a href="/exchange">Exchange</a></li>
-                      <li><a href="/order_book">Fees</a></li>
                       <li><a href="">Gibrex</a>
                         <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                           <li><a href="/gibrex/about/us">About Gibrex</a></li>
