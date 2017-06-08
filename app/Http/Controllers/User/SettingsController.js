@@ -3,7 +3,7 @@
 class SettingsController {
 
   * profile (request, response) {
-    yield response.sendView('user/profile')
+    yield response.sendView('user.profile')
   }
 
   * changePassword (request, response) {
