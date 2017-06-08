@@ -113,27 +113,10 @@
                   <nav id="access" class="access" role="navigation">
                     <div id="menu" class="menu">
                       <ul id="tiny">
-                        {% if currentUser %}
                         <li><a href="/home">Home</a></li>
-                        {% else %}
-                        <li><a href="/home">Home</a></li>
-                        {% endif %}
                         <li><a href="/exchange">Exchange</a></li>
                         {% if currentUser %}
-                        <li><a href="/order_book">Order Book</a></li>
-                        {% endif %}
-                        {% if not currentUser %}
-                        <li><a href="/coming_soon">Fees</a></li>
-                        {% endif %}
-                        <li><a href="">Gibrex</a>
-                          <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                            <li><a href="/gibrex/about/us">About Gibrex</a></li>
-                            <li><a href="/gibrex/security/info">Our Security</a></li>
-                            <li><a href="/gibrex/exchange/fees">Exchange Fees</a></li>
-                            <li><a href="/gibrex/contact/us">Contact Us</a></li>
-                          </ul>
-                        </li>
-                        {% if currentUser %}
+                        <!--li><a href="/order_book">Order Book</a></li-->
                         <li><a href="/dashboard">Dashboard</a>
                           <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                             <li><a href="/dashboard">Dashboard</a></li>
@@ -145,6 +128,15 @@
                           </ul>
                         </li>
                         {% endif %}
+                        <li><a href="/coming_soon">Fees</a></li>
+                        <li><a href="">Gibrex</a>
+                          <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
+                            <li><a href="/gibrex/about/us">About Gibrex</a></li>
+                            <li><a href="/gibrex/security/info">Our Security</a></li>
+                            <li><a href="/gibrex/exchange/fees">Exchange Fees</a></li>
+                            <li><a href="/gibrex/contact/us">Contact Us</a></li>
+                          </ul>
+                        </li>
                       </ul>
                       <img class="stickylogo" src="/images/favicon-32.png">
                       <select class="selectnav" id="selectnav1">
@@ -182,17 +174,16 @@
                 <li>
                   <div class="buttoninbox">
                     <span class="buttonbadge">12</span>
-                    <a href="/inbox">Inbox</a>
+                    <a href="">Inbox</a>
                   </div>
                 </li>
-                <li><a href="">Balance</a></li>
+                <li><a href="/accounts">Balance</a></li>
                 <li><a href="">Trade History</a></li>
                 <li><a href=""><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
                   <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                    <li><a href="/accounts">Bitcoin</a></li>
-                    <li><a href="/accounts">Tracto</a></li>
-                    <li><a href="/user/profile">Ethreum</a></li>
-                    <li><a href="/user/profile">Litecoin</a></li>
+                    <li><a href="/accounts/bitcoin">Bitcoin</a></li>
+                    <li><a href="/accounts/tracto">Tracto</a></li>
+                    <li><a href="/accounts/ethereum">Ethereum</a></li>
                   </ul>
                 </li>
               </ul>
