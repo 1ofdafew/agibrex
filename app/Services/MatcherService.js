@@ -4,6 +4,7 @@ const Database = use('Database')
 const log = use('npmlog')
 const Event = use('Event')
 const OrderBook = use('App/Model/OrderBook')
+const Matching = use('App/Model/Matching')
 
 class MatcherService {
 
@@ -45,7 +46,7 @@ class MatcherService {
            log.info(`Matching ${i+1}: Uuid = ${matched[i].uuid}`)
 
            to_asset_balance = matched[i].balance
-          //  this.asset_balance = asset_balance - matched[i].balance
+
            if (asset_balance >= to_asset_balance) {
                 diff = to_asset_balance.toFixed(8)
            } else {
@@ -57,36 +58,58 @@ class MatcherService {
            asset_balance = (asset_balance - diff).toFixed(8)
            to_asset_balance = (to_asset_balance - diff).toFixed(8)
 
-          //  this.to_asset_balance = matched[i].balance - this.asset_balance
-
-
            log.info(`Matching ${i+1}: ToAsset Balance after: ${to_asset_balance}`)
-
-          //  var asset_balance = this.asset_balance
-
            log.info(`Matching ${i+1}: Asset balance after matching : ${asset_balance}`)
+
+           // insert to matchings table
+           if (orderBook.type == 'BID') {
+               const matching_bid = new Matching()
+               matching_bid.ask_id = matched[i].id
+               matching_bid.bid_id = orderBook.id
+               matching_bid.amount = diff
+               yield matching_bid.save()
+
+           }else{
+               const matching_ask = new Matching()
+               matching_ask.ask_id = orderBook.id
+               matching_ask.bid_id = matched[i].id
+               matching_ask.amount = diff
+               yield matching_ask.save()
+           }
+
+           log.info(`Matching ${i+1}: Saved matching to table...`)
+
+           // update balance to orderbooks
+           var status = 'ACTIVE'
+           if (to_asset_balance == 0) {
+               status = 'CLOSED'
+           }
+
+           const updateOb = yield Database
+             .table('order_books')
+             .where('id', matched[i].id)
+             .update('status', status)
+             .update('balance', to_asset_balance)
+
+           log.info(`Matching ${i+1}: Updated balance for Orderbook ID : ${matched[i].id}`)
 
            log.info(`_______________Matching ${i+1} End_______________`)
        }
 
-       // insert to matchings table
+       var statusAssetOb = 'ACTIVE'
+       if (asset_balance == 0) {
+          statusAssetOb = 'CLOSED'
+       }
+       const updateOb = yield Database
+         .table('order_books')
+         .where('id', orderBook.id)
+         .update('status', statusAssetOb)
+         .update('balance', asset_balance)
 
-       // update balance seller and buyer
-
+       log.info(`tryMatch: Updated balance for Asset's Orderbook ID : ${orderBook.id}`)
      }
-      //store in matchings table
-     //  if (orderBook.type == bid) {
-     //    const matching = yield Database
-     //    .table('matchings')
-     //    .insert({ask_id: matched.id, bid_id: orderBook.id, amount: orderBook.amount })
-     //  }else{
-     //    const matching = yield Database
-     //    .table('matchings')
-     //    .insert({ask_id: orderBook.id, bid_id: matched.id, amount: orderBook.amount })
-     //  }
 
-
-     //  Event.fire('matcher:ok', orderBook, matched)
+      Event.fire('matcher:ok', orderBook, matched)
       return true
     }
     return false

@@ -6,14 +6,14 @@ class ObchartController {
 
   * index (request, response) {
 
-    const bid = yield Database.select('price', 'amount')
+    const bid = yield Database.select('price', 'balance')
       .from('order_books')
       .where('type','bid')
       .where('status','ACTIVE')
       .orderBy('price', 'asc')
       .groupBy('price')
 
-    const ask = yield Database.select('price', 'amount')
+    const ask = yield Database.select('price', 'balance')
       .from('order_books')
       .where('type', 'ask')
       .where('status','ACTIVE')
@@ -41,7 +41,7 @@ class ObchartController {
   }
 
   * bid (request, response) {
-    const bid = yield Database.select('price', 'amount')
+    const bid = yield Database.select('price', 'balance')
     .from('order_books')
     .where('type','bid')
     .where('status','ACTIVE')
@@ -51,7 +51,7 @@ class ObchartController {
   }
 
   * ask (request, response) {
-    const ask = yield Database.select('price', 'amount')
+    const ask = yield Database.select('price', 'balance')
     .from('order_books')
     .where('type', 'ask')
     .where('status','ACTIVE')

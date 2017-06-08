@@ -27,7 +27,7 @@
     <!-- ######### CSS STYLES ######### -->
     <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
 
-      <!-- <link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"> -->
+    <!-- <link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <link href="https://cdn.materialdesignicons.com/1.9.32/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
     <!-- responsive devices styles -->
@@ -82,11 +82,13 @@
                     </select>
                   </li> -->
                 </ul>
+                {% if not currentUser %}
                 <ul class="tci_list02">
                   <li>
                     <a href="/auth/login">Log In</a>
                   </li>
                 </ul>
+                {% endif %}
               </div>
             </div>
             <!-- end top contact info -->
@@ -134,11 +136,11 @@
                         {% if currentUser %}
                         <li><a href="/dashboard">Dashboard</a>
                           <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                            <li><a href="/accounts">Dashboard</a></li>
+                            <li><a href="/dashboard">Dashboard</a></li>
                             <li><a href="/accounts">Coin Account</a></li>
                             <li><a href="/user/profile">User Profile</a></li>
                             <li><a href="/security/options">Security</a></li>
-                            <li><a href="/accounts">Settings</a></li>
+                            <li><a href="/user/profile">Settings</a></li>
                             <li><a href="/auth/logout">Log Out</a></li>
                           </ul>
                         </li>

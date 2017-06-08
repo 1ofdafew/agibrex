@@ -45,9 +45,9 @@ class TradeService {
         if (orderBook.isNew()) {
           throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
         }
-        // const freshInstance = yield this.OrderBook.find(orderBook.id)
+        const freshInstance = yield this.OrderBook.find(orderBook.id)
         // match to do the matching new ask/bid
-        const matching = yield MatcherService.tryMatch(data)
+        const matching = yield MatcherService.tryMatch(freshInstance)
         const dataRedirect = {
           status: 'ok',
           success: `Successfully insert new ${data.type}.`
