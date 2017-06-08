@@ -3,7 +3,6 @@
 const User = use('App/Model/User')
 const Validator = use('App/Services/Validator')
 const UserService = make('App/Services/UserService')
-
 const log = use('npmlog')
 
 class RegisterController {
@@ -94,3 +93,4 @@ class RegisterController {
 }
 
 module.exports = RegisterController
+
