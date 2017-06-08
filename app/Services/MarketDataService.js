@@ -91,6 +91,7 @@ class MarketDataService {
   }
 
   * fetchCurrentData (type) {
+    log.info(`Fetching current data for ${type}`)
     const URL = `http://coinmarketcap.northpole.ro/api/v6/${type}.json`
     yield axios.get(URL)
       .then(function (resp) {
@@ -107,6 +108,7 @@ class MarketDataService {
               btc: resp.data.volume24.btc
             }
           }
+          log.info('current data:', data)
           const md = new MarketData(data)
           yield md.save()
         })
