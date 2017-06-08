@@ -242,7 +242,7 @@ tbody td:last-child, thead th:last-child {
 	color: #888;
 }
 a {
-	color: #00bdca;
+	color: #ecc007;
 	text-decoration: none;
 }
 a:hover {
@@ -724,7 +724,7 @@ del {
 	font-size: 36px;
 	line-height: 34px;
 	font-weight: 600;
-	color: #555;
+	color: #333;
 	padding: 0px;
 	margin: 0 0 5px;
 	text-align: left;
@@ -740,6 +740,15 @@ del {
 	text-align: left;
 	text-transform: none;
 }
+.indextitle h4 {
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: normal;
+	color: #444;
+	padding: 0px;
+	text-align: left;
+	text-transform: none;
+}
 .iconindexbg {
 	background-color: #f1f1f1;
 }
@@ -749,7 +758,7 @@ del {
 .titlebody {
 	float: left;
 	width: 100%;
-	background: #f1f1f1;
+	background: #fff;
 }
 
 .ticker {
@@ -973,7 +982,7 @@ del {
 }
 #access .menu ul li a.active {
 	color: #fff;
-	background-color: #00bdca;
+	background-color: #ecc007;
 	border-radius: 2px;
 }
 #access .menu ul li ul {
@@ -1014,7 +1023,7 @@ del {
 	font-weight: normal;
 	text-transform: none;
 	color: #fff;
-	background: #00bdca;
+	background: #ecc007;
 	border-bottom: 1px solid #6ed4db;
 	text-align: left;
 	border-radius: 0px;
@@ -1178,7 +1187,6 @@ del {
 	width: 440px;
 	margin-left: 20px;
 }
-
 .buttoninbox {
   color: white;
   display: inline-block; /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
@@ -1187,9 +1195,9 @@ del {
 }
 /* Make the badge float in the top right corner of the button */
 .buttonbadge {
-  background-color: #00bdca;
+  background-color: #ecc007;
   border-radius: 4px;
-  color: white;
+  color: #333;
   padding: 0.5px 7px;
   font-size: 13px;
 	font-weight: bold;
@@ -1204,10 +1212,10 @@ del {
 	padding: 0 8px;
 }
 .iconright a:hover {
-	color: #00bdca;
+	color: #ecc007;
 }
 .iconright i:hover {
-	color: #00bdca;
+	color: #ecc007;
 	cursor: pointer;
 }
 
@@ -1234,7 +1242,7 @@ del {
 	margin: 0;
 	padding: 1px 15px;
 	list-style: none;
-	background: #00bdca;
+	background: #ecc007;
 	color: #fff;
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius:4px;
 }
@@ -1245,7 +1253,7 @@ del {
 .size > ul.list li:hover {
 	/*padding: 10px 15px;
 	list-style: none;*/
-	background:#00bdca;
+	background:#ecc007;
 	color: #6ed4db;
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius:4px;
 }
@@ -1418,7 +1426,7 @@ a.button_slider {
 	font-size: 18px;
 	text-transform: uppercase;
 	color: #fff;
-	border: 3px solid #00bdca;
+	border: 3px solid #ecc007;
 	border-radius: 8px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	-moz-opacity: 1;
@@ -1426,7 +1434,7 @@ a.button_slider {
 	opacity: 1;
 }
 a.button_slider:hover {
-	background-color: #00bdca;
+	background-color: #ecc007;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	-moz-opacity: 1;
 	-khtml-opacity: 1;
@@ -1882,7 +1890,7 @@ a.button_slider02:hover {
 .fresh_projects03 {
 	float: left;
 	width: 100%;
-	background-color: #00bdca;
+	background-color: #ecc007;
 	text-align: left;
 }
 
@@ -3792,7 +3800,7 @@ ul.post_meta_links_small {
 	color: #383634;
 }
 .sidebar_widget ul.arrows_list1 li a.active {
-	color: #00bdca;
+	color: #ecc007;
 	border-radius: 0px;
 }
 .sidebar_widget ul.arrows_list1 li a.active:hover {
@@ -3977,7 +3985,7 @@ a.but_warning_sign:hover {
 .but_user {
 	padding: 15px 22px 15px 22px;
 	margin: 0px 0px 0px 0px;
-	background: #00bdca;
+	background: #ecc007;
 	border-bottom: 0px solid #909090;
 	border-top: none;
 	border-left: none;
@@ -5313,7 +5321,7 @@ ul.list_empty.form_buttons {
 	padding: 20px 40px 30px 40px;
 	border: 0px solid #f6f6f6;
 	background-color: #f6f6f6;
-	border-top: 5px solid #00bdca;
+	border-top: 5px solid #ecc007;
 	border-radius: 0px;
 }
 .testimonials-4 .contentsell {
@@ -5359,7 +5367,7 @@ ul.list_empty.form_buttons {
 }
 .form ul li input:focus {
 	color: #444;
-	border: 1px solid #00bdca;
+	border: 1px solid #ecc007;
 }
 .form select {
 	color: #727272;
@@ -5373,7 +5381,7 @@ ul.list_empty.form_buttons {
 }
 .form ul li select:focus {
 	color: #444;
-	border: 1px solid #00bdca;
+	border: 1px solid #ecc007;
 }
 .form ul li textarea {
 	margin-left: 110px;
@@ -5519,11 +5527,11 @@ ul.list_empty.form_buttons {
 }
 .buyform .param input:focus {
 	color: #444;
-	border: 1px solid #00bdca;
+	border: 1px solid #ecc007;
 }
 .buyform02 .param02 input:focus {
 	color: #444;
-	border: 1px solid #00bdca;
+	border: 1px solid #ecc007;
 }
 .buyform .param input[readonly] {
 	background-color: #F9F9F9;
@@ -5540,7 +5548,7 @@ ul.list_empty.form_buttons {
 }
 .buyform .param select:focus {
 	color: #444;
-	border: 1px solid #00bdca;
+	border: 1px solid #ecc007;
 }
 .buyform .param select {
 	clear: both;
@@ -5934,7 +5942,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFFFFFF, endCo
 	font-size: 18px;
 	font-weight: 100;
 	text-transform: uppercase;
-	/*border-bottom: 4px solid #00bdca;*/
+	/*border-bottom: 4px solid #ecc007;*/
 }
 /*.panel-heading .left {
 	float: left;
