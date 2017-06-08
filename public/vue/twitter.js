@@ -11,7 +11,7 @@ new Vue({
   },
   methods: {
     update: _.debounce(function (e) {
-      this.input = e.target.value
+      // this.fetchTweets()
     }, 300),
     fetchTweets: function () {
       const xhr = new XMLHttpRequest()
