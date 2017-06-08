@@ -26,11 +26,12 @@
     <!-- ######### CSS STYLES ######### -->
     <link rel="stylesheet" href="/css/logged_style.css" type="text/css">
     <!-- <link rel="stylesheet" href="/css/background.css" type="text/css"> -->
-    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <!-- <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <!-- responsive devices styles -->
     <link rel="stylesheet" media="screen" href="/css/responsive-leyouts.css" type="text/css">
     <link rel="stylesheet" href="/css/colour.css">
+    <script src="https://use.fontawesome.com/592cd2f85a.js"></script>
 
     {% block head %}
     {% endblock %}
@@ -53,14 +54,13 @@
                   <li><a href="/coming_soon">Contact Us</a></li>
                 </ul>
                 <ul class="tci_list">
-
                   {% if not currentUser %}
                   <li>
-                    <a href="/auth/login"><i class="fa fa-lock"></i>&nbsp;&nbsp;&nbsp;Login</a>
+                    <a href="/auth/login">Login</a>
                   </li>
                   <!-- <li>|</li> -->
                   <li>
-                    <a href="/auth/register"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;Register</a>
+                    <a href="/auth/register">Create Account</a>
                   </li>
                   {% else %}
                   <li>
@@ -68,11 +68,11 @@
                   </li>
                   <!-- <li>|</li> -->
                   <li>
-                    <a href="/auth/logout"><i class="fa fa-unlock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+                    <a href="/auth/logout">Logout</a>
                   </li>
                   {% endif %}
 
-                  <li class="empty margin-left">
+                  <!-- <li class="empty margin-left">
                     <label for="language_selector"><img src="/images/language/en.png"></label>
                     <select id="language_selector" class="lang">
                       <option value="en" selected="selected">English</option>
@@ -80,7 +80,7 @@
                       <option value="ru">Pусский</option>
                       <option value="zh">中文</option>
                     </select>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>
@@ -105,10 +105,10 @@
                       <li><a href="/order_book">Order Book</a></li>
                       <li><a href="">Gibrex</a>
                         <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
-                          <li><a href="/gibrex/about_Gibrex">About Gibrex</a></li>
-                          <li><a href="/gibrex/our_Security">Our Security</a></li>
-                          <li><a href="/gibrex/exchange_Fees">Exchange Fees</a></li>
-                          <li><a href="/gibrex/contactUs">Contact Us</a></li>
+                          <li><a href="/gibrex/about/us">About Gibrex</a></li>
+                          <li><a href="/gibrex/security/info">Our Security</a></li>
+                          <li><a href="/gibrex/exchange/fees">Exchange Fees</a></li>
+                          <li><a href="/gibrex/contact/us">Contact Us</a></li>
                         </ul>
                       </li>
                       {% if currentUser %}
