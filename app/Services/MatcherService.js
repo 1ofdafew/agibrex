@@ -109,7 +109,7 @@ class MatcherService {
        log.info(`tryMatch: Updated balance for Asset's Orderbook ID : ${orderBook.id}`)
      }
 
-      Event.fire('matcher:ok', orderBook, matched)
+      Event.fire('matcher:ok', orderBook.id, orderBook.type)
       return true
     }
     return false

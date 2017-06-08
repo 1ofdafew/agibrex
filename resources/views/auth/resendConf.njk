@@ -1,4 +1,4 @@
-{% extends 'layout/master' %}
+{% extends 'layout/puppet' %}
 
 {% block content %}
 
@@ -26,7 +26,7 @@
       {{ form.open({ action: 'Auth/AccountVerifyController.doResend' }) }}
         {{ csrfField }}
         <div class="loginform">
-          
+
           <a href="/auth/login">Need to login?</a>
 
           <div class="notice" style="margin: 20px 0px 20px;">
@@ -37,7 +37,7 @@
             {{ info }}
           </div>
           <div class="separate"></div>
-          
+
           <div class="loginform_inputs">
             <div class="input_contain last form-group"> <i class="fa fa-user"></i>
               <input type="text" class="login" id="email" name="email" value="" placeholder="Email address" required>
@@ -45,7 +45,7 @@
           </div>
           <br>
           <input type="submit" name="submit" value="Resend Confirmation" class="but_user">
-        </div>      
+        </div>
       {{ form.close() }}
 
     {% else %}
@@ -65,7 +65,7 @@
 
     {% endif %}
 
-    <a class="forgot" href="/auth/register">Don't have an account? Register Here.</a> 
+    <a class="forgot" href="/auth/register">Don't have an account? Register Here.</a>
   </div>
   <div class="clearfix mar_top8"></div>
 </div>
