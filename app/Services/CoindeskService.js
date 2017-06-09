@@ -33,41 +33,64 @@ class CoindeskService {
     }
     return true
   }
+
+  /**
+   * Fetch historical data for Bitcoin.
+   * This function is called by /bootstrap/redis.js
+   */
+  * cronFetchBitcoinData() {
+    try {
+      const last = yield this.cronFetchLastData('BTC')
+      var which
+      if (last === undefined) {
+        which = '2010-07-18'
+      } else {
+        which = moment(last[0].date).format('YYYY-MM-DD')
+      }
+      yield this.fetchBitcoinData(which)
+    } catch (e) {
+      log.error('Unable to fetch Bitcoin data', e)
+    }
+  }
+
+  /**
+   * Fetch historical data for Ethereum
+   * This function is called by /bootstrap/redis.js
+   */
+  * cronFetchEthereumData() {
+    try {
+      const last = yield this.cronFetchLastData('ETH')
+      var which
+      if (last === undefined) {
+        which = moment().format('YYYY-MM-DD')
+      } else {
+        which = moment(last[0].date)
+      }
+      yield this.fetchEthereumData(which)
+    } catch (e) {
+      log.error('Unable to fetch Ethereum data', e)
+    }
+  }
+  
   
   * fetchBitcoinData (which) {
     log.info(`Fetching latest data from Coindesk`)
 
     const URL = 'http://api.coindesk.com/v1/bpi/historical/close.json'
-    // set since when to pull the data from
-    var start
-    if (which === 'all') {
-      start = '2010-07-18'
-    } else {
-      start = which
-    }
-    const end = moment().format('YYYY-MM-DD') 
-    const Location = `${URL}?start=${start}&end=${end}`
-    log.info('Location:', Location)
-
-    return yield this.fetchData('BTC', Location)
+    const end = moment().format('YYYY-MM-DD')
+    const Location = `${URL}?start=${which}&end=${end}`
+    return yield this.fetchData('BTC', Location, which)
   }
 
   * fetchEthereumData (which) {
     log.info(`Fetching latest data from Etherchain`)
     const URL = 'https://etherchain.org/api/statistics/price'
-    // set since when to pull the data from
-    var start
-    if (which === 'all') {
-      start = '2015-08-30'
-    } else {
-      start = which
-    }
     axios.get(URL)
       .then(function (resp) {
         const data = resp.data.data
         //log.info('eth data:', data)
         co(function * () {
-          yield HPService.saveEthereumData(data, moment(which))
+          yield HPService.saveEthereumData(data, which)
         })
       })
   }
@@ -86,20 +109,25 @@ class CoindeskService {
    */
 
   * cronFetchData(type) { 
-    const last = Db.table('historical_prices')
-      .where('symbol', type)
-      .orderBy('created_at', 'desc')
+    log.info(`Fetching ${type} desc...`)
+    const last = yield Db.table('historical_prices')
+      .where('type', type)
+      .orderBy('time', 'desc')
       .limit(1)
+    if (JSON.stringify(last) === '[]') {
+      return undefined
+    }
+    return last
   }
 
-  * fetchData(type, URL) {
+  * fetchData(type, URL, since) {
     log.info(`Fetching BTC data from ${URL}`)
     axios.get(URL)
       .then(function (resp) {
         const bpi = resp.data.bpi
         co(function * () {
           log.info('Saving BTC data...')
-          yield HPService.saveBitcoinData(bpi)
+          yield HPService.saveBitcoinData(bpi, since)
         })
       })
     return true

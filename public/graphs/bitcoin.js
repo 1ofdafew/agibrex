@@ -215,8 +215,8 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 		data: []
 	};
 	$.each(data, function(lineNo, line) {
-		// console.log('>>', lineNo, 'line:', line);
-		var ts = moment(line.date, 'YYYY-MM-DD').unix();
+		console.log('>>', lineNo, 'line:', line);
+		var ts = moment(line.time).unix();
 		series.data.push([ts, line.price])
 	});
 
