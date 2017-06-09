@@ -4390,7 +4390,7 @@ p.error {
 }
 .message-box-wrap {
 	border: 0px solid #fff;
-	padding: 0px 20px;
+	padding: 0px 0px;
 }
 .info {
 	color: #4a84bc;
