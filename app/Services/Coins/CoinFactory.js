@@ -53,7 +53,11 @@ class CoinFactory extends Coin {
    * @return json data
    */
   * getBalance(address) {
-    return yield this.send('get', `${URL}/api/v1/${this.type}/${address}`, {})
+    // info Coin:tracto: response =>  { status: 'ok',
+    // info Coin:tracto: response =>    data: { balance: { available: 0, pending: 0 } } }
+
+    const acc = yield this.send('get', `${URL}/api/v1/${this.type}/${address}`, {})
+    return yield this.toDecimals(acc)
   }
 
   /**
@@ -69,6 +73,22 @@ class CoinFactory extends Coin {
   * transfer (data) {
     return yield this.send('put', `${URL}/api/v1/${this.type}`, data)    
   }
+
+  * toDecimals(account) {
+    log.info('parsing ', account)
+    if (account !== undefined) {
+      const available = parseFloat(account.data.balance.available).toFixed(8)
+      if (account.data.balance.pending !== undefined) {
+        const pending = parseFloat(account.data.balance.pending).toFixed(8)
+        account.data.balance.available = available
+        account.data.balance.pending = pending
+        return account
+      }
+      account.data.balance.available = available
+      return account
+    }
+  }
+  
 
 }
 
