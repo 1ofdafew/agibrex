@@ -4780,6 +4780,7 @@ ul.list_empty.form_buttons {
 	float: left;
 }
 .form_button {
+	float: left;
 	padding: 12px 0 0 0;
 	clear: both;
 }
