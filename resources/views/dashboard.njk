@@ -1,13 +1,13 @@
 {% extends 'layout/puppet' %}
 
-{% block content %}
-
+{% block head %}
 <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+{% endblock %}
 
+{% block content %}
   <div class="testimonials-4">
-
       <div class="one_thirdpx">
         <div class="content">
           <h3 class="section_label">
