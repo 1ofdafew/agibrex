@@ -3996,7 +3996,7 @@ a.but_warning_sign:hover {
 .but_usersell {
 	padding: 15px 22px 15px 22px;
 	margin: 0px 0px 0px 0px;
-	background: #0977ab;
+	background: #ecc007;
 	border-bottom: 0px solid #909090;
 	border-top: none;
 	border-left: none;
@@ -5328,7 +5328,7 @@ ul.list_empty.form_buttons {
 	padding: 20px 40px 30px 40px;
 	border: 0px solid #f6f6f6;
 	background-color: #f6f6f6;
-	border-top: 5px solid #0977ab;
+	border-top: 5px solid #ecc007;
 	border-radius: 0px;
 }
 .testimonials-4 .content1 {

@@ -10,7 +10,7 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 	}, null, document.getElementsByTagName('head')[0]);
 
 	Highcharts.theme = {
-		colors: ['#00bdca', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+		colors: ['#ecc007', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
 			'#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
 		chart: {
 			backgroundColor: {
@@ -180,7 +180,7 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 			outlineColor: '#CCC',
 			maskFill: 'rgba(255,255,255,0.1)',
 			series: {
-				color: '#7798BF',
+				color: '#ecc007',
 				lineColor: '#A6C7ED'
 			},
 			xAxis: {

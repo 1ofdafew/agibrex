@@ -21,7 +21,7 @@ class TwitterService {
       access_token_secret: Env.get('TWTR_TOKEN_SECRET')
     })
 
-    const params = { screen_name: 'gibrex_' }
+    const params = { screen_name: 'gibrex_', count:5 }
     const self = this
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
       co(function * () {

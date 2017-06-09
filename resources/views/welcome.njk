@@ -603,7 +603,13 @@
       </div>
     </div>
     <div class="one_half last">
-      <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Open Orders <a href="order-book.php" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a></h3>
+
+      <h3><i class="fa fa-exchange"></i>&nbsp;&nbsp;Open Orders
+        {% if currentUser %}
+        <a href="/order_book" class="highlight gray"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;GO TO ORDER BOOK</a>
+      {% endif %}
+    </h3>
+
       <div class="one_half">
         <div class="table-style">
           <table class="table-list trades" id="bids_list">

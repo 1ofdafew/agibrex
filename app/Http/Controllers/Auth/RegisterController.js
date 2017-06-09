@@ -3,7 +3,13 @@
 const User = use('App/Model/User')
 const Validator = use('App/Services/Validator')
 const UserService = make('App/Services/UserService')
+<<<<<<< HEAD
+const Database = use('Database')
+=======
+>>>>>>> 4d0fcf436aece30fa47ed0899e3cffeff331111b
 const log = use('npmlog')
+const axios = require('axios')
+const co = require('co')
 
 class RegisterController {
 
@@ -20,13 +26,45 @@ class RegisterController {
     const from = request.input('f')
 
     // checking if uuid already register (if registered, redirect to login)
-    // const checkUser = yield Database.select('tvn_id')
-    //  .from('transactions')
-    //  .where('id',data.tx_id)
-    // if not register, check uuid is valid from tvn
 
-    // response.send(from)
-    yield response.sendView('auth.register')
+    const checkUser = yield Database.count('id as total')
+      .from('users')
+      .where('tvn_id',tvn_uuid)
+      .where('tvn_user','YES')
+
+    // response.send(checkUser[0].total)
+    if (tvn_uuid) {
+
+        // if not register, check uuid is valid from tvn
+
+        if (checkUser[0].total >= 1) {
+          response.redirect('login')
+        } else {
+
+            const URL = `http://tractotvn.dev/verify-user/${tvn_uuid}`
+            var code, username, email, args
+            yield axios.get(URL)
+              .then(function (resp) {
+                co(function * () {
+
+                  if (resp.data.t == 1) {
+                     args = {
+                         code: resp.data.code,
+                         username: resp.data.username,
+                         email: resp.data.email,
+                         t: resp.data.t
+                     }
+                  } else {
+                     response.redirect('login')
+                  }
+
+                })
+            })
+        }
+    }
+
+    yield response.sendView('auth.register',{ args : args })
+
   }
 
   /**
@@ -38,7 +76,7 @@ class RegisterController {
    */
   * register (request, response) {
 
-    const userDetails = request.only('code', 'username', 'email', 'password')
+    const userDetails = request.only('code', 'username', 'email', 'password','t')
     if (userDetails.code === '') {
       const errMsg = 'Invalid invitation code.'
       yield request.with({ error: errMsg }).flash()
@@ -46,7 +84,15 @@ class RegisterController {
     } else {
       // fetch verification id by that code.
       try {
-        yield UserService.findByOrFail('verification_code', userDetails.code)
+
+        var tvn_id = ''
+        var tvn_user = 'NO'
+        if (userDetails.t != 1) {
+          yield UserService.findByOrFail('verification_code', userDetails.code)
+        } else {
+          tvn_id = userDetails.code
+          tvn_user = 'YES'
+        }
 
         // try to register
         try {
@@ -54,7 +100,7 @@ class RegisterController {
           yield Validator.validate(userDetails, User.newUserRules, User.newUserMessages)
 
           const user = yield UserService.register(
-              userDetails.username, userDetails.email, userDetails.password)
+              userDetails.username, userDetails.email, userDetails.password, tvn_id, tvn_user)
 
           const data = {
             verifyMethod: 'email',
@@ -91,4 +137,3 @@ class RegisterController {
 }
 
 module.exports = RegisterController
-

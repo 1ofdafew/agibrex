@@ -35,19 +35,21 @@ class UserService {
    *
    * @public
    */
-  * register (username, email, password) {
+  * register (username, email, password, tvn_id, tvn_user) {
 
     const user = new this.User()
     user.username = username
     user.email = email
     user.password = password
+    user.tvn_id = tvn_id
+    user.tvn_user = tvn_user
     yield user.save()
 
     if (user.isNew()) {
       throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)
     }
     const freshInstance = yield this.User.find(user.id)
-    
+
     // firing email event in a non-blocking fashion
     Event.fire('user:registered', freshInstance)
 

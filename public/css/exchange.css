@@ -34,7 +34,7 @@ label:hover {
 input:checked + label {
   color: #f1f1f1;
   /*border: 1px solid #666;*/
-  border-top: 5px solid #00bdca;
+  border-top: 5px solid #ecc007;
   border-bottom: 1px solid #666;
   background-color: #666;
 }
