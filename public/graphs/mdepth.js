@@ -258,7 +258,7 @@ $.getJSON('/obchart?callback=?', function (data) {
           area: {
               pointStart: 0,
               marker: {
-                  enabled: false,
+                  enabled: true,
                   symbol: 'circle',
                   radius: 2,
                   states: {
