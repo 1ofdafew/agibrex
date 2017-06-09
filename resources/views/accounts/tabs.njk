@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<div class="mar_top3"></div>
 <h3><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;My Account&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{{ type }}</h3>
 
 <style>
@@ -72,8 +73,10 @@ input:checked + label {
   <input class="radiobuttontab" id="tab0" type="radio" name="tabs" checked>
   <label class="labels" for="tab0">Account Balance</label>
 
+  <!--
   <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
   <label class="labels" for="tab1">Buy/Sell</label>
+  -->
 
   <input class="radiobuttontab"  id="tab2" type="radio" name="tabs">
   <label class="labels" for="tab2">Deposit</label>
@@ -91,8 +94,9 @@ input:checked + label {
         <h3 class="section_label01"> <i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Wallet Address</h3>&nbsp;
           <a target="_blank" title="Click for info on how this works." href="help.php?url=solution/articles/1000023402-what-are-market-price"><i class="fa fa-question"></i></a>
         <div class="section_label02">
-          <span><a  id="myBtn" class="but_user">{{ wallet.address }}</a></span>
+          <span><a id="myBtn" class="but_user">{{ wallet.address }}</a></span>
         </div>
+        <div class="mar_top2"></div>
       </div>
 
 <!-- The Modal -->
@@ -128,7 +132,7 @@ input:checked + label {
         <div class="clear"></div>
       </div>
 
-      {# <div class="content">
+      <!--div class="content">
         <h3 class="section_label"> <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Balances On Hold</span> </h3>
         <div class="clear"></div>
         <div class="balances">
@@ -140,8 +144,7 @@ input:checked + label {
           <div class="clear"></div>
         </div>
         <div class="clear"></div>
-      </div>
-       #}
+      </div-->
       <div class="mar_top3"></div>
       {% endif %}
       <!-- <ul class="list_empty">
@@ -154,6 +157,8 @@ input:checked + label {
     </div>
   </section>
 
+  <!-- content1 is for Buy/Sell -->
+  <!--
   <section id="content1">
     <div class="testimonials-4">
       <input id="user_fee" value="0.00" type="hidden">
@@ -165,7 +170,7 @@ input:checked + label {
           </h3>
           <div class="clear"></div>
           <div class="dotted"></div>
-          <form id="buy_form" action="buy-sell.php" method="POST">
+          <form id="buy_form" action="" method="POST">
             <div class="buyform">
               <div class="spacer"></div>
               <div class="calc dotted">
@@ -232,12 +237,12 @@ input:checked + label {
                 <div class="clear"></div>
               </div>
               <div class="param lessbottom">
-                <!-- <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox"> -->
-                <!-- <label for="buy_limit">Limit Order&nbsp;
+                <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox">
+                <label for="buy_limit">Limit Order&nbsp;
                   <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
                     <i class="fa fa-question"></i>
                   </a>
-                </label> -->
+                </label> 
                 <div class="clear"></div>
               </div>
               <div class="param lessbottom">
@@ -383,12 +388,12 @@ input:checked + label {
                 <div class="clear"></div>
               </div>
               <div class="param lessbottom">
-                <!-- <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
+                <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
                 <label for="sell_stop">Limit Order&nbsp;
                   <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
                     <i class="fa fa-question"></i>
                   </a>
-                </label> -->
+                </label> 
                 <div class="clear"></div>
               </div>
               <div class="param lessbottom">
@@ -619,15 +624,15 @@ input:checked + label {
       </div>
     </div>
     <div class="mar_top5"></div>
-
   </section>
+  -->
 
   <section id="content2">
     <div class="testimonials-4">
       <div class="one_half">
         <div class="content">
           <h3 class="section_label">
-            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Deposit Bitcoins</span>
+            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Deposit {{ type }}</span>
           </h3>
           <div class="clear"></div>
           <div class="dotted"></div>
@@ -635,22 +640,24 @@ input:checked + label {
             <div class="spacer"></div>
             <div class="mar_top2"></div>
             <div class="param">
-              <label for="deposit_address">Send Bitcoins To This Address</label>
-              <input type="text" id="deposit_address" name="deposit_address" value="12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
+              <label for="deposit_address">Send {{ type }} To This Address</label>
+              <input type="text" id="deposit_address" name="deposit_address" value="{{ wallet.address }}">
               <div class="clear"></div>
             </div>
             <div class="spacer"></div>
             <div class="mar_top2"></div>
             <div class="calc">
               <!-- <img class="qrcode" src="includes/qrcode.php?code=12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz"> -->
-              <img src="https://chart.googleapis.com/chart?chs=450x450&cht=qr&chl=bitcoin:12EKwepGaYcpjXHU1dsUVUBXUcNLGbrmRz">
+              <img src="https://chart.googleapis.com/chart?chs=450x450&cht=qr&chl=bitcoin:{{ wallet.address }}">
             </div>
             <div class="spacer"></div>
             <div class="mar_top2"></div>
+            <!--
             <div class="calc">
-              <a class="item_label" href="bitcoin-addresses.php"><i class="fa fa-cog"></i> Manage Bitcoin addresses</a>
+              <a class="item_label" href=""><i class="fa fa-cog"></i> Manage {{ type }} addresses</a>
               <div class="clear"></div>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -661,6 +668,9 @@ input:checked + label {
           </h3>
           <div class="clear"></div>
           <div class="dotted"></div>
+          <br/>
+          <h3>Comming Soon</h3>
+          <!--
           <div class="buyform">
             <div class="spacer"></div>
             <div class="mar_top2"></div>
@@ -673,27 +683,12 @@ input:checked + label {
             <div class="spacer"></div>
             <div class="mar_top2"></div>
             <div class="calc">
-              <!-- <div class="text">
-                  <p><u><strong>STEP 1</strong></u></p>
-                  <p>Open your own private bank account with <a href="https://secure.cryptocapital.co/new_account_type.php" target="_blank">Crypto Capital</a> in any of 30 different currencies.</p>
-                  <p><u><strong>STEP 2</strong></u></p>
-                  <p>Link this account to your 1BTCXE&nbsp;account by visiting the <a href="https://1btcxe.com/bank-accounts.php">bank accounts</a> page and clicking "add account". Make sure that the account number and currency match those on your Crypto Capital account.</p>
-                  <p><u><strong>STEP 3</strong></u></p>
-                  <p>Please login to your Crypto Capital account and&nbsp;select the account, then choose "New Transfer" on the left menu, click on the "Beneficiary List" button, then click "Add New". To add <strong><span id="escrow_name"></span><span id="escrow_name">1BTCXE</span></strong> as a new beneficiary, use the following information:</p>
-                  <ul>
-                    <li>Select : Crypto Capital, Company account.</li>
-                    <li>Company name : <strong><span id="escrow_name">1BTCXE</span></strong>.</li>
-                    <li>Address : Panama City, Panama.</li>
-                    <li>Country : Panama.</li>
-                    <li>Account number : <strong><span id="escrow_account">9120091194</span></strong>.</li>
-                  </ul>
-                  <p>Select the account currency and then create a <strong>new transfer</strong> to this account. Once the transfer is complete, your <span style="line-height: 20.7999992370605px;">1BTCXE</span> account will be credited.</p>
-                </div> -->
               <div class="mar_top2"></div>
               <a class="item_label" href="bank-accounts.php"><i class="fa fa-cog"></i> Manage bank accounts</a>
               <div class="clear"></div>
             </div>
           </div>
+          -->
         </div>
       </div>
     </div>
@@ -722,16 +717,16 @@ input:checked + label {
       <div class="one_half">
         <div class="content">
           <h3 class="section_label">
-            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw Bitcoins</span>
+            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw {{ type }}</span>
           </h3>
           <div class="clear"></div>
           <div class="dotted"></div>
-          <form id="buy_form" action="https://1btcxe.com/withdraw.php" method="POST">
+          <form id="buy_form" action="" method="POST">
             <div class="buyform">
               <div class="spacer"></div>
               <div class="calc dotted">
-                <div class="label">Available BTC</div>
-                <div class="value">0.00000000 BTC</div>
+                <div class="label">Available {{ type }}</div>
+                <div class="value">{{ balance.available }}</div>
                 <div class="clear"></div>
               </div>
               <div class="spacer"></div>
@@ -750,20 +745,20 @@ input:checked + label {
               <div class="spacer"></div>
               <div class="mar_top2"></div>
               <div class="calc">
-                <div class="label">Blockchain Fee <a title="The fee the network charges for transactions." href="javascript:return false;">&nbsp;<i class="fa fa-question"></i></a></div>
-                <div class="value"><span id="withdraw_btc_network_fee">0.0005</span> BTC</div>
+                <div class="label">Network Fee <a title="The fee the network charges for transactions." href="javascript:return false;">&nbsp;<i class="fa fa-question"></i></a></div>
+                <div class="value"><span id="withdraw_btc_network_fee">0.0001</span> {{ type }}</div>
                 <div class="clear"></div>
               </div>
               <div class="calc bigger">
-                <div class="label"> <span id="withdraw_btc_total_label">BTC to Receive</span> </div>
-                <div class="value"><span id="withdraw_btc_total">0.00000000</span></div>
+                <div class="label"> <span id="withdraw_btc_total_label">{{ type }} to Receive</span> </div>
+                <div class="value"><span id="withdraw_btc_total"></span></div>
                 <div class="clear"></div>
               </div>
               <div class="spacer"></div>
               <div class="spacer"></div>
               <div class="spacer"></div>
               <input type="hidden" name="bitcoins" value="1">
-              <input type="submit" name="submit" value="Send Bitcoins" class="but_user">
+              <input type="submit" name="submit" value="Withdraw {{ type }}" class="but_user">
             </div>
           </form>
           <div class="clear"></div>
@@ -772,11 +767,14 @@ input:checked + label {
       <div class="one_half last">
         <div class="content">
           <h3 class="section_label">
-            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw Fiat Currency</span>
+            <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Withdraw To Fiat Currency</span>
           </h3>
           <div class="clear"></div>
           <div class="dotted"></div>
-          <form id="buy_form" action="https://1btcxe.com/withdraw.php" method="POST">
+          <br/>
+          <h3>Coming Soon</h3>
+          <!--
+          <form id="buy_form" action="" method="POST">
             <div class="buyform">
               <div class="spacer"></div>
               <div class="calc dotted">
@@ -818,6 +816,7 @@ input:checked + label {
               <input type="submit" name="submit" value="Withdraw Currency" class="but_user">
             </div>
           </form>
+          -->
         </div>
       </div>
     </div>

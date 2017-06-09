@@ -32,9 +32,16 @@ class HistoricalPriceService {
     }
   }
 
-  * saveEthereumData (data) {
+  /**
+   * Save data from Ethereum data input
+   * @param data{Array} - data input
+   * @param from{moment Object} - the date from
+   */
+  * saveEthereumData (data, from) {
     for (var i=0; i < data.length;i++) {
-      yield this.saveData('ETH', data[i].time, data[i].usd)
+      if (moment(data[i].time).isAfter(from)) {
+        yield this.saveData('ETH', data[i].time, data[i].usd)
+      }
     }
   }
 

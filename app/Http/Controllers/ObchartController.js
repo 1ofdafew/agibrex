@@ -8,6 +8,7 @@ class ObchartController {
 
     const bid = yield Database.select('price', 'balance')
       .from('order_books')
+      .whereNot('asset', 'TRC') //filter TRC
       .where('type','bid')
       .where('status','ACTIVE')
       .orderBy('price', 'asc')
@@ -15,29 +16,13 @@ class ObchartController {
 
     const ask = yield Database.select('price', 'balance')
       .from('order_books')
+      .whereNot('asset', 'TRC') //filter TRC
       .where('type', 'ask')
       .where('status','ACTIVE')
       .orderBy('price', 'asc')
       .groupBy('price')
 
-    // console.log('ask:', ask)
-    // console.log('bid:', bid)
-    // console.log(bid, ask)
-    // const data = {bid: bid, ask: ask}
-
-    // yield response.sendView('orderbook.chart',{
-    //   bid_data : bid,
-    //   ask_data : ask,
-
-    // })
-
-
-
-    // const resp = `callback=([`, ask, bid,`]);`
-    // console.log('resp:', resp)
-
     response.jsonp({bid: bid, ask: ask})
-    // return(bid,ask)
   }
 
   * bid (request, response) {

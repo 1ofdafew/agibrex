@@ -105,6 +105,7 @@
                     <ul id="tiny">
                       <li><a href="/home">Home</a></li>
                       <li><a href="/exchange">Exchange</a></li>
+                      <!--
                       <li><a href="/coming_soon">Fees</a></li>
                       <li><a href="">Gibrex</a>
                         <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
@@ -114,12 +115,13 @@
                           <li><a href="/gibrex/contact/us">Contact Us</a></li>
                         </ul>
                       </li>
+                      -->
                       {% if currentUser %}
                       <!--li><a href="/order_book">Order Book</a></li-->
                       <li><a href="/dashboard">Dashboard</a>
                         <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                           <li><a href="/dashboard">Dashboard</a></li>
-                          <li><a href="/accounts">Coin Account</a></li>
+                          <li><a href="/accounts/bitcoin">Coin Account</a></li>
                           <li><a href="/user/profile">User Profile</a></li>
                           <li><a href="/security/options">Security</a></li>
                           <li><a href="/user/profile">Settings</a></li>
@@ -160,6 +162,7 @@
           <nav id="access02" class="access02" role="navigation">
             <div id="menu" class="menu">
               <ul id="tiny">
+                <!--
                 <li>
                   <div class="buttoninbox">
                     <span class="buttonbadge">12</span>
@@ -168,7 +171,9 @@
                 </li>
                 <li><a href="/accounts">Balance</a></li>
                 <li><a href="">Trade History</a></li>
-                <li><a><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
+                -->
+                <li>
+                  <a href="/accounts/bitcoin"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Coins</a>
                   <ul style="top: -10px; visibility: invisible; left: 0px; width: 180px; display: none;">
                     <li><a href="/accounts/bitcoin">Bitcoin</a></li>
                     <li><a href="/accounts/tracto">Tracto</a></li>
@@ -202,6 +207,7 @@
 
       {% block fullview %}
       <div class="container">
+        <br/>
         {% block content %}
         {% endblock %}
       </div>

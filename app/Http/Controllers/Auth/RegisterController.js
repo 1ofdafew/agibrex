@@ -3,7 +3,10 @@
 const User = use('App/Model/User')
 const Validator = use('App/Services/Validator')
 const UserService = make('App/Services/UserService')
+<<<<<<< HEAD
 const Database = use('Database')
+=======
+>>>>>>> 4d0fcf436aece30fa47ed0899e3cffeff331111b
 const log = use('npmlog')
 const axios = require('axios')
 const co = require('co')
@@ -23,6 +26,7 @@ class RegisterController {
     const from = request.input('f')
 
     // checking if uuid already register (if registered, redirect to login)
+
     const checkUser = yield Database.count('id as total')
       .from('users')
       .where('tvn_id',tvn_uuid)
@@ -60,6 +64,7 @@ class RegisterController {
     }
 
     yield response.sendView('auth.register',{ args : args })
+
   }
 
   /**

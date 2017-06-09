@@ -2,163 +2,128 @@
 
 {% block content %}
 
-      <div class="testimonials-4">
-        <div class="one_third">
-        <div class="content">
-          <h3 class="section_label">
+<div class="testimonials-4">
+<div class="mar_top4"></div>
+    <div class="one_thirdpx">
+      <div class="content">
+        <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Personal Information</span>
           </h3>
+        <div class="clear"></div>
+        <div class="dotted"></div>
+        <form name="settings" action="#" class="form form1" method="POST">
+          <input type="hidden" id="form_name" name="form_name" value="settings">
+          <ul>
+            <li class="">
+              <div class="label_extend"></div>
+              <label for="settings_pass">Change Password </label>
+              <input type="password" name="settings[pass]" value="" id="settings_pass">
+            </li>
+            <li class="alt">
+              <div class="label_extend"></div>
+              <label for="settings_pass2">Confirm Password </label>
+              <input type="password" name="settings[pass2]" value="" id="settings_pass2">
+            </li>
+            <li class="">
+              <div class="label_extend"></div>
+              <label for="settings_email">Email </label>
+              <input type="text" name="settings[email]" value="john.doe@gmail.com" id="settings_email">
+            </li>
+            <div class="clearfix mar_top3"></div>
+
+            <input type="hidden" name="submitted" value="1">
+            <input type="hidden" name="settings[uniq]" value="0b7f08405e9da5785d97dc48bff3b487" class="hidden_input" id="settings_uniq">
+          </ul>
+          <input type="hidden" name="verify_fields[email]" value="email">
+          <input type="hidden" class="compare_fields" name="compare_fields[pass2]" value="pass">
           <div class="form_button">
             <input type="submit" name="submit" value="Save Info" class="but_user">
           </div>
-          <div class="clear"></div>
-          <div class="dotted"></div>
-          <form name="settings" action="#" class="form form1" method="POST">
-            <input type="hidden" id="form_name" name="form_name" value="settings">
-            <ul>
-              <li class="">
-                <div class="label_extend"></div>
-                <label for="settings_pass">Change Password </label>
-                <input type="password" name="settings[pass]" value="" id="settings_pass">
-              </li>
-              <li class="alt">
-                <div class="label_extend"></div>
-                <label for="settings_pass2">Confirm Password </label>
-                <input type="password" name="settings[pass2]" value="" id="settings_pass2">
-              </li>
-              <li class="">
-                <div class="label_extend"></div>
-                <label for="settings_email">Email </label>
-                <input type="text" name="settings[email]" value="john.doe@gmail.com" id="settings_email">
-              </li>
-              <li class="alt">
-                <div class="label_extend"></div>
-                <label for="settings_default_currency">Default Currency </label>
-                <select name="settings[default_currency]" id="settings_default_currency">
-                  <option value=""></option>
-                  <option value="41">AED</option>
-                  <option value="39">AUD</option>
-                  <option value="6">BGN</option>
-                  <option value="5">CAD</option>
-                  <option value="40">CHF</option>
-                  <option value="2">CNY</option>
-                  <option value="7">CZK</option>
-                  <option value="8">DKK</option>
-                  <option value="1">EUR</option>
-                  <option value="3">GBP</option>
-                  <option value="9">HKD</option>
-                  <option value="10">HRK</option>
-                  <option value="11">HUF</option>
-                  <option value="12">ILS</option>
-                  <option value="13">INR</option>
-                  <option value="4">JPY</option>
-                  <option value="37">MUR</option>
-                  <option value="16">MXN</option>
-                  <option value="17">NOK</option>
-                  <option value="18">NZD</option>
-                  <option value="19">PLN</option>
-                  <option value="20">RON</option>
-                  <option value="21">RUB</option>
-                  <option value="22">SEK</option>
-                  <option value="23">SGD</option>
-                  <option value="24">THB</option>
-                  <option value="25">TRY</option>
-                  <option value="27" selected="selected">USD</option>
-                  <option value="26">ZAR</option>
-                </select>
-              </li>
-              <div class="clearfix mar_top3"></div>
-
-
-              <input type="hidden" name="submitted" value="1">
-              <input type="hidden" name="settings[uniq]" value="0b7f08405e9da5785d97dc48bff3b487" class="hidden_input" id="settings_uniq">
-            </ul>
-            <input type="hidden" name="verify_fields[email]" value="email">
-            <input type="hidden" class="compare_fields" name="compare_fields[pass2]" value="pass">
-          </form>
-          <div class="clear"></div>
-        </div>
-        <div class="mar_top3"></div>
+        </form>
         <div class="clear"></div>
-        <div class="content">
-          <h3 class="section_label">
+      </div>
+    </div>
+    <div class="one_thirdpx">
+      <div class="content">
+        <h3 class="section_label">
             <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Security and Notifications</span>
           </h3>
-          <div class="clear"></div>
-          <div class="dotted"></div>
-          <form id="buy_form" action="https://1btcxe.com/settings.php" method="POST">
-            <input type="hidden" name="prefs" value="1">
-            <input type="hidden" name="submitted" value="1">
-            <input type="hidden" name="uniq" value="0b7f08405e9da5785d97dc48bff3b487">
-            <div class="buyform">
-              <div class="spacer"></div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="confirm_withdrawal_email_btc" id="confirm_withdrawal_email_btc" type="checkbox" value="Y" checked="checked">
-                <label for="confirm_withdrawal_email_btc">Confirm BTC withdrawals by email.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="confirm_withdrawal_email_bank" id="confirm_withdrawal_email_bank" type="checkbox" value="Y" checked="checked">
-                <label for="confirm_withdrawal_email_bank">Confirm bank withdrawals by email.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="notify_deposit_btc" id="notify_deposit_btc" type="checkbox" value="Y" checked="checked">
-                <label for="notify_deposit_btc">Notify by email when BTC deposits are made.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="notify_deposit_bank" id="notify_deposit_bank" type="checkbox" value="Y" checked="checked">
-                <label for="notify_deposit_bank">Notify by email when bank deposits are made.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="notify_withdraw_btc" id="notify_withdraw_btc" type="checkbox" value="Y" checked="checked">
-                <label for="notify_withdraw_btc">Notify by email when BTC withdrawals are made.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="notify_withdraw_bank" id="notify_withdraw_bank" type="checkbox" value="Y" checked="checked">
-                <label for="notify_withdraw_bank">Notify by email when withdrawals to bank accounts are made.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="param lessbottom marginleft">
-                <input class="checkbox" name="notify_login" id="notify_login" type="checkbox" value="Y" checked="checked">
-                <label for="notify_login">Notify by email when somebody logs into your account.</label>
-                <div class="clear"></div>
-              </div>
-              <div class="mar_top2"></div>
-              <ul class="list_empty">
-                <li>
-                  <input type="submit" name="submit" value="Save Settings" class="but_user">
-                </li>
-              </ul>
-            </div>
-          </form>
-          <div class="clear"></div>
-        </div>
+        <div class="clear"></div>
+        <div class="dotted"></div>
+        <form id="buy_form" action="https://1btcxe.com/settings.php" method="POST">
+          <input type="hidden" name="prefs" value="1">
+          <input type="hidden" name="submitted" value="1">
+          <input type="hidden" name="uniq" value="0b7f08405e9da5785d97dc48bff3b487">
+          <div class="buyform">
+            <div class="spacer"></div>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="confirm_withdrawal_email_btc" id="confirm_withdrawal_email_btc" type="checkbox" value="Y" checked="checked">
+              <label for="confirm_withdrawal_email_btc">Confirm BTC withdrawals by email.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="confirm_withdrawal_email_bank" id="confirm_withdrawal_email_bank" type="checkbox" value="Y" checked="checked">
+              <label for="confirm_withdrawal_email_bank">Confirm bank withdrawals by email.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="notify_deposit_btc" id="notify_deposit_btc" type="checkbox" value="Y" checked="checked">
+              <label for="notify_deposit_btc">Notify by email when BTC deposits are made.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="notify_deposit_bank" id="notify_deposit_bank" type="checkbox" value="Y" checked="checked">
+              <label for="notify_deposit_bank">Notify by email when bank deposits are made.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="notify_withdraw_btc" id="notify_withdraw_btc" type="checkbox" value="Y" checked="checked">
+              <label for="notify_withdraw_btc">Notify by email when BTC withdrawals are made.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="notify_withdraw_bank" id="notify_withdraw_bank" type="checkbox" value="Y" checked="checked">
+              <label for="notify_withdraw_bank">Notify by email when withdrawals to bank accounts are made.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="param lessbottom marginleft">
+              <input class="checkbox" name="notify_login" id="notify_login" type="checkbox" value="Y" checked="checked">
+              <label for="notify_login">Notify by email when somebody logs into your account.</label>
+              <!-- <div class="clear"></div> -->
+            </div><br></br>
+            <div class="mar_top2"></div>
+            <ul class="list_empty">
+              <li>
+                <input type="submit" name="submit" value="Save Settings" class="but_user">
+              </li>
+            </ul>
+          </div>
+        </form>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="one_thirdpx lastpx">
+      <div class="content">
+        <h3 class="section_label"> <span class="left"><i class="fa fa-ban fa-2x"></i></span> <span class="right">Deactivate My Account</span> </h3>
+        <div class="clear"></div>
+        <div class="mar_top1"></div>
+        <div class="text">By clicking this button, you can deactivate your account. If you change your mind, you can reactivate your account at any time by logging in.</div>
         <div class="mar_top3"></div>
         <div class="clear"></div>
-        <div class="content1">
-          <h3 class="section_label"> <span class="left"><i class="fa fa-ban fa-2x"></i></span> <span class="right">Deactivate My Account</span> </h3>
-          <div class="clear"></div>
-          <div class="mar_top1"></div>
-          <div class="text">By clicking this button, you can deactivate your account. If you change your mind, you can reactivate your account at any time by logging in.</div>
-          <div class="mar_top3"></div>
-          <div class="clear"></div>
-          <ul class="list_empty">
-            <li><a class="but_user" href="https://1btcxe.com/settings.php?deactivate_account=1&amp;submitted=1&amp;uniq=0b7f08405e9da5785d97dc48bff3b487">Deactivate My Account</a></li>
-          </ul>
-          <div class="clear"></div>
-        </div>
-        <div class="mar_top8"></div>
+        <ul class="list_empty">
+          <li><a class="but_user" href="https://1btcxe.com/settings.php?deactivate_account=1&amp;submitted=1&amp;uniq=0b7f08405e9da5785d97dc48bff3b487">Deactivate My Account</a></li>
+        </ul>
+        <div class="clear"></div>
       </div>
-      </div>
+    </div>
+</div>
+<div class="mar_top10"></div>
+<div class="mar_top2"></div>
 
 
 
 
-  <!-- <div class="page-header">
+<!-- <div class="page-header">
     <h3>User Settings</h3>
   </div>
 

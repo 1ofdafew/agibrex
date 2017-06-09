@@ -67,26 +67,36 @@ class CoindeskService {
         const data = resp.data.data
         //log.info('eth data:', data)
         co(function * () {
-          yield HPService.saveEthereumData(data)
+          yield HPService.saveEthereumData(data, moment(which))
         })
       })
   }
 
-  * cronFetchBitcoinData() { 
+  /**
+   * fetch last saved data from database
+   * @param type - string :: {'BTC', 'ETH', 'TRC'}
+   * @return db records | null
+   */
+  * cronFetchLastData(type) {
+    return yield this.cronFetchData(type)
+  }
+
+  /****************************************************************************
+   * Private functions
+   */
+
+  * cronFetchData(type) { 
     const last = Db.table('historical_prices')
-      .where('symbol', 'BTC')
+      .where('symbol', type)
       .orderBy('created_at', 'desc')
       .limit(1)
   }
-  
-  * cronFetchEthereumData() { }
 
   * fetchData(type, URL) {
     log.info(`Fetching BTC data from ${URL}`)
     axios.get(URL)
       .then(function (resp) {
         const bpi = resp.data.bpi
-
         co(function * () {
           log.info('Saving BTC data...')
           yield HPService.saveBitcoinData(bpi)
