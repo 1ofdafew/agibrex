@@ -24,19 +24,19 @@
           <a>Register Your Account</a>
           <div class="loginform_inputs">
             <div class="input_contain form-group"><i class="fa fa-key"></i>&nbsp;&nbsp;
-              <input type="text" class="login" name="code" value="" id="code"
+              <input type="text" class="login" name="code" value="{{args.code}}" id="code"
                       placeholder="Invitation Code" required autofocus>
             </div>
             <div class="separate"></div>
 
             <div class="input_contain form-group"><i class="fa fa-user"></i>&nbsp;&nbsp;
-              <input type="text" class="login" name="username" value="" id="username"
+              <input type="text" class="login" name="username" value="{{args.username}}" id="username"
                       placeholder="Username" required autofocus>
             </div>
             <div class="separate"></div>
 
             <div class="input_contain form-group"><i class="fa fa-envelope-open fa-fw"></i>
-              <input type="email" class="login" name="email" value="" id="email"
+              <input type="email" class="login" name="email" value="{{args.email}}" id="email"
                       placeholder="Email address" required autofocus>
             </div>
             <div class="separate"></div>
@@ -47,6 +47,7 @@
             </div>
           </div>
           <div class="clearfix mar_top1"></div>
+          <input type="hidden" name="t" value="{{args.t}}">
           <input type="submit" name="submit" value="Register" class="but_user">
         </div>
 

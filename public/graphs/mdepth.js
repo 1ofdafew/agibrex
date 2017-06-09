@@ -4,14 +4,16 @@ $.getJSON('/obchart?callback=?', function (data) {
   var biddata =new Array;
   for (var i=0; i < bidLength;i++) {
     // console.log(data.bid[i].price,data.bid[i].price*data.bid[i].balance)
-    biddata.push([data.bid[i].price, data.bid[i].price*data.bid[i].balance]);
+    // biddata.push([data.bid[i].price, data.bid[i].price*data.bid[i].balance]);
+    biddata.push([data.bid[i].price, data.bid[i].balance]);
   }
 
   var askLength = data.ask.length;
   var askdata =new Array;
   for (var i=0; i < askLength;i++) {
     // console.log(data.ask[i].price,data.ask[i].price*data.ask[i].balance)
-    askdata.push([data.ask[i].price,data.ask[i].price*data.ask[i].balance]);
+    // askdata.push([data.ask[i].price,data.ask[i].price*data.ask[i].balance]);
+    askdata.push([data.ask[i].price, data.ask[i].balance]);
   }
 
   Highcharts.createElement('link', {
@@ -225,10 +227,10 @@ $.getJSON('/obchart?callback=?', function (data) {
           type: 'area'
       },
       title: {
-          text: 'Buy/Sell Chart'
+          text: 'Market Depth' //'Buy/Sell Chart'
       },
       subtitle: {
-          text: 'Source: Gibrex'
+          text: 'Buy/Sell' //'Source: Gibrex'
       },
       xAxis: {
           title: {
@@ -245,6 +247,7 @@ $.getJSON('/obchart?callback=?', function (data) {
           title: {
               text: 'Volume'
           },
+          allowDecimals: true,
           labels: {
               formatter: function () {
                   return this.value;
@@ -252,7 +255,7 @@ $.getJSON('/obchart?callback=?', function (data) {
           }
       },
       tooltip: {
-          pointFormat: '{series.name}'
+          pointFormat: ''//'{series.name}'
       },
       plotOptions: {
           area: {
@@ -263,7 +266,7 @@ $.getJSON('/obchart?callback=?', function (data) {
                   radius: 2,
                   states: {
                       hover: {
-                          enabled: false
+                          enabled: true //false
                       }
                   }
               }
