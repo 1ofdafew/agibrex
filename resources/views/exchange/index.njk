@@ -181,6 +181,8 @@
                      <div class="clear"></div>
                    </div>
                    <div class="spacer"></div>
+                   <div class="dotted"></div>
+                   <div class="spacer"></div>
                    <div class="calc">
                      <h3>Estimation:</h3>
                      <div class="label">Subtotal</div>
@@ -198,7 +200,7 @@
                        </a>
                      </div>
                      <div class="value">
-                       <span id="buy_user_fee">0.00</span>&nbsp;%</div>
+                       <span id="buy_user_fee">{{ buyFee }}</span>&nbsp;%</div>
                      <div class="clear"></div>
                    </div>
                    <div class="dotted"></div>
@@ -212,7 +214,7 @@
                      </div>
                      <div class="value">
                        <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                       <span id="buy_total">0.00</span>
+                       <span id="buy_total">{{ buyTotal }}</span>
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -224,7 +226,7 @@
                    {% if currentUser %}
 
                    {% verbatim %}
-                   <button name="submit" class="but_user" type="submit" v-bind:disabled="disableBuy">
+                   <button class="but_user" type="submit" v-bind:disabled="disableBuy">
                     Buy {{ type }}
                    </button>
                    {% endverbatim %}
@@ -247,8 +249,11 @@
                </h3>
                <div class="clear"></div>
                <div class="dotted"></div>
-               <form id="sell_form" action="/exchange/sell/{{type}}" method="POST">
+               <form id="sell_form" action="/exchange/sell/{{type}}" method="POST"
+                v-on:submit.prevent="sellCurrency">
                  {{ csrfField }}
+
+                 {% verbatim %}
                  <input type="hidden" name="type" value="{{type}}">
                  <div id="vuesell" class="buyform">
                    <div class="spacer"></div>
@@ -263,21 +268,16 @@
                    <div class="spacer"></div>
                    <div class="param">
                      <label for="sell_amount">Amount To Sell</label>
-                     <input name="sell_amount" id="sell_amount" value="0" type="text">
+                     <input name="sell_amount" id="sell_amount" v-model="sellAmount" type="text">
                      <div class="qualify">{{ type }}</div>
                      <div class="clear"></div>
                    </div>
                    <div class="mar_top1"></div>
                    <div class="param">
                      <label for="sell_currency">Currency To Use </label>
-                     <select id="sell_currency" name="sell_currency">
-                        {% if type != 'BTC' %}
-                           <option value="BTC">BTC</option>
-                        {% endif %}
-
-                        {% if type != 'ETH' %}
-                           <option value="ETH">ETH</option>
-                        {% endif %}
+                     <select id="sell_currency" name="sell_currency" v-model="defaultSellCurrency">
+                       <option value="BTC">BTC</option>
+                       <option value="ETH">ETH</option>
                      </select>
                      <div class="clear"></div>
                    </div>
@@ -325,21 +325,23 @@
                    </div>
                    -->
                    <!-- <div class="mar_top3"></div> -->
-                   <input name="sell_price" id="sell_price" value="{{price}}" type="hidden" readonly>
-                   <div id="sell_stop_container" class="param" style="display:none;">
-                     <label for="sell_stop_price">Stop Price</label>
-                     <input name="sell_stop_price" id="sell_stop_price" value="0.00" type="text">
+                   <div id="sell_stop_container" class="param">
+                     <label for="sell_stop_price">Sell Price</label>
+                     <input name="sell_price" id="sell_price" v-model="sellPrice" type="text">
                      <div class="qualify">
                        <span class="sell_currency_label">USD</span>
                      </div>
                      <div class="clear"></div>
                    </div>
                    <div class="spacer"></div>
+                   <div class="dotted"></div>
+                   <div class="spacer"></div>
                    <div class="calc">
+                    <h3>Estimation:</h3>
                      <div class="label">Subtotal</div>
                      <div class="value">
-                       <span class="sell_currency_char">$</span>
-                       <span id="sell_subtotal">0.00</span>
+                       <span class="sell_currency_char">{{ defaultSellCurrency }}</span>
+                       <span id="sell_subtotal">{{ sellSubTotal }}</span>
                      </div>
                      <div class="clear"></div>
                    </div>
@@ -357,24 +359,28 @@
                    <div class="mar_top2"></div>
                    <div class="calc bigger">
                      <div class="label">
-                       <span id="sell_total_approx_label">Approx
-                         <span class="sell_currency_label">USD</span>
-                         to receive</span>
-                       <span id="sell_total_label" style="display:none;">
-                         <span class="sell_currency_label">USD</span>
-                         to receive</span>
+                       <span id="sell_total_approx_label">Approx.
+                         <span class="sell_currency_label">{{ defaultSellCurrency }}</span>
+                         to receive
+                       </span>
                      </div>
                      <div class="value">
-                       <span class="sell_currency_char">$</span>
-                       <span id="sell_total">0.00</span>
+                       <span class="sell_currency_char">{{ defaultSellCurrency }}</span>
+                       <span id="sell_total">{{ sellTotal }}</span>
                      </div>
                      <div class="clear"></div>
                    </div>
                    <div class="mar_top2"></div>
-                   <input name="sell" value="1" type="hidden">
-                   <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
+                   {% endverbatim %}
+
                    {% if currentUser %}
-                   <input name="submit" value="Sell {{ type }}" class="but_usersell" type="submit">
+
+                   {% verbatim %}
+                   <button class="but_usersell" type="submit" v-bind:disabled="disableSell">
+                    Sell {{ type }}
+                   </button>
+                   {% endverbatim %}
+
                    {% else %}
                    <a class="but_user" href="/auth/login">Login to Trade</a>
                    {% endif %}
@@ -945,18 +951,20 @@ $(function(){
 <script type="text/javascript" src="/vue/twitter.js"></script>
 
 <script type="text/javascript"> 
+  // Buy Currency
   var data = {
     type: '{{ type }}',
-    defaultBuyCurrency: '{{ defaultBuyCurrency }}',
+    defaultBuyCurrency: '{{ toCurrency }}',
     curBalance1: '{{ curBalance1 }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
 
     error: true,
     buyAmount: 0,
+    buyFee: 0.015,
     disableBuy: true
   }
-  var buybtc = new Vue({
+  var buy = new Vue({
     el: '#vuebuy',
     data: data,
     methods: {
@@ -971,6 +979,11 @@ $(function(){
           this.disableBuy = false
         }
         return calc
+      },
+      buyTotal: function () {
+        return parseFloat(
+            parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.buyFee)
+          ).toFixed(8)
       }
     },
     methods: {
@@ -980,6 +993,54 @@ $(function(){
 
         // send the form
         document.getElementById('buy_form').submit();
+      }
+    }
+  })
+
+</script>
+
+<script type="text/javascript"> 
+  // Sell Currency
+  var data = {
+    type: '{{ type }}',
+    defaultSellCurrency: '{{ toCurrency }}',
+    balance: '{{ balance }}',
+    btcSpotPrice: '{{ btcSpotPrice }}',
+    ethSpotPrice: '{{ ethSpotPrice }}',
+
+    error: true,
+    fee: 0.015,
+    sellAmount: 0,
+    sellPrice: parseFloat('{{ btcSpotPrice }}').toFixed(2),
+    disableSell: true
+  }
+  var sell = new Vue({
+    el: '#vuesell',
+    data: data,
+    methods: {
+    },
+    computed: {
+      sellSubTotal: function () {
+        var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
+        if (calc < this.balance) {
+          this.disableSell = true
+        } else {
+          this.disableSell = false
+        }
+        return calc
+      },
+      sellTotal: function () {
+        return parseFloat(
+            parseFloat(this.sellSubTotal) - parseFloat(this.sellSubTotal*this.fee)
+          ).toFixed(8)
+      }
+    },
+    methods: {
+      sellCurrency: function () {
+        // disable button to prevent double sent
+        this.disableSell = true
+        // send the form
+        document.getElementById('sell_form').submit();
       }
     }
   })

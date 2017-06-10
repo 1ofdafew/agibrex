@@ -48,13 +48,13 @@ class ExchangeController {
     curBalance1 = '10' // Testing
     curBalance2 = '10' // Testing
 
-    const defaultBuyCurrency = 'ETH'
+    const toCurrency = 'ETH'
 
     // Asset Balance
     // const balance = btcWallet.data.balance.available
-    const balance = '0.0' // Testing
+    const balance = '10.0' // Testing
     // const price = '2782.99'
-    const fee = '0.00'
+    const fee = '0.0006'
 
     // Call showask
     const orderBookCntrl = new OrderBookCntrl()
@@ -102,7 +102,7 @@ class ExchangeController {
         showbids : showbid,
         curBalance1 : curBalance1,
         curBalance2 : curBalance2,
-        defaultBuyCurrency : defaultBuyCurrency,
+        toCurrency : toCurrency,
         currentData: currentData,
         btcSpotPrice: BTCSpotPrice/100,
         ethSpotPrice: ETHSpotPrice/100
