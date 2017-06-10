@@ -62,7 +62,7 @@ class CoindeskService {
       const last = yield this.cronFetchLastData('ETH')
       var which
       if (last === undefined) {
-        which = moment().format('YYYY-MM-DD')
+        which = '1970-01-01' //moment().format('YYYY-MM-DD')
       } else {
         which = moment(last[0].date)
       }

@@ -216,7 +216,7 @@ $.getJSON('/data/ethereum?callback=?', function (data) {
 	};
 	$.each(data, function(lineNo, line) {
 		console.log('>>', lineNo, 'line:', line);
-		var ts = moment(line.date, 'YYYY-MM-DD').unix();
+		var ts = moment(line.time, 'YYYY-MM-DD').unix();
 		series.data.push([ts, line.price])
 	});
 
@@ -256,7 +256,7 @@ $.getJSON('/data/ethereum?callback=?', function (data) {
 		},
 
 		series: [{
-			name: 'Bitcoin',
+			name: 'Ethereum',
 			data: series.data,
 			tooltip: {
 				valueDecimals: 2

@@ -3,7 +3,7 @@ const Redis = use('Redis')
 const CronJob = require('cron').CronJob
 
 const dailyData = new CronJob({
-	cronTime: '5 0 * * * *',
+	cronTime: '0 13 * * * *',
 	onTick: function() {
 		Redis.publish('data', 'fetchDailyData')
 	},
@@ -36,3 +36,4 @@ const exchangeData = new CronJob({
 	timeZone: 'Europe/Gibraltar'
 })
 exchangeData.start()
+
