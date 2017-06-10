@@ -105,7 +105,7 @@ class ExchangeController {
         defaultBuyCurrency : defaultBuyCurrency,
         currentData: currentData,
         btcSpotPrice: BTCSpotPrice/100,
-        ethSPotPrice: ETHSpotPrice/100
+        ethSpotPrice: ETHSpotPrice/100
       }
     )
   }
@@ -128,8 +128,6 @@ class ExchangeController {
     const args = {
       type: 'ETH',
       name: 'Ethereum',
-      coinInBtc: coinInBtc,
-      coinInEth: coinInEth,
       showasks : showask,
       showbids : showbid,
       currentData: currentData,
@@ -252,11 +250,10 @@ class ExchangeController {
     const user = yield request.auth.getUser()
 
     const amount = request.input('buy_amount')
-    const buy_available = request.input('buy_available')
-    const price = '2228.00'
+    const curr_balance = request.input('curr_balance')
+    const price = request.input('price')
 
-    if (buy_available == 0) {
-
+    if (curr_balance <= 0) {
          const dataError = {
            status: 'error',
            error: 'Insufficient balance. Please deposit your account.'
