@@ -5426,7 +5426,7 @@ ul.list_empty.form_buttons {
 }
 .form_button {
 	padding: 0px 10px 0px 0px;
-	float: right;
+	float: left;
 	/*clear: both;*/
 }
 .form2 ul {
