@@ -216,11 +216,9 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
 	};
 	$.each(data, function(lineNo, line) {
 		// console.log('>>', lineNo, 'line:', line);
-		var ts = moment(line.date, 'YYYY-MM-DD').unix();
+		var ts = moment(line.time).unix();
 		series.data.push([ts, line.price])
 	});
-
-	// console.log(series.data)
 
 	// Create the chart
 	Highcharts.stockChart('container', {

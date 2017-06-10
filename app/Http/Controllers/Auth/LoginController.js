@@ -34,7 +34,7 @@ class LoginController {
         yield request.with(data).flash()
         response.redirect('verify')
       } else {
-        debug('User: ', user)
+        log.info('User: ', user)
         const loginToken = yield request.auth.attempt(credentials.email, credentials.password)
 
         log.info('gibrex:login Login is succesful')

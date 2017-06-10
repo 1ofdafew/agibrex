@@ -3,6 +3,7 @@
 const Database = use('Database')
 const uuid = require('uuid/v4');
 const log = require('npmlog')
+const moment = require('moment')
 
 const HistoricalPrice = use('App/Model/HistoricalPrice')
 
@@ -26,20 +27,25 @@ class HistoricalPriceService {
     this.HistoricalPrice = HistoricalPrice
   }
 
-  * saveBitcoinData(bpi) {
+  * saveBitcoinData(bpi, since) {
     for (const key in bpi) {
-      yield this.saveData('BTC', key, bpi[key])
+      if (moment(key).isAfter(moment(since))) {
+        log.info(`Saving BTC data ${key} -> ${bpi[key]}`)
+        yield this.saveData('BTC', key, bpi[key])
+      }
     }
   }
 
   /**
    * Save data from Ethereum data input
    * @param data{Array} - data input
-   * @param from{moment Object} - the date from
+   * @param since{String} - the date from
    */
-  * saveEthereumData (data, from) {
+  * saveEthereumData (data, since) {
     for (var i=0; i < data.length;i++) {
-      if (moment(data[i].time).isAfter(from)) {
+      log.info(`Data: ${data[i].time}, Since: ${since}`)
+      if (moment(data[i].time).isAfter(moment(since))) {
+        log.info('Saving ETH data', data[i])
         yield this.saveData('ETH', data[i].time, data[i].usd)
       }
     }
@@ -71,12 +77,12 @@ class HistoricalPriceService {
     log.info(`Fething ${type} data...`)
     return yield Database.table('historical_prices')
       .where('type', type)
-      .orderBy('date', 'asc')
+      .orderBy('time', 'asc')
   }
 
   * saveData(type, date, price) {
     const hp = new HistoricalPrice()
-    hp.date = date
+    hp.time = date
     hp.price = price
     hp.type = type
 

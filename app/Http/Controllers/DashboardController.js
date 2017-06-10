@@ -24,9 +24,9 @@ class DashboardController {
       const balances = yield WalletService.getAccountBalance(accounts)
       log.info(`Balance dashboard:`, balances)
       const args = {
-        bitcoin: yield balances.filter(function(x) { return x.type === 'BITCOIN'})[0],
-        ethereum: yield balances.filter(function(x) { return x.type === 'ETHEREUM'})[0],
-        tracto: yield balances.filter(function(x) { return x.type === 'TRACTO'})[0]
+        bitcoin: balances.filter(function(x) { return x.type === 'BITCOIN'})[0],
+        ethereum: balances.filter(function(x) { return x.type === 'ETHEREUM'})[0],
+        tracto: balances.filter(function(x) { return x.type === 'TRACTO'})[0]
       }
       log.info(`Balance dashboard:`, args)
       yield response.sendView('dashboard', {accounts: args})
