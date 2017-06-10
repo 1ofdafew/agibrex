@@ -45,8 +45,8 @@ class ExchangeController {
       }
     }
     // response.send(ethWallet)
-    // curBalance1 = '10' // Testing
-    // curBalance2 = '10' // Testing
+    curBalance1 = '10' // Testing
+    curBalance2 = '10' // Testing
 
     const defaultBuyCurrency = 'ETH'
 
@@ -103,7 +103,9 @@ class ExchangeController {
         curBalance1 : curBalance1,
         curBalance2 : curBalance2,
         defaultBuyCurrency : defaultBuyCurrency,
-        currentData: currentData
+        currentData: currentData,
+        btcSpotPrice: BTCSpotPrice/100,
+        ethSPotPrice: ETHSpotPrice/100
       }
     )
   }

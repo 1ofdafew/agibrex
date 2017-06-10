@@ -92,7 +92,7 @@
                <div class="dotted"></div>
                <form id="buy_form" action="/exchange/buy/{{type}}" method="POST">
                    {{ csrfField }}
-                 <div class="buyform">
+                 <div id="buybtc" class="buyform">
                    <div class="spacer"></div>
                    <div class="calc dotted">
                      <div class="label">Available
@@ -173,9 +173,9 @@
                      <div class="clear"></div>
                    </div> -->
                      <!-- <div class="mar_top3"></div> -->
-                   <div id="buy_stop_container" class="param" style="display:none;">
-                     <label for="buy_stop_price">Stop Price</label>
-                     <input name="buy_stop_price" id="buy_stop_price" value="0.00" type="text">
+                   <div id="buy_stop_container" class="param">
+                     <label for="buy_stop_price">Price</label>
+                     <input name="price" id="price" value="{{ btcSpotPrice }}" type="text">
                      <div class="qualify">
                        <span class="buy_currency_label">USD</span>
                      </div>
@@ -183,6 +183,7 @@
                    </div>
                    <div class="spacer"></div>
                    <div class="calc">
+                     <h3>Estimation:</h3>
                      <div class="label">Subtotal</div>
                      <div class="value">
                        <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
@@ -837,7 +838,7 @@ $(window).resize(function() {
             // var buy_available = $("#buy_available").val();
             var trcPerUnit = '';
             if (buy_currency == 'BTC') {
-                trcPerUnit = parseFloat({{coinInBtc}});
+                trcPerUnit = parseFloat({{ btcSpotPrice }});
                 buy_available = parseFloat({{curBalance1}});
             } else if (buy_currency == 'ETH') {
                 trcPerUnit = parseFloat({{coinInEth}});

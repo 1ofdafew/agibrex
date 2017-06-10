@@ -1,6 +1,7 @@
 'use strict'
 
 const log = use('npmlog')
+const co = use('co')
 
 const TxService = use('App/Services/TransactionService')
 const MatchListener = exports = module.exports = {}
@@ -10,7 +11,9 @@ MatchListener.ok = function (id, type) {
   log.info('Listener: Matched,ok: orderBook id', id)
   log.info('Listener: Matched,ok: orderBook type', type)
   //send execute trade
-  TxService.createTx(id, type)
+  co(function * () {
+    yield TxService.createTx(id, type)
+  })
 }
 
 MatchListener.recheck = function (data) {
