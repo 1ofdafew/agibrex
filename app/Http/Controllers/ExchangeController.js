@@ -27,8 +27,11 @@ class ExchangeController {
     // user maybe null as exchange is public, until he logs in.
     var ethWallet = ''
       , btcWallet = ''
-      , curBalance1 = 0
-      , curBalance2 = 0
+      , ethCurrentBalance = '10'
+      , btcCurrentBalance = '20'
+      , fee = '0.015'
+      , buyCurrency = 'ETH'
+      , sellCurrency = 'BTC'
 
     const user = yield request.auth.getUser()
     if (user ) {
@@ -37,77 +40,51 @@ class ExchangeController {
         ethWallet = yield WalletService.getBalance('ethereum', w.address)
         btcWallet = yield WalletService.getBalance('bitcoin', w.address)
 
-        const curBalance1 = ethWallet.data.balance.available //ETH
-        const curBalance2 = ethWallet.data.balance.available
+        const ethCurrentBalance = ethWallet.data.balance.available //ETH
+        const btcCurrentBalance = ethWallet.data.balance.available
       } catch (e) {
         // user don't create the wallet yet
         log.info('No wallets for user yet')
       }
     }
-    // response.send(ethWallet)
-    curBalance1 = '10' // Testing
-    curBalance2 = '10' // Testing
-
-    const toCurrency = 'ETH'
-
-    // Asset Balance
-    // const balance = btcWallet.data.balance.available
-    const balance = '10.0' // Testing
-    // const price = '2782.99'
-    const fee = '0.0006'
 
     // Call showask
     const orderBookCntrl = new OrderBookCntrl()
-    const showask = yield orderBookCntrl.showask('BTC')
-    const showbid = yield orderBookCntrl.showbid('BTC')
+    const asks = yield orderBookCntrl.showask('BTC')
+    const bids = yield orderBookCntrl.showbid('BTC')
 
-    // TODO : Get Btc Price
-    // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
-    // response.send(result)
-
-
-    var coinInBtc = '' // Temporary
-      , coinInEth = ''
-
-    // 1 BTC = 2228.00
-    // 1 ETH = 199.00
-    // 1 BTC = 2228 / 199 = 11.19
-    // const coinInEth = '11.19' // Temporary
+    var BTCSpotPrice = '268006'
+      , ETHSpotPrice = '37044'
     try {
       // These spot price are in cents, to eliminate rounding errors
-      var BTCSpotPrice = yield MDService.getSpotPrice('BTC')
-      var ETHSpotPrice = yield MDService.getSpotPrice('ETH')
+      // BTCSpotPrice = yield MDService.getSpotPrice('BTC')
+      // ETHSpotPrice = yield MDService.getSpotPrice('ETH')
 
-      log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
-      coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
+      // log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
+      // coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
 
     } catch (e) {
       log.error('Unable to find the spot price')
     }
 
-    const price = (BTCSpotPrice/100).toFixed( 2 )
-    // const price = '2653.00' // Testing
+    // price of the BTC spot price
+    // const btcSpotPrice = (BTCSpotPrice/100).toFixed( 2 )
+    const args = {
+      type: 'BTC',
+      name: 'Bitcoin',
+      fee : fee,
+      asks : asks,
+      bids : bids,
+      ethCurrentBalance : ethCurrentBalance,
+      btcCurrentBalance : btcCurrentBalance,
+      buyCurrency : buyCurrency,
+      sellCurrency : sellCurrency,
+      currentData: currentData,
+      btcSpotPrice: BTCSpotPrice/100,
+      ethSpotPrice: ETHSpotPrice/100
+    }
 
-    yield response.sendView(
-      'exchange.index',
-      {
-        type: 'BTC',
-        name: 'Bitcoin',
-        balance : balance,
-        price : price,
-        fee : fee,
-        coinInBtc : coinInBtc,
-        coinInEth : coinInEth,
-        showasks : showask,
-        showbids : showbid,
-        curBalance1 : curBalance1,
-        curBalance2 : curBalance2,
-        toCurrency : toCurrency,
-        currentData: currentData,
-        btcSpotPrice: BTCSpotPrice/100,
-        ethSpotPrice: ETHSpotPrice/100
-      }
-    )
+    yield response.sendView('exchange.index', args)
   }
 
   * eth (request, response) {
@@ -136,8 +113,8 @@ class ExchangeController {
       balance : '30000.00',
       price : parseFloat(ETHSpotPrice),
       fee : '0.025',
-      curBalance1 : '0.001',
-      curBalance2 : '1.02',
+      ethCurrentBalace : '0.001',
+      btcCurrentBalace : '1.02',
       defaultBuyCurrency : defaultBuyCurrency,
     }
     yield response.sendView('exchange.index', args)
@@ -146,12 +123,11 @@ class ExchangeController {
   * trc (request, response) {
 
     const defaultBuyCurrency = 'BTC'
-    const curBalance1 = '1.64320000'
-    const curBalance2 = '11.48300000'
+    const ethCurrentBalace = '1.64320000'
+    const btcCurrentBalace = '11.48300000'
 
     // TODO : Get Balance
     const balance = '372.37490000'
-    const price = '0.85'
     const fee = '0.00'
 
     // Call showask
@@ -165,9 +141,6 @@ class ExchangeController {
     // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
     // response.send(result)
 
-    const coinInBtc = '0.00038898' // Temporary
-    const coinInEth = ' 0.00509165' // Temporary
-
     yield response.sendView(
       'exchange.index',
       {
@@ -180,8 +153,8 @@ class ExchangeController {
         coinInEth : coinInEth,
         showasks : showask,
         showbids : showbid,
-        curBalance1 : curBalance1,
-        curBalance2 : curBalance2,
+        ethCurrentBalace : ethCurrentBalace,
+        btcCurrentBalace : btcCurrentBalace,
         defaultBuyCurrency : defaultBuyCurrency,
       }
     )

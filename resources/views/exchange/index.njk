@@ -45,349 +45,239 @@
         <div class="one_halfpx">
           <div id="titleheader02">
             <div class="left">
-                <h1>{{ name }} Exchange&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i>&nbsp;&nbsp;{{ type }} / USD</h1>
+                <h1>{{ name }} Exchange&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i>&nbsp;&nbsp;{{ type }} / {{ buyCurrency }}</h1>
             </div>
           </div>
         </div>
         <div class="clearfix mar_top2"></div>
 
           <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
-          <script type="text/javascript">
-            // io refers to the above import
-            const io = ws('')
-            const client = io.channel('eth').connect(function(error, connected) {
-              console.log('Connected: ', connected)
-              console.log('Error: ', error)
-            })
-
-            const client2 = io.channel('market').connect(function(error, connected) {
-              console.log('Connected: ', connected)
-              console.log('Error: ', error)
-            })
-            client.on('message', function(message) {
-              // console.log('Got message: ', message)
-            })
-            // client.emit('message', 'Some market data...')
-
-            // now, process the seel signals
-            // client2.on('sell', (data) => {
-            //   console.log('Got sell data', data)
-            // })
-            //
-            // client.on('buy', (data) => {
-            //   console.log('Got buy data', data)
-            // })
-        </script>
         <div class="clear"></div>
 
-         <div class="testimonials-4">
-           <input id="user_fee" value="0.00" type="hidden">
-           <input id="user_fee1" value="0.00" type="hidden">
-           <div class="one_halfpx">
-             <div class="contentbuy">
-               <h3 class="section_label">
-                 <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy {{ type }}</span>
-               </h3>
-               <div class="clear"></div>
-               <div class="dotted"></div>
-               <form id="buy_form" action="/exchange/buy/{{type}}" method="POST" 
-                     v-on:submit.prevent="buyCurrency">
-                   {{ csrfField }}
-
-                 {% verbatim %}
-
-                 <div id="vuebuy" class="buyform">
-                   <div class="spacer"></div>
-                   <div class="calc dotted">
-                     <div class="label">Available
-                       <span class="sell_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
-                     </div>
-                     <div class="value">
-                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                       <span id="buy_user_available">{{curBalance1}}</span>
-                       <input type="hidden" id="curr_balance" name="curr_balance" value="{{curBalance1}}">
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="spacer"></div>
-                   <div class="param">
-                       <label for="buy_amount">Amount To Buy</label>
-                     <input name="buy_amount" id="buy_amount" v-model="buyAmount" type="text">
-                     <div class="qualify">{{ type }}</div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top1"></div>
-
-                   <div class="param">
-                     <label for="buy_currency">Currency To Use</label>
-                     <select id="buy_currency" name="buy_currency" v-model="defaultBuyCurrency">
-                      <option value="BTC">BTC</option>
-                      <option value="ETH">ETH</option>
-                     </select>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top2"></div>
-
-                   <!-- <div class="param lessbottom">
-                     <input class="checkbox" name="buy_market_price" id="buy_market_price" value="1" type="checkbox" checked disabled>
-                     <label for="buy_market_price">Buy At Market Price&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="#">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label>
-                     <div class="clear"></div>
-                   </div> -->
-                  <div class="param lessbottom">
-                     <!-- <input class="checkbox" name="buy_limit" id="buy_limit" value="1" checked="checked" type="checkbox"> -->
-                     <!-- <label for="buy_limit">Limit Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label> -->
+        <div class="testimonials-4">
+          <input id="user_fee" value="0.00" type="hidden">
+          <input id="user_fee1" value="0.00" type="hidden">
+          <div class="one_halfpx">
+            <div class="contentbuy">
+              <h3 class="section_label">
+                <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy {{ type }}</span>
+              </h3>
+              <div class="clear"></div>
+              <div class="dotted"></div>
+              <form id="buy_form" action="/exchange/buy/{{ type }}" method="POST" 
+                    v-on:submit.prevent="executeBuy">
+                {{ csrfField }}
+                {% verbatim %}
+                <div id="vuebuy" class="buyform">
+                  <div class="spacer"></div>
+                  <div class="calc dotted">
+                    <div class="label">Available
+                      <span class="sell_currency_label changeCurrency">{{ buyCurrency }}</span>
+                    </div>
+                    <div class="value">
+                      <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
+                      <span id="buy_user_available">{{ ethCurrentBalance }}</span>
+                    </div>
                     <div class="clear"></div>
                   </div>
-                   <!-- <div class="param lessbottom">
-                     <input class="checkbox" name="buy_stop" id="buy_stop" value="1" type="checkbox">
-                     <label for="buy_stop">Stop Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="#">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label>
-                     <div class="clear"></div>
-                   </div> -->
+                  <div class="spacer"></div>
 
-                   <!-- <div class="mar_top2"></div>
-                   <div id="buy_price_container" class="param">
-                     <label for="buy_price">
-                       <span id="buy_price_limit_label">Limit Price</span>
-                       <span id="buy_price_market_label" style="display:none;">Price</span>
-                     </label>
+                  <div class="message-box-wrap" v-if="buyError">
+                    <div class="error" role="alert" id="div4">
+                      <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ buyError }}
+                    </div>
+                  </div>
 
-                     <input name="buy_price" id="buy_price" value="{{coinInBtc}}" type="text" readonly>
-                     <input name="buy_price" id="buy_price" value="{{price}}" type="text" readonly>
-                     <div class="qualify">
-                       <span class="buy_currency_label">USD</span>
-                       <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div> -->
-                     <!-- <div class="mar_top3"></div> -->
-                   <div id="buy_stop_container" class="param">
-                     <label for="buy_stop_price">Price</label>
-                     <input name="price" id="price" v-model="btcSpotPrice" type="text">
-                     <div class="qualify">
-                       <span class="buy_currency_label">USD</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="spacer"></div>
-                   <div class="dotted"></div>
-                   <div class="spacer"></div>
-                   <div class="calc">
-                     <h3>Estimation:</h3>
-                     <div class="label">Subtotal</div>
-                     <div class="value">
-                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                       <span id="buy_subtotal">{{ buySubTotal }}</span>
-                     </div>
+                  <div class="param">
+                      <label for="buy_amount">Amount To Buy</label>
+                    <input name="buy_amount" id="buy_amount" v-model="buyAmount" type="text">
+                    <div class="qualify">{{ type }}</div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top1"></div>
 
-                     <div class="clear"></div>
-                   </div>
-                   <div class="calc">
-                     <div class="label">Fee&nbsp;
-                       <a title="View fee schedule" href="#" target="_blank">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </div>
-                     <div class="value">
-                       <span id="buy_user_fee">{{ buyFee }}</span>&nbsp;%</div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="dotted"></div>
-                   <div class="mar_top2"></div>
-                   <div class="calc bigger">
-                     <div class="label">
-                       <span id="buy_total_approx_label">Approx.
-                         <span class="buy_currency_label changeCurrency">{{defaultBuyCurrency}}</span>
-                         to spend</span>
-                       <span id="buy_total_label" style="display:none;">{{ type }} to Receive</span>
-                     </div>
-                     <div class="value">
-                       <span class="buy_currency_char changeCurrency">{{defaultBuyCurrency}}</span>
-                       <span id="buy_total">{{ buyTotal }}</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top2"></div>
-                   <input name="buy" value="1" type="hidden">
-                   <input name="uniq" value="1441c02fd0a98d848f2d818bdb170101" type="hidden">
-                   {% endverbatim %}
-
-                   {% if currentUser %}
-
-                   {% verbatim %}
-                   <button class="but_user" type="submit" v-bind:disabled="disableBuy">
-                    Buy {{ type }}
-                   </button>
-                   {% endverbatim %}
-
-                   {% else %}
-                   <a class="but_user" href="/auth/login">Login to Trade</a>
-                   {% endif %}
-                   <input type="hidden" name="trcbtc" value="{{coinInBtc}}">
-                   <input type="hidden" name="trceth" value="{{coinInEth}}">
-                 </div>
-               </form>
-             </div>
-           </div>
-
-           <!-- ========== SELL ============= -->
-           <div class="one_halfpx lastpx">
-             <div class="contentsell">
-               <h3 class="section_label">
-                 <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell {{ type }}</span>
-               </h3>
-               <div class="clear"></div>
-               <div class="dotted"></div>
-               <form id="sell_form" action="/exchange/sell/{{type}}" method="POST"
-                v-on:submit.prevent="sellCurrency">
-                 {{ csrfField }}
-
-                 {% verbatim %}
-                 <input type="hidden" name="type" value="{{type}}">
-                 <div id="vuesell" class="buyform">
-                   <div class="spacer"></div>
-                   <div class="calc dotted">
-                     <div class="label">Available {{ type }}</div>
-                     <div class="value">
-                       <span id="sell_user_available">{{ balance }}</span>
-                       {{ type }}</div>
-                     <div class="clear"></div>
-                     <input type="hidden" id="sell_available" value="{{ balance }}">
-                   </div>
-                   <div class="spacer"></div>
-                   <div class="param">
-                     <label for="sell_amount">Amount To Sell</label>
-                     <input name="sell_amount" id="sell_amount" v-model="sellAmount" type="text">
-                     <div class="qualify">{{ type }}</div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top1"></div>
-                   <div class="param">
-                     <label for="sell_currency">Currency To Use </label>
-                     <select id="sell_currency" name="sell_currency" v-model="defaultSellCurrency">
-                       <option value="BTC">BTC</option>
-                       <option value="ETH">ETH</option>
-                     </select>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top2"></div>
-                   <!--
-                   <div class="param lessbottom">
-                     <input class="checkbox" name="sell_market_price" id="sell_market_price" value="1" type="checkbox" checked="checked" disabled="Disable">
-                     <label for="sell_market_price">Sell At Market Price&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="#">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="param lessbottom">
-                     <input class="checkbox" name="sell_limit" id="sell_limit" value="1" checked="checked" type="checkbox">
-                     <label for="sell_stop">Limit Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="help.php?url=support/solutions/articles/1000101680-what-is-a-limit">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label>
-                   </div>
-                   <div class="param lessbottom">
-                     <input class="checkbox" name="sell_stop" id="sell_stop" value="1" type="checkbox">
-                     <label for="sell_stop">Stop Order&nbsp;
-                       <a target="_blank" title="Click for info on how this works." href="#">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </label>
-                     <div class="clear"></div>
-                   </div>
-                   -->
-                   <!--
-                   <div class="mar_top2"></div>
-                   <div id="sell_price_container" class="param">
-                     <label for="sell_price">
-                       <span id="sell_price_limit_label">Limit Price</span>
-                       <span id="sell_price_market_label" style="display:none;">Price</span>
-                     </label>
-                     <input name="sell_price" id="sell_price" value="{{price}}" type="text" readonly>
-                     <div class="qualify">
-                       <span class="sell_currency_label">USD</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   -->
-                   <!-- <div class="mar_top3"></div> -->
-                   <div id="sell_stop_container" class="param">
-                     <label for="sell_stop_price">Sell Price</label>
-                     <input name="sell_price" id="sell_price" v-model="sellPrice" type="text">
-                     <div class="qualify">
-                       <span class="sell_currency_label">USD</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="spacer"></div>
-                   <div class="dotted"></div>
-                   <div class="spacer"></div>
-                   <div class="calc">
+                  <div class="param">
+                    <label for="buy_currency">Currency To Receive</label>
+                    <select id="buy_currency" name="buy_currency" v-model="buyCurrency">
+                     <option value="ETH">ETH</option>
+                    </select>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top2"></div>
+                  <div class="param lessbottom">
+                    <div class="clear"></div>
+                  </div>
+                  <div id="buy_stop_container" class="param">
+                    <label for="buy_stop_price">Price</label>
+                    <input name="price" id="price" v-model="btcSpotPrice" type="text">
+                    <div class="qualify">
+                      <span class="buy_currency_label">USD</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="spacer"></div>
+                  <div class="dotted"></div>
+                  <div class="spacer"></div>
+                  <div class="calc">
                     <h3>Estimation:</h3>
-                     <div class="label">Subtotal</div>
-                     <div class="value">
-                       <span class="sell_currency_char">{{ defaultSellCurrency }}</span>
-                       <span id="sell_subtotal">{{ sellSubTotal }}</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="calc">
-                     <div class="label">Fee&nbsp;
-                       <a title="View fee schedule" href="#" target="_blank">
-                         <i class="fa fa-question"></i>
-                       </a>
-                     </div>
-                     <div class="value">
-                       <span id="sell_user_fee">{{ fee }}</span>&nbsp;%</div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="dotted"></div>
-                   <div class="mar_top2"></div>
-                   <div class="calc bigger">
-                     <div class="label">
-                       <span id="sell_total_approx_label">Approx.
-                         <span class="sell_currency_label">{{ defaultSellCurrency }}</span>
-                         to receive
-                       </span>
-                     </div>
-                     <div class="value">
-                       <span class="sell_currency_char">{{ defaultSellCurrency }}</span>
-                       <span id="sell_total">{{ sellTotal }}</span>
-                     </div>
-                     <div class="clear"></div>
-                   </div>
-                   <div class="mar_top2"></div>
-                   {% endverbatim %}
+                    <div class="label">Subtotal</div>
+                    <div class="value">
+                      <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
+                      <span id="buy_subtotal">{{ buySubTotal }}</span>
+                    </div>
 
-                   {% if currentUser %}
+                    <div class="clear"></div>
+                  </div>
+                  <div class="calc">
+                    <div class="label">Fee&nbsp;
+                      <a title="View fee schedule" href="#" target="_blank">
+                        <i class="fa fa-question"></i>
+                      </a>
+                    </div>
+                    <div class="value">
+                      <span id="buy_user_fee">{{ fee }}</span>&nbsp;%</div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="dotted"></div>
+                  <div class="mar_top2"></div>
+                  <div class="calc bigger">
+                    <div class="label">
+                      <span id="buy_total_approx_label">Approx.
+                        <span class="buy_currency_label changeCurrency">{{ buyCurrency }}</span>
+                        to spend
+                      </span>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="value">
+                      <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
+                      <span id="buy_total">{{ buyTotal }}</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top2"></div>
+                  {% endverbatim %}
 
-                   {% verbatim %}
-                   <button class="but_usersell" type="submit" v-bind:disabled="disableSell">
-                    Sell {{ type }}
-                   </button>
-                   {% endverbatim %}
+                  {% if currentUser %}
+                    {% verbatim %}
+                    <button class="but_user" type="submit" v-bind:disabled="disableBuy" v-bind:style="buyButtonStyle">
+                      Buy {{ type }}
+                    </button>
+                    {% endverbatim %}
+                  {% else %}
+                    <a class="but_user" href="/auth/login">Login to Trade</a>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+          </div>
 
-                   {% else %}
-                   <a class="but_user" href="/auth/login">Login to Trade</a>
-                   {% endif %}
-                 </div>
-               </form>
-             </div>
-           </div>
+          <!-- ========== SELL ============= -->
+          <div class="one_halfpx lastpx">
+            <div class="contentsell">
+              <h3 class="section_label">
+                <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell {{ type }}</span>
+              </h3>
+              <div class="clear"></div>
+              <div class="dotted"></div>
+              <form id="sell_form" action="/exchange/sell/{{type}}" method="POST"
+               v-on:submit.prevent="executeSell">
+                {{ csrfField }}
+                {% verbatim %}
+                <input type="hidden" name="type" value="{{type}}">
+                <div id="vuesell" class="buyform">
+                  <div class="spacer"></div>
+                  <div class="calc dotted">
+                    <div class="label">Available {{ type }}</div>
+                    <div class="value">
+                      <span id="sell_user_available">{{ btcCurrentBalance }}</span>
+                      {{ type }}</div>
+                    <div class="clear"></div>
+                    <input type="hidden" id="sell_available" value="{{ btcCurrentBalance }}">
+                  </div>
+                  <div class="spacer"></div>
+
+                  <div class="message-box-wrap" v-if="sellError">
+                    <div class="error" role="alert" id="div4">
+                      <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ sellError }}
+                    </div>
+                  </div>
+
+                  <div class="param">
+                    <label for="sell_amount">Amount To Sell</label>
+                    <input name="sell_amount" id="sell_amount" v-model="sellAmount" type="text">
+                    <div class="qualify">{{ type }}</div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top1"></div>
+                  <div class="param">
+                    <label for="sell_currency">Currency To Receive</label>
+                    <select id="sell_currency" name="sell_currency" v-model="buyCurrency">
+                      <option value="ETH">ETH</option>
+                    </select>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top2"></div>
+                  <div id="sell_stop_container" class="param">
+                    <label for="sell_stop_price">Sell Price</label>
+                    <input name="sell_price" id="sell_price" v-model="sellPrice" type="text">
+                    <div class="qualify">
+                      <span class="sell_currency_label">USD</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="spacer"></div>
+                  <div class="dotted"></div>
+                  <div class="spacer"></div>
+                  <div class="calc">
+                   <h3>Estimation:</h3>
+                    <div class="label">Subtotal</div>
+                    <div class="value">
+                      <span class="sell_currency_char">{{ buyCurrency }}</span>
+                      <span id="sell_subtotal">{{ sellSubTotal }}</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="calc">
+                    <div class="label">Fee&nbsp;
+                      <a title="View fee schedule" href="#" target="_blank">
+                        <i class="fa fa-question"></i>
+                      </a>
+                    </div>
+                    <div class="value">
+                      <span id="sell_user_fee">{{ fee }}</span>&nbsp;%</div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="dotted"></div>
+                  <div class="mar_top2"></div>
+                  <div class="calc bigger">
+                    <div class="label">
+                      <span id="sell_total_approx_label">Approx.
+                        <span class="sell_currency_label">{{ buyCurrency }}</span>
+                        to receive
+                      </span>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="value">
+                      <span class="sell_currency_char">{{ buyCurrency }}</span>
+                      <span id="sell_total">{{ sellTotal }}</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="mar_top2"></div>
+                  {% endverbatim %}
+                  {% if currentUser %}
+                    {% verbatim %}
+                    <button class="but_usersell" type="submit" v-bind:disabled="disableSell" v-bind:style="sellButtonStyle">
+                      Sell {{ type }}
+                    </button>
+                    {% endverbatim %}
+                  {% else %}
+                    <a class="but_user" href="/auth/login">Login to Trade</a>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+          </div>
 
            <div class="clearfix mar_top4"></div>
 
@@ -475,33 +365,29 @@
                        <td colspan="4">No asks to show.</td>
                      </tr>
 
-                     {% for showask in showasks %}
+                     {% for ask in asks %}
                      <tr class="ask_tr" id="ask_35539346">
-                       <td style="">$<span class="order_price">{{showask.price}}</span></td>
-                       <td style=""><span class="order_amount">{{showask.amount}}</span></td>
+                       <td style="">$<span class="order_price">{{ ask.price }}</span></td>
+                       <td style=""><span class="order_amount">{{ ask.amount }}</span></td>
                        <td style="">
-                            {% if showask.to_asset == 'BTC' %}
-
+                            {% if ask.to_asset == 'BTC' %}
                             <span class="order_value">
                               Btc {{ coinInBtc | round(8, 'floor') }}
                             </span>
                             {% endif %}
-
-                            {% if showask.to_asset == 'ETH' %}
+                            {% if ask.to_asset == 'ETH' %}
                             <span class="order_value">
                               Eth {{ coinInEth | round(8, 'floor') }}
                             </span>
                             {% endif %}
                         </td>
                        <td style="">
-
                            <span class="order_amount">
-                               {% if showask.to_asset == 'BTC' %}
-                                Btc {{ (coinInBtc * showask.amount) | round(8, 'floor') }}
+                               {% if ask.to_asset == 'BTC' %}
+                                BTC {{ (coinInBtc * ask.amount) | round(8, 'floor') }}
                                {% endif %}
-
-                               {% if showask.to_asset == 'ETH' %}
-                                Eth {{ (coinInEth * showask.amount) | round(8, 'floor') }}
+                               {% if ask.to_asset == 'ETH' %}
+                                ETC {{ (coinInEth * ask.amount) | round(8, 'floor') }}
                                {% endif %}
                            </span>
                        </td>
@@ -716,19 +602,6 @@
                   </div>
                 </div>
               </div>
-
-              <script type="text/javascript">
-                // io refers to the above import
-                const io = ws('')
-                const clients = io.channel('chat').connect(function(error, connected) {
-                  console.log('Connected: ', connected)
-                })
-                // client.on('message', function(message) {
-                //   console.log('Got message: ', message)
-                // })
-                //
-                // client.emit('message', 'Hello World!')
-              </script>
               {% if currentUser %}
               <div class="fresh_projects02 global_stats">
                 <div class="panel-default02">
@@ -748,47 +621,44 @@
             <div class="mar_top3"></div>
           </div>
 
-          <!-- Display tweet on website -->
-
-            <!-- <div class="one_full">
-              <div class="fresh_projects02 global_stats">
-                <div class="panel03 panel-default">
-                  <div class="panel-heading non-mobile">
-                    <div class="one_fullpx">
-                      <div id="titleheader">
-                        <div class="left">
-                          <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;Announcement
-                        </div>
-                        <div class="right">
-                          <a href="https://twitter.com/gibrex_"><i class="fa fa-twitter"></i></a>
-                        </div>
+          <div class="one_full">
+            <div class="fresh_projects02 global_stats">
+              <div class="panel03 panel-default">
+                <div class="panel-heading non-mobile">
+                  <div class="one_fullpx">
+                    <div id="titleheader">
+                      <div class="left">
+                        <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;Announcement
+                      </div>
+                      <div class="right">
+                        <a href="https://twitter.com/gibrex_"><i class="fa fa-twitter"></i></a>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    {% verbatim %}
-                    <div id="twitter" class="panel-body03">
-                      <div class="one_fullpx">
-                        <table class="table-list03 trades04">
-                          <tbody>
-                            <tr v-for="t in tweets">
-                              <td>
-                                <a>{{ t }}</a>
-                                <div class="panel-divider4"></div>
-                                <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    {% endverbatim %}
                   </div>
                 </div>
+                <div>
+                  {% verbatim %}
+                  <div id="twitter" class="panel-body03">
+                    <div class="one_fullpx">
+                      <table class="table-list03 trades04">
+                        <tbody>
+                          <tr v-for="t in tweets">
+                            <td>
+                              <a>{{ t }}</a>
+                              <div class="panel-divider4"></div>
+                              <h6><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Posted by <a href="https://twitter.com/gibrex_"> gibrex_ </a></h6>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  {% endverbatim %}
+                </div>
               </div>
-            <div class="mar_top1"></div>
-          </div> -->
-
+            </div>
+          <div class="mar_top1"></div>
+        </div> 
       </div>
     <div class="clearfix mar_top20"></div>
   </div>
@@ -817,95 +687,6 @@ $(window).resize(function() {
 }).resize(); // Trigger resize handler
 </script>
 
-
-
-<script type="text/javascript">
-  //  jQuery(document).ready(function () {
-  //      var sell_available = $("#sell_available").val();
-  //      var sell_price = $("#sell_price").val();
-
-
-  //      $('#buy_currency').bind('change', function () {
-  //          var buy_currency = $("#buy_currency").val();
-
-  //          var currency = '';
-  //          if (buy_currency == 'BTC') {
-  //              currency = 'BTC';
-  //              // $('#buy_price').val({{coinInBtc}});
-  //              $('#buy_user_available').html({{curBalance1}});
-  //          } else if (buy_currency == 'ETH') {
-  //              currency = 'ETH';
-  //              // $('#buy_price').val({{coinInEth}});
-  //              $('#buy_user_available').html({{curBalance2}});
-  //          }
-  //          $('.changeCurrency','').html(currency);
-
-  //      });
-
-  //      $('#buy_amount').bind('keyup blur', function () {
-
-  //          $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-
-  //          var buy_amount = $("#buy_amount").val();
-  //          var buy_currency = $("#buy_currency").val();
-  //          var buy_available = '';
-  //          // var buy_available = $("#buy_available").val();
-  //          var trcPerUnit = '';
-  //          if (buy_currency == 'BTC') {
-  //              trcPerUnit = parseFloat({{ btcSpotPrice }});
-  //              buy_available = parseFloat({{curBalance1}});
-  //          } else if (buy_currency == 'ETH') {
-  //              trcPerUnit = parseFloat({{coinInEth}});
-  //              buy_available = parseFloat({{curBalance2}});
-  //          }
-
-  //          var totalBuy = buy_amount * trcPerUnit;
-  //          var totalBuyAmt = totalBuy.toFixed(8)
-
-  //          var maxBuy = buy_available / trcPerUnit;
-
-  //          var maxCanBuy = maxBuy.toFixed(8)
-
-  //          if (parseFloat(totalBuyAmt) > buy_available) {
-  //             $("#buy_amount").val(maxCanBuy);
-  //          }
-
-  //          if (maxCanBuy == 0) {
-  //             $('#buy_subtotal').html(0.0);
-  //             $('#buy_total').html(0.0);
-  //          } else {
-  //             $('#buy_subtotal').html(totalBuyAmt);
-  //             $('#buy_total').html(totalBuyAmt);
-  //          }
-
-  //      });
-
-  //      $('#sell_amount').bind('keyup blur', function () {
-
-  //          $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-  //          var sell_amount = $("#sell_amount").val();
-  //          if (parseFloat(sell_amount) > sell_available) {
-  //              $("#sell_amount").val(sell_available);
-  //          }
-
-  //          var total = parseFloat(sell_amount * sell_price);
-  //          var sell_subtotal = total.toFixed(2)
-
-  //          var maxSell = parseFloat(sell_available);
-
-  //          if (sell_amount > maxSell) {
-
-  //             $("#sell_amount").val(maxSell);
-  //             sell_subtotal = maxSell * sell_price;
-  //          }
-
-  //          $('#sell_subtotal').html(sell_subtotal);
-  //          $('#sell_total').html(sell_subtotal);
-
-  //      });
-
-  //  });
-</script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
 
@@ -954,14 +735,17 @@ $(function(){
   // Buy Currency
   var data = {
     type: '{{ type }}',
-    defaultBuyCurrency: '{{ toCurrency }}',
-    curBalance1: '{{ curBalance1 }}',
+    buyCurrency: '{{ buyCurrency }}',
+    sellCurrency: '{{ sellCurrency }}',
+    ethCurrentBalance: '{{ ethCurrentBalance }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    fee: '{{ fee }}',
 
     error: true,
     buyAmount: 0,
-    buyFee: 0.015,
+    buyButtonStyle: '',
+    buyError: '',
     disableBuy: true
   }
   var buy = new Vue({
@@ -973,21 +757,32 @@ $(function(){
       buySubTotal: function () {
         // amount in BTC / BTC Price *
         var calc = parseFloat((this.btcSpotPrice/this.ethSpotPrice) * this.buyAmount).toFixed(8)
-        if (calc < this.curBalance1) {
+        var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
+        //console.log('calc: ', calcWithFees, 'ETH current balance:', this.ethCurrentBalance)
+        //console.log('diff: ', (parseFloat(calcWithFees) > parseFloat(this.ethCurrentBalance)))
+
+        var finalCalc = (parseFloat(calcWithFees) - parseFloat(this.ethCurrentBalance))
+        console.log('finalCalc:', finalCalc)
+
+        if (finalCalc > 0) {
           this.disableBuy = true
+          this.buyError = 'Insufficient funds'
+          this.buyButtonStyle = 'color: red;'
         } else {
           this.disableBuy = false
+          this.buyError = ''
+          this.buyButtonStyle = ''
         }
         return calc
       },
       buyTotal: function () {
         return parseFloat(
-            parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.buyFee)
+            parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.fee)
           ).toFixed(8)
       }
     },
     methods: {
-      buyCurrency: function () {
+      executeBuy: function () {
         // disable button to prevent double sent
         this.disableBuy = true
 
@@ -1003,15 +798,18 @@ $(function(){
   // Sell Currency
   var data = {
     type: '{{ type }}',
-    defaultSellCurrency: '{{ toCurrency }}',
-    balance: '{{ balance }}',
+    buyCurrency: '{{ buyCurrency }}',
+    sellCurrency: '{{ sellCurrency }}',
+    btcCurrentBalance: '{{ btcCurrentBalance }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    fee: '{{ fee }}',
 
     error: true,
-    fee: 0.015,
     sellAmount: 0,
     sellPrice: parseFloat('{{ btcSpotPrice }}').toFixed(2),
+    sellButtonStyle: '',
+    sellError: '',
     disableSell: true
   }
   var sell = new Vue({
@@ -1022,10 +820,14 @@ $(function(){
     computed: {
       sellSubTotal: function () {
         var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
-        if (calc < this.balance) {
+        if (this.sellAmount >= this.btcCurrentBalance) {
           this.disableSell = true
+          this.sellButtonStyle = 'color: red;'
+          this.sellError = 'Insufficient funds'
         } else {
+          this.sellButtonStyle = ''
           this.disableSell = false
+          this.sellError = ''
         }
         return calc
       },
@@ -1036,7 +838,7 @@ $(function(){
       }
     },
     methods: {
-      sellCurrency: function () {
+      executeSell: function () {
         // disable button to prevent double sent
         this.disableSell = true
         // send the form
