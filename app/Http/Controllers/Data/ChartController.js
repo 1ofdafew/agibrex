@@ -30,7 +30,7 @@ class BitcoinController {
     const data = request.only(['type', 'from', 'to', 'value'])
     const eth = new CoinFactory(data.type)
     const fees = yield eth.getFees(data)
-    response.json(fees)
+    response.jsonp(fees)
   }
 }
 

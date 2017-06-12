@@ -796,10 +796,10 @@ $(function(){
         const xhr = new XMLHttpRequest()
         const URL = `https://gibrex.com/data/ethereum/fees?type=ethereum&from=${this.ethAddress}&to=${this.ethAddress}&value=${this.buyTotal}`
         xhr.open('GET', URL, true)
-        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.setRequestHeader('Content-type', 'application/json')
         var response
         xhr.onload = function () {
-          console.log(xhr.responseText)
+          console.log('Fee Response:', xhr.responseText)
           response = JSON.stringify(xhr.responseText)
         }
         xhr.send()
