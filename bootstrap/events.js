@@ -37,3 +37,7 @@ Event.when('matcher:failed', 'MatchListener.failed')
 //
 // // BTC Status
 // Event.when('btc:ok', 'TradeListener.ok')
+
+// Tx events
+Event.when('TxCreate:ok', 'TxListener.create_ok')
+Event.when('TxExecute:ok', 'TxListener.execute_ok')
