@@ -794,7 +794,7 @@ $(function(){
       },
       transactionFee: function() {
         const xhr = new XMLHttpRequest()
-        const URL = `localhost:3333/data/ethereum/fees?type=ethereum&from=${this.ethAddress}&to=${this.ethAddress}&value=${this.buyTotal}`
+        const URL = `https://gibrex.com/data/ethereum/fees?type=ethereum&from=${this.ethAddress}&to=${this.ethAddress}&value=${this.buyTotal}`
         xhr.open('GET', URL, true)
         xhr.setRequestHeader('Content-type', 'application/json');
         var response
