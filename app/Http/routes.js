@@ -156,6 +156,7 @@ Route.group('Historical Data', function() {
   Route.get('/bitcoin', 'Data/ChartController.bitcoin')
   Route.get('/ethereum', 'Data/ChartController.ethereum')
   Route.get('/apple', 'Data/ChartController.apple')
+  Route.get('/ethereum/fees', 'Data/ChartController.getFees')
 }).prefix('/data')
 
 /**

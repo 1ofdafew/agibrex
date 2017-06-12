@@ -129,13 +129,24 @@
                     <div class="clear"></div>
                   </div>
                   <div class="calc">
-                    <div class="label">Fee&nbsp;
+                    <div class="label">Trade Fees&nbsp;
                       <a title="View fee schedule" href="#" target="_blank">
                         <i class="fa fa-question"></i>
                       </a>
                     </div>
                     <div class="value">
                       <span id="buy_user_fee">{{ fee }}</span>&nbsp;%</div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="calc">
+                    <div class="label">Transaction Fee&nbsp;
+                      <a title="View fee schedule" href="#" target="_blank">
+                        <i class="fa fa-question"></i>
+                      </a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="value">
+                      <span id="buy_user_fee">{{ buyCurrency }} {{ transactionFee }}</span>&nbsp;</div>
                     <div class="clear"></div>
                   </div>
                   <div class="dotted"></div>
@@ -737,13 +748,14 @@ $(function(){
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
-    ethCurrentBalance: '{{ ethCurrentBalance }}',
+    ethCurrentBalance: '{{ eth.balance }}',
+    ethAddress: '{{ eth.address }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
     fee: '{{ fee }}',
 
     error: true,
-    buyAmount: 0,
+    buyAmount: 0,    
     buyButtonStyle: '',
     buyError: '',
     disableBuy: true
@@ -779,6 +791,19 @@ $(function(){
         return parseFloat(
             parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.fee)
           ).toFixed(8)
+      },
+      transactionFee: function() {
+        const xhr = new XMLHttpRequest()
+        const URL = `localhost:3333/data/ethereum/fees?type=ethereum&from=${this.ethAddress}&to=${this.ethAddress}&value=${this.buyTotal}`
+        xhr.open('GET', URL, true)
+        xhr.setRequestHeader('Content-type', 'application/json');
+        var response
+        xhr.onload = function () {
+          console.log(xhr.responseText)
+          response = JSON.stringify(xhr.responseText)
+        }
+        xhr.send()
+        return 0 //response.fees;
       }
     },
     methods: {
@@ -800,7 +825,7 @@ $(function(){
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
-    btcCurrentBalance: '{{ btcCurrentBalance }}',
+    btcCurrentBalance: '{{ btc.balance }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
     fee: '{{ fee }}',
@@ -820,7 +845,7 @@ $(function(){
     computed: {
       sellSubTotal: function () {
         var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
-        if (this.sellAmount >= this.btcCurrentBalance) {
+        if (this.sellAmount > this.btcCurrentBalance) {
           this.disableSell = true
           this.sellButtonStyle = 'color: red;'
           this.sellError = 'Insufficient funds'

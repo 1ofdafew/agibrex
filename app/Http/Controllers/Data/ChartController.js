@@ -3,6 +3,8 @@
 const Helpers = use('Helpers')
 const storagePath = Helpers.storagePath()
 const HPSvc = make('App/Services/HistoricalPriceService')
+const CoinFactory = use('App/Services/Coins/CoinFactory')
+
 const log = require('npmlog')
 
 class BitcoinController {
@@ -22,6 +24,13 @@ class BitcoinController {
   * apple (request, response) {
     const data = Helpers.publicPath('exchange/aapl.json')
     response.download(data)
+  }
+
+  * getFees (request, response) {
+    const data = request.only(['type', 'from', 'to', 'value'])
+    const eth = new CoinFactory(data.type)
+    const fees = yield eth.getFees(data)
+    response.json(fees)
   }
 }
 

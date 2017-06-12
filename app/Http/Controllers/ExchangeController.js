@@ -27,21 +27,33 @@ class ExchangeController {
     // user maybe null as exchange is public, until he logs in.
     var ethWallet = ''
       , btcWallet = ''
-      , ethCurrentBalance = '10'
-      , btcCurrentBalance = '20'
+      , ethCurrentBalance = '0'
+      , btcCurrentBalance = '0'
       , fee = '0.015'
       , buyCurrency = 'ETH'
       , sellCurrency = 'BTC'
+      , btcAddress = ''
+      , ethAddress = ''
 
     const user = yield request.auth.getUser()
     if (user ) {
       try {
-        const w = yield WalletService.getWallet(user.username)
-        ethWallet = yield WalletService.getBalance('ethereum', w.address)
-        btcWallet = yield WalletService.getBalance('bitcoin', w.address)
+        const wallets = yield user.wallets().fetch()
+        // log.info('Wallets: ', wallets.toJSON())
+        const btc = yield this.getWallet(wallets.toJSON(), 'BITCOIN')
+        btcAddress = btc.address
+
+        const eth = yield this.getWallet(wallets.toJSON(), 'ETHEREUM')
+        ethAddress = eth.address
+
+        // log.info('Parsed Wallets: eth=', eth, 'btc=', btc)
+        ethWallet = yield WalletService.getBalance('ethereum', eth.address)
+        btcWallet = yield WalletService.getBalance('bitcoin', btc.address)
+
+        // console.log('ETH Wallet:', ethWallet)
 
         const ethCurrentBalance = ethWallet.data.balance.available //ETH
-        const btcCurrentBalance = ethWallet.data.balance.available
+        const btcCurrentBalance = btcWallet.data.balance.available
       } catch (e) {
         // user don't create the wallet yet
         log.info('No wallets for user yet')
@@ -75,8 +87,14 @@ class ExchangeController {
       fee : fee,
       asks : asks,
       bids : bids,
-      ethCurrentBalance : ethCurrentBalance,
-      btcCurrentBalance : btcCurrentBalance,
+      eth: {
+        address: ethAddress,
+        balance: ethCurrentBalance
+      },
+      btc: {
+        address: btcAddress,
+        balance: btcCurrentBalance
+      },
       buyCurrency : buyCurrency,
       sellCurrency : sellCurrency,
       currentData: currentData,
@@ -303,6 +321,21 @@ class ExchangeController {
         twt : twt,
       }
     )
+  }
+
+  * getWallet(wallets, type) {
+    // log.info('Getting wallet', type, 'from', wallets)
+    try {
+      var wallet = undefined
+      wallets.forEach((x, idx) => {
+        if (x.type === type) {
+          wallet = x
+        }
+      })
+      return wallet
+    } catch (e) {
+      return undefined
+    }
   }
 
 }

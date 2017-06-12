@@ -71,7 +71,12 @@ class CoinFactory extends Coin {
    * @return json data
    */
   * transfer (data) {
-    return yield this.send('put', `${URL}/api/v1/${this.type}`, data)    
+    return yield this.send('put', `${URL}/api/v1/${this.type}`, data)
+  }
+
+  * getFees (data) {
+    return yield this.send('get', 
+      `${URL}/api/v1/${this.type}?from=${data.from}&to=${data.to}&value=${data.value}`)
   }
 
   * toDecimals(account) {
