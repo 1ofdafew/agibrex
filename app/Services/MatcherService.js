@@ -107,9 +107,10 @@ class MatcherService {
          .update('balance', asset_balance)
 
        log.info(`tryMatch: Updated balance for Asset's Orderbook ID : ${orderBook.id}`)
+       Event.fire('matcher:ok', orderBook.id, matched[i].id)
      }
 
-      Event.fire('matcher:ok', orderBook.id, orderBook.type)
+      // Event.fire('matcher:ok', orderBook.id, orderBook.type)
       return true
     }
     return false
