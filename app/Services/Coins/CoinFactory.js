@@ -75,6 +75,7 @@ class CoinFactory extends Coin {
   }
 
   * getFees (data) {
+    log.info('Fees data:', data)
     return yield this.send('get', 
       `${URL}/api/v1/${this.type}?from=${data.from}&to=${data.to}&value=${data.value}`)
   }

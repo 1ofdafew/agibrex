@@ -215,7 +215,7 @@ $.getJSON('/data/ethereum?callback=?', function (data) {
 		data: []
 	};
 	$.each(data, function(lineNo, line) {
-		console.log('>>', lineNo, 'line:', line);
+		//console.log('>>', lineNo, 'line:', line);
 		var ts = moment(line.time, 'YYYY-MM-DD').unix();
 		series.data.push([ts, line.price])
 	});

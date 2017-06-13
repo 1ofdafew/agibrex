@@ -4,8 +4,8 @@
 {% block head %}
   <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/lodash@4.16.0"></script>
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/marked@0.3.6"></script>
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/jquery-3.1.1.min.js"></script>
@@ -55,8 +55,6 @@
         <div class="clear"></div>
 
         <div class="testimonials-4">
-          <input id="user_fee" value="0.00" type="hidden">
-          <input id="user_fee1" value="0.00" type="hidden">
           <div class="one_halfpx">
             <div class="contentbuy">
               <h3 class="section_label">
@@ -98,9 +96,7 @@
 
                   <div class="param">
                     <label for="buy_currency">Currency To Receive</label>
-                    <select id="buy_currency" name="buy_currency" v-model="buyCurrency">
-                     <option value="ETH">ETH</option>
-                    </select>
+                    <input name="buy_currency" id="buy_currency" v-model="buyCurrency" type="text" readonly>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top2"></div>
@@ -109,7 +105,12 @@
                   </div>
                   <div id="buy_stop_container" class="param">
                     <label for="buy_stop_price">Price</label>
-                    <input name="price" id="price" v-model="btcSpotPrice" type="text">
+                    <span v-if="isBitcoin">
+                      <input name="price" id="price" v-model="btcSpotPrice" type="text">
+                    </span>
+                    <span v-if="isEthereum">
+                      <input name="price" id="price" v-model="ethSpotPrice" type="text">
+                    </span>
                     <div class="qualify">
                       <span class="buy_currency_label">USD</span>
                     </div>
@@ -136,17 +137,6 @@
                     </div>
                     <div class="value">
                       <span id="buy_user_fee">{{ fee }}</span>&nbsp;%</div>
-                    <div class="clear"></div>
-                  </div>
-                  <div class="calc">
-                    <div class="label">Transaction Fee&nbsp;
-                      <a title="View fee schedule" href="#" target="_blank">
-                        <i class="fa fa-question"></i>
-                      </a>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="value">
-                      <span id="buy_user_fee">{{ buyCurrency }} {{ transactionFee }}</span>&nbsp;</div>
                     <div class="clear"></div>
                   </div>
                   <div class="dotted"></div>
@@ -222,15 +212,18 @@
                   <div class="mar_top1"></div>
                   <div class="param">
                     <label for="sell_currency">Currency To Receive</label>
-                    <select id="sell_currency" name="sell_currency" v-model="buyCurrency">
-                      <option value="ETH">ETH</option>
-                    </select>
+                    <input name="sell_currency" id="sell_currency" v-model="buyCurrency" type="text" readonly>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top2"></div>
                   <div id="sell_stop_container" class="param">
                     <label for="sell_stop_price">Sell Price</label>
-                    <input name="sell_price" id="sell_price" v-model="sellPrice" type="text">
+                    <span v-if="isBitcoin">
+                      <input name="sell_price" id="sell_price" v-model="btcSpotPrice" type="text">
+                    </span>
+                    <span v-if="isEthereum">
+                      <input name="sell_price" id="sell_price" v-model="ethSpotPrice" type="text">
+                    </span>
                     <div class="qualify">
                       <span class="sell_currency_label">USD</span>
                     </div>
@@ -249,7 +242,7 @@
                     <div class="clear"></div>
                   </div>
                   <div class="calc">
-                    <div class="label">Fee&nbsp;
+                    <div class="label">Trade Fees&nbsp;
                       <a title="View fee schedule" href="#" target="_blank">
                         <i class="fa fa-question"></i>
                       </a>
@@ -743,13 +736,14 @@ $(function(){
 <script type="text/javascript" src="/vue/twitter.js"></script>
 
 <script type="text/javascript"> 
+
   // Buy Currency
   var data = {
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
-    ethCurrentBalance: '{{ eth.balance }}',
-    ethAddress: '{{ eth.address }}',
+    ethCurrentBalance: '{{ ethCurrentBalance }}',
+    ethAddress: '{{ ethAddress }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
     fee: '{{ fee }}',
@@ -766,6 +760,15 @@ $(function(){
     methods: {
     },
     computed: {
+      isEthereum: function () {
+        return this.type === 'ETH'
+      },
+      isBitcoin: function () {
+        return this.type === 'BTC'
+      },
+      isTracto: function () {
+        return this.type === 'TRC'
+      },
       buySubTotal: function () {
         // amount in BTC / BTC Price *
         var calc = parseFloat((this.btcSpotPrice/this.ethSpotPrice) * this.buyAmount).toFixed(8)
@@ -792,19 +795,6 @@ $(function(){
             parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.fee)
           ).toFixed(8)
       },
-      transactionFee: function() {
-        const xhr = new XMLHttpRequest()
-        const URL = `https://gibrex.com/data/ethereum/fees?type=ethereum&from=${this.ethAddress}&to=${this.ethAddress}&value=${this.buyTotal}`
-        xhr.open('GET', URL, true)
-        xhr.setRequestHeader('Content-type', 'application/json')
-        var response
-        xhr.onload = function () {
-          console.log('Fee Response:', xhr.responseText)
-          response = JSON.stringify(xhr.responseText)
-        }
-        xhr.send()
-        return 0 //response.fees;
-      }
     },
     methods: {
       executeBuy: function () {
@@ -825,7 +815,7 @@ $(function(){
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
-    btcCurrentBalance: '{{ btc.balance }}',
+    btcCurrentBalance: '{{ btcCurrentBalance }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
     fee: '{{ fee }}',
@@ -843,6 +833,15 @@ $(function(){
     methods: {
     },
     computed: {
+      isEthereum: function () {
+        return this.type === 'ETH'
+      },
+      isBitcoin: function () {
+        return this.type === 'BTC'
+      },
+      isTracto: function () {
+        return this.type === 'TRC'
+      },
       sellSubTotal: function () {
         var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
         if (this.sellAmount > this.btcCurrentBalance) {

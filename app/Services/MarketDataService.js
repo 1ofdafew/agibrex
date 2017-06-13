@@ -54,17 +54,24 @@ class MarketDataService {
   }
 
   * getSpotPrice (type) {
-    const URL = `https://api.coinbase.com/v2/prices/${type}-USD/spot`
-    var num
-    yield axios.get(URL)
-      .then(function (resp) {
-        co(function * () {
-          const value = parseInt(parseFloat(resp.data.data.amount) * 100)
-          // log.info('spot value for', type, ' =', value)
-          num = value
-        })
-    })
-    return num
+    log.info('Getting spot price for ', type)
+    // const URL = `https://api.coinbase.com/v2/prices/${type}-USD/spot`
+    // var num
+    // yield axios.get(URL)
+    //   .then(function (resp) {
+    //     co(function * () {
+    //       const value = parseInt(parseFloat(resp.data.data.amount) * 100)
+    //       // log.info('spot value for', type, ' =', value)
+    //       num = value
+    //     })
+    // })
+    const curr = yield Db.table('market_data')
+        .where('symbol', type)
+        .orderBy('created_at', 'desc')
+        .limit(1)
+
+    log.info('Spot price:', curr)
+    return curr[0].price
   }
 
   * getBitcoinCurrentData () {

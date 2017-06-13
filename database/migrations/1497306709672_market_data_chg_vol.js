@@ -1,0 +1,27 @@
+'use strict'
+
+const Schema = use('Schema')
+
+class MarketDataChgVolTableSchema extends Schema {
+
+  up () {
+    this.table('market_data', (table) => {
+      // alter market_data_chg_vol table
+      table.decimal('price', 16, 8).defaultTo(0.0).notNullable().alter().after('symbol').alter()
+      table.decimal('change1h', 16, 8).defaultTo(0.0).after('price').alter()
+      table.decimal('change24h', 24, 8).defaultTo(0.0).after('change1h').alter()
+      table.decimal('vol24h_usd', 25, 8).defaultTo(0.0).after('change24h').alter()
+      table.decimal('vol24h_eur', 25, 8).defaultTo(0.0).after('vol24h_usd').alter()
+      table.decimal('vol24h_btc', 25, 8).defaultTo(0.0).after('vol24h_eur').alter()      
+    })
+  }
+
+  down () {
+    this.table('market_data', (table) => {
+      // opposite of up goes here
+    })
+  }
+
+}
+
+module.exports = MarketDataChgVolTableSchema
