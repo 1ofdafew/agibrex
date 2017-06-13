@@ -7,3 +7,4 @@ npm-debug.log
 database/development.sqlite
 *.swp
 *.swo
+logs/*

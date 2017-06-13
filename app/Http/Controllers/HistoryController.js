@@ -4,7 +4,8 @@ const History = use('App/Model/History')
 const Validator = use('App/Services/Validator')
 const HistoryService = make('App/Services/HistoryService')
 
-const Database = use('Database');
+const Database = use('Database')
+const log = make('App/Services/LogService')
 
 class HistoryController {
 

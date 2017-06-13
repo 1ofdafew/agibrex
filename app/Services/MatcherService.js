@@ -1,7 +1,7 @@
 'use strict'
 
 const Database = use('Database')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 const Event = use('Event')
 const OrderBook = use('App/Model/OrderBook')
 const Matching = use('App/Model/Matching')

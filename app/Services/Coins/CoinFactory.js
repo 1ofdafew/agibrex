@@ -3,7 +3,7 @@
 const Env = use('Env')
 const Exceptions = use('App/Exceptions')
 const Coin = use('App/Services/Coins/Coin')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 const URL = Env.get('COIN_URL')
 

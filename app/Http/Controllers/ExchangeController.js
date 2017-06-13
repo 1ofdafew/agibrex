@@ -2,7 +2,7 @@
 
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 const OrderBook = use('App/Model/OrderBook')
 const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')

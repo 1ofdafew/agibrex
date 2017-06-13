@@ -1,7 +1,7 @@
 'use strict'
 
 const axios = require('axios')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 const moment = require('moment')
 const co = require('co')
 

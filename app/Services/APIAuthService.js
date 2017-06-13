@@ -3,7 +3,7 @@
 const Env = use('Env')
 const Exceptions = use('App/Exceptions')
 const GibrexService = use('App/Services/GibrexService')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 const URL = Env.get('COIN_URL')
 const NEED_REG = Env.get('COIN_ADMIN_REG')

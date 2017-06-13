@@ -5,7 +5,7 @@ const TradeService = make('App/Services/TradeService')
 const Database = use('Database')
 const uuid = require('uuid/v4');
 const debug = require('debug')('gibrex')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 class TransactionService{
 

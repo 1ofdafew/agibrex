@@ -2,7 +2,7 @@
 
 const Exceptions = use('App/Exceptions')
 const Database = use('Database')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 const Event = use('Event')
 const OrderBook = use('App/Model/OrderBook')
 const User = use('App/Model/User')

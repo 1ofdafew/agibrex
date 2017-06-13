@@ -2,7 +2,7 @@
 
 const Database = use('Database')
 const uuid = require('uuid/v4');
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 const moment = require('moment')
 
 const HistoricalPrice = use('App/Model/HistoricalPrice')

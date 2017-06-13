@@ -4,7 +4,8 @@ const CreditCard = use('App/Model/CreditCard')
 const Validator = use('App/Services/Validator')
 const CreditCardService = make('App/Services/CreditCardService')
 
-const Database = use('Database');
+const Database = use('Database')
+const log = make('App/Services/LogService')
 
 class CreditCardController {
 

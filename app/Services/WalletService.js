@@ -2,7 +2,7 @@
 
 const Exceptions = use('App/Exceptions')
 const CoinFactory = use('App/Services/Coins/CoinFactory')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 class WalletService {
 

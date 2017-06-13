@@ -4,7 +4,7 @@
 const MatcherService = make('App/Services/MatcherService')
 const TxService = make('App/Services/TransactionService')
 const debug = require('debug')('gibrex')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 class TradeService {
 

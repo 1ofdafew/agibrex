@@ -4,7 +4,8 @@ const Asset = use('App/Model/Asset')
 const Validator = use('App/Services/Validator')
 const AssetService = make('App/Services/AssetService')
 
-const Database = use('Database');
+const Database = use('Database')
+const log = make('App/Services/LogService')
 
 class AssetController {
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 const co = use('co')
 
 const TxService = use('App/Services/TransactionService')

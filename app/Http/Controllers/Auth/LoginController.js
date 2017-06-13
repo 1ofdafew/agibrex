@@ -6,7 +6,7 @@ const Validator = use('App/Services/Validator')
 const UserService = make('App/Services/UserService')
 
 const debug = require('debug')('gibrex')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 class LoginController {
 

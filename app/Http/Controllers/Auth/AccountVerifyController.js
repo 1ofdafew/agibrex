@@ -1,7 +1,7 @@
 'use strict'
 
 const UserService = make('App/Services/UserService')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 
 class AccountVerifyController {
 

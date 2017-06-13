@@ -3,7 +3,7 @@
 const Env = use('Env')
 
 const Twitter = require('twitter')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 const co = require('co')
 
 class TwitterService {

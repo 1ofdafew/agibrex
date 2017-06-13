@@ -3,7 +3,7 @@
 const Exceptions = use('App/Exceptions')
 const Event = use('Event')
 const Hash = use('Hash')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 const uuid = require('uuid/v4')
 
 class UserService {

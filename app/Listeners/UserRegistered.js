@@ -1,6 +1,6 @@
 'use strict'
 
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 
 const MailService = use('App/Services/MailService')
 const UserRegistered = exports = module.exports = {}

@@ -1,6 +1,6 @@
 'use strict'
 
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 
 const TradeListener = exports = module.exports = {}
 

@@ -2,7 +2,7 @@
 
 const Mail = use('Mail')
 const Env = use('Env')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 
 const MailService = exports = module.exports = {}
 

@@ -3,7 +3,7 @@
 const Env = use('Env')
 const axios = require('axios')
 const APIAuthService = make('App/Services/APIAuthService')
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 const ADMIN = Env.get('COIN_ADMIN')
 const EMAIL = Env.get('COIN_ADMIN_EMAIL')

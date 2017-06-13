@@ -2,7 +2,7 @@
 
 const UserService = make('App/Services/UserService')
 const Hash = use('Hash')
-const log = use('npmlog')
+const log = make('App/Services/LogService')
 
 class ForgotPasswordController {
 

@@ -7,7 +7,7 @@ const Hash = use('Hash')
 const MarketData = use('App/Model/MarketData')
 const Db = use('Database')
 
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 const axios = require('axios')
 const co = require('co')
 

@@ -5,7 +5,7 @@ const storagePath = Helpers.storagePath()
 const HPSvc = make('App/Services/HistoricalPriceService')
 const CoinFactory = use('App/Services/Coins/CoinFactory')
 
-const log = require('npmlog')
+const log = make('App/Services/LogService')
 
 class BitcoinController {
 
