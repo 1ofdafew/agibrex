@@ -11,7 +11,7 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
   <script src="/js/charts/highstock.js"></script>
-  {# <script src="/js/charts/exporting.js"></script> #}
+  <!--script src="/js/charts/exporting.js"></script-->
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
 {% endblock %}
 
@@ -51,7 +51,11 @@
         </div>
         <div class="clearfix mar_top2"></div>
 
-          <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
+        <!-- do not show for TRC -->
+        {% if not type == 'TRC' %}
+        <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
+        {% endif %}
+
         <div class="clear"></div>
 
         <div class="testimonials-4">
@@ -87,9 +91,12 @@
                   </div>
 
                   <div class="param">
-                      <label for="buy_amount">Amount To Buy</label>
+                    <label for="buy_amount">
+                      Amount To Buy<br>
+                      <span><h6 style="font-size: 0.6em">* transaction fees shall de deducted</h6></span>
+                    </label>
                     <input name="buy_amount" id="buy_amount" v-model="buyAmount" type="text">
-                    <div class="qualify">{{ type }}</div>
+                    <div class="qualify">{{ sellCurrency }}</div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top1"></div>
@@ -124,7 +131,12 @@
                     <div class="label">Subtotal</div>
                     <div class="value">
                       <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
-                      <span id="buy_subtotal">{{ buySubTotal }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="buy_subtotal">{{ buyBtcEthSubTotal }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="buy_subtotal">{{ buyEthBtcSubTotal }}</span>
+                      </span>
                     </div>
 
                     <div class="clear"></div>
@@ -151,7 +163,12 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
-                      <span id="buy_total">{{ buyTotal }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="buy_total">{{ buyBtcEthTotal }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="buy_total">{{ buyEthBtcTotal }}</span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -188,10 +205,15 @@
                 <div id="vuesell" class="buyform">
                   <div class="spacer"></div>
                   <div class="calc dotted">
-                    <div class="label">Available {{ type }}</div>
+                    <div class="label">Available {{ sellCurrency }}</div>
                     <div class="value">
-                      <span id="sell_user_available">{{ btcCurrentBalance }}</span>
-                      {{ type }}</div>
+                      <span v-if="isBitcoin">
+                        <span id="sell_user_available">{{ btcCurrentBalance }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="sell_user_available">{{ ethCurrentBalance }}</span>
+                      </span>
+                      {{ sellCurrency }}</div>
                     <div class="clear"></div>
                     <input type="hidden" id="sell_available" value="{{ btcCurrentBalance }}">
                   </div>
@@ -204,9 +226,12 @@
                   </div>
 
                   <div class="param">
-                    <label for="sell_amount">Amount To Sell</label>
+                    <label for="sell_amount">
+                      Amount To Sell<br>
+                      <span><h6 style="font-size: 0.6em">* transaction fees shall de deducted</h6></span>
+                    </label>
                     <input name="sell_amount" id="sell_amount" v-model="sellAmount" type="text">
-                    <div class="qualify">{{ type }}</div>
+                    <div class="qualify">{{ sellCurrency }}</div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top1"></div>
@@ -224,6 +249,9 @@
                     <span v-if="isEthereum">
                       <input name="sell_price" id="sell_price" v-model="ethSpotPrice" type="text">
                     </span>
+                    <span v-if="isTracto">
+                      <input name="sell_price" id="sell_price" v-model="trcSpotPrice" type="text">
+                    </span>
                     <div class="qualify">
                       <span class="sell_currency_label">USD</span>
                     </div>
@@ -237,7 +265,20 @@
                     <div class="label">Subtotal</div>
                     <div class="value">
                       <span class="sell_currency_char">{{ buyCurrency }}</span>
-                      <span id="sell_subtotal">{{ sellSubTotal }}</span>
+                      <span v-if="isEthereum">
+                        <span id="sell_subtotal">{{ sellEthBtcSubTotal }}</span>
+                      </span>
+                      <span v-if="isBitcoin">
+                        <span id="sell_subtotal">{{ sellBtcEthSubTotal }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span v-if="toEthereum">
+                          <span id="sell_subtotal">{{ sellTrcEthSubTotal }}</span>
+                        </span>
+                        <span v-if="toBitcoin">
+                          <span id="sell_subtotal">{{ sellTrcBtcSubTotal }}</span>
+                        </span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -263,12 +304,26 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="sell_currency_char">{{ buyCurrency }}</span>
-                      <span id="sell_total">{{ sellTotal }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="sell_total">{{ sellBtcEthTotal }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="sell_total">{{ sellEthBtcTotal }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span v-if="toBitcoin">
+                          <span id="sell_total">{{ sellTrcBtcTotal }}</span>
+                        </span>
+                        <span v-if="toEthereum">
+                          <span id="sell_total">{{ sellTrcEthTotal }}</span>
+                        </span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top2"></div>
                   {% endverbatim %}
+
                   {% if currentUser %}
                     {% verbatim %}
                     <button class="but_usersell" type="submit" v-bind:disabled="disableSell" v-bind:style="sellButtonStyle">
@@ -746,7 +801,11 @@ $(function(){
     ethAddress: '{{ ethAddress }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    trcSpotPrice: '{{ trcSpotPrice }}',
     fee: '{{ fee }}',
+    btcFee: 0.004,
+    ethFee: 0.000441021,
+    trcFee: 0.0002,
 
     error: true,
     buyAmount: 0,    
@@ -769,30 +828,76 @@ $(function(){
       isTracto: function () {
         return this.type === 'TRC'
       },
-      buySubTotal: function () {
-        // amount in BTC / BTC Price *
-        var calc = parseFloat((this.btcSpotPrice/this.ethSpotPrice) * this.buyAmount).toFixed(8)
-        var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
-        //console.log('calc: ', calcWithFees, 'ETH current balance:', this.ethCurrentBalance)
-        //console.log('diff: ', (parseFloat(calcWithFees) > parseFloat(this.ethCurrentBalance)))
+      buyBtcEthSubTotal: function () {
+        // amount to calculate for buying into ETH
+        var calc = '0.00000000'
+        if (this.buyAmount !== 0) {
+          calc = parseFloat(
+            (parseFloat(this.btcSpotPrice)/parseFloat(this.ethSpotPrice)) * (parseFloat(this.buyAmount) - parseFloat(this.btcFee))
+          ).toFixed(8)
+          var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
 
-        var finalCalc = (parseFloat(calcWithFees) - parseFloat(this.ethCurrentBalance))
-        console.log('finalCalc:', finalCalc)
+          var finalCalc = (parseFloat(calcWithFees) - parseFloat(this.ethCurrentBalance))
+          console.log('finalCalc:', finalCalc)
 
-        if (finalCalc > 0) {
-          this.disableBuy = true
-          this.buyError = 'Insufficient funds'
-          this.buyButtonStyle = 'color: red;'
-        } else {
-          this.disableBuy = false
-          this.buyError = ''
-          this.buyButtonStyle = ''
+          if (finalCalc > 0) {
+            this.disableBuy = true
+            this.buyError = 'Insufficient funds'
+            this.buyButtonStyle = 'color: red;'
+          } else {
+            this.disableBuy = false
+            this.buyError = ''
+            this.buyButtonStyle = ''
+          }
         }
         return calc
       },
-      buyTotal: function () {
+      buyEthBtcSubTotal: function () {
+        console.log('buy eth subtotal...')
+        // amount to calc for buying into BTC 
+        var calc = '0.00000000'
+        if (this.buyAmount > 0) {
+          calc = parseFloat(
+            (
+              ( // sum of sell volume - fees
+                parseFloat(this.buyPrice) * (parseFloat(this.buyAmount) - parseFloat(this.ethFee))
+              )
+              *
+              ( // the ratio of ETH/BTC
+                this.ethSpotPrice / this.btcSpotPrice
+              )
+              /
+              this.btcSpotPrice
+            )
+          ).toFixed(8)
+          var calc = parseFloat(
+            (this.ethSpotPrice/this.btcSpotPrice) * (parseFloat(this.buyAmount) - this.ethFee)
+          ).toFixed(8)
+          var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
+
+          var finalCalc = (parseFloat(calcWithFees) - parseFloat(this.ethCurrentBalance))
+          console.log('finalCalc:', finalCalc)
+
+          if (finalCalc > 0) {
+            this.disableBuy = true
+            this.buyError = 'Insufficient funds'
+            this.buyButtonStyle = 'color: red;'
+          } else {
+            this.disableBuy = false
+            this.buyError = ''
+            this.buyButtonStyle = ''
+          }
+        }
+        return calc
+      },
+      buyBtcEthTotal: function () {
         return parseFloat(
-            parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.fee)
+            parseFloat(this.buyBtcEthSubTotal) + (parseFloat(this.buyBtcEthSubTotal) * parseFloat(this.fee))
+          ).toFixed(8)
+      },
+      buyEthBtcTotal: function () {
+        return parseFloat(
+            parseFloat(this.buyEthBtcSubTotal) + (parseFloat(this.buyEthBtcSubTotal) * parseFloat(this.fee))
           ).toFixed(8)
       },
     },
@@ -816,9 +921,15 @@ $(function(){
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
     btcCurrentBalance: '{{ btcCurrentBalance }}',
+    ethCurrentBalance: '{{ ethCurrentBalance }}',
+    trcCurrentBalance: '{{ trcCurrentBalance }}',
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    trcSpotPrice: '{{ trcSpotPrice }}',
     fee: '{{ fee }}',
+    btcFee: 0.004,
+    ethFee: 0.000441021,
+    trcFee: 0.0002,
 
     error: true,
     sellAmount: 0,
@@ -842,24 +953,93 @@ $(function(){
       isTracto: function () {
         return this.type === 'TRC'
       },
-      sellSubTotal: function () {
-        var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
-        if (this.sellAmount > this.btcCurrentBalance) {
-          this.disableSell = true
-          this.sellButtonStyle = 'color: red;'
-          this.sellError = 'Insufficient funds'
-        } else {
-          this.sellButtonStyle = ''
-          this.disableSell = false
-          this.sellError = ''
+      toEthereum: function () {
+        return this.buyCurrency === 'ETH'
+      },
+      toBitcoin: function () {
+        return this.buyCurrency === 'BTC'
+      },
+      sellEthBtcSubTotal: function () {
+        console.log(this.type, ':calculating eth-btc sub total...')
+        var calc = '0.00000000'
+        if (this.sellAmount > 0) {
+          calc = parseFloat(
+            (
+              ( // sum of sell volume - fees
+                parseFloat(this.sellPrice) * (parseFloat(this.sellAmount) - parseFloat(this.ethFee))
+              )
+              *
+              ( // the ratio of ETH/BTC
+                this.ethSpotPrice / this.btcSpotPrice
+              )
+              /
+              this.btcSpotPrice
+            )
+          ).toFixed(8)
+          console.log('calc:', calc, ', currBalance', this.ethCurrentBalance)
+          if (parseFloat(calc) > parseFloat(this.ethCurrentBalance)) {
+            this.disableSell = true
+            this.sellButtonStyle = 'color: red;'
+            this.sellError = 'Insufficient funds'
+          } else {
+            this.sellButtonStyle = ''
+            this.disableSell = false
+            this.sellError = ''
+          }
+        }
+        console.log('ethbtc:', calc)
+        return calc
+      },
+      sellEthBtcTotal: function () {
+        return parseFloat(
+            parseFloat(this.sellEthBtcSubTotal) - parseFloat(this.sellEthBtcSubTotal * this.fee)
+          ).toFixed(8)
+      },
+      sellBtcEthSubTotal: function () {
+        var calc = '0.00000000'
+        if (this.sellAmount > 0) {
+          calc = parseFloat(
+            (
+              ( // sum of sell volume - fees
+                parseFloat(this.sellPrice) * (parseFloat(this.sellAmount) - parseFloat(this.btcFee))
+              )
+              *
+              ( // the ratio of BTC/ETH
+                this.btcSpotPrice / this.ethSpotPrice
+              )
+              /
+              this.btcSpotPrice
+            )
+          ).toFixed(8)
+          if (this.sellAmount > this.btcCurrentBalance) {
+            this.disableSell = true
+            this.sellButtonStyle = 'color: red;'
+            this.sellError = 'Insufficient funds'
+          } else {
+            this.sellButtonStyle = ''
+            this.disableSell = false
+            this.sellError = ''
+          }
         }
         return calc
       },
-      sellTotal: function () {
+      sellBtcEthTotal: function () {
         return parseFloat(
-            parseFloat(this.sellSubTotal) - parseFloat(this.sellSubTotal*this.fee)
+            parseFloat(this.sellBtcEthSubTotal) - parseFloat(this.sellBtcEthSubTotal * this.fee)
           ).toFixed(8)
-      }
+      },
+      sellTrcBtcSubTotal: function () {
+        return 0
+      },
+      sellTrcBtcTotal: function () {
+        return 0
+      },
+      sellTrcEthSubTotal: function () {
+        return 0
+      },
+      sellTrcEthTotal: function () {
+        return 0
+      },
     },
     methods: {
       executeSell: function () {

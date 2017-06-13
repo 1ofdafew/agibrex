@@ -21,97 +21,30 @@ class ExchangeController {
 
   * btc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
-
-    // user maybe null as exchange is public, until he logs in.
-    var ethWallet = ''            // wallet for ETH
-      , btcWallet = ''            // wallet for BTC
-      , btcAddress = ''           // BTC address
-      , ethAddress = '0x98c9ff32b9c6f4a870399f86caa3c40a01b856ef' // ETH address
-      , ethCurrentBalance = '0'   // ETH current balance
-      , btcCurrentBalance = '0'   // BTC current balance
-      , fee = '0.015'             // gibrex fees
-      , buyCurrency = 'ETH'       // currency to BUY
-      , sellCurrency = 'BTC'      // currency to SELL
-      , btcSpotPrice = '2680.06'
-      , ethSpotPrice = '370.44'
-
-    const user = yield request.auth.getUser()
-    if (user) {
-      try {
-        const wallets = yield user.wallets().fetch()
-        // log.info('user wallets:', wallets.toJSON())
-
-        const eth = yield this.getWallet(wallets.toJSON(), 'ETHEREUM')
-        ethWallet = yield WalletService.getBalance('ethereum', eth.address)
-        ethAddress = eth.address
-        ethCurrentBalance = ethWallet.data.balance.available //ETH
-
-        log.info(`ETH: ${ethAddress} -> ${ethCurrentBalance}`)
-
-        const btc = yield this.getWallet(wallets.toJSON(), 'BITCOIN')
-        btcWallet = yield WalletService.getBalance('bitcoin', btc.address)
-        btcAddress = btc.address
-        btcCurrentBalance = btcWallet.data.balance.available
-      } catch (e) {
-        // user don't create the wallet yet
-        log.info('No wallets for user yet')
-      }
-    }
-
-    // Call showask
-    const orderBookCntrl = new OrderBookCntrl()
-    const asks = yield orderBookCntrl.showask('BTC')
-    const bids = yield orderBookCntrl.showbid('BTC')
-
-    try {
-      // These spot price are in cents, to eliminate rounding errors
-      btcSpotPrice = yield MDService.getSpotPrice('BTC')
-      ethSpotPrice = yield MDService.getSpotPrice('ETH')
-
-      // log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
-      // coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
-
-    } catch (e) {
-      log.error('Unable to find the spot price')
-    }
-
-    // price of the BTC spot price
-    // const btcSpotPrice = (BTCSpotPrice/100).toFixed( 2 )
-    const args = {
-      type: 'BTC',
-      name: 'Bitcoin',
-      fee : fee,
-      asks : asks,
-      bids : bids,
-      ethAddress: ethAddress,
-      ethCurrentBalance: '10', //ethCurrentBalance,
-      btcAddress: btcAddress,
-      btcCurrentBalance: '20', //btcCurrentBalance,
-      buyCurrency : buyCurrency,
-      sellCurrency : sellCurrency,
-      btcSpotPrice: btcSpotPrice,
-      ethSpotPrice: ethSpotPrice
-    }
-
-    log.info('Params:', args)
-    yield response.sendView('exchange.index', args)
+    yield this.preparePage('Bitcoin', 'ETH', 'BTC', request, response)
   }
 
   * eth (request, response) {
-    yield CoindeskService.maybeFetchEthereumData()
+    yield CoindeskService.maybeFetchBitcoinData()
+    yield this.preparePage('Ethereum', 'BTC', 'ETH', request, response)
+  }
+
+  * preparePage(name, buyCurrency, sellCurrency, request, response) {
 
     // user maybe null as exchange is public, until he logs in.
     var ethWallet = ''            // wallet for ETH
       , btcWallet = ''            // wallet for BTC
+      , trcWallet = ''            // wallet for TRC
       , btcAddress = ''           // BTC address
       , ethAddress = '0x98c9ff32b9c6f4a870399f86caa3c40a01b856ef' // ETH address
+      , trcAddress = ''           // TRC address
       , ethCurrentBalance = '0'   // ETH current balance
       , btcCurrentBalance = '0'   // BTC current balance
-      , fee = '0.015'             // gibrex fees
-      , buyCurrency = 'BTC'       // currency to BUY
-      , sellCurrency = 'ETH'      // currency to SELL
+      , trcCurrentBalance = '0'   // TRC current balance
       , btcSpotPrice = '2680.06'
       , ethSpotPrice = '370.44'
+      , trcSpotPrice = '0.85'
+      , fee = '0.015'             // gibrex fees
 
     const user = yield request.auth.getUser()
     if (user) {
@@ -123,13 +56,20 @@ class ExchangeController {
         ethWallet = yield WalletService.getBalance('ethereum', eth.address)
         ethAddress = eth.address
         ethCurrentBalance = ethWallet.data.balance.available //ETH
-
         log.info(`ETH: ${ethAddress} -> ${ethCurrentBalance}`)
 
         const btc = yield this.getWallet(wallets.toJSON(), 'BITCOIN')
         btcWallet = yield WalletService.getBalance('bitcoin', btc.address)
         btcAddress = btc.address
         btcCurrentBalance = btcWallet.data.balance.available
+        log.info(`BTC: ${btcAddress} -> ${btcCurrentBalance}`)
+
+        const trc = yield this.getWallet(wallets.toJSON(), 'TRACTO')
+        trcWallet = yield WalletService.getBalance('tracto', trc.address)
+        trcAddress = trc.address
+        trcCurrentBalance = trcWallet.data.balance.available
+        log.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
+
       } catch (e) {
         // user don't create the wallet yet
         log.info('No wallets for user yet')
@@ -138,8 +78,8 @@ class ExchangeController {
 
     // Call showask
     const orderBookCntrl = new OrderBookCntrl()
-    const asks = yield orderBookCntrl.showask(sellCurrency)
-    const bids = yield orderBookCntrl.showbid(sellCurrency)
+    const asks = yield orderBookCntrl.showask(buyCurrency)
+    const bids = yield orderBookCntrl.showbid(buyCurrency)
 
     try {
       // These spot price are in cents, to eliminate rounding errors
@@ -156,8 +96,8 @@ class ExchangeController {
     // price of the BTC spot price
     // const btcSpotPrice = (BTCSpotPrice/100).toFixed( 2 )
     const args = {
-      type: 'ETH',
-      name: 'Ethereum',
+      type: sellCurrency,
+      name: name,
       fee : fee,
       asks : asks,
       bids : bids,
@@ -165,54 +105,17 @@ class ExchangeController {
       ethCurrentBalance: '10', //ethCurrentBalance,
       btcAddress: btcAddress,
       btcCurrentBalance: '20', //btcCurrentBalance,
+      trcAddress: trcAddress,
+      trcCurrentBalance: '20', //trcCurrentBalance,
       buyCurrency : buyCurrency,
       sellCurrency : sellCurrency,
-      btcSpotPrice: btcSpotPrice,
-      ethSpotPrice: ethSpotPrice
+      btcSpotPrice: parseFloat(btcSpotPrice).toFixed(2),
+      ethSpotPrice: parseFloat(ethSpotPrice).toFixed(2),
+      trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2)
     }
 
     log.info('Params:', args)
     yield response.sendView('exchange.index', args)
-  }
-
-  * trc (request, response) {
-
-    const defaultBuyCurrency = 'BTC'
-    const ethCurrentBalace = '1.64320000'
-    const btcCurrentBalace = '11.48300000'
-
-    // TODO : Get Balance
-    const balance = '372.37490000'
-    const fee = '0.00'
-
-    // Call showask
-    const orderBookCntrl = new OrderBookCntrl()
-    const showask = yield orderBookCntrl.showask('TRC')
-
-    // Call showbid
-    const showbid = yield orderBookCntrl.showbid('TRC')
-
-    // TODO : Get Btc Price
-    // const result = Request.get('https://blockchain.info/tobtc?currency=USD&value=0.85')
-    // response.send(result)
-
-    yield response.sendView(
-      'exchange.index',
-      {
-        type: 'TRC',
-        name: 'Tracto',
-        balance : balance,
-        price : price,
-        fee : fee,
-        coinInBtc : coinInBtc,
-        coinInEth : coinInEth,
-        showasks : showask,
-        showbids : showbid,
-        ethCurrentBalace : ethCurrentBalace,
-        btcCurrentBalace : btcCurrentBalace,
-        defaultBuyCurrency : defaultBuyCurrency,
-      }
-    )
   }
 
   * selltrc (request, response) {
