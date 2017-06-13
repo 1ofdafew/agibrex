@@ -2,7 +2,6 @@
 
 const Lucid = use('Lucid')
 const uuid = require('uuid/v4')
-const log = use('npmlog')
 
 class OrderBook extends Lucid {
 

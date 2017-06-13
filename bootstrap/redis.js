@@ -3,8 +3,8 @@
 const Redis = use('Redis')
 const Event = use('Event')
 const Ws = use('Ws')
-const log = require('npmlog')
 
+const log = make('App/Services/LogService')
 const KrakenPoller = use('App/Services/KrakenPoller')
 // const GDAXPoller = use('App/Services/GDAXPoller')
 //
@@ -15,10 +15,12 @@ Redis.subscribe('data', function * (action) {
 	log.info('Processing cron for ', action)
 	switch (action) {
 		case 'fetchTickerData':
+      log.info('Running fetch for ticker data for BTC, ETH')
 			yield MarketDataService.fetchCurrentData('BTC')
 			yield MarketDataService.fetchCurrentData('ETH')
 			break;
 		case 'fetchDailyData':
+      log.info('Fetching daily data for BTC, ETH')
 			yield CoindeskService.cronFetchBitcoinData()
 			yield CoindeskService.cronFetchEthereumData()
 			break;
