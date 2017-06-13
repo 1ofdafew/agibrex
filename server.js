@@ -11,6 +11,11 @@
 |
 */
 
+// disable logging to console
+if (process.env.NODE_ENV == "production") {
+  console.log = function() {}
+}
+
 const http = require('./bootstrap/http')
 http(function () {
   use('Event').fire('Http.start')
