@@ -33,7 +33,7 @@ class TwitterService {
         }
       })
     })
-    log.info('data-return:', this.data)
+    // log.info('data-return:', this.data)
     return this.data
   }
 

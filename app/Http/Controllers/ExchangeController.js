@@ -16,17 +16,35 @@ const TwitterService = make('App/Services/TwitterService')
 class ExchangeController {
 
   * index (request, response) {
-    response.redirect('/exchange/btc')
+    response.redirect('/exchange/btc/eth')
   }
 
-  * btc (request, response) {
+  * btcEth (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
     yield this.preparePage('Bitcoin', 'ETH', 'BTC', request, response)
   }
 
-  * eth (request, response) {
+  * btcTrc (request, response) {
+    yield CoindeskService.maybeFetchBitcoinData()
+    yield this.preparePage('Bitcoin', 'TRC', 'BTC', request, response)
+  }
+
+  * ethBtc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
     yield this.preparePage('Ethereum', 'BTC', 'ETH', request, response)
+  }
+
+  * ethTrc (request, response) {
+    yield CoindeskService.maybeFetchBitcoinData()
+    yield this.preparePage('Ethereum', 'TRC', 'ETH', request, response)
+  }
+
+  * trcEth (request, response) {
+    yield this.preparePage('Tracto', 'ETH', 'TRC', request, response)
+  }
+  
+  * trcBtc (request, response) {
+    yield this.preparePage('Tracto', 'BTC', 'TRC', request, response)
   }
 
   * preparePage(name, buyCurrency, sellCurrency, request, response) {
@@ -38,9 +56,9 @@ class ExchangeController {
       , btcAddress = ''           // BTC address
       , ethAddress = '0x98c9ff32b9c6f4a870399f86caa3c40a01b856ef' // ETH address
       , trcAddress = ''           // TRC address
-      , ethCurrentBalance = '0'   // ETH current balance
-      , btcCurrentBalance = '0'   // BTC current balance
-      , trcCurrentBalance = '0'   // TRC current balance
+      , ethCurrentBalance = '0.00000000'   // ETH current balance
+      , btcCurrentBalance = '0.00000000'   // BTC current balance
+      , trcCurrentBalance = '0.00000000'   // TRC current balance
       , btcSpotPrice = '2680.06'
       , ethSpotPrice = '370.44'
       , trcSpotPrice = '0.85'
@@ -93,8 +111,6 @@ class ExchangeController {
       log.error('Unable to find the spot price')
     }
 
-    // price of the BTC spot price
-    // const btcSpotPrice = (BTCSpotPrice/100).toFixed( 2 )
     const args = {
       type: sellCurrency,
       name: name,
@@ -102,13 +118,14 @@ class ExchangeController {
       asks : asks,
       bids : bids,
       ethAddress: ethAddress,
-      ethCurrentBalance: '10', //ethCurrentBalance,
+      ethCurrentBalance: ethCurrentBalance,
       btcAddress: btcAddress,
-      btcCurrentBalance: '20', //btcCurrentBalance,
+      btcCurrentBalance: btcCurrentBalance,
       trcAddress: trcAddress,
-      trcCurrentBalance: '20', //trcCurrentBalance,
+      trcCurrentBalance: trcCurrentBalance,
       buyCurrency : buyCurrency,
       sellCurrency : sellCurrency,
+      buyCurrencyLower : buyCurrency.toLowerCase(),
       btcSpotPrice: parseFloat(btcSpotPrice).toFixed(2),
       ethSpotPrice: parseFloat(ethSpotPrice).toFixed(2),
       trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2)
@@ -118,142 +135,169 @@ class ExchangeController {
     yield response.sendView('exchange.index', args)
   }
 
-  * selltrc (request, response) {
-
-    const user = yield request.auth.getUser()
-
-    const amount = request.input('sell_amount')
-    const price = '0.85'
-
-    const data = {
-      user: user,
-      price: price,
-      amount: amount,
-      to_asset: request.input('sell_currency'),
-      total: amount * price,
-      asset: 'TRC',
-      type: 'ASK'
-    }
-
-    const doAsk = yield TradeService.doAskBid(data)
-
-    if (doAsk) {
-      yield request.with(doAsk).flash()
-      response.redirect('/exchange/trc')
-    }
-
+  * buyBtcFromEth (request, response) {
+    yield this.buy(request, response)
+  }
+  * buyBtcFromTrc (request, response) {
+    yield this.buy(request, response)
   }
 
-  * buytrc (request, response) {
-
-    const user = yield request.auth.getUser()
-
-    const amount = request.input('buy_amount')
-    const price = '0.85'
-
-    const data = {
-      user: user,
-      price: price,
-      amount: amount,
-      to_asset: request.input('buy_currency'),
-      total: amount * price,
-      asset: 'TRC',
-      type: 'BID'
-    }
-
-    // if (to_asset == 'BTC') {
-    // //   this.price = request.input('trcbtc')
-    // } else if (to_asset == 'ETH') {
-    // //   this.price = request.input('trceth')
-    // }
-
-    const doAsk = yield TradeService.doAskBid(data)
-
-    if (doAsk) {
-      yield request.with(doAsk).flash()
-      response.redirect('/exchange/trc')
-    }
-
+  * buyEthFromBtc (request, response) {
+    yield this.buy(request, response)
+  }
+  * buyEthFromTrc (request, response) {
+    yield this.buy(request, response)
   }
 
-  * buybtc (request, response) {
-
-    const user = yield request.auth.getUser()
-
-    const amount = request.input('buy_amount')
-    const curr_balance = request.input('curr_balance')
-    const price = request.input('price')
-
-    if (curr_balance <= 0) {
-         const dataError = {
-           status: 'error',
-           error: 'Insufficient balance. Please deposit your account.'
-         }
-         yield request.with(dataError).flash()
-         response.redirect('/exchange/btc')
-    }
-
-    if (amount == 0) {
-
-         const dataError = {
-           status: 'error',
-           error: 'Amount is required. Please enter valid amount.'
-         }
-         yield request.with(dataError).flash()
-         response.redirect('/exchange/btc')
-    }
-
-    const data = {
-      user: user,
-      price: price,
-      amount: amount,
-      to_asset: 'BTC',
-      total: amount * price,
-      asset: request.input('buy_currency'),
-      type: 'BID'
-    }
-
-    // response.send(data)
-
-    const doAsk = yield TradeService.doAskBid(data)
-
-    if (doAsk) {
-      yield request.with(doAsk).flash()
-      response.redirect('/exchange/btc')
-    }
-
+  * buyTrcFromBtc (request, response) {
+    yield this.buy(request, response)
+  }
+  * buyTrcFromEth (request, response) {
+    yield this.buy(request, response)
   }
 
-  * sellbtc (request, response) {
+  /**
+   * Generic buy method that takes the generic input form the pages
+   * which is the same for all currencies anyway.
+   * and parse all the data for further processing
+   */
+  * buy (request, response) {
+
     const user = yield request.auth.getUser()
-    const amount = request.input('sell_amount')
-    const price = request.input('sell_price')
+    const data = request.only([
+      'buy_total', 'buy_price', 'buy_amount',
+      'buy_currency', 'sell_currency',
+      'eth_address', 'btc_address', 'trc_address',
+      'type'
+    ])
+    log.info('buy data:', data)
+    // info buy data: { buy_total: '7.11239522',
+    // info buy data:   buy_price: '2752.40',
+    // info buy data:   buy_amount: '1' }
 
-    const data = {
-      user: user,
-      price: price,
-      amount: amount,
-      balance: amount,
-      to_asset: request.input('sell_currency'),
-      total: amount * price,
-      asset: 'BTC',
-      type: 'ASK'
-
+    const order = {
+      amount: data.buy_amount,
+      price: data.buy_price,
+      total: data.buy_total,
+      asset: data.sell_currency,
+      to_asset: data.buy_currency,
+      type: data.type,
+      btcAddress: data.btc_address,
+      ethAddress: data.eth_address,
+      trcAddress: data.trc_address
     }
+    log.info('Order book:', order)
+    yield this.executeOrder(order, request, response)
+  }
 
-    const doAsk = yield TradeService.doAskBid(data)
+  * sellBtcToEth (request, response) {
+    yield this.sell(request, response)
+  }
+  * sellBtcToTrc (request, response) {
+    yield this.sell(request, response)
+  }
 
+  * sellEthToBtc (request, response) {
+    yield this.sell(request, response)
+  }
+  * sellEthToTrc (request, response) {
+    yield this.sell(request, response)
+  }
 
-    if (doAsk) {
-      yield request.with(doAsk).flash()
-      response.redirect('/exchange/btc')
+  * sellTrcToBtc (request, response) {
+    yield this.sell(request, response)
+  }
+  * sellTrcToEth (request, response) {
+    yield this.sell(request, response)
+  }
+
+  /**
+   * Generic sell method that takes the generic input form the pages
+   * which is the same for all currencies anyway.
+   * and parse all the data for further processing
+   */
+  * sell (request, response) {
+
+    const user = yield request.auth.getUser()
+    const data = request.only([
+      'sell_total', 'sell_price', 'sell_amount',
+      'sell_currency', 'sell_currency',
+      'eth_address', 'btc_address', 'trc_address',
+      'type'
+    ])
+    log.info('sell data:', data)
+
+    const order = {
+      amount: data.sell_amount,
+      price: data.sell_price,
+      total: data.sell_total,
+      asset: data.sell_currency,
+      to_asset: data.sell_currency,
+      type: data.type,
+      btcAddress: data.btc_address,
+      ethAddress: data.eth_address,
+      trcAddress: data.trc_address
     }
+    log.info('Order book:', order)
+    yield this.executeOrder(order, request, response)
+  }
 
+  * executeOrder (order, request, response) {
+    try {
+      var currBalance = 0
+      switch (order.fromAsset) {
+        case 'BTC':
+          // get BTC balance from address
+          if (order.btcAddress !== '' || order.btcAddress !== undefined) {
+            const btcWallet = yield WalletService.getBalance('bitcoin', order.btcAddress) 
+            currBalance = btcWallet.data.balance.available
+          }
+          break
+        case 'ETH':
+          // get ETH wallet balance
+          if (order.ethAddress !== '' || order.ethAddress !== undefined) {
+            const ethWallet = yield WalletService.getBalance('ethereum', order.ethAddress) 
+            currBalance = ethWallet.data.balance.available
+          }
+          break
+        case 'TRC':
+          // get TRC wallet balance
+          if (order.trcAddress !== '' || order.trcAddress !== undefined) {
+            const trcWallet = yield WalletService.getBalance('trcereum', order.trcAddress) 
+            currBalance = trcWallet.data.balance.available
+          }
+          break
+        default:
+          break
+      }
+      
+      // check if balance is enough to deduct
+      if (currBalance < order.total) {
+        const err = {
+          status: 'error',
+          error: 'Insufficient balance. Please deposit your account.'
+        }
+        log.error('Insufficient balance...')
+
+        yield request.with(err).flash()
+      } else {
+        // ok, data is good. Create new order book
+        log.info('Adding orderbook:', order)
+        const doAsk = yield TradeService.doAskBid(order) 
+        yield request.with(doAsk).flash() 
+      }
+    } catch (e) {
+      log.error('Unable to execute buying option', e)
+    }
+    // location to return to
+    const from = order.asset.toLowerCase()
+    const to = order.to_asset.toLowerCase()
+    response.redirect(`/exchange/${from}/${to}`)
   }
 
   * twitter(request, response) {
     const twt = yield TwitterService.getTweet()
-    log.info('this tweet: >> ', twt)
+    // log.info('this tweet: >> ', twt)
     // response.ok(twt)
     response.sendView('exchange.index', { twt : twt })
   }

@@ -163,15 +163,49 @@ Route.group('Historical Data', function() {
  * Exchange
  */
 Route.group('Exchange', function() {
-  Route.get('/','ExchangeController.index')
-  Route.get('/btc','ExchangeController.btc')
-  Route.get('/eth','ExchangeController.eth')
-  Route.get('/trc','ExchangeController.trc')
-  Route.get('/twitter','ExchangeController.twitter')
-  Route.post('/sell/TRC','ExchangeController.selltrc')
-  Route.post('/buy/TRC','ExchangeController.buytrc')
-  Route.post('/sell/BTC','ExchangeController.sellbtc')
-  Route.post('/buy/BTC','ExchangeController.buybtc')
+
+  Route.get('/',          'ExchangeController.index')
+
+  // BTC to others
+  Route.get('/btc/eth',   'ExchangeController.btcEth')
+  Route.get('/btc/trc',   'ExchangeController.btcTrc')
+
+  // ETH to others
+  Route.get('/eth/btc',   'ExchangeController.ethBtc')
+  Route.get('/eth/trc',   'ExchangeController.ethTrc')
+
+  // TRC to others
+  Route.get('/trc/btc',   'ExchangeController.trcBtc')
+  Route.get('/trc/eth',   'ExchangeController.trcEth')
+
+  Route.get('/twitter',   'ExchangeController.twitter')
+
+  // ==========================================================================
+  // Buy Services
+  // BTC to others
+  Route.post('/buy/btc/eth',  'ExchangeController.buyBtcFromEth')
+  Route.post('/buy/btc/trc',  'ExchangeController.buyBtcFromTrc')
+
+  // ETH to others
+  Route.post('/buy/eth/btc',  'ExchangeController.buyEthFromBtc')
+  Route.post('/buy/eth/trc',  'ExchangeController.buyEthFromTrc')
+
+  // TRC to others
+  Route.post('/buy/trc/btc',  'ExchangeController.buyTrcFromBtc')
+  Route.post('/buy/trc/eth',  'ExchangeController.buyTrcFromEth')
+  //
+  // ==========================================================================
+  // Sell Services
+  // BTC to others
+  Route.post('/sell/btc/eth',  'ExchangeController.sellBtcToEth')
+  Route.post('/sell/btc/trc',  'ExchangeController.sellBtcToTrc')
+
+  Route.post('/sell/eth/btc',  'ExchangeController.sellEthToBtc')
+  Route.post('/sell/eth/trc',  'ExchangeController.sellEthToTrc')
+
+  Route.post('/sell/trc/btc',  'ExchangeController.sellTrcToBtc')
+  Route.post('/sell/trc/eth',  'ExchangeController.sellTrcToEth')
+
 }).prefix('/exchange')
 
 /**
