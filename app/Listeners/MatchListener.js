@@ -12,7 +12,7 @@ MatchListener.ok = function (orderBook_id, matched_id) {
   log.info('Listener: Matched,ok: matched id', matched_id)
   //send execute trade
   co(function * () {
-    yield TxService.createTx(id, type)
+    yield TxService.createTx(orderBook_id, matched_id)
   })
 }
 

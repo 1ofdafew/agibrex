@@ -200,7 +200,8 @@ class TransactionService{
   // }
 
   // receive signal from MatchListener ( To create Tx (User) )
-  * createTx (id,type) {
+  // * createTx (id,type) {
+  * createTx (orderBook_id, matched_id) {
 
     /*
      * get data from Event match:ok
@@ -217,9 +218,8 @@ class TransactionService{
     const ob = yield Database.select('user_id', 'type', 'asset', 'to_asset')
       .from('order_books')
       .where('status','ACTIVE')
-      .where('id',id)
-      .where('type',type)
-
+      .where('id',orderBook_id)
+      
     // if (bid.length != 0) {
 
     //   const transaction = new this.Transaction()
@@ -235,7 +235,7 @@ class TransactionService{
       const transaction = new this.Transaction()
       transaction.uuid = uuid()
       transaction.user_id = ob.user_id
-      transaction.orderbook_id = id
+      transaction.orderbook_id = orderBook_id
       transaction.action = ob.type
       transaction.status = 'PENDING'
       transaction.trace = '1' // Process : Start
