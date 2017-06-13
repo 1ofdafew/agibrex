@@ -543,8 +543,7 @@
                 <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
               {% endif %}
               <label class="labels" for="tab3" onclick="location.href = '/exchange/trc/btc';">TRC</label>
-
-                <section id="containerBTC">
+              <section id="containerBTC">
                   <!-- <table class="scroll table-list02 trades"> -->
                   <table class="table-list02 trades">
                     <thead>
@@ -558,7 +557,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr onclick="window.document.location='/exchange/btc/eth';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">ETH</td>
                         <td style="">0.03110000</td>
@@ -566,17 +565,16 @@
                         <td style="">-15.47</td>
                         <td style="">Ethereum</td>
                       </tr>
-
                       <tr id="no_transactions" style="display:none;">
                         <td colspan="3">No transactions to show.</td>
                       </tr>
                     </tbody>
                   </table>
               </section>
-                <section id="containerTRC">
+              <section id="containerTRC">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
-                    <tbody>
+                    <thead>
                       <tr>
                         <th><i class="fa fa-star"></i></th>
                         <th>Coin</th>
@@ -585,7 +583,9 @@
                         <th>Change</th>
                         <th>Name</th>
                       </tr>
-                      <tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="window.document.location='/exchange/eth/btc';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">BTC</td>
                         <td style="">0.03810000</td>
@@ -600,10 +600,10 @@
                   </table>
                 </div>
               </section>
-                <section id="containerETH">
+              <section id="containerETH">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
-                    <tbody>
+                    <thead>
                       <tr>
                         <th><i class="fa fa-star"></i></th>
                         <th>Coin</th>
@@ -612,7 +612,9 @@
                         <th>Change</th>
                         <th>Name</th>
                       </tr>
-                      <tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="window.document.location='/exchange/trc/btc';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">BTC</td>
                         <td style="">0.03810000</td>
@@ -620,7 +622,8 @@
                         <td style="">-15.47</td>
                         <td style="">Bitcoin</td>
                       </tr>
-                      <tr>
+                      </a>
+                      <tr onclick="window.document.location='/exchange/trc/eth';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">ETH</td>
                         <td style="">0.03810000</td>
@@ -635,7 +638,6 @@
                   </table>
                 </div>
               </section>
-
               </main>
             <div class="mar_top1"></div>
           </div>
@@ -776,44 +778,46 @@ $(window).resize(function() {
 </script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+  $.ready(function () {
+    (function($){
+    	$.fn.styleddropdown = function(){
+    		return this.each(function(){
+    			var obj = $(this)
+    			obj.find('.field').click(function() { //onclick event, 'list' fadein
+    			obj.find('.list').fadeIn(400);
+    
+    			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+    				if(event.keyCode == 27) {
+    				obj.find('.list').fadeOut(400);
+    				}
+    			});
+    
+    			obj.find('.list').hover(function(){ },
+    				function(){
+    					$(this).fadeOut(400);
+    				});
+    			});
+    
+    			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+    			obj.find('.field')
+    				.val($(this).html())
+    				// .css({
+    				// 	'background':'#fff',
+    				// 	'color':'#333'
+    				// });
+    			obj.find('.list').fadeOut(400);
+    			});
+    		});
+    	};
+  })(jQuery);
 
-(function($){
-	$.fn.styleddropdown = function(){
-		return this.each(function(){
-			var obj = $(this)
-			obj.find('.field').click(function() { //onclick event, 'list' fadein
-			obj.find('.list').fadeIn(400);
+  $(function() {
+  	$('.size').styleddropdown();
+  });
 
-			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
-				if(event.keyCode == 27) {
-				obj.find('.list').fadeOut(400);
-				}
-			});
-
-			obj.find('.list').hover(function(){ },
-				function(){
-					$(this).fadeOut(400);
-
-				});
-			});
-
-			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-			obj.find('.field')
-				.val($(this).html())
-				// .css({
-				// 	'background':'#fff',
-				// 	'color':'#333'
-				// });
-			obj.find('.list').fadeOut(400);
-			});
-		});
-	};
-})(jQuery);
-
-$(function(){
-	$('.size').styleddropdown();
-});
+  $(".clickable-row").click(function() {
+    window.location = $(this).data("href");
+  });
 
 });
 </script>
