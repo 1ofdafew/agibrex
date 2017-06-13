@@ -62,6 +62,9 @@ class ExchangeController {
       , btcSpotPrice = '2680.06'
       , ethSpotPrice = '370.44'
       , trcSpotPrice = '0.85'
+      , btcFee = '0.004'
+      , ethFee = '0.000441021'
+      , trcFee = '0.002'
       , fee = '0.015'             // gibrex fees
 
     const user = yield request.auth.getUser()
@@ -111,6 +114,8 @@ class ExchangeController {
       log.error('Unable to find the spot price')
     }
 
+    // prepare for market data
+
     const args = {
       type: sellCurrency,
       name: name,
@@ -118,17 +123,20 @@ class ExchangeController {
       asks : asks,
       bids : bids,
       ethAddress: ethAddress,
-      ethCurrentBalance: ethCurrentBalance,
       btcAddress: btcAddress,
-      btcCurrentBalance: btcCurrentBalance,
       trcAddress: trcAddress,
-      trcCurrentBalance: trcCurrentBalance,
+      ethCurrentBalance: '5', //ethCurrentBalance,
+      btcCurrentBalance: '10', //btcCurrentBalance,
+      trcCurrentBalance: '15', //trcCurrentBalance,
       buyCurrency : buyCurrency,
       sellCurrency : sellCurrency,
       buyCurrencyLower : buyCurrency.toLowerCase(),
       btcSpotPrice: parseFloat(btcSpotPrice).toFixed(2),
       ethSpotPrice: parseFloat(ethSpotPrice).toFixed(2),
-      trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2)
+      trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2),
+      btcFee: btcFee,
+      ethFee: ethFee,
+      trcFee: trcFee
     }
 
     log.info('Params:', args)
