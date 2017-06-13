@@ -18,7 +18,6 @@ class CoindeskService {
       log.error('No BTC data yet....')
       return yield this.fetchBitcoinData('all')
     } else {
-      log.info('BTC data is already populated')
       return true
     }
   }

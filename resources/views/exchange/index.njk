@@ -11,7 +11,7 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="/js/ws.js"></script>
   <script src="/js/charts/highstock.js"></script>
-  {# <script src="/js/charts/exporting.js"></script> #}
+  <!--script src="/js/charts/exporting.js"></script-->
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
 {% endblock %}
 
@@ -45,13 +45,17 @@
         <div class="one_halfpx">
           <div id="titleheader02">
             <div class="left">
-                <h1>{{ name }} Exchange&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i>&nbsp;&nbsp;{{ type }} / {{ buyCurrency }}</h1>
+                <h1>{{ name }} Exchange&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i>&nbsp;&nbsp;{{ sellCurrency }} / {{ buyCurrency }}</h1>
             </div>
           </div>
         </div>
         <div class="clearfix mar_top2"></div>
 
-          <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
+        <!-- do not show for TRC -->
+        {% if type !== 'TRC' %}
+        <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
+        {% endif %}
+
         <div class="clear"></div>
 
         <div class="testimonials-4">
@@ -62,7 +66,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="buy_form" action="/exchange/buy/{{ type }}" method="POST" 
+              <form id="buy_form" action="/exchange/buy/{{ sellCurrency }}/{{ buyCurrency }}" method="POST" 
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
@@ -70,11 +74,19 @@
                   <div class="spacer"></div>
                   <div class="calc dotted">
                     <div class="label">Available
-                      <span class="sell_currency_label changeCurrency">{{ buyCurrency }}</span>
+                      <span class="sell_currency_label changeCurrency">{{ sellCurrency }}</span>
                     </div>
                     <div class="value">
-                      <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
-                      <span id="buy_user_available">{{ ethCurrentBalance }}</span>
+                      <span class="buy_currency_char changeCurrency">{{ sellCurrency }}</span>
+                      <span v-if="isEthereum">
+                        <span id="buy_user_available">{{ ethCurrentBalance }}</span>
+                      </span>
+                      <span v-if="isBitcoin">
+                        <span id="buy_user_available">{{ btcCurrentBalance }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span id="buy_user_available">{{ trcCurrentBalance }}</span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -87,9 +99,12 @@
                   </div>
 
                   <div class="param">
-                      <label for="buy_amount">Amount To Buy</label>
+                    <label for="buy_amount">
+                      Amount To Buy<br>
+                      <span><h6 style="font-size: 0.6em">* transaction fees shall de deducted</h6></span>
+                    </label>
                     <input name="buy_amount" id="buy_amount" v-model="buyAmount" type="text">
-                    <div class="qualify">{{ type }}</div>
+                    <div class="qualify">{{ sellCurrency }}</div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top1"></div>
@@ -97,6 +112,7 @@
                   <div class="param">
                     <label for="buy_currency">Currency To Receive</label>
                     <input name="buy_currency" id="buy_currency" v-model="buyCurrency" type="text" readonly>
+                    <input name="sell_currency" id="sell_currency" v-model="sellCurrency" type="hidden" readonly>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top2"></div>
@@ -106,10 +122,13 @@
                   <div id="buy_stop_container" class="param">
                     <label for="buy_stop_price">Price</label>
                     <span v-if="isBitcoin">
-                      <input name="price" id="price" v-model="btcSpotPrice" type="text">
+                      <input name="buy_price" id="buy_price" v-model="btcSpotPrice" type="text">
                     </span>
                     <span v-if="isEthereum">
-                      <input name="price" id="price" v-model="ethSpotPrice" type="text">
+                      <input name="buy_price" id="buy_price" v-model="ethSpotPrice" type="text">
+                    </span>
+                    <span v-if="isTracto">
+                      <input name="buy_price" id="buy_price" v-model="trcSpotPrice" type="text">
                     </span>
                     <div class="qualify">
                       <span class="buy_currency_label">USD</span>
@@ -124,7 +143,12 @@
                     <div class="label">Subtotal</div>
                     <div class="value">
                       <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
-                      <span id="buy_subtotal">{{ buySubTotal }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="buy_subtotal">{{ buyBtcEthSubTotal }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="buy_subtotal">{{ buyEthBtcSubTotal }}</span>
+                      </span>
                     </div>
 
                     <div class="clear"></div>
@@ -151,7 +175,30 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="buy_currency_char changeCurrency">{{ buyCurrency }}</span>
-                      <span id="buy_total">{{ buyTotal }}</span>
+
+                      <input type="hidden" id="type" name="type" value="BID" readonly>
+                      <span v-if="isBitcoin">
+                        <span id="buy_total">{{ buyBtcEthTotal }}</span>
+                        <input type="hidden" id="buy_total" name="buy_total" v-model="buyBtcEthTotal" readonly>
+                        <input type="hidden" id="btc_address" name="btc_address" v-model="btcAddress" readonly>
+                      </span>
+
+                      <span v-if="isEthereum">
+                        <span id="buy_total">{{ buyEthBtcTotal }}</span>
+                        <input type="hidden" id="buy_total" name="buy_total" v-model="buyEthBtcTotal" readonly>
+                        <input type="hidden" id="eth_address" name="eth_address" v-model="ethAddress" readonly>
+                      </span>
+
+                      <span v-if="isTracto">
+                        <span v-if="toEthereum">
+                          <span id="buy_total">{{ buyTrcEthTotal }}</span>
+                        </span>
+                        <span v-if="toBitcoin">
+                          <span id="buy_total">{{ buyTrcBtcTotal }}</span>
+                        </span>
+                        <input type="hidden" id="buy_total" name="buy_total" v-model="buyEthBtcTotal" readonly>
+                        <input type="hidden" id="eth_address" name="eth_address" v-model="ethAddress" readonly>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -188,10 +235,19 @@
                 <div id="vuesell" class="buyform">
                   <div class="spacer"></div>
                   <div class="calc dotted">
-                    <div class="label">Available {{ type }}</div>
+                    <div class="label">Available {{ sellCurrency }}</div>
                     <div class="value">
-                      <span id="sell_user_available">{{ btcCurrentBalance }}</span>
-                      {{ type }}</div>
+                      <span class="buy_currency_char changeCurrency">{{ sellCurrency }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="sell_user_available">{{ btcCurrentBalance }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="sell_user_available">{{ ethCurrentBalance }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span id="sell_user_available">{{ trcCurrentBalance }}</span>
+                      </span>
+                    </div>
                     <div class="clear"></div>
                     <input type="hidden" id="sell_available" value="{{ btcCurrentBalance }}">
                   </div>
@@ -204,9 +260,12 @@
                   </div>
 
                   <div class="param">
-                    <label for="sell_amount">Amount To Sell</label>
+                    <label for="sell_amount">
+                      Amount To Sell<br>
+                      <span><h6 style="font-size: 0.6em">* transaction fees shall de deducted</h6></span>
+                    </label>
                     <input name="sell_amount" id="sell_amount" v-model="sellAmount" type="text">
-                    <div class="qualify">{{ type }}</div>
+                    <div class="qualify">{{ sellCurrency }}</div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top1"></div>
@@ -224,6 +283,9 @@
                     <span v-if="isEthereum">
                       <input name="sell_price" id="sell_price" v-model="ethSpotPrice" type="text">
                     </span>
+                    <span v-if="isTracto">
+                      <input name="sell_price" id="sell_price" v-model="trcSpotPrice" type="text">
+                    </span>
                     <div class="qualify">
                       <span class="sell_currency_label">USD</span>
                     </div>
@@ -237,7 +299,20 @@
                     <div class="label">Subtotal</div>
                     <div class="value">
                       <span class="sell_currency_char">{{ buyCurrency }}</span>
-                      <span id="sell_subtotal">{{ sellSubTotal }}</span>
+                      <span v-if="isEthereum">
+                        <span id="sell_subtotal">{{ sellEthBtcSubTotal }}</span>
+                      </span>
+                      <span v-if="isBitcoin">
+                        <span id="sell_subtotal">{{ sellBtcEthSubTotal }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span v-if="toEthereum">
+                          <span id="sell_subtotal">{{ sellTrcEthSubTotal }}</span>
+                        </span>
+                        <span v-if="toBitcoin">
+                          <span id="sell_subtotal">{{ sellTrcBtcSubTotal }}</span>
+                        </span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -263,12 +338,26 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="sell_currency_char">{{ buyCurrency }}</span>
-                      <span id="sell_total">{{ sellTotal }}</span>
+                      <span v-if="isBitcoin">
+                        <span id="sell_total">{{ sellBtcEthTotal }}</span>
+                      </span>
+                      <span v-if="isEthereum">
+                        <span id="sell_total">{{ sellEthBtcTotal }}</span>
+                      </span>
+                      <span v-if="isTracto">
+                        <span v-if="toBitcoin">
+                          <span id="sell_total">{{ sellTrcBtcTotal }}</span>
+                        </span>
+                        <span v-if="toEthereum">
+                          <span id="sell_total">{{ sellTrcEthTotal }}</span>
+                        </span>
+                      </span>
                     </div>
                     <div class="clear"></div>
                   </div>
                   <div class="mar_top2"></div>
                   {% endverbatim %}
+
                   {% if currentUser %}
                     {% verbatim %}
                     <button class="but_usersell" type="submit" v-bind:disabled="disableSell" v-bind:style="sellButtonStyle">
@@ -433,34 +522,28 @@
           </div>
           <div class="mar_top2"></div>
           <div class="one_full">
-              <main>
-                {% if type == 'BTC' %}
+            <main>
+              {% if type == 'BTC' %}
                 <input class="radiobuttontab" id="tab1" type="radio" name="tabs" checked>
-
-                {% else %}
+              {% else %}
                 <input class="radiobuttontab" id="tab1" type="radio" name="tabs">
-                {% endif %}
-                <label class="labels" for="tab1" onclick="location.href = '/exchange/btc';">BTC</label>
+              {% endif %}
+              <label class="labels" for="tab1" onclick="location.href = '/exchange/btc/eth';">BTC</label>
 
-                {% if type == 'ETH' %}
+              {% if type == 'ETH' %}
                 <input class="radiobuttontab" id="tab2" type="radio" name="tabs" checked>
-
-                {% else %}
+              {% else %}
                 <input class="radiobuttontab" id="tab2" type="radio" name="tabs">
-                {% endif %}
-                <label class="labels" for="tab2" onclick="location.href = '/exchange/eth';">ETH</label>
+              {% endif %}
+              <label class="labels" for="tab2" onclick="location.href = '/exchange/eth/btc';">ETH</label>
 
-                <!--
-                {% if type == 'USD' %}
-                <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/usd" name="tabs" checked>
-
-                {% else %}
+              {% if type == 'TRC' %}
+                <input class="radiobuttontab class1tab" id="tab3" type="radio" value="/exchange/trc/{{ buyCurrencyLower }}" name="tabs" checked>
+              {% else %}
                 <input class="radiobuttontab class2tab" id="tab3" type="radio" name="tabs">
-                {% endif %}
-                <label class="labels" for="tab3" onclick="location.href = '/exchange/usd';">USDT</label>
-                -->
-
-                <section id="containerBTC">
+              {% endif %}
+              <label class="labels" for="tab3" onclick="location.href = '/exchange/trc/btc';">TRC</label>
+              <section id="containerBTC">
                   <!-- <table class="scroll table-list02 trades"> -->
                   <table class="table-list02 trades">
                     <thead>
@@ -474,7 +557,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr onclick="window.document.location='/exchange/btc/eth';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">ETH</td>
                         <td style="">0.03110000</td>
@@ -482,17 +565,16 @@
                         <td style="">-15.47</td>
                         <td style="">Ethereum</td>
                       </tr>
-
                       <tr id="no_transactions" style="display:none;">
                         <td colspan="3">No transactions to show.</td>
                       </tr>
                     </tbody>
                   </table>
               </section>
-                <section id="containerTRC">
+              <section id="containerTRC">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
-                    <tbody>
+                    <thead>
                       <tr>
                         <th><i class="fa fa-star"></i></th>
                         <th>Coin</th>
@@ -501,7 +583,9 @@
                         <th>Change</th>
                         <th>Name</th>
                       </tr>
-                      <tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="window.document.location='/exchange/eth/btc';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">BTC</td>
                         <td style="">0.03810000</td>
@@ -516,10 +600,10 @@
                   </table>
                 </div>
               </section>
-                <section id="containerETH">
+              <section id="containerETH">
                 <div class="table-style">
                   <table class="table-list02 trades" id="transactions_list">
-                    <tbody>
+                    <thead>
                       <tr>
                         <th><i class="fa fa-star"></i></th>
                         <th>Coin</th>
@@ -528,7 +612,9 @@
                         <th>Change</th>
                         <th>Name</th>
                       </tr>
-                      <tr>
+                    </thead>
+                    <tbody>
+                      <tr onclick="window.document.location='/exchange/trc/btc';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">BTC</td>
                         <td style="">0.03810000</td>
@@ -536,7 +622,8 @@
                         <td style="">-15.47</td>
                         <td style="">Bitcoin</td>
                       </tr>
-                      <tr>
+                      </a>
+                      <tr onclick="window.document.location='/exchange/trc/eth';">
                         <td style=""><i class="fa fa-star"></i></td>
                         <td style="">ETH</td>
                         <td style="">0.03810000</td>
@@ -551,7 +638,6 @@
                   </table>
                 </div>
               </section>
-
               </main>
             <div class="mar_top1"></div>
           </div>
@@ -692,44 +778,42 @@ $(window).resize(function() {
 </script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+  $.ready(function () {
+    (function($){
+    	$.fn.styleddropdown = function(){
+    		return this.each(function(){
+    			var obj = $(this)
+    			obj.find('.field').click(function() { //onclick event, 'list' fadein
+    			obj.find('.list').fadeIn(400);
+    
+    			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
+    				if(event.keyCode == 27) {
+    				obj.find('.list').fadeOut(400);
+    				}
+    			});
+    
+    			obj.find('.list').hover(function(){ },
+    				function(){
+    					$(this).fadeOut(400);
+    				});
+    			});
+    
+    			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
+    			obj.find('.field')
+    				.val($(this).html())
+    				// .css({
+    				// 	'background':'#fff',
+    				// 	'color':'#333'
+    				// });
+    			obj.find('.list').fadeOut(400);
+    			});
+    		});
+    	};
+  })(jQuery);
 
-(function($){
-	$.fn.styleddropdown = function(){
-		return this.each(function(){
-			var obj = $(this)
-			obj.find('.field').click(function() { //onclick event, 'list' fadein
-			obj.find('.list').fadeIn(400);
-
-			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
-				if(event.keyCode == 27) {
-				obj.find('.list').fadeOut(400);
-				}
-			});
-
-			obj.find('.list').hover(function(){ },
-				function(){
-					$(this).fadeOut(400);
-
-				});
-			});
-
-			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-			obj.find('.field')
-				.val($(this).html())
-				// .css({
-				// 	'background':'#fff',
-				// 	'color':'#333'
-				// });
-			obj.find('.list').fadeOut(400);
-			});
-		});
-	};
-})(jQuery);
-
-$(function(){
-	$('.size').styleddropdown();
-});
+  $(function() {
+  	$('.size').styleddropdown();
+  });
 
 });
 </script>
@@ -742,11 +826,23 @@ $(function(){
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
+
     ethCurrentBalance: '{{ ethCurrentBalance }}',
+    btcCurrentBalance: '{{ btcCurrentBalance }}',
+    trcCurrentBalance: '{{ trcCurrentBalance }}',
+
     ethAddress: '{{ ethAddress }}',
+    btcAddress: '{{ btcAddress }}',
+    trcAddress: '{{ trcAddress }}',
+
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    trcSpotPrice: '{{ trcSpotPrice }}',
+
     fee: '{{ fee }}',
+    btcFee: '{{ btcFee }}',
+    ethFee: '{{ ethFee }}',
+    trcFee: '{{ trcFee }}',
 
     error: true,
     buyAmount: 0,    
@@ -754,11 +850,10 @@ $(function(){
     buyError: '',
     disableBuy: true
   }
+
   var buy = new Vue({
     el: '#vuebuy',
     data: data,
-    methods: {
-    },
     computed: {
       isEthereum: function () {
         return this.type === 'ETH'
@@ -769,38 +864,81 @@ $(function(){
       isTracto: function () {
         return this.type === 'TRC'
       },
-      buySubTotal: function () {
-        // amount in BTC / BTC Price *
-        var calc = parseFloat((this.btcSpotPrice/this.ethSpotPrice) * this.buyAmount).toFixed(8)
-        var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
-        //console.log('calc: ', calcWithFees, 'ETH current balance:', this.ethCurrentBalance)
-        //console.log('diff: ', (parseFloat(calcWithFees) > parseFloat(this.ethCurrentBalance)))
-
-        var finalCalc = (parseFloat(calcWithFees) - parseFloat(this.ethCurrentBalance))
-        console.log('finalCalc:', finalCalc)
-
-        if (finalCalc > 0) {
-          this.disableBuy = true
-          this.buyError = 'Insufficient funds'
-          this.buyButtonStyle = 'color: red;'
-        } else {
-          this.disableBuy = false
-          this.buyError = ''
-          this.buyButtonStyle = ''
-        }
-        return calc
+      toEthereum: function () {
+        return this.buyCurrency === 'ETH'
       },
-      buyTotal: function () {
-        return parseFloat(
-            parseFloat(this.buySubTotal) + parseFloat(this.buySubTotal * this.fee)
-          ).toFixed(8)
+      toBitcoin: function () {
+        return this.buyCurrency === 'BTC'
+      },
+
+      // for BTC/ETH
+      buyBtcEthSubTotal: function () {
+        return this.calcSubTotal(this.btcSpotPrice, this.ethSpotPrice, this.btcCurrentBalance, this.btcFee)
+      },
+      buyBtcEthTotal: function () {
+        return this.calcTotal(this.buyBtcEthSubTotal)
+      },
+
+      // for ETH/BTC
+      buyEthBtcSubTotal: function () {
+        return this.calcSubTotal(this.ethSpotPrice, this.btcSpotPrice, this.ethCurrentBalance, this.ethFee)
+      },
+      buyEthBtcTotal: function () {
+        return this.calcTotal(this.buyEthBtcSubTotal)
+      },
+
+      // for TRC/BTC
+      buyTrcBtcSubTotal: function () {
+        return this.calcSubTotal(this.trcSpotPrice, this.btcSpotPrice, this.trcCurrentBalance, this.trcFee)
+      },
+      buyTrcBtcTotal: function () {
+        return this.calcTotal(this.buyTrcBtcSubTotal)
+      },
+
+      // for TRC/ETH
+      buyTrcEthSubTotal: function () {
+        return this.calcSubTotal(this.trcSpotPrice, this.ethSpotPrice, this.trcCurrentBalance, this.trcFee)
+      },
+      buyTrcEthTotal: function () {
+        return this.calcTotal(this.buyTrcEthSubTotal)
       },
     },
     methods: {
+      calcSubTotal: function (from, to, balance, fee) {
+        //console.log(`vars: ${from}, ${to}, ${balance}, ${fee}`)
+        var calc = '0.00000000'
+        if (this.buyAmount > 0) {
+          calc = parseFloat(
+            (( // sum of sell volume - fees
+                parseFloat(from) * (parseFloat(this.buyAmount) - parseFloat(fee))
+              ) * ( // the ratio of ETH/BTC
+                parseFloat(from) / parseFloat(to)
+              ) / parseFloat(to)
+            )).toFixed(8)
+          var calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
+          var finalCalc = (parseFloat(calcWithFees) - parseFloat(balance))
+          //console.log('finalCalc:', finalCalc)
+
+          if (finalCalc > 0) {
+            this.disableBuy = true
+            this.buyError = 'Insufficient funds'
+            this.buyButtonStyle = 'color: red;'
+          } else {
+            this.disableBuy = false
+            this.buyError = ''
+            this.buyButtonStyle = ''
+          }
+        }
+        return calc
+      },
+      calcTotal: function (sub) {
+        return parseFloat(
+            parseFloat(sub) + (parseFloat(sub) * parseFloat(this.fee))
+          ).toFixed(8)
+      },
       executeBuy: function () {
         // disable button to prevent double sent
         this.disableBuy = true
-
         // send the form
         document.getElementById('buy_form').submit();
       }
@@ -815,10 +953,23 @@ $(function(){
     type: '{{ type }}',
     buyCurrency: '{{ buyCurrency }}',
     sellCurrency: '{{ sellCurrency }}',
+
     btcCurrentBalance: '{{ btcCurrentBalance }}',
+    ethCurrentBalance: '{{ ethCurrentBalance }}',
+    trcCurrentBalance: '{{ trcCurrentBalance }}',
+
+    btcAddress: '{{ btcAddress }}',
+    ethAddress: '{{ ethAddress }}',
+    trcAddress: '{{ trcAddress }}',
+
     btcSpotPrice: '{{ btcSpotPrice }}',
     ethSpotPrice: '{{ ethSpotPrice }}',
+    trcSpotPrice: '{{ trcSpotPrice }}',
+
     fee: '{{ fee }}',
+    btcFee: '{{ btcFee }}',
+    ethFee: '{{ ethFee }}',
+    trcFee: '{{ trcFee }}',
 
     error: true,
     sellAmount: 0,
@@ -842,26 +993,75 @@ $(function(){
       isTracto: function () {
         return this.type === 'TRC'
       },
-      sellSubTotal: function () {
-        var calc = parseFloat((this.sellPrice/this.ethSpotPrice) * this.sellAmount).toFixed(8)
-        if (this.sellAmount > this.btcCurrentBalance) {
-          this.disableSell = true
-          this.sellButtonStyle = 'color: red;'
-          this.sellError = 'Insufficient funds'
-        } else {
-          this.sellButtonStyle = ''
-          this.disableSell = false
-          this.sellError = ''
+      toEthereum: function () {
+        return this.buyCurrency === 'ETH'
+      },
+      toBitcoin: function () {
+        return this.buyCurrency === 'BTC'
+      },
+
+      // ETH/BTC pair
+      sellEthBtcSubTotal: function () {
+        return this.calcSubTotal(this.ethSpotPrice, this.btcSpotPrice, this.ethCurrentBalance, this.ethFee)
+      },
+      sellEthBtcTotal: function () {
+        return this.calcTotal(this.sellEthBtcSubTotal)
+      },
+
+      // BTC/ETH pair
+      sellBtcEthSubTotal: function () {
+        return this.calcSubTotal(this.btcSpotPrice, this.ethSpotPrice, this.btcCurrentBalance, this.btcFee)
+      },
+      sellBtcEthTotal: function () {
+        return this.calcTotal(this.sellBtcEthSubTotal)
+      },
+
+      // TRC/BTC
+      sellTrcBtcSubTotal: function () {
+        return this.calcSubTotal(this.trcSpotPrice, this.btcSpotPrice, this.trcCurrentBalance, this.trcFee)
+      },
+      sellTrcBtcTotal: function () {
+        return this.calcTotal(this.sellTrcBtcSubTotal)
+      },
+
+      // TRC/ETH
+      sellTrcEthSubTotal: function () {
+        return this.calcSubTotal(this.trcSpotPrice, this.ethSpotPrice, this.trcCurrentBalance, this.trcFee)
+      },
+      sellTrcEthTotal: function () {
+        return this.calcTotal(this.sellTrcEthSubTotal)
+      },
+    },
+    methods: {
+      calcTotal: function(sub) {
+        return parseFloat(
+            parseFloat(sub) - parseFloat(sub * this.fee)
+          ).toFixed(8)
+      },
+      calcSubTotal: function(from, to, balance, fee) {
+        var calc = '0.00000000'
+        if (this.sellAmount > 0) {
+          calc = parseFloat(
+            (( // sum of sell volume - fees
+                parseFloat(from) * (parseFloat(this.sellAmount) - parseFloat(fee))
+              ) * ( // the ratio of BTC/ETH
+                parseFloat(from) / parseFloat(to)
+              ) / parseFloat(to)
+            )).toFixed(8)
+          var finalCalc = (balance - this.sellAmount)
+
+          if (finalCalc < 0) {
+            this.disableSell = true
+            this.sellButtonStyle = 'color: red;'
+            this.sellError = 'Insufficient funds'
+          } else {
+            this.sellButtonStyle = ''
+            this.disableSell = false
+            this.sellError = ''
+          }
         }
         return calc
       },
-      sellTotal: function () {
-        return parseFloat(
-            parseFloat(this.sellSubTotal) - parseFloat(this.sellSubTotal*this.fee)
-          ).toFixed(8)
-      }
-    },
-    methods: {
       executeSell: function () {
         // disable button to prevent double sent
         this.disableSell = true

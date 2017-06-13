@@ -54,7 +54,7 @@ class MarketDataService {
   }
 
   * getSpotPrice (type) {
-    log.info('Getting spot price for ', type)
+    // log.info('Getting spot price for ', type)
     // const URL = `https://api.coinbase.com/v2/prices/${type}-USD/spot`
     // var num
     // yield axios.get(URL)
@@ -70,7 +70,7 @@ class MarketDataService {
         .orderBy('created_at', 'desc')
         .limit(1)
 
-    log.info('Spot price:', curr)
+    // log.info('Spot price:', curr)
     return curr[0].price
   }
 
