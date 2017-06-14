@@ -66,7 +66,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="buy_form" action="/exchange/buy/{{ sellCurrency }}/{{ buyCurrency }}" method="POST" 
+              <form id="buy_form" action="/exchange/buy/{{ sellCurrency }}/{{ buyCurrency }}" method="POST"
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
@@ -655,11 +655,11 @@
                           </div>
                       </div>
                     </div>
-                    <script>
+                    <!-- <script>
                       function myFunction() {
                           var myWindow = window.open("http://localhost:3333/babblebox", "", "width=300,height=400");
                       }
-                    </script>
+                    </script> -->
 
                   </div>
                   <div id="scrollcell">
@@ -746,7 +746,7 @@
               </div>
             </div>
           <div class="mar_top1"></div>
-        </div> 
+        </div>
       </div>
     <div class="clearfix mar_top20"></div>
   </div>
@@ -783,19 +783,19 @@ $(window).resize(function() {
     			var obj = $(this)
     			obj.find('.field').click(function() { //onclick event, 'list' fadein
     			obj.find('.list').fadeIn(400);
-    
+
     			$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
     				if(event.keyCode == 27) {
     				obj.find('.list').fadeOut(400);
     				}
     			});
-    
+
     			obj.find('.list').hover(function(){ },
     				function(){
     					$(this).fadeOut(400);
     				});
     			});
-    
+
     			obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
     			obj.find('.field')
     				.val($(this).html())
@@ -817,7 +817,7 @@ $(window).resize(function() {
 </script>
 <script type="text/javascript" src="/vue/twitter.js"></script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
 
   // Buy Currency
   var data = {
@@ -843,7 +843,7 @@ $(window).resize(function() {
     trcFee: '{{ trcFee }}',
 
     error: true,
-    buyAmount: 0,    
+    buyAmount: 0,
     buyButtonStyle: '',
     buyError: '',
     disableBuy: true
@@ -945,7 +945,7 @@ $(window).resize(function() {
 
 </script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
   // Sell Currency
   var data = {
     type: '{{ type }}',
@@ -1072,5 +1072,3 @@ $(window).resize(function() {
 </script>
 
 {% endblock %}
-
-
