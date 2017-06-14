@@ -338,20 +338,32 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="sell_currency_char">{{ buyCurrency }}</span>
+
+                      <input type="hidden" id="type" name="type" value="ASK" readonly>
                       <span v-if="isBitcoin">
                         <span id="sell_total">{{ sellBtcEthTotal }}</span>
+                        <input type="hidden" id="sell_total" name="sell_total" v-model="sellBtcEthTotal" readonly>
+                        <input type="hidden" id="btc_address" name="btc_address" v-model="btcAddress" readonly>
                       </span>
+
                       <span v-if="isEthereum">
                         <span id="sell_total">{{ sellEthBtcTotal }}</span>
+                        <input type="hidden" id="sell_total" name="sell_total" v-model="sellEthBtcTotal" readonly>
+                        <input type="hidden" id="eth_address" name="eth_address" v-model="ethAddress" readonly>
                       </span>
+
                       <span v-if="isTracto">
-                        <span v-if="toBitcoin">
-                          <span id="sell_total">{{ sellTrcBtcTotal }}</span>
-                        </span>
                         <span v-if="toEthereum">
                           <span id="sell_total">{{ sellTrcEthTotal }}</span>
+                          <input type="hidden" id="sell_total" name="sell_total" v-model="sellTrcEthTotal" readonly>
                         </span>
+                        <span v-if="toBitcoin">
+                          <span id="sell_total">{{ sellTrcBtcTotal }}</span>
+                          <input type="hidden" id="sell_total" name="sell_total" v-model="sellTrcBtcTotal" readonly>
+                        </span>
+                        <input type="hidden" id="trc_address" name="trc_address" v-model="trcAddress" readonly>
                       </span>
+
                     </div>
                     <div class="clear"></div>
                   </div>
