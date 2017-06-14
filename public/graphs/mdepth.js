@@ -23,7 +23,9 @@ $.getJSON('/obchart?callback=?', function (data) {
   }, null, document.getElementsByTagName('head')[0]);
 
   Highcharts.theme = {
-     colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+     // colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+     //    '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+     colors: ['#ecc007', '#ee5a41', '#f45b5b', '#00bdca', '#aaeeee', '#ff0066', '#00bdca',
         '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
      chart: {
         backgroundColor: {
