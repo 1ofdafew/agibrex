@@ -2,7 +2,8 @@
 
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
-const log = make('App/Services/LogService')
+//const log = make('App/Services/LogService')
+const log = require('npmlog')
 
 const OrderBook = use('App/Model/OrderBook')
 const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
@@ -64,7 +65,7 @@ class ExchangeController {
       , trcSpotPrice = '0.85'
       , btcFee = '0.004'
       , ethFee = '0.000441021'
-      , trcFee = '0.002'
+      , trcFee = '0.0001'
       , fee = '0.015'             // gibrex fees
 
     const user = yield request.auth.getUser()
@@ -72,6 +73,12 @@ class ExchangeController {
       try {
         const wallets = yield user.wallets().fetch()
         // log.info('user wallets:', wallets.toJSON())
+
+        const trc = yield this.getWallet(wallets.toJSON(), 'TRACTO')
+        trcWallet = yield WalletService.getBalance('tracto', trc.address)
+        trcAddress = trc.address
+        trcCurrentBalance = trcWallet.data.balance.available
+        log.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
 
         const eth = yield this.getWallet(wallets.toJSON(), 'ETHEREUM')
         ethWallet = yield WalletService.getBalance('ethereum', eth.address)
@@ -84,12 +91,6 @@ class ExchangeController {
         btcAddress = btc.address
         btcCurrentBalance = btcWallet.data.balance.available
         log.info(`BTC: ${btcAddress} -> ${btcCurrentBalance}`)
-
-        const trc = yield this.getWallet(wallets.toJSON(), 'TRACTO')
-        trcWallet = yield WalletService.getBalance('tracto', trc.address)
-        trcAddress = trc.address
-        trcCurrentBalance = trcWallet.data.balance.available
-        log.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
 
       } catch (e) {
         // user don't create the wallet yet
@@ -125,14 +126,15 @@ class ExchangeController {
       ethAddress: ethAddress,
       btcAddress: btcAddress,
       trcAddress: trcAddress,
-      ethCurrentBalance: '10.00000000', //ethCurrentBalance,
-      btcCurrentBalance: '20.00000000', //btcCurrentBalance,
+      ethCurrentBalance: ethCurrentBalance,
+      btcCurrentBalance: btcCurrentBalance,
       trcCurrentBalance: '30.00000000', //trcCurrentBalance,
       baseCurrency : baseCurrency,
       extCurrency : extCurrency,
       buyPair: `${baseCurrency}/${extCurrency}`,
       sellPair: `${extCurrency}/${baseCurrency}`,
       baseCurrencyLower : baseCurrency.toLowerCase(),
+      extCurrencyLower : extCurrency.toLowerCase(),
       btcSpotPrice: parseFloat(btcSpotPrice).toFixed(2),
       ethSpotPrice: parseFloat(ethSpotPrice).toFixed(2),
       trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2),
@@ -175,8 +177,8 @@ class ExchangeController {
     const data = request.only([
       'buy_total', 'buy_price', 'buy_amount',
       'buy_currency', 'sell_currency',
-      'eth_address', 'btc_address', 'trc_address',
-      'type'
+      'from_address', 'to_address', 
+      'order_type'
     ])
     log.info('buy data:', data)
     // info buy data: { buy_total: '7.11239522',
@@ -189,16 +191,16 @@ class ExchangeController {
       total: data.buy_total,
       asset: data.sell_currency,
       to_asset: data.buy_currency,
-      type: data.type,
-      btcAddress: data.btc_address,
-      ethAddress: data.eth_address,
-      trcAddress: data.trc_address
+      type: data.order_type,
+      fromAddress: data.from_address,
+      toAddress: data.to_address
     }
     log.info('Order book:', order)
     yield this.confirmPin(order, request, response)
   }
 
   * sellBtcToEth (request, response) {
+    log.info('Processing ASK for BTC/TRC pair')
     yield this.sell(request, response)
   }
   * sellBtcToTrc (request, response) {
@@ -213,6 +215,7 @@ class ExchangeController {
   }
 
   * sellTrcToBtc (request, response) {
+    log.info('Processing ASK for TRC/BTC pair')
     yield this.sell(request, response)
   }
   * sellTrcToEth (request, response) {
@@ -227,26 +230,27 @@ class ExchangeController {
   * sell (request, response) {
     const data = request.only([
       'sell_total', 'sell_price', 'sell_amount',
-      'sell_currency', 'sell_currency',
-      'eth_address', 'btc_address', 'trc_address',
-      'type'
+      'sell_currency', 'buy_currency',
+      'from_address', 'to_address', 
+      'order_type'
     ])
-    log.info('sell data:', data)
+    console.log('sell data:', data)
     const order = {
       amount: data.sell_amount,
       price: data.sell_price,
       total: data.sell_total,
       asset: data.sell_currency,
       to_asset: data.buy_currency,
-      type: data.type,
-      btcAddress: data.btc_address,
-      ethAddress: data.eth_address,
-      trcAddress: data.trc_address
+      type: data.order_type,
+      fromAddress: data.from_address,
+      toAddress: data.to_address
     }
-    yield this.confirmPin(order, request, response)
+    log.info('calling confirmPin function')
+    this.confirmPin(order, request, response)
   }
 
   * confirmPin(data, request, response) {
+    log.info('Preparing pin request for order', data)
     const user = yield request.auth.getUser()
     const order = {
       amount: data.sell_amount,
@@ -264,7 +268,7 @@ class ExchangeController {
     try {
       const ob = TradeService.addOrderBook(user, order)
       yield request.with({orderBook: ob}).flash()
-      response.redirect('/exchange/confirm')
+      yield response.redirect('/exchange/confirm')
 
     } catch (e) {
       const from = order.asset.toLowerCase()
@@ -273,7 +277,7 @@ class ExchangeController {
         error: 'Invalid order. Please try again'
       }
       yield request.with(err).flash()
-      response.redirect(`/exchange/${from}/${to}`)
+      yield response.redirect(`/exchange/${from}/${to}`)
     }
   }
 

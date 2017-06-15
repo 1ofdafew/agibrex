@@ -67,7 +67,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="buy_form" action="/exchange/buy/{{ extCurrency }}/{{ baseCurrency }}" method="POST" 
+              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower }}/{{ baseCurrencyLower }}" method="POST" 
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
@@ -179,7 +179,7 @@
                     <div class="value">
                       <span class="buy_currency_char changeCurrency">{{ extCurrency }}</span>
 
-                      <input type="hidden" id="type" name="type" value="BID" readonly>
+                      <input type="hidden" id="order_type" name="order_type" value="BID" readonly>
                       <span v-if="isBtcEth">
                         <span id="buy_total">{{ buyBtcEthTotal }}</span>
                         <input type="hidden" id="buy_total" name="buy_total" v-model="buyBtcEthTotal" readonly>
@@ -248,7 +248,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="sell_form" action="/exchange/sell/{{ baseCurrency }}/{{ extCurrency }}" method="POST"
+              <form id="sell_form" action="/exchange/sell/{{ baseCurrencyLower }}/{{ extCurrencyLower }}" method="POST"
                v-on:submit.prevent="executeSell">
                 {{ csrfField }}
                 {% verbatim %}
@@ -357,36 +357,36 @@
                     <div class="clear"></div>
                     <div class="value">
                       <span class="sell_currency_char">{{ extCurrency }}</span>
-                      <input type="hidden" id="type" name="type" value="ASK" readonly>
+                      <input type="hidden" id="order_type" name="order_type" value="ASK" readonly>
                       <span v-if="isBtcEth">
                         <span id="sell_total">{{ sellBtcEthTotal }}</span>
                         <input type="hidden" id="sell_total" name="sell_total" v-model="sellBtcEthTotal" readonly>
-                        <input type="hidden" id="from_address" name="from_address" v-model="btcAddress" readonly>
-                        <input type="hidden" id="to_address" name="to_address" v-model="ethAddress" readonly>
+                        <input type="hidden" id="from_address" name="from_address" v-model="ethAddress" readonly>
+                        <input type="hidden" id="to_address" name="to_address" v-model="btcAddress" readonly>
                       </span>
                       <span v-if="isBtcTrc">
                         <span id="sell_total">{{ sellBtcTrcTotal }}</span>
                         <input type="hidden" id="sell_total" name="sell_total" v-model="sellBtcTrcTotal" readonly>
-                        <input type="hidden" id="from_address" name="from_address" v-model="btcAddress" readonly>
-                        <input type="hidden" id="to_address" name="to_address" v-model="trcAddress" readonly>
+                        <input type="hidden" id="from_address" name="from_address" v-model="trcAddress" readonly>
+                        <input type="hidden" id="to_address" name="to_address" v-model="btcAddress" readonly>
                       </span>
                       <span v-if="isEthBtc">
                         <span id="sell_total">{{ sellEthBtcTotal }}</span>
                         <input type="hidden" id="sell_total" name="sell_total" v-model="sellEthBtcTotal" readonly>
-                        <input type="hidden" id="from_address" name="from_address" v-model="ethAddress" readonly>
-                        <input type="hidden" id="to_address" name="to_address" v-model="btcAddress" readonly>
+                        <input type="hidden" id="from_address" name="from_address" v-model="btcAddress" readonly>
+                        <input type="hidden" id="to_address" name="to_address" v-model="ethAddress" readonly>
                       </span>
                       <span v-if="isEthTrc">
                         <span id="sell_total">{{ sellEthTrcTotal }}</span>
                         <input type="hidden" id="sell_total" name="sell_total" v-model="sellEthTrcTotal" readonly>
-                        <input type="hidden" id="from_address" name="from_address" v-model="ethAddress" readonly>
-                        <input type="hidden" id="to_address" name="to_address" v-model="trcAddress" readonly>
+                        <input type="hidden" id="from_address" name="from_address" v-model="trcAddress" readonly>
+                        <input type="hidden" id="to_address" name="to_address" v-model="ethAddress" readonly>
                       </span>
                       <span v-if="isTrcEth">
                         <span id="sell_total">{{ sellTrcEthTotal }}</span>
                         <input type="hidden" id="sell_total" name="sell_total" v-model="sellTrcEthTotal" readonly>
-                        <input type="hidden" id="from_address" name="from_address" v-model="trcAddress" readonly>
-                        <input type="hidden" id="to_address" name="to_address" v-model="ethAddress" readonly>
+                        <input type="hidden" id="from_address" name="from_address" v-model="ethAddress" readonly>
+                        <input type="hidden" id="to_address" name="to_address" v-model="trcAddress" readonly>
                       </span>
                       <span v-if="isTrcBtc">
                         <span id="sell_total">{{ sellTrcBtcTotal }}</span>
@@ -715,7 +715,7 @@
                 </div>
                 <script>
                   function myFunction() {
-                      var myWindow = window.open("http://localhost:3333/babblebox", "", "width=300,height=400");
+                      var myWindow = window.open("https://gibrex.com/babblebox", "", "width=300,height=400");
                   }
                 </script>
 
@@ -745,63 +745,6 @@
                     </tbody>
                   </table>
                 </div>
-<<<<<<< HEAD
-=======
-              </section>
-              </main>
-            <div class="mar_top1"></div>
-          </div>
-
-          <div class="one_full">
-              <div class="fresh_projects02 global_stats">
-                <div class="panel02 panel-default">
-                  <div class="panel-heading non-mobile">
-                    <div class="one_fullpx">
-                      <div class="title02">
-                        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;BABBLEBOX
-                          <div class="iconright size">
-                            <i class="fa fa-window-maximize field"></i>
-                              <ul class="list">
-                                <li onclick="myFunction()">Pop Out Babblebox</li>
-                              </ul>
-                          </div>
-                      </div>
-                    </div>
-                    <!-- <script>
-                      function myFunction() {
-                          var myWindow = window.open("http://localhost:3333/babblebox", "", "width=300,height=400");
-                      }
-                    </script> -->
-
-                  </div>
-                  <div id="scrollcell">
-                    <div class="panel-body03">
-                      <table class="table-list04 trades02">
-                        <tbody>
-                          <tr>
-                            <td><b>nimarama72&nbsp;-&nbsp;</b>Guys join this site to earn 7.2% daily on ur btc deposit PER DAY! just ttrying to help yall earn free bitcoins What about strat?
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><b>Hazard&nbsp;-&nbsp;</b>2 days is ridiculous. i just pulled 2.2 btc from my other account and it came in 1 hour.. this is not right theres something wrong here. WTF!
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td><b>dyslexicstoner24&nbsp;-&nbsp;</b>Withasmile, like 12 days, I submitted all the info but the selfie was a little blurry. I submitted two more times HD selfies so they are perfectly readable.
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><b>Zlatan&nbsp;-&nbsp;</b>Yelled a coin got hacked in the troll box is exactly what you want to stay away from.
-                            </td>
-                          </tr>
-
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
->>>>>>> e00babdf4635dda7d1e683e2c045c1662eb820ae
               </div>
             </div>
           </div>
@@ -839,7 +782,6 @@
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
             <div>
               {% verbatim %}
               <div id="twitter" class="panel-body03">
@@ -862,12 +804,7 @@
           </div>
         </div>
       <div class="mar_top1"></div>
-        </div> 
-=======
-          <div class="mar_top1"></div>
-        </div>
->>>>>>> e00babdf4635dda7d1e683e2c045c1662eb820ae
-      </div>
+    </div>
     <div class="clearfix mar_top20"></div>
   </div>
 
@@ -1154,6 +1091,7 @@ $(window).resize(function() {
         return calc
       },
       executeSell: function () {
+        console.log('Processing ASK request....')
         // disable button to prevent double sent
         this.disableSell = true
         // send the form
