@@ -937,10 +937,10 @@ $(window).resize(function() {
         if (this.buyAmount > 0) {
           const ratio = (parseFloat(from)/parseFloat(to))
           calc = parseFloat(
-            (parseFloat(this.buyAmount) * ratio) - parseFloat(fee)
+            (parseFloat(this.buyAmount) * ratio) 
           ).toFixed(8)
           const calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
-          console.log(`status: balance=${balance}, calc=${calc}, calcWithFees=${calcWithFees}`)
+          console.log(`status: balance=${balance}, fee=${fee}, calc=${calc}, calcWithFees=${calcWithFees}`)
 
           var finalCalc = (parseFloat(balance) - parseFloat(calcWithFees))
           console.log(`finalCalc: ${finalCalc}`)
