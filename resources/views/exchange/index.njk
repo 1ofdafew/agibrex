@@ -119,7 +119,7 @@
                       <input name="buy_price" id="buy_price" v-model="ethSpotPrice" type="text">
                     </span>
                     <span v-if="isExtTrc">
-                      <input name="buy_price" id="buy_price" v-model="trcSpotPrice" type="text">
+                      <input name="buy_price" id="buy_price" v-model="trcSpotPrice" type="text" readonly>
                     </span>
                     <div class="qualify">
                       <span class="buy_currency_label">USD</span>
@@ -299,7 +299,7 @@
                       <input name="sell_price" id="sell_price" v-model="ethSpotPrice" type="text">
                     </span>
                     <span v-if="isBaseTrc">
-                      <input name="sell_price" id="sell_price" v-model="trcSpotPrice" type="text">
+                      <input name="sell_price" id="sell_price" v-model="trcSpotPrice" type="text" readonly>
                     </span>
                     <div class="qualify">
                       <span class="sell_currency_label">USD</span>
@@ -600,10 +600,18 @@
                   <tr onclick="window.document.location='/exchange/btc/eth';">
                     <td style=""><i class="fa fa-star"></i></td>
                     <td style="">ETH</td>
-                    <td style="">0.03110000</td>
-                    <td style="">1,255.97</td>
-                    <td style="">-15.47</td>
+                    <td style="">{{ ethSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
                     <td style="">Ethereum</td>
+                  </tr>
+                  <tr onclick="window.document.location='/exchange/btc/trc';">
+                    <td style=""><i class="fa fa-star"></i></td>
+                    <td style="">TRC</td>
+                    <td style="">{{ trcSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
+                    <td style="">Tracto</td>
                   </tr>
                   <tr id="no_transactions" style="display:none;">
                     <td colspan="3">No transactions to show.</td>
@@ -628,10 +636,18 @@
                   <tr onclick="window.document.location='/exchange/eth/btc';">
                     <td style=""><i class="fa fa-star"></i></td>
                     <td style="">BTC</td>
-                    <td style="">0.03810000</td>
-                    <td style="">1,255.04</td>
-                    <td style="">-15.47</td>
+                    <td style="">{{ btcSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
                     <td style="">Bitcoin</td>
+                  </tr>
+                  <tr onclick="window.document.location='/exchange/eth/trc';">
+                    <td style=""><i class="fa fa-star"></i></td>
+                    <td style="">TRC</td>
+                    <td style="">{{ trcSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
+                    <td style="">Tracto</td>
                   </tr>
                   <tr id="no_transactions" style="display:none;">
                     <td colspan="3">No transactions to show.</td>
@@ -657,18 +673,18 @@
                   <tr onclick="window.document.location='/exchange/trc/btc';">
                     <td style=""><i class="fa fa-star"></i></td>
                     <td style="">BTC</td>
-                    <td style="">0.03810000</td>
-                    <td style="">1,255.04</td>
-                    <td style="">-15.47</td>
+                    <td style="">{{ btcSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
                     <td style="">Bitcoin</td>
                   </tr>
                   </a>
                   <tr onclick="window.document.location='/exchange/trc/eth';">
                     <td style=""><i class="fa fa-star"></i></td>
                     <td style="">ETH</td>
-                    <td style="">0.03810000</td>
-                    <td style="">1,255.04</td>
-                    <td style="">-15.47</td>
+                    <td style="">{{ ethSpotPrice }}</td>
+                    <td style="">--</td>
+                    <td style="">--</td>
                     <td style="">Ethereum</td>
                   </tr>
                   <tr id="no_transactions" style="display:none;">
@@ -915,7 +931,7 @@ $(window).resize(function() {
       buyBtcEthSubTotal: function() { return this.calcSubTotal(this.btcSpotPrice, this.ethSpotPrice, this.ethCurrentBalance, this.ethFee) },
       buyBtcEthTotal: function() { return this.calcTotal(this.buyBtcEthSubTotal) },
       buyBtcTrcSubTotal: function() { return this.calcSubTotal(this.btcSpotPrice, this.trcSpotPrice, this.trcCurrentBalance, this.trcFee) },
-      buyBtcEthTotal: function() { return this.calcTotal(this.buyBtcTrcSubTotal) },
+      buyBtcTrcTotal: function() { return this.calcTotal(this.buyBtcTrcSubTotal) },
 
       // for ETH pairs
       buyEthBtcSubTotal: function() { return this.calcSubTotal(this.ethSpotPrice, this.btcSpotPrice, this.btcCurrentBalance, this.btcFee) },
@@ -930,25 +946,26 @@ $(window).resize(function() {
       buyTrcEthTotal: function() { return this.calcTotal(this.buyTrcEthSubTotal) },
     },
     methods: {
-      calcSubTotal: function (from, to, balance, fee) {
-        console.log(`status: isBtcEth ? ${this.isBtcEth}`)
-        console.log(`buy vars: ${from}, ${to}, ${balance}, ${fee}`)
+      calcSubTotal: function (from, to, balance, txFee) {
+        //console.log(`status: isBtcEth ? ${this.isBtcEth}`)
+        //console.log(`buy vars: ${from}, ${to}, ${balance}, ${txFee}`)
         var calc = '0.00000000'
         if (this.buyAmount > 0) {
           const ratio = (parseFloat(from)/parseFloat(to))
-          calc = parseFloat(
+          const c1 = parseFloat(
             (parseFloat(this.buyAmount) * ratio) 
           ).toFixed(8)
-          const calcWithFees = (parseFloat(calc) + (parseFloat(calc) * parseFloat(this.fee)))
-          console.log(`status: balance=${balance}, fee=${fee}, calc=${calc}, calcWithFees=${calcWithFees}`)
+          calc = parseFloat(c1) + parseFloat(txFee) // + (parseFloat(c1) * parseFloat(this.fee)))
+          console.log(`status: balance=${balance}, txFee=${txFee}, calc=${calc}`)
 
-          var finalCalc = (parseFloat(balance) - parseFloat(calcWithFees))
-          console.log(`finalCalc: ${finalCalc}`)
+          const finalCalc = calc + (calc * parseFloat(this.fee))
+          //console.log(`finalCalc: ${finalCalc}`)
 
-          if (calcWithFees > balance) {
+          if (finalCalc > parseFloat(balance)) {
             this.disableBuy = true
-            const maxBuy = (parseFloat(balance) - parseFloat(this.fee)) 
-            this.buyError = `Insufficient funds. Maximum buy is ${maxBuy}`
+            //const m1 = (parseFloat(balance) - parseFloat(txFee)) 
+            //const maxBuy = ((m1 * parseFloat(this.fee)) + m1) / ratio
+            this.buyError = `Insufficient funds.` // Maximum buy is ${maxBuy}`
             this.buyButtonStyle = 'color: red;'
           } else {
             this.disableBuy = false
@@ -956,7 +973,7 @@ $(window).resize(function() {
             this.buyButtonStyle = ''
           }
         }
-        return calc
+        return parseFloat(calc).toFixed(8)
       },
       calcTotal: function (sub) {
         return parseFloat(
