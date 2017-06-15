@@ -128,7 +128,7 @@ class ExchangeController {
       trcAddress: trcAddress,
       ethCurrentBalance: ethCurrentBalance,
       btcCurrentBalance: btcCurrentBalance,
-      trcCurrentBalance: '30.00000000', //trcCurrentBalance,
+      trcCurrentBalance: trcCurrentBalance,
       baseCurrency : baseCurrency,
       extCurrency : extCurrency,
       buyPair: `${baseCurrency}/${extCurrency}`,
