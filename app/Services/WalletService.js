@@ -134,6 +134,25 @@ class WalletService {
       throw new Exceptions.ApplicationException(`Cannot find user wallet with ${field}`, 404)
     })
   }
+
+  /**
+   * transfer the coin to the recipient
+   *
+   * @param type  the currency type - {bitcoin|eethereum|tracto}
+   * @param from  the wallet address from
+   * @param to    the wallet address to
+   * @param value the value to transfer
+   */
+  * transfer(type, from, to, value, pin) {
+    const cf = new CoinFactory(type)
+    const data = {
+      from: from,
+      to: to,
+      value: parseFloat(value),
+      pin: pin
+    }
+    return yield cf.transfer(data)
+  }
 }
 
 module.exports = WalletService

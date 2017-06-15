@@ -1,0 +1,58 @@
+{% extends 'layout/puppet' %}
+
+{% block content %}
+
+<div class="testimonials-4">
+  <div class="one_third">
+  </div>
+  <div class="one_third">
+    <div class="content">
+      <h3 class="section_label">
+        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type | safe }} Account</span>
+      </h3>
+      <div class="clear"></div>
+      {% if old('error') %}
+      <div class="message-box-wrap">
+        <div class="error" role="alert">
+          {% for e in old('error') %}
+          {{ e.message }}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+  
+      <form method="POST" action="/accounts/{{ type | safe }}/create" enctype="application/x-www-form-urlencoded" id="coin_create">
+        {{ csrfField }}
+        <div class="buyform">
+          <div class="dotted"></div>
+          <div class="mar_top2"></div>
+          <div class="param">
+              <label for="buy_amount">Enter Your PIN&nbsp;
+              </label>
+            <input name="pin1" id="pin1" value="" type="text">
+            <div class="clear"></div>
+          </div>
+          <div class="mar_top1"></div>
+          <div id="buy_price_container" class="param">
+            <label for="buy_price">
+              <span id="buy_price_limit_label">Confirm Your PIN</span>
+            </label>
+            <input name="pin2" id="pin2" value="" type="text">
+          </div>
+          <div class="mar_top3"></div>
+          {% if type == 'BID' %}
+          
+          {% else %}
+          {% endif %}
+          <input name="submit" value="Send Order" class="but_user" type="submit">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="one_third">
+  </div>
+
+</div>
+
+{% endblock %}

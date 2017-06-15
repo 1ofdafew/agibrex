@@ -165,6 +165,8 @@ Route.group('Historical Data', function() {
 Route.group('Exchange', function() {
 
   Route.get('/',          'ExchangeController.index')
+  Route.get('/confirm',   'ExchangeController.askForPin')
+  Route.post('/confirm',  'ExchangeController.confirmPin')
 
   // BTC to others
   Route.get('/btc/eth',   'ExchangeController.btcEth')

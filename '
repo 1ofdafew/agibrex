@@ -21,33 +21,33 @@ class ExchangeController {
 
   * btcEth (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
-    yield this.preparePage('Bitcoin', 'BTC', 'ETH', request, response)
+    yield this.preparePage('Bitcoin', 'ETH', 'BTC', request, response)
   }
 
   * btcTrc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
-    yield this.preparePage('Bitcoin', 'BTC', 'TRC', request, response)
+    yield this.preparePage('Bitcoin', 'TRC', 'BTC', request, response)
   }
 
   * ethBtc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
-    yield this.preparePage('Ethereum', 'ETH', 'BTC', request, response)
+    yield this.preparePage('Ethereum', 'BTC', 'ETH', request, response)
   }
 
   * ethTrc (request, response) {
     yield CoindeskService.maybeFetchBitcoinData()
-    yield this.preparePage('Ethereum', 'ETH', 'TRC', request, response)
+    yield this.preparePage('Ethereum', 'TRC', 'ETH', request, response)
   }
 
   * trcEth (request, response) {
-    yield this.preparePage('Tracto', 'TRC', 'ETH', request, response)
+    yield this.preparePage('Tracto', 'ETH', 'TRC', request, response)
   }
   
   * trcBtc (request, response) {
-    yield this.preparePage('Tracto', 'TRC', 'BTC', request, response)
+    yield this.preparePage('Tracto', 'BTC', 'TRC', request, response)
   }
 
-  * preparePage(name, baseCurrency, extCurrency, request, response) {
+  * preparePage(name, buyCurrency, sellCurrency, request, response) {
 
     // user maybe null as exchange is public, until he logs in.
     var ethWallet = ''            // wallet for ETH
@@ -99,8 +99,8 @@ class ExchangeController {
 
     // Call showask
     const orderBookCntrl = new OrderBookCntrl()
-    const asks = yield orderBookCntrl.showask(baseCurrency)
-    const bids = yield orderBookCntrl.showbid(baseCurrency)
+    const asks = yield orderBookCntrl.showask(buyCurrency)
+    const bids = yield orderBookCntrl.showbid(buyCurrency)
 
     try {
       // These spot price are in cents, to eliminate rounding errors
@@ -117,7 +117,7 @@ class ExchangeController {
     // prepare for market data
 
     const args = {
-      type: extCurrency,
+      type: sellCurrency,
       name: name,
       fee : fee,
       asks : asks,
@@ -125,14 +125,12 @@ class ExchangeController {
       ethAddress: ethAddress,
       btcAddress: btcAddress,
       trcAddress: trcAddress,
-      ethCurrentBalance: '10.00000000', //ethCurrentBalance,
-      btcCurrentBalance: '20.00000000', //btcCurrentBalance,
-      trcCurrentBalance: '30.00000000', //trcCurrentBalance,
-      baseCurrency : baseCurrency,
-      extCurrency : extCurrency,
-      buyPair: `${baseCurrency}/${extCurrency}`,
-      sellPair: `${extCurrency}/${baseCurrency}`,
-      baseCurrencyLower : baseCurrency.toLowerCase(),
+      ethCurrentBalance: ethCurrentBalance,
+      btcCurrentBalance: btcCurrentBalance,
+      trcCurrentBalance: trcCurrentBalance,
+      buyCurrency : buyCurrency,
+      sellCurrency : sellCurrency,
+      buyCurrencyLower : buyCurrency.toLowerCase(),
       btcSpotPrice: parseFloat(btcSpotPrice).toFixed(2),
       ethSpotPrice: parseFloat(ethSpotPrice).toFixed(2),
       trcSpotPrice: parseFloat(trcSpotPrice).toFixed(2),
@@ -172,6 +170,8 @@ class ExchangeController {
    * and parse all the data for further processing
    */
   * buy (request, response) {
+
+    const user = yield request.auth.getUser()
     const data = request.only([
       'buy_total', 'buy_price', 'buy_amount',
       'buy_currency', 'sell_currency',
@@ -195,7 +195,7 @@ class ExchangeController {
       trcAddress: data.trc_address
     }
     log.info('Order book:', order)
-    yield this.confirmPin(order, request, response)
+    yield this.executeOrder(order, request, response)
   }
 
   * sellBtcToEth (request, response) {
@@ -225,6 +225,8 @@ class ExchangeController {
    * and parse all the data for further processing
    */
   * sell (request, response) {
+
+    const user = yield request.auth.getUser()
     const data = request.only([
       'sell_total', 'sell_price', 'sell_amount',
       'sell_currency', 'sell_currency',
@@ -232,22 +234,7 @@ class ExchangeController {
       'type'
     ])
     log.info('sell data:', data)
-    const order = {
-      amount: data.sell_amount,
-      price: data.sell_price,
-      total: data.sell_total,
-      asset: data.sell_currency,
-      to_asset: data.buy_currency,
-      type: data.type,
-      btcAddress: data.btc_address,
-      ethAddress: data.eth_address,
-      trcAddress: data.trc_address
-    }
-    yield this.confirmPin(order, request, response)
-  }
 
-  * confirmPin(data, request, response) {
-    const user = yield request.auth.getUser()
     const order = {
       amount: data.sell_amount,
       price: data.sell_price,
@@ -262,10 +249,7 @@ class ExchangeController {
     log.info('Order book:', order)
 
     try {
-      const ob = TradeService.addOrderBook(user, order)
-      yield request.with({orderBook: ob}).flash()
-      response.redirect('/exchange/confirm')
-
+      TradeService.addOrderBook(user, order)
     } catch (e) {
       const from = order.asset.toLowerCase()
       const to = order.to_asset.toLowerCase()
@@ -275,6 +259,7 @@ class ExchangeController {
       yield request.with(err).flash()
       response.redirect(`/exchange/${from}/${to}`)
     }
+    //yield this.executeOrder(order, request, response)
   }
 
   * askForPin(request, response) {

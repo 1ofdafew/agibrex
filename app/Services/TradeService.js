@@ -1,6 +1,8 @@
 'use strict'
 
 // const OrderBook = use('App/Model/OrderBook')
+const Exceptions = use('App/Exceptions')
+
 const MatcherService = make('App/Services/MatcherService')
 const TxService = make('App/Services/TransactionService')
 const debug = require('debug')('gibrex')
@@ -16,21 +18,55 @@ class TradeService {
     this.OrderBook = OrderBook
   }
 
-  * doAskBid (data) {
+  * addOrderBook(user, data) {
+    try {
+      log.info('Adding new order book for user', user, ' with data', data)
 
+      var address
+      switch (data.asset) {
+        case 'BTC':
+          address = data.btcAddress
+          break;
+        case 'ETH':
+          address = data.ethAddress
+          break;
+        case 'TRC':
+          address = data.trcAddress
+          break;
+        default:
+          logger.error('No wallet address is given')
+          throw new Exceptions.ApplicationException('No wallet address to deduct from', 400)
+      }
+
+      const ob = new this.OrderBook()
+      ob.user_id = user.id
+      ob.type = data.type
+      ob.asset = data.asset
+      ob.to_asset = data.to_asset
+      ob.amount = data.amount
+      ob.price = data.price
+      ob.balance = data.amount
+
+      yield ob.save()
+      if (ob.isNew()) {
+        throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
+      }
+      return yield this.OrderBook.find(ob.id)
+    } catch(e) {
+      log.error('Unable to save orderbook:', e)
+      throw new Exceptions.ApplicationException('Unable to create order book', 400)
+    }
+  }
+
+  * doAskBid(user, data) {
     log.info(`doAskBid:Starting doAskBid Process...`)
-
     if (data) {
-
       log.info(`doAskBid:Data founded...`)
-
       try {
-
         log.info(`doAskBid:Try processing data...`)
-
         //const orderBook = new this.OrderBook(data, data.user)
         const orderBook = new this.OrderBook()
-
+        orderBook.user_id = user.id
         orderBook.type = data.type
         orderBook.asset = data.asset
         orderBook.to_asset = data.to_asset
