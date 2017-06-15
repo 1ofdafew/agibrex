@@ -69,12 +69,27 @@ class MatcherService {
                matching_bid.amount = diff
                yield matching_bid.save()
 
+               const matchOK = yield Database.select('id', 'ask_id', 'bid_id', 'amount', 'created_at', 'updated_at')
+                 .from('matchings')
+                 .where('ask_id', orderBook.id)
+                 .where('bid_id', matched[i].id)
+
+               // log.info(`matchOK value: ${matchOK.id}`)
+
            }else{
                const matching_ask = new Matching()
                matching_ask.ask_id = orderBook.id
                matching_ask.bid_id = matched[i].id
                matching_ask.amount = diff
                yield matching_ask.save()
+
+               const matchOK = yield Database.select('id', 'ask_id', 'bid_id', 'amount', 'created_at', 'updated_at')
+                 .from('matchings')
+                 .where('ask_id', orderBook.id)
+                 .where('bid_id', matched[i].id)
+
+               // log.info(`matchOK value: ${matchOK.id}`)
+
            }
 
            log.info(`Matching ${i+1}: Saved matching to table...`)
@@ -107,10 +122,11 @@ class MatcherService {
          .update('balance', asset_balance)
 
        log.info(`tryMatch: Updated balance for Asset's Orderbook ID : ${orderBook.id}`)
-       Event.fire('matcher:ok', orderBook.id, matched[i].id)
+       log.info(`test : ${matching_bid.id}`)
+       
+       Event.fire('matcher:ok',matchOK, orderBook.id)
      }
 
-      // Event.fire('matcher:ok', orderBook.id, orderBook.type)
       return true
     }
     return false

@@ -6,13 +6,14 @@ const co = use('co')
 const TxService = use('App/Services/TransactionService')
 const MatchListener = exports = module.exports = {}
 
-MatchListener.ok = function (orderBook_id, matched_id) {
+MatchListener.ok = function (data, obID) {
   // this.emitter gives access to the event instance
-  log.info('Listener: Matched,ok: orderBook id', orderBook_id)
-  log.info('Listener: Matched,ok: matched id', matched_id)
+  log.info('Listener: Matched,ok: ask id', data.ask_id)
+  log.info('Listener: Matched,ok: bid id', data.bid_id)
+  log.info('Listener: Matched,ok: orderBook id', obID)
   //send execute trade
   co(function * () {
-    yield TxService.createTx(orderBook_id, matched_id)
+    yield TxService.createTx(data, obID)
   })
 }
 
