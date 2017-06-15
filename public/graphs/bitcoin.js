@@ -113,12 +113,10 @@ $.getJSON('/data/bitcoin?callback=?', function (data) {
   });
 
   // Create the chart
-  Highcharts.stockChart('container', {
+  Highcharts.stockChart('chart_container', {
     rangeSelector: {
       buttons: [
         { type: 'hour', count: 1, text: '1h' }, 
-        { type: 'month', count: 1, text: '1m' }, 
-        { type: 'year', count: 1, text: '1y' }, 
         { type: 'all', count: 1, text: 'All' }
       ],
       selected: 4,

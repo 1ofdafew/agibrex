@@ -8,19 +8,13 @@
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/ws.js"></script>
-  <script src="/js/charts/highstock.js"></script>
   <!--script src="/js/charts/exporting.js"></script-->
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
+  <link rel="stylesheet" href="/css/loader.css" type="text/css">
 {% endblock %}
 
 {% block content %}
 
-  {% if baseCurrency == 'BTC' %}
-  <script type="text/javascript" src="/graphs/bitcoin.js"></script>
-  {% endif %}
-  {% if baseCurrency == 'ETH' %}
-  <script type="text/javascript" src="/graphs/ethereum.js"></script>
-  {% endif %}
 
   <div class="testimonials-4">
     <div class="clearfix mar_top3"></div>
@@ -52,7 +46,7 @@
 
         <!-- do not show for TRC -->
         {% if baseCurrency !== 'TRC' %}
-        <div id="container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
+        <div id="chart_container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
         {% endif %}
 
         <div class="clear"></div>
@@ -414,7 +408,6 @@
 
           <div class="clearfix mar_top4"></div>
           <div id="container_mdepth" style="height: 350px; margin-bottom: 70px; in-width: 310px; max-width: 100%; "></div>
-          <script type="text/javascript" src="/graphs/mdepth.js"></script>
 
           <div class="clearfix mar_top20"></div>
           <div class="clearfix mar_top20"></div>
@@ -1099,5 +1092,19 @@ $(window).resize(function() {
   })
 
 </script>
+
+<script type="text/javascript" src="/js/charts/highstock.js"></script>
+<script type="text/javascript">
+  $(function() {
+  });
+</script>
+
+{% if baseCurrency == 'BTC' %}
+<script type="text/javascript" src="/graphs/bitcoin.js"></script>
+{% endif %}
+{% if baseCurrency == 'ETH' %}
+<script type="text/javascript" src="/graphs/ethereum.js"></script>
+{% endif %}
+<script type="text/javascript" src="/graphs/mdepth.js"></script>
 
 {% endblock %}

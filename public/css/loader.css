@@ -1,0 +1,7 @@
+
+/* Center the loader */
+#chart_loader {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+}
