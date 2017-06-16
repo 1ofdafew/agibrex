@@ -1,7 +1,7 @@
 
 const Redis = use('Redis')
 const CronJob = require('cron').CronJob
-const logger = use('App/Service/LogService')
+const logger = use('App/Services/LogService')
 
 const dailyData = new CronJob({
 	cronTime: '0 13 * * * *',
