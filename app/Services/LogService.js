@@ -13,7 +13,7 @@ class LogService {
       fs.mkdirSync(logDir)
     }
 
-    if (Env.get('MODE') === 'production') {
+    if (Env.get('NODE_ENV') === 'production') {
       this.logger = new winston.Logger({
         level: 'info',
         transports: [
