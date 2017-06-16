@@ -8,8 +8,8 @@ const fs = require('fs')
 class LogService {
   
   constructor () {
-    if (!fs.existsSync('loggers')) {
-      fs.mkdirSync('loggers')
+    if (!fs.existsSync('logs')) {
+      fs.mkdirSync('logs')
     }
 
     if (Env.mode === 'production') {
