@@ -46,23 +46,24 @@
 
         <!-- do not show for TRC -->
         {% if baseCurrency !== 'TRC' %}
-
         <div id="chart_container" class="animate-bottom" style="display:none; height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
-        <div id="loader"></div>
         {% endif %}
 
+        <!--
+        <div id="loader"></div>
         <script>
-            var myVar;
+          var myVar;
 
-            function myLoader() {
-                myVar = setTimeout(showPage, 5000);
-            }
+          function myLoader() {
+              myVar = setTimeout(showPage, 5000);
+          }
 
-            function showPage() {
-              document.getElementById("loader").style.display = "none";
-              document.getElementById("chart_container").style.display = "block";
-            }
+          function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("chart_container").style.display = "block";
+          }
         </script>
+        -->
 
         <div class="clear"></div>
 
