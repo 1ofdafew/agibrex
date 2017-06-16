@@ -1125,8 +1125,12 @@ $(window).resize(function() {
           if (totalWithFees > balance) {
             this.disableSell = true
             this.sellButtonStyle = 'color: red;'
-            const maxSell = (parseFloat(balance) - parseFloat(fee))
-            this.sellError = `Insufficient funds. Maximum to sell is ${maxSell}`
+            if (parseFloat(balance) === 0.0) {
+              this.sellError = `Insufficient funds.` 
+            } else {
+              const maxSell = (parseFloat(balance) - parseFloat(fee))
+              this.sellError = `Insufficient funds. Maximum to sell is ${maxSell}`
+            }
           } else {
             this.sellButtonStyle = ''
             this.disableSell = false
