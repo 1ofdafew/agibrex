@@ -1,6 +1,5 @@
 {% extends 'layout/puppet' %}
 
-
 {% block head %}
   <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/lodash@4.16.0"></script>
@@ -8,7 +7,6 @@
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/ws.js"></script>
-  <script src="/js/charts/exporting.js"></script>
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
   <link rel="stylesheet" href="/css/loader.css" type="text/css">
 {% endblock %}
@@ -46,24 +44,9 @@
 
         <!-- do not show for TRC -->
         {% if baseCurrency !== 'TRC' %}
-        <div id="loader"></div>
-        <div id="chart_container" class="animate-bottom" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
+        <div id="chart_loader" class="loader"></div>
+        <div id="chart_container" class="animate-bottom"></div>
         {% endif %}
-
-        <!-- <div id="loader"></div> -->
-        <script>
-          var myVar;
-
-          function myLoader() {
-              myVar = setTimeout(showPage, 5000);
-          }
-
-          function showPage() {
-            document.getElementById("loader").style.display = "none";
-            document.getElementById("chart_container").style.display = "block";
-          }
-        </script>
-
 
         <div class="clear"></div>
 
@@ -1264,5 +1247,19 @@ $(window).resize(function() {
 <script type="text/javascript" src="/graphs/ethereum.js"></script>
 {% endif %}
 <script type="text/javascript" src="/graphs/mdepth.js"></script>
+
+<!-- <div id="loader"></div> -->
+<script type="text/javascript">
+  $(function() {
+    var myVar = setTimeout(showPage, 4000);
+
+    function showPage() {
+      console.log('Loader timed out....');
+      $("#chart_loader").hide();
+      $("#chart_container").show();
+    }
+  });
+</script>
+
 
 {% endblock %}
