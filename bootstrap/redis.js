@@ -2,6 +2,7 @@
 
 const Redis = use('Redis')
 const Event = use('Event')
+const Env = use('Env')
 const Ws = use('Ws')
 
 const log = make('App/Services/LogService')
@@ -12,21 +13,25 @@ const CoindeskService = make('App/Services/CoindeskService')
 const MarketDataService = make('App/Services/MarketDataService')
 
 Redis.subscribe('data', function * (action) {
-	log.info('Processing cron for ', action)
-	switch (action) {
-		case 'fetchTickerData':
-      log.info('Running fetch for ticker data for BTC, ETH')
-			yield MarketDataService.fetchCurrentData('BTC')
-			yield MarketDataService.fetchCurrentData('ETH')
-			break;
-		case 'fetchDailyData':
-      log.info('Fetching daily data for BTC, ETH')
-			yield CoindeskService.cronFetchBitcoinData()
-			yield CoindeskService.cronFetchEthereumData()
-			break;
-		default:
-			log.error('Unknown cron job, action:', action)
-	}
+  const isCronServer = Env.get('IS_CRON', false)
+  if (isCronServer) {
+	  log.info('Processing cron for ', action)
+	  switch (action) {
+	  	case 'fetchTickerData':
+        log.info('Running fetch for ticker data for BTC, ETH')
+	  		yield MarketDataService.fetchCurrentData('BTC')
+	  		yield MarketDataService.fetchCurrentData('ETH')
+	  		break;
+	  	case 'fetchDailyData':
+        log.info('Fetching daily data for BTC, ETH')
+	  		yield CoindeskService.cronFetchBitcoinData()
+	  		yield CoindeskService.cronFetchEthereumData()
+	  		break;
+	  	default:
+	  		log.error('Unknown cron job, action:', action)
+	  }
+  }
+
 })
 
 Redis.subscribe('cron', function * (location) {
