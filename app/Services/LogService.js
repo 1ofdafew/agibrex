@@ -29,26 +29,27 @@ class LogService {
         ]
       })
     }
+    //this.logger.info(`Log dir is ${logDir}`)
   }
 
   debug(...msg) {
-    this.logger.debug(msg)
+    this.logger.log('debug', msg)
   }
 
   info(...msg) {
-    this.logger.info(msg)
+    this.logger.log('info', msg)
   }
 
   warn(...msg) {
-    this.logger.warn(msg)
+    this.logger.log('warn', msg)
   }
 
   error(...msg) {
-    this.logger.error(msg)
+    this.logger.log('error', msg)
   }
 
-  logger(type, ...msg) {
-    this.logger.logger(type, msg)
+  log(type, ...msg) {
+    this.logger.log(type, msg)
   }
 
 }

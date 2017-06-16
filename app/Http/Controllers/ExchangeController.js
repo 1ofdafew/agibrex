@@ -133,9 +133,9 @@ class ExchangeController {
       ethAddress: ethAddress,
       btcAddress: btcAddress,
       trcAddress: trcAddress,
-      ethCurrentBalance: ethCurrentBalance,
+      ethCurrentBalance: '20.00000000', //ethCurrentBalance,
       btcCurrentBalance: btcCurrentBalance,
-      trcCurrentBalance: trcCurrentBalance,
+      trcCurrentBalance: '30.00000000', //trcCurrentBalance,
       baseCurrency : baseCurrency,
       extCurrency : extCurrency,
       buyPair: `${baseCurrency}/${extCurrency}`,
@@ -321,10 +321,13 @@ class ExchangeController {
       // our response to the user, to be used below
       var resp
       if (result.status === 'error') {
-        // we can't deduct the money. Not enough balance
-        logger.info('Cannot deduct the money. OrderBook:', orderBook.id)
-        resp = {
-          error: 'Cannot create order. Insufficient funds'
+        if (result.message === 'Invalid PIN') {
+          logger.error(result.message)
+          throw new Error(result.message)
+        } else {
+          // we can't deduct the money. Not enough balance
+          logger.info('Cannot deduct the money. OrderBook:', orderBook.id)
+          resp = { error: 'Cannot create order. Insufficient funds' }
         }
       } else {
         // ok, we managed to deduct the balance. Make the order book active
@@ -332,14 +335,10 @@ class ExchangeController {
         try {
           logger.info('Money deducted. Activating OrderBook:', orderBook.id)
           yield TradeService.activateOrderBook(orderBook.id)
-          resp = {
-            success: 'Your order boook is being processed'
-          }
+          resp = { success: 'Your order boook is being processed' }
         } catch(e) {
           // something bad happened. Db error!
-          resp = {
-            error: e.message
-          }
+          resp = { error: e.message }
         }
       }
       yield request.with(resp).flash()

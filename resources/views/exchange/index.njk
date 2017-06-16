@@ -75,8 +75,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower | safe }}/{{ baseCurrencyLower | safe }}" method="POST" 
-                    v-on:submit.prevent="executeBuy">
+              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower | safe }}/{{ baseCurrencyLower | safe }}" method="POST"> 
                 {{ csrfField }}
                 {% verbatim %}
                 <div id="vuebuy" class="buyform">
@@ -236,7 +235,12 @@
 
                   {% if currentUser %}
                     {% verbatim %}
-                    <button class="but_user" type="submit" v-bind:disabled="disableBuy" v-bind:style="buyButtonStyle">
+                    <div class="message-box-wrap" v-if="buyButtonError">
+                      <div class="error" role="alert" id="div4">
+                        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ buyButtonError }}
+                      </div>
+                    </div>
+                    <button class="but_user" type="submit" v-bind:disabled="disableBuy" v-on:click="submitBuyForm" v-bind:style="buyButtonStyle">
                       Buy {{ baseCurrency }}
                     </button>
                     {% endverbatim %}
@@ -256,8 +260,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="sell_form" action="/exchange/sell/{{ baseCurrencyLower | safe }}/{{ extCurrencyLower | safe }}" method="POST"
-               v-on:submit.prevent="executeSell">
+              <form id="sell_form" action="/exchange/sell/{{ baseCurrencyLower | safe }}/{{ extCurrencyLower | safe }}" method="POST">
                 {{ csrfField }}
                 {% verbatim %}
                 <input type="hidden" name="type" value="{{type}}">
@@ -410,7 +413,12 @@
 
                   {% if currentUser %}
                     {% verbatim %}
-                    <button class="but_usersell" type="submit" v-bind:disabled="disableSell" v-bind:style="sellButtonStyle">
+                    <div class="message-box-wrap" v-if="sellButtonError">
+                      <div class="error" role="alert" id="div4">
+                        <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ sellButtonError }}
+                      </div>
+                    </div>
+                    <button class="but_usersell" type="submit" v-bind:disabled="disableSell" v-on:click="submitSellForm" v-bind:style="sellButtonStyle">
                       Sell {{ baseCurrency }}
                     </button>
                     {% endverbatim %}
@@ -909,9 +917,9 @@ $(window).resize(function() {
 
     error: true,
     buyAmount: 0,
-    buyButtonStyle: '',
+    buyButtonStyle: 'color: red;',
     buyError: '',
-    disableBuy: true
+    buyButtonError: '',
   }
 
   var buy = new Vue({
@@ -969,8 +977,62 @@ $(window).resize(function() {
       buyTrcBtcTotal: function() { return this.calcTotal(this.buyTrcBtcSubTotal) },
       buyTrcEthSubTotal: function() { return this.calcSubTotal(this.trcSpotPrice, this.ethSpotPrice, this.ethCurrentBalance, this.ethFee) },
       buyTrcEthTotal: function() { return this.calcTotal(this.buyTrcEthSubTotal) },
+
+      disableBuy: function() {
+        if (parseFloat(this.buyAmount) <= 0) {
+          this.buyButtonStyle = 'color: red;'
+          return true
+        }
+        return this.maybeError(this.baseCurrency, this.extCurrency) 
+      },
+
     },
     methods: {
+      submitBuyForm: function() {
+        this.buyButtonStyle = 'color: blue;'
+        this.disableBuy = true
+      },
+      getBalance: function(from) {
+        switch (from) {
+          case 'BTC': return this.btcCurrentBalance
+          case 'ETH': return this.ethCurrentBalance
+          case 'TRC': return this.trcCurrentBalance
+          default: return 'NONE'
+        }
+      },
+      maybeError: function(from, to) {
+        //console.log(`maybeError, from: ${from}, to: ${to}`)
+        const fromBalance = this.getBalance(from)
+        if (isNaN(fromBalance)) {
+          // throw error.
+          this.buyButtonError = `You have to create a ${from} account first`
+          this.buyButtonStyle = 'color: red;'
+          this.clearButtonError()
+          return true
+        }
+
+        const toBalance = this.getBalance(to)
+        if (isNaN(toBalance)) {
+          // throw error.
+          this.buyButtonError = `You have to create a ${to} account first`
+          this.buyButtonStyle = 'color: red;'
+          this.clearButtonError()
+          return true
+        }
+
+        if (parseFloat(this.buyAmount) <= 0) {
+          this.buyButtonStyle = 'color: red;'
+          return true
+        }
+        this.buyButtonStyle = ''
+        return false
+      },
+      clearButtonError: _.debounce(function(e) {
+        this.buyButtonError = '' 
+      }, 1500),
+      clearBuyError: _.debounce(function(e) {
+        this.buyError = '' 
+      }, 2500),
       calcSubTotal: function (from, to, balance, txFee) {
         //console.log(`status: isBtcEth ? ${this.isBtcEth}`)
         //console.log(`buy vars: ${from}, ${to}, ${balance}, ${txFee}`)
@@ -981,21 +1043,16 @@ $(window).resize(function() {
             (parseFloat(this.buyAmount) * ratio)
           ).toFixed(8)
           calc = parseFloat(c1) + parseFloat(txFee) // + (parseFloat(c1) * parseFloat(this.fee)))
-          console.log(`status: balance=${balance}, txFee=${txFee}, calc=${calc}`)
+          //console.log(`status: balance=${balance}, txFee=${txFee}, calc=${calc}`)
 
           const finalCalc = calc + (calc * parseFloat(this.fee))
           //console.log(`finalCalc: ${finalCalc}`)
 
           if (finalCalc > parseFloat(balance)) {
-            this.disableBuy = true
-            //const m1 = (parseFloat(balance) - parseFloat(txFee))
-            //const maxBuy = ((m1 * parseFloat(this.fee)) + m1) / ratio
             this.buyError = `Insufficient funds.` // Maximum buy is ${maxBuy}`
-            this.buyButtonStyle = 'color: red;'
+            this.clearBuyError()
           } else {
-            this.disableBuy = false
             this.buyError = ''
-            this.buyButtonStyle = ''
           }
         }
         return parseFloat(calc).toFixed(8)
@@ -1043,16 +1100,15 @@ $(window).resize(function() {
 
     error: true,
     sellAmount: 0,
-    sellPrice: parseFloat('{{ btcSpotPrice }}').toFixed(2),
-    sellButtonStyle: '',
     sellError: '',
-    disableSell: true
+    sellButtonError: '',
+
+    // set error to begin with
+    sellButtonStyle: 'color: red;',
   }
   var sell = new Vue({
     el: '#vuesell',
     data: data,
-    methods: {
-    },
     computed: {
       isBaseEth: function() { return this.baseCurrency === 'ETH' },
       isBaseBtc: function() { return this.baseCurrency === 'BTC' },
@@ -1105,8 +1161,63 @@ $(window).resize(function() {
       sellTrcBtcTotal: function () { return this.calcTotal(this.sellTrcBtcSubTotal) },
       sellTrcEthSubTotal: function () { return this.calcSubTotal(this.ethSpotPrice, this.trcSpotPrice, this.ethCurrentBalance, this.ethFee) },
       sellTrcEthTotal: function () { return this.calcTotal(this.sellTrcEthSubTotal) },
+
+      disableSell: function() {
+        if (parseFloat(this.sellAmount) <= 0) {
+          this.sellButtonStyle = 'color: red;'
+          return true 
+        } 
+        return this.maybeError(this.baseCurrency, this.extCurrency)
+      },
     },
     methods: {
+      submitSellForm: function() {
+        this.disableSell = true
+        this.sellButtonStyle = 'color: blue;'
+      },
+      getBalance: function(from) {
+        switch (from) {
+          case 'BTC': return this.btcCurrentBalance
+          case 'ETH': return this.ethCurrentBalance
+          case 'TRC': return this.trcCurrentBalance
+          default: return 'NONE'
+        }
+      },
+      maybeError: function(from, to) {
+        //console.log(`maybeError, from: ${from}, to: ${to}`)
+        const fromBalance = this.getBalance(from)
+        if (isNaN(fromBalance)) {
+          // throw error.
+          this.sellButtonError = `You have to create a ${from} account first`
+          this.sellButtonStyle = 'color: red;'
+          this.clearButtonError()
+          return true
+        }
+
+        const toBalance = this.getBalance(to)
+        if (isNaN(toBalance)) {
+          // throw error.
+          this.sellButtonError = `You have to create a ${to} account first`
+          this.sellButtonStyle = 'color: red;'
+          this.clearButtonError()
+          return true
+        }
+
+        //console.log('0:', this.sellAmount, ', valid ?', parseFloat(this.sellAmount) <= 0)
+        if (parseFloat(this.sellAmount) <= 0) {
+          this.sellButtonStyle = 'color: red;'
+          return true
+        } 
+        this.sellButtonStyle = ''
+        return false
+        
+      },
+      clearButtonError: _.debounce(function(e) {
+        this.sellButtonError = '' 
+      }, 1500),
+      clearSellError: _.debounce(function(e) {
+        this.sellError = '' 
+      }, 2500),
       calcTotal: function(sub) {
         return parseFloat(
             parseFloat(sub) - parseFloat(sub * this.fee)
@@ -1115,34 +1226,23 @@ $(window).resize(function() {
       calcSubTotal: function(from, to, balance, fee) {
         //console.log(`sell vars: ${from}, ${to}, ${balance}, ${fee}`)
         var calc = '0.00000000'
-        if (this.sellAmount > 0) {
+        if (parseFloat(this.sellAmount) > 0) {
           calc = parseFloat(
             parseFloat(this.sellAmount) *
             (parseFloat(from) / parseFloat(to))
             ).toFixed(8)
-          const totalWithFees = (parseFloat(this.sellAmount) + parseFloat(fee))
-          //console.log(`status: balance: ${balance}, sellAmount: ${this.sellAmount}, fee: ${fee}`)
-          if (totalWithFees > balance) {
-            this.disableSell = true
+          if (parseFloat(this.sellAmount) > parseFloat(balance)) {
             this.sellButtonStyle = 'color: red;'
-            if (parseFloat(balance) === 0.0) {
-              this.sellError = `Insufficient funds.` 
-            } else {
-              const maxSell = (parseFloat(balance) - parseFloat(fee))
-              this.sellError = `Insufficient funds. Maximum to sell is ${maxSell}`
-            }
-          } else {
-            this.sellButtonStyle = ''
-            this.disableSell = false
-            this.sellError = ''
+            this.sellError = `Insufficient funds.` 
+            // flash the error
+            this.clearSellError()
           }
         }
         return calc
       },
       executeSell: function () {
-        console.log('Processing ASK request....')
+        // console.log('Processing ASK request....')
         // disable button to prevent double sent
-        this.disableSell = true
         // send the form
         document.getElementById('sell_form').submit();
       }

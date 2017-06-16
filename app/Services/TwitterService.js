@@ -3,7 +3,7 @@
 const Env = use('Env')
 
 const Twitter = require('twitter')
-const log = make('App/Services/LogService')
+const logger = make('App/Services/LogService')
 const co = require('co')
 
 class TwitterService {
@@ -21,20 +21,26 @@ class TwitterService {
       access_token_secret: Env.get('TWTR_TOKEN_SECRET')
     })
 
-    const params = { screen_name: 'gibrex_', count:5 }
-    const self = this
-    client.get('statuses/user_timeline', params, function (error, tweets, response) {
-      co(function * () {
-        if (!error) {
-          self.data = []
-          yield tweets.forEach(function (tweet, idx) {
-            self.data.push(tweet.text)
-          })
-        }
+    try {
+      const params = { screen_name: 'gibrex_', count:5 }
+      const self = this
+      client.get('statuses/user_timeline', params, function (error, tweets, response) {
+        co(function * () {
+          if (!error) {
+            self.data = []
+            yield tweets.forEach(function (tweet, idx) {
+              self.data.push(tweet.text)
+            })
+          }
+        })
       })
-    })
-    // log.info('data-return:', this.data)
-    return this.data
+      // log.info('data-return:', this.data)
+      return this.data
+    } catch(e) {
+      const msg = `Unable to fetch twitter data: ${e.message}`
+      logger.error(msg)
+      throw new Error(msg)
+    }
   }
 
 }

@@ -14,6 +14,7 @@ const MarketDataService = make('App/Services/MarketDataService')
 
 Redis.subscribe('data', function * (action) {
   const isCronServer = Env.get('IS_CRON', 'false')
+  logger.info(`isCronServer: ${isCronServer}`)
   if (isCronServer || isCronServer === 'true') {
 	  logger.info('Processing cron for ', action)
 	  switch (action) {
