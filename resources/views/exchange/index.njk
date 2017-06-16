@@ -8,7 +8,7 @@
   <script src="https://unpkg.com/adonis-websocket-client@1.0.2/dist/ws.js"></script>
   <script src="/js/moment.js"></script>
   <script src="/js/ws.js"></script>
-  <!--script src="/js/charts/exporting.js"></script-->
+  <script src="/js/charts/exporting.js"></script>
   <link rel="stylesheet" href="/css/exchange.css" type="text/css">
   <link rel="stylesheet" href="/css/loader.css" type="text/css">
 {% endblock %}
@@ -46,11 +46,11 @@
 
         <!-- do not show for TRC -->
         {% if baseCurrency !== 'TRC' %}
-        <div id="chart_container" class="animate-bottom" style="display:none; height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
+        <div id="loader"></div>
+        <div id="chart_container" class="animate-bottom" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
         {% endif %}
 
-        <!--
-        <div id="loader"></div>
+        <!-- <div id="loader"></div> -->
         <script>
           var myVar;
 
@@ -63,7 +63,7 @@
             document.getElementById("chart_container").style.display = "block";
           }
         </script>
-        -->
+
 
         <div class="clear"></div>
 
