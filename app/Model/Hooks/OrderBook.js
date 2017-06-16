@@ -7,3 +7,17 @@ OrderBook.createUUID = function * (next) {
   this.uuid = uuid()
   yield next
 }
+
+OrderBook.checkFromAddress = function *(next) {
+  if (this.from_address === '') {
+    throw new Error('Empty from address')
+  }
+  yield next
+}
+
+OrderBook.checkToAddress = function *(next) {
+  if (this.to_address === '') {
+    throw new Error('Empty destination address')
+  }
+  yield next
+}

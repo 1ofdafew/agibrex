@@ -59,7 +59,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower }}/{{ baseCurrencyLower }}" method="POST" 
+              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower | safe }}/{{ baseCurrencyLower | safe }}" method="POST" 
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
@@ -240,7 +240,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-              <form id="sell_form" action="/exchange/sell/{{ baseCurrencyLower }}/{{ extCurrencyLower }}" method="POST"
+              <form id="sell_form" action="/exchange/sell/{{ baseCurrencyLower | safe }}/{{ extCurrencyLower | safe }}" method="POST"
                v-on:submit.prevent="executeSell">
                 {{ csrfField }}
                 {% verbatim %}

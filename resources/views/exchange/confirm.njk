@@ -2,57 +2,51 @@
 
 {% block content %}
 
-<div class="testimonials-4">
-  <div class="one_third">
-  </div>
-  <div class="one_third">
-    <div class="content">
-      <h3 class="section_label">
-        <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Create Your {{ type | safe }} Account</span>
-      </h3>
-      <div class="clear"></div>
-      {% if old('error') %}
-      <div class="message-box-wrap">
-        <div class="error" role="alert">
-          {% for e in old('error') %}
-          {{ e.message }}
-          {% endfor %}
+<div class="fresh_projects login_bg">
+  <div class="clearfix mar_top5"></div>
+  <div class="container">
+    <div class="message-box-wrap">
+      <div class="loginform" style="width: 250px;">
+        <h3 class="section_label">
+          <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Enter PIN to confirm</span>
+        </h3>
+        <div class="clear"></div>
+        {% if old('error') %}
+        <div class="message-box-wrap">
+          <br>
+          <div class="alert alert-warning" role="alert" style="color: red;">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;{{ old('error') }}
+          </div>
         </div>
-      </div>
-      {% endif %}
-  
-      <form method="POST" action="/accounts/{{ type | safe }}/create" enctype="application/x-www-form-urlencoded" id="coin_create">
-        {{ csrfField }}
-        <div class="buyform">
-          <div class="dotted"></div>
-          <div class="mar_top2"></div>
-          <div class="param">
-              <label for="buy_amount">Enter Your PIN&nbsp;
+        {% endif %}
+    
+        <form action="/exchange/confirm" method="POST">
+          {{ csrfField }}
+          <div class="buyform">
+            <div class="dotted"></div>
+            <div class="mar_top2"></div>
+            <div class="param">
+                <label for="buy_amount">Enter Your PIN&nbsp;
+                </label>
+              <input name="pin1" id="pin1" value="" type="password">
+              <div class="clear"></div>
+            </div>
+            <div class="mar_top1"></div>
+            <div id="buy_price_container" class="param">
+              <label for="buy_price">
+                <span id="buy_price_limit_label">Confirm Your PIN</span>
               </label>
-            <input name="pin1" id="pin1" value="" type="text">
-            <div class="clear"></div>
+              <input name="pin2" id="pin2" value="" type="password">
+            </div>
+            <div class="mar_top3"></div>
+            <input type="hidden" id="order_book_id" name="order_book_id" value="{{ old('orderBookId') }}" readonly>
+            <input name="submit" value="Send Order" class="but_user" type="submit">
           </div>
-          <div class="mar_top1"></div>
-          <div id="buy_price_container" class="param">
-            <label for="buy_price">
-              <span id="buy_price_limit_label">Confirm Your PIN</span>
-            </label>
-            <input name="pin2" id="pin2" value="" type="text">
-          </div>
-          <div class="mar_top3"></div>
-          {% if type == 'BID' %}
-          
-          {% else %}
-          {% endif %}
-          <input name="submit" value="Send Order" class="but_user" type="submit">
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+    <div class="mar_top2"></div>
   </div>
-
-  <div class="one_third">
-  </div>
-
 </div>
 
 {% endblock %}

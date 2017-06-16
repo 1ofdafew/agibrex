@@ -2,7 +2,7 @@
 
 const Exceptions = use('App/Exceptions')
 const CoinFactory = use('App/Services/Coins/CoinFactory')
-const log = make('App/Services/LogService')
+const logger = make('App/Services/LogService')
 
 class WalletService {
 
@@ -34,7 +34,7 @@ class WalletService {
    */
   * create(type, user, pin) {
 
-    log.info('=> Creating wallet', type, 'for user', user.username)
+    logger.info('=> Creating wallet', type, 'for user', user.username)
     // => Creating wallet ethereum for user mhishami
     // Creating wallet for mhishami...
     // Coin:ethereum: URL => http://147.135.171.127/api/v1/ethereum, method => post, data =>
@@ -54,7 +54,7 @@ class WalletService {
     const factory = new CoinFactory(type)
     const resp = yield factory.createWallet(user.username, pin)
 
-    console.log('wallet:', resp)
+    logger.debug('wallet:', resp)
     // wallet: { status: 'ok',
     //   data: 
     //    { wallet: 
@@ -76,7 +76,7 @@ class WalletService {
     wallet.pin = resp.data.wallet.pin
     wallet.mnemonics = resp.data.wallet.mnemonics
     yield wallet.save(wallet)
-    log.info('wallet created:', wallet)
+    logger.info('wallet created:', wallet)
 
     if (wallet.isNew()) {
       throw new Exceptions.ApplicationException('Unable to create your account, please try after some time', 400)
@@ -108,18 +108,18 @@ class WalletService {
    */
   * getAccountBalance(accounts) {
     try {
-      // console.log('Received accounts:', accounts)
+      logger.info('Received accounts:', accounts)
       var resp = []
       for (var i=0; i < accounts.length; i++) {
         const acc = accounts[i]
-        //log.info('const acc =', accounts[i])
+        logger.info('const acc =', accounts[i])
         const bal = yield this.getBalance(acc.type.toLowerCase(), acc.address)
-        log.info(`Balance for ${acc.address}:`, bal)
+        logger.info(`Balance for ${acc.address}:`, bal)
         resp.push({type: acc.type, address: acc.address, balance: bal.data.balance})
       }
       return resp 
     } catch(e) {
-      log.error(e)
+      logger.error('error:', e.message)
     }
   }
 
@@ -142,17 +142,37 @@ class WalletService {
    * @param from  the wallet address from
    * @param to    the wallet address to
    * @param value the value to transfer
+   * @param pin   the user PIN
    */
   * transfer(type, from, to, value, pin) {
-    const cf = new CoinFactory(type)
+    logger.info('Transferring data from', type, from, to, value, pin) 
+    const cf = new CoinFactory(this.getCoinType(type))
     const data = {
       from: from,
       to: to,
-      value: parseFloat(value),
+      value: value,
       pin: pin
     }
     return yield cf.transfer(data)
   }
+
+  * getTractoRoot() {
+    return 'Tvxs8cXiXizYEkxQjzoNET9n8pn4MEBoYTtebYZoPrtAMguSBG4RGD2NwSQstMiccge54H1Z4oRjaYMWhPdm2pi42tsTuki2b'
+  }
+
+  getCoinType(type) {
+    switch (type) {
+      case 'TRC': 
+        return 'tracto'
+      case 'ETH':
+        return 'ethereum'
+      case 'BTC':
+        return 'bitcoin'
+      default:
+        return 'none'
+    }
+  }
+
 }
 
 module.exports = WalletService

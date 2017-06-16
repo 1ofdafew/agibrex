@@ -2,8 +2,7 @@
 
 const uuid = require('uuid/v4')
 const debug = require('debug')('gibrex')
-//const log = make('App/Services/LogService')
-const log = require('npmlog')
+const logger = make('App/Services/LogService')
 
 const OrderBook = use('App/Model/OrderBook')
 const OrderBookCntrl = use('App/Http/Controllers/OrderBookController')
@@ -50,7 +49,7 @@ class ExchangeController {
 
   * preparePage(name, baseCurrency, extCurrency, request, response) {
 
-    // user maybe null as exchange is public, until he logs in.
+    // user maybe null as exchange is public, until he loggers in.
     var ethWallet = ''            // wallet for ETH
       , btcWallet = ''            // wallet for BTC
       , trcWallet = ''            // wallet for TRC
@@ -72,29 +71,29 @@ class ExchangeController {
     if (user) {
       try {
         const wallets = yield user.wallets().fetch()
-        // log.info('user wallets:', wallets.toJSON())
+        // logger.info('user wallets:', wallets.toJSON())
 
         const trc = yield this.getWallet(wallets.toJSON(), 'TRACTO')
         trcWallet = yield WalletService.getBalance('tracto', trc.address)
         trcAddress = trc.address
         trcCurrentBalance = trcWallet.data.balance.available
-        log.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
+        logger.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
 
         const eth = yield this.getWallet(wallets.toJSON(), 'ETHEREUM')
         ethWallet = yield WalletService.getBalance('ethereum', eth.address)
         ethAddress = eth.address
         ethCurrentBalance = ethWallet.data.balance.available //ETH
-        log.info(`ETH: ${ethAddress} -> ${ethCurrentBalance}`)
+        logger.info(`ETH: ${ethAddress} -> ${ethCurrentBalance}`)
 
         const btc = yield this.getWallet(wallets.toJSON(), 'BITCOIN')
         btcWallet = yield WalletService.getBalance('bitcoin', btc.address)
         btcAddress = btc.address
         btcCurrentBalance = btcWallet.data.balance.available
-        log.info(`BTC: ${btcAddress} -> ${btcCurrentBalance}`)
+        logger.info(`BTC: ${btcAddress} -> ${btcCurrentBalance}`)
 
       } catch (e) {
         // user don't create the wallet yet
-        log.info('No wallets for user yet')
+        logger.info('No wallets for user yet')
       }
     }
 
@@ -108,11 +107,11 @@ class ExchangeController {
       btcSpotPrice = yield MDService.getSpotPrice('BTC')
       ethSpotPrice = yield MDService.getSpotPrice('ETH')
 
-      // log.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
+      // logger.info(`Spot Prices: ETH: ${ETHSpotPrice}, BTC: ${BTCSpotPrice}`)
       // coinInEth = parseFloat(BTCSpotPrice / ETHSpotPrice)
 
     } catch (e) {
-      log.error('Unable to find the spot price')
+      logger.error('Unable to find the spot price')
     }
 
     // prepare for market data
@@ -128,7 +127,7 @@ class ExchangeController {
       trcAddress: trcAddress,
       ethCurrentBalance: ethCurrentBalance,
       btcCurrentBalance: btcCurrentBalance,
-      trcCurrentBalance: trcCurrentBalance,
+      trcCurrentBalance: '120.03994385', //trcCurrentBalance,
       baseCurrency : baseCurrency,
       extCurrency : extCurrency,
       buyPair: `${baseCurrency}/${extCurrency}`,
@@ -143,7 +142,7 @@ class ExchangeController {
       trcFee: trcFee
     }
 
-    log.info('Params:', args)
+    logger.debug('Params:', args)
     yield response.sendView('exchange.index', args)
   }
 
@@ -169,7 +168,7 @@ class ExchangeController {
   }
 
   /**
-   * Generic buy method that takes the generic input form the pages
+   * Generic buy method that takes the generic input from the pages
    * which is the same for all currencies anyway.
    * and parse all the data for further processing
    */
@@ -180,7 +179,7 @@ class ExchangeController {
       'from_address', 'to_address', 
       'order_type'
     ])
-    log.info('buy data:', data)
+    logger.debug('buy data:', data)
     // info buy data: { buy_total: '7.11239522',
     // info buy data:   buy_price: '2752.40',
     // info buy data:   buy_amount: '1' }
@@ -195,12 +194,12 @@ class ExchangeController {
       fromAddress: data.from_address,
       toAddress: data.to_address
     }
-    log.info('Order book:', order)
+    logger.debug('Order book:', order)
     yield this.confirmPin(order, request, response)
   }
 
   * sellBtcToEth (request, response) {
-    log.info('Processing ASK for BTC/TRC pair')
+    logger.info('Processing ASK for BTC/TRC pair')
     yield this.sell(request, response)
   }
   * sellBtcToTrc (request, response) {
@@ -215,7 +214,7 @@ class ExchangeController {
   }
 
   * sellTrcToBtc (request, response) {
-    log.info('Processing ASK for TRC/BTC pair')
+    logger.info('Processing ASK for TRC/BTC pair')
     yield this.sell(request, response)
   }
   * sellTrcToEth (request, response) {
@@ -223,7 +222,7 @@ class ExchangeController {
   }
 
   /**
-   * Generic sell method that takes the generic input form the pages
+   * Generic sell method that takes the generic input from the pages
    * which is the same for all currencies anyway.
    * and parse all the data for further processing
    */
@@ -234,7 +233,7 @@ class ExchangeController {
       'from_address', 'to_address', 
       'order_type'
     ])
-    console.log('sell data:', data)
+    logger.debug('sell data:', data)
     const order = {
       amount: data.sell_amount,
       price: data.sell_price,
@@ -245,30 +244,16 @@ class ExchangeController {
       fromAddress: data.from_address,
       toAddress: data.to_address
     }
-    log.info('calling confirmPin function')
-    this.confirmPin(order, request, response)
-  }
 
-  * confirmPin(data, request, response) {
-    log.info('Preparing pin request for order', data)
     const user = yield request.auth.getUser()
-    const order = {
-      amount: data.sell_amount,
-      price: data.sell_price,
-      total: data.sell_total,
-      asset: data.sell_currency,
-      to_asset: data.sell_currency,
-      type: data.type,
-      btcAddress: data.btc_address,
-      ethAddress: data.eth_address,
-      trcAddress: data.trc_address
-    }
-    log.info('Order book:', order)
+    logger.debug('Order book:', order)
 
     try {
-      const ob = TradeService.addOrderBook(user, order)
-      yield request.with({orderBook: ob}).flash()
-      yield response.redirect('/exchange/confirm')
+      const ob = yield TradeService.addOrderBook(user, order)
+
+      logger.debug('Saved OrderBook:', ob)
+      yield request.with({orderBookId: ob.id}).flash()
+      response.redirect('/exchange/confirm')
 
     } catch (e) {
       const from = order.asset.toLowerCase()
@@ -276,18 +261,72 @@ class ExchangeController {
       const err = {
         error: 'Invalid order. Please try again'
       }
+      logger.error('error =', err)
       yield request.with(err).flash()
       yield response.redirect(`/exchange/${from}/${to}`)
     }
   }
 
   * askForPin(request, response) {
-    yield response.sendview('exchange.confirm')
+    yield response.sendView('exchange.confirm')
   }
 
   * confirmPin(request, response) {
     // get back all the data
     // including the PIN
+    const param = request.only(['order_book_id', 'pin1', 'pin2'])
+    logger.info('Params:', param)
+    try {
+      if (param.pin1 !== param.pin2) {
+        throw new Error('PINs are not the same')
+      }
+      //const user = yield request.auth.getUser()
+      const orderBook = yield TradeService.getOrderBook(param.order_book_id)
+      logger.debug('orderBook:', orderBook)
+
+      // deduct the balance
+      logger.info('Deducting user balance: address = ', orderBook.from_address, 'PIN:', param.pin1)
+      const to = yield WalletService.getTractoRoot()
+      const result = yield WalletService.transfer(
+        orderBook.asset, orderBook.from_address, to, orderBook.amount, param.pin1)
+      logger.info('transfer result:', result)
+
+      // our response to the user, to be used below
+      var resp
+      if (result.status === 'error') {
+        // we can't deduct the money. Not enough balance
+        logger.info('Cannot deduct the money. OrderBook:', orderBook.id)
+        resp = {
+          error: 'Cannot create order. Insufficient funds'
+        }
+      } else {
+        // ok, we managed to deduct the balance. Make the order book active
+        // should wrap into another try
+        try {
+          logger.info('Money deducted. Activating OrderBook:', orderBook.id)
+          yield TradeService.activateOrderBook(orderBook.id)
+          resp = {
+            success: 'Your order boook is being processed'
+          }
+        } catch(e) {
+          // something bad happened. Db error!
+          resp = {
+            error: e.message
+          }
+        }
+      }
+      yield request.with(resp).flash()
+      logger.info('>> Processing OrderBook result: uuid=', orderBook.uuid, 'response=', resp)
+
+      const base = orderBook.asset.toLowerCase()
+      const ext = orderBook.to_asset.toLowerCase()
+      response.redirect(`/exchange/${base}/${ext}`)
+
+    } catch(e) {
+      logger.error('confirmPin error:', e.message)
+      yield request.with({error: e.message}).flash()
+      response.redirect('back')
+    }
   }
 
   * executeOrder (order, request, response) {
@@ -326,17 +365,17 @@ class ExchangeController {
           status: 'error',
           error: 'Insufficient balance. Please deposit your account.'
         }
-        log.error('Insufficient balance...')
+        logger.error('Insufficient balance...')
 
         yield request.with(err).flash()
       } else {
         // ok, data is good. Create new order book
-        log.info('Adding orderbook:', order)
+        logger.info('Adding orderbook:', order)
         const doAsk = yield TradeService.doAskBid(user, order) 
         yield request.with(doAsk).flash() 
       }
     } catch (e) {
-      log.error('Unable to execute buying option', e)
+      logger.error('Unable to execute buying option', e)
     }
     // location to return to
     const from = order.asset.toLowerCase()
@@ -346,13 +385,13 @@ class ExchangeController {
 
   * twitter(request, response) {
     const twt = yield TwitterService.getTweet()
-    // log.info('this tweet: >> ', twt)
+    // logger.info('this tweet: >> ', twt)
     // response.ok(twt)
-    response.sendView('exchange.index', { twt : twt })
+    yield response.sendView('exchange.index', { twt : twt })
   }
 
   * getWallet(wallets, type) {
-    // log.info('Getting wallet', type, 'from', wallets)
+    // logger.info('Getting wallet', type, 'from', wallets)
     try {
       var wallet = undefined
       wallets.forEach((x, idx) => {

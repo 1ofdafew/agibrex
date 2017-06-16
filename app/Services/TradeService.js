@@ -5,8 +5,9 @@ const Exceptions = use('App/Exceptions')
 
 const MatcherService = make('App/Services/MatcherService')
 const TxService = make('App/Services/TransactionService')
-const debug = require('debug')('gibrex')
-const log = make('App/Services/LogService')
+const OrderBook = use('App/Model/OrderBook')
+
+const logger = make('App/Services/LogService')
 
 class TradeService {
 
@@ -20,32 +21,19 @@ class TradeService {
 
   * addOrderBook(user, data) {
     try {
-      log.info('Adding new order book for user', user, ' with data', data)
-
-      var address
-      switch (data.asset) {
-        case 'BTC':
-          address = data.btcAddress
-          break;
-        case 'ETH':
-          address = data.ethAddress
-          break;
-        case 'TRC':
-          address = data.trcAddress
-          break;
-        default:
-          logger.error('No wallet address is given')
-          throw new Exceptions.ApplicationException('No wallet address to deduct from', 400)
-      }
-
+      logger.info('Adding new order book for user', user.username, ' with data', data)
       const ob = new this.OrderBook()
       ob.user_id = user.id
       ob.type = data.type
       ob.asset = data.asset
+      ob.from_address = data.fromAddress
+      ob.to_address = data.toAddress
       ob.to_asset = data.to_asset
       ob.amount = data.amount
       ob.price = data.price
       ob.balance = data.amount
+
+      logger.info('OrderBook:', ob)
 
       yield ob.save()
       if (ob.isNew()) {
@@ -53,17 +41,25 @@ class TradeService {
       }
       return yield this.OrderBook.find(ob.id)
     } catch(e) {
-      log.error('Unable to save orderbook:', e)
+      logger.error('Unable to save orderbook:', e.message)
       throw new Exceptions.ApplicationException('Unable to create order book', 400)
     }
   }
 
+  * getOrderBook(orderBookId) {
+    try {
+      return yield this.OrderBook.find(orderBookId)
+    } catch(e) {
+      throw new Error('Invalid order book id')
+    }
+  }
+
   * doAskBid(user, data) {
-    log.info(`doAskBid:Starting doAskBid Process...`)
+    logger.info(`doAskBid:Starting doAskBid Process...`)
     if (data) {
-      log.info(`doAskBid:Data founded...`)
+      logger.info(`doAskBid:Data founded...`)
       try {
-        log.info(`doAskBid:Try processing data...`)
+        logger.info(`doAskBid:Try processing data...`)
         //const orderBook = new this.OrderBook(data, data.user)
         const orderBook = new this.OrderBook()
         orderBook.user_id = user.id
@@ -76,7 +72,7 @@ class TradeService {
         orderBook.status = 'ACTIVE'
         yield orderBook.save()
 
-        log.info(`doAskBid:OrderBook saved...`)
+        logger.info(`doAskBid:OrderBook saved...`)
 
         if (orderBook.isNew()) {
           throw new Exceptions.ApplicationException(`Unable to add your new ${data.type}.`, 400)
@@ -92,11 +88,10 @@ class TradeService {
 
       } catch(e) {
 
-        debug(e)
         const errMsg = `Error to save new ${data.type} to OrderBook.`
 
-        log.error(`gibrex:Unable to process new ${data.type} `, e)
-        debug('Sending error message: ', errMsg)
+        logger.error(`gibrex:Unable to process new ${data.type} `, e)
+        logger.debug('Sending error message: ', errMsg)
 
         const dataRedirect = {
           status: 'error',
@@ -107,9 +102,8 @@ class TradeService {
     } else {
       const errMsg = 'Amount is required.'
 
-      log.error(`gibrex:Unable to process new orderbook: ${errMsg}`)
-
-      debug('Sending error message: ', errMsg)
+      logger.error(`gibrex:Unable to process new orderbook: ${errMsg}`)
+      logger.debug('Sending error message: ', errMsg)
       const dataRedirect = {
         status: 'error',
         error: errMsg
@@ -119,42 +113,53 @@ class TradeService {
 
   }
 
+  * activateOrderBook(Id) {
+    try {
+      const ob = yield OrderBook.find(Id)
+      logger.info('OrderBook fetched:', ob)
+      ob.status = 'ACTIVE'
+      yield ob.save()
+    } catch (e) {
+      logger.error('Unable to update OrderBook to active:', e.message)
+      throw new Error('Unable to activate orderBook:', e.message)
+    }
+  }
+
   * doUpdateOrderbook(data) {
 
-     /** From TxSvc (doSuccessTxProcess)
+    /** From TxSvc (doSuccessTxProcess)
      * @params data
      *            - tx_id: interger
      */
-     const tx = yield Database.select('orderbook_id','amount')
+    const tx = yield Database.select('orderbook_id','amount')
       .from('transactions')
       .where('id',data.tx_id)
 
-     const bid = yield Database.select('bid_id','ask_id','amount')
+    const bid = yield Database.select('bid_id','ask_id','amount')
       .from('matchings')
       .where('bid_id',tx.orderbook_id)
 
-     // TODO : looping bid checking amount
-     const totalAskAmount = '';
+    // TODO : looping bid checking amount
+    const totalAskAmount = '';
 
-     if (totalAskAmount == tx.amount) {
+    if (totalAskAmount == tx.amount) {
 
-          yield Database
-            .table('order_books')
-            .where('id', tx.orderbook_id)
-            .update('balance', '0')
-            .update('status', 'CLOSED')
+      yield Database
+        .table('order_books')
+        .where('id', tx.orderbook_id)
+        .update('balance', '0')
+        .update('status', 'CLOSED')
 
-          const dataTrace  = {
-            tx_id: data.tx_id,
-            trace: '10', // Update Trade Service
-            status:'SUCCESS'
-          }
+      const dataTrace  = {
+        tx_id: data.tx_id,
+        trace: '10', // Update Trade Service
+        status:'SUCCESS'
+      }
 
-          yield TxService.doUpdateTrace(dataTrace)
-     } else {
-
-          // TODO : if not enough matching amount
-     }
+      yield TxService.doUpdateTrace(dataTrace)
+    } else {
+      // TODO : if not enough matching amount
+    }
 
 
   }

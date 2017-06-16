@@ -3,7 +3,7 @@
 const Env = use('Env')
 const Exceptions = use('App/Exceptions')
 const Coin = use('App/Services/Coins/Coin')
-const log = make('App/Services/LogService')
+const logger = make('App/Services/LogService')
 
 const URL = Env.get('COIN_URL')
 
@@ -30,7 +30,7 @@ class CoinFactory extends Coin {
    * @param pin: string
    */
   * createWallet(username, pin) {
-    log.info(`Creating wallet for ${username}...`)
+    logger.info(`Creating wallet for ${username}...`)
     const data = {
       username: username,
       pin: pin
@@ -71,17 +71,18 @@ class CoinFactory extends Coin {
    * @return json data
    */
   * transfer (data) {
+    logger.info('Transferring value, data:', data) 
     return yield this.send('put', `${URL}/api/v1/${this.type}`, data)
   }
 
   * getFees (data) {
-    log.info('Fees data:', data)
+    logger.info('Fees data:', data)
     return yield this.send('get', 
       `${URL}/api/v1/${this.type}?from=${data.from}&to=${data.to}&value=${data.value}`)
   }
 
   * toDecimals(account) {
-    log.info('parsing ', account)
+    logger.info('parsing ', account)
     if (account !== undefined) {
       const available = parseFloat(account.data.balance.available).toFixed(8)
       if (account.data.balance.pending !== undefined) {

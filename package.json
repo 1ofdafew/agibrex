@@ -46,6 +46,7 @@
     "twitter": "^1.7.0",
     "uuid": "^3.0.1",
     "winston": "^2.3.1",
+    "winston-color": "^1.0.0",
     "winston-daily-rotate-file": "^1.4.6",
     "youch": "^2.0.4"
   },

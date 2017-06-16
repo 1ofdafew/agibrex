@@ -1,5 +1,6 @@
 'use strict'
 
+
 /*
 |--------------------------------------------------------------------------
 | Http Server
@@ -15,6 +16,10 @@
 if (process.env.NODE_ENV == "production") {
   console.log = function() {}
 }
+
+require('events').EventEmitter.defaultMaxListeners = 0;
+//emitter.setMaxListeners(100)
+// or 0 to turn off the limit
 
 const http = require('./bootstrap/http')
 http(function () {

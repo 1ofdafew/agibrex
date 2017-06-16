@@ -1,6 +1,6 @@
 'use strict'
 
-const log = make('App/Services/LogService')
+const logger = make('App/Services/LogService')
 
 const Wallet = use('App/Model/Wallet')
 const WalletService = make('App/Services/WalletService')
@@ -18,20 +18,20 @@ class DashboardController {
       const user = yield request.auth.getUser()
       const res = yield user.wallets().fetch()
       const accounts = res.toJSON()
-      log.info('accounts:', accounts)
+      logger.info('accounts:', accounts)
 
       // get some balance
       const balances = yield WalletService.getAccountBalance(accounts)
-      log.info(`Balance dashboard:`, balances)
+      logger.info(`Balance dashboard:`, balances)
       const args = {
         bitcoin: balances.filter(function(x) { return x.type === 'BITCOIN'})[0],
         ethereum: balances.filter(function(x) { return x.type === 'ETHEREUM'})[0],
         tracto: balances.filter(function(x) { return x.type === 'TRACTO'})[0]
       }
-      log.info(`Balance dashboard:`, args)
+      logger.info(`Balance dashboard:`, args)
       yield response.sendView('dashboard', {accounts: args})
     } catch(e) {
-      log.error(e)
+      logger.error(e)
       response.redirect('/auth/login')
     }
   }

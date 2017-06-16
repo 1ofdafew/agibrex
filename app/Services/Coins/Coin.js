@@ -3,7 +3,7 @@
 const Env = use('Env')
 const axios = require('axios')
 const APIAuthService = make('App/Services/APIAuthService')
-const log = make('App/Services/LogService')
+const logger = make('App/Services/LogService')
 
 const ADMIN = Env.get('COIN_ADMIN')
 const EMAIL = Env.get('COIN_ADMIN_EMAIL')
@@ -32,15 +32,15 @@ class Coin {
 
     var auth
     try {
-      console.log('Authenticating via local token...')
+      logger.debug('Authenticating via local token...')
       auth = yield APIAuthService.getToken(ADMIN)
     } catch(e) {
-      console.log('Authenticating via new user token...')
+      logger.debug('Authenticating via new user token...')
       auth = yield APIAuthService.createToken(ADMIN, EMAIL, PASSWORD)
     }
 
-    console.log('Proceeding with creating coin account...')
-    log.info(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`, data)
+    logger.debug('Proceeding with creating coin account...')
+    logger.info(`Coin:${this.type}: URL => ${url}, method => ${method}, data =>`, data)
 
     return axios({
       method: method,
@@ -52,10 +52,10 @@ class Coin {
       data: data,
       timeout: 10000
     }).then(res => {
-      log.info(`Coin:${this.type}: response => `, res.data)
+      logger.info(`Coin:${this.type}: response => `, res.data)
       return res.data
     }).catch(err => {
-      log.info(`Coin:${this.type}: response => `, err.response.data)
+      logger.info(`Coin:${this.type}: response => `, err.response.data)
       return err.response.data
     })
   }
