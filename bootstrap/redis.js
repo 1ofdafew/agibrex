@@ -13,8 +13,8 @@ const CoindeskService = make('App/Services/CoindeskService')
 const MarketDataService = make('App/Services/MarketDataService')
 
 Redis.subscribe('data', function * (action) {
-  const isCronServer = Env.get('IS_CRON', false)
-  if (isCronServer) {
+  const isCronServer = Env.get('IS_CRON', 'false')
+  if (isCronServer || isCronServer === 'true') {
 	  logger.info('Processing cron for ', action)
 	  switch (action) {
 	  	case 'fetchTickerData':
