@@ -51,7 +51,7 @@
         <div class="clear"></div>
 
         <div class="testimonials-4">
-          <div class="one_halfpx">
+          <div id="bid_container" class="one_halfpx animate-bottom">
             <div class="contentbuy">
               <h3 class="section_label">
                 <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Buy {{ baseCurrency }} From {{ extCurrency }}</span>
@@ -237,7 +237,7 @@
 
           <!-- ========== SELL ============= -->
           <div class="one_halfpx lastpx">
-            <div class="contentsell">
+            <div id="ask_container" class="contentsell animate-bottom">
               <h3 class="section_label">
                 <span class="right"><i class="fa fa-check-square"></i>&nbsp;&nbsp;&nbsp;Sell {{ baseCurrency }} To {{ extCurrency }}</span>
               </h3>
@@ -1251,12 +1251,17 @@ $(window).resize(function() {
 <!-- <div id="loader"></div> -->
 <script type="text/javascript">
   $(function() {
-    var myVar = setTimeout(showPage, 4000);
+    setTimeout(showPage, 1000);
+    setTimeout(showBidAsk, 1000);
 
     function showPage() {
-      console.log('Loader timed out....');
       $("#chart_loader").hide();
       $("#chart_container").show();
+    }
+
+    function showBidAsk() {
+      $("#bid_container").show();
+      $("#ask_container").show();
     }
   });
 </script>
