@@ -202,8 +202,27 @@ class ExchangeController {
       fromAddress: data.from_address,
       toAddress: data.to_address
     }
+
+    const user = yield request.auth.getUser()
     logger.debug('Order book:', order)
-    yield this.confirmPin(order, request, response)
+
+    try {
+      const ob = yield TradeService.addOrderBook(user, order)
+
+      logger.debug('Saved OrderBook:', ob)
+      yield request.with({orderBookId: ob.id}).flash()
+      response.redirect('/exchange/confirm')
+
+    } catch (e) {
+      const from = order.asset.toLowerCase()
+      const to = order.to_asset.toLowerCase()
+      const err = {
+        error: 'Invalid order. Please try again'
+      }
+      logger.error('error =', err)
+      yield request.with(err).flash()
+      yield response.redirect(`/exchange/${from}/${to}`)
+    }
   }
 
   * sellBtcToEth (request, response) {
