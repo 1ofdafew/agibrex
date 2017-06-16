@@ -8,15 +8,16 @@ const fs = require('fs')
 class LogService {
   
   constructor () {
-    if (!fs.existsSync('logs')) {
-      fs.mkdirSync('logs')
+    const logDir = Env.get('LOG_DIR', '/tmp/gibrex-log')
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir)
     }
 
-    if (Env.mode === 'production') {
+    if (Env.get('MODE') === 'production') {
       this.logger = new winston.Logger({
         level: 'info',
         transports: [
-          new winston.transports.DailyRotateFile({filename: 'logs/agibrex.log'})
+          new winston.transports.DailyRotateFile({filename: `${logDir}/agibrex.log`})
         ]
       })
     } else {
