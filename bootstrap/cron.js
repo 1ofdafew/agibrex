@@ -1,6 +1,7 @@
 
 const Redis = use('Redis')
 const CronJob = require('cron').CronJob
+const logger = use('App/Service/LogService')
 
 const dailyData = new CronJob({
 	cronTime: '0 13 * * * *',
@@ -11,6 +12,7 @@ const dailyData = new CronJob({
 	timeZone: 'Europe/Gibraltar'
 })
 dailyData.start()
+logger.info('Cron dailyData is running:?', dailyData.running())
 
 const tickerData = new CronJob({
 	//cronTime: '* * * * *',
@@ -22,6 +24,7 @@ const tickerData = new CronJob({
 	timeZone: 'Europe/Gibraltar'
 })
 tickerData.start()
+logger.info('Cron tickerData is running?', tickerData.running())
 
 const exchangeData = new CronJob({
   cronTime: '0,10,20,30,40,50 * * * * *',
@@ -36,4 +39,6 @@ const exchangeData = new CronJob({
 	timeZone: 'Europe/Gibraltar'
 })
 exchangeData.start()
+logger.info('Cron exchangeData is running?', exchangeData.running())
+
 
