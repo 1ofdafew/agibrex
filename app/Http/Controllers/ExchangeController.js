@@ -54,11 +54,11 @@ class ExchangeController {
       , btcWallet = ''            // wallet for BTC
       , trcWallet = ''            // wallet for TRC
       , btcAddress = ''           // BTC address
-      , ethAddress = '0x98c9ff32b9c6f4a870399f86caa3c40a01b856ef' // ETH address
+      , ethAddress = ''           // ETH address
       , trcAddress = ''           // TRC address
-      , ethCurrentBalance = '0.00000000'   // ETH current balance
-      , btcCurrentBalance = '0.00000000'   // BTC current balance
-      , trcCurrentBalance = '0.00000000'   // TRC current balance
+      , ethCurrentBalance = 'NONE'   // ETH current balance
+      , btcCurrentBalance = 'NONE'   // BTC current balance
+      , trcCurrentBalance = 'NONE'   // TRC current balance
       , btcSpotPrice = '2680.06'
       , ethSpotPrice = '370.44'
       , trcSpotPrice = '0.85'
@@ -69,31 +69,39 @@ class ExchangeController {
 
     const user = yield request.auth.getUser()
     if (user) {
+      const wallets = yield user.wallets().fetch()
+      // logger.info('user wallets:', wallets.toJSON())
       try {
-        const wallets = yield user.wallets().fetch()
-        // logger.info('user wallets:', wallets.toJSON())
-
         const trc = yield this.getWallet(wallets.toJSON(), 'TRACTO')
         trcWallet = yield WalletService.getBalance('tracto', trc.address)
         trcAddress = trc.address
         trcCurrentBalance = trcWallet.data.balance.available
         logger.info(`BTC: ${trcAddress} -> ${trcCurrentBalance}`)
+      } catch (e) {
+        // user don't create the wallet yet
+        logger.info('No Tracto wallet for user yet')
+      }
 
+      try {
         const eth = yield this.getWallet(wallets.toJSON(), 'ETHEREUM')
         ethWallet = yield WalletService.getBalance('ethereum', eth.address)
         ethAddress = eth.address
         ethCurrentBalance = ethWallet.data.balance.available //ETH
         logger.info(`ETH: ${ethAddress} -> ${ethCurrentBalance}`)
+      } catch (e) {
+        // user don't create the wallet yet
+        logger.info('No Ethereum wallet for user yet')
+      }
 
+      try {
         const btc = yield this.getWallet(wallets.toJSON(), 'BITCOIN')
         btcWallet = yield WalletService.getBalance('bitcoin', btc.address)
         btcAddress = btc.address
         btcCurrentBalance = btcWallet.data.balance.available
         logger.info(`BTC: ${btcAddress} -> ${btcCurrentBalance}`)
-
       } catch (e) {
         // user don't create the wallet yet
-        logger.info('No wallets for user yet')
+        logger.info('No Bitcoin wallet for user yet')
       }
     }
 
@@ -127,7 +135,7 @@ class ExchangeController {
       trcAddress: trcAddress,
       ethCurrentBalance: ethCurrentBalance,
       btcCurrentBalance: btcCurrentBalance,
-      trcCurrentBalance: '120.03994385', //trcCurrentBalance,
+      trcCurrentBalance: trcCurrentBalance,
       baseCurrency : baseCurrency,
       extCurrency : extCurrency,
       buyPair: `${baseCurrency}/${extCurrency}`,

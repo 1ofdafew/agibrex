@@ -71,13 +71,13 @@
                     </div>
                     <div class="value">
                       <span v-if="isExtEth">
-                        <span id="buy_user_available">{{ ethCurrentBalance }}</span>
+                        <span id="buy_user_available" v-html="ethAccountStatus"></span>
                       </span>
                       <span v-if="isExtBtc">
-                        <span id="buy_user_available">{{ btcCurrentBalance }}</span>
+                        <span id="buy_user_available" v-html="btcAccountStatus"></span>
                       </span>
                       <span v-if="isExtTrc">
-                        <span id="buy_user_available">{{ trcCurrentBalance }}</span>
+                        <span id="buy_user_available" v-html="trcAccountStatus"></span>
                       </span>
                     </div>
                     <div class="clear"></div>
@@ -250,14 +250,14 @@
                   <div class="calc dotted">
                     <div class="label">Available {{ baseCurrency }}</div>
                     <div class="value">
-                      <span v-if="isBaseBtc">
-                        <span id="sell_user_available">{{ btcCurrentBalance }}</span>
-                      </span>
                       <span v-if="isBaseEth">
-                        <span id="sell_user_available">{{ ethCurrentBalance }}</span>
+                        <span id="sell_user_available" v-html="ethAccountStatus"></span>
+                      </span>
+                      <span v-if="isBaseBtc">
+                        <span id="sell_user_available" v-html="btcAccountStatus"></span>
                       </span>
                       <span v-if="isBaseTrc">
-                        <span id="sell_user_available">{{ trcCurrentBalance }}</span>
+                        <span id="sell_user_available" v-html="trcAccountStatus"></span>
                       </span>
                     </div>
                     <div class="clear"></div>
@@ -917,6 +917,25 @@ $(window).resize(function() {
       isTrcEth: function() { return this.buyPair === 'TRC/ETH' },
       isTrcBtc: function() { return this.buyPair === 'TRC/BTC' },
 
+      btcAccountStatus: function() {
+        if (this.btcCurrentBalance === 'NONE') {
+          return '<a href="/accounts/bitcoin">Create Account?</a>'
+        }
+        return this.btcCurrentBalance
+      },
+      ethAccountStatus: function() {
+        if (this.ethCurrentBalance === 'NONE') {
+          return '<a href="/accounts/ethereum">Create Account?</a>'
+        }
+        return this.ethCurrentBalance
+      },
+      trcAccountStatus: function() {
+        if (this.trcCurrentBalance === 'NONE') {
+          return '<a href="/accounts/tracto">Create Account?</a>'
+        }
+        return this.trcCurrentBalance
+      },
+
       // for BTC pairs
       buyBtcEthSubTotal: function() { return this.calcSubTotal(this.btcSpotPrice, this.ethSpotPrice, this.ethCurrentBalance, this.ethFee) },
       buyBtcEthTotal: function() { return this.calcTotal(this.buyBtcEthSubTotal) },
@@ -1033,6 +1052,25 @@ $(window).resize(function() {
       isEthTrc: function() { return this.sellPair === 'ETH/TRC' },
       isTrcBtc: function() { return this.sellPair === 'TRC/BTC' },
       isTrcEth: function() { return this.sellPair === 'TRC/ETH' },
+
+      btcAccountStatus: function() {
+        if (this.btcCurrentBalance === 'NONE') {
+          return '<a href="/accounts/bitcoin">Create Account?</a>'
+        }
+        return this.btcCurrentBalance
+      },
+      ethAccountStatus: function() {
+        if (this.ethCurrentBalance === 'NONE') {
+          return '<a href="/accounts/ethereum">Create Account?</a>'
+        }
+        return this.ethCurrentBalance
+      },
+      trcAccountStatus: function() {
+        if (this.trcCurrentBalance === 'NONE') {
+          return '<a href="/accounts/tracto">Create Account?</a>'
+        }
+        return this.trcCurrentBalance
+      },
 
       // ETH pairs
       sellEthBtcSubTotal: function () { return this.calcSubTotal(this.btcSpotPrice, this.ethSpotPrice, this.btcCurrentBalance, this.btcFee) },
