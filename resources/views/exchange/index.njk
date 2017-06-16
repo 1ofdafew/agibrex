@@ -18,7 +18,7 @@
 
   <div class="testimonials-4">
     <div class="clearfix mar_top3"></div>
-      <div class="three_fourthpx">
+      <div class="three_fourthpx" onload="myLoader()">
           {% if old('error') %}
           <div class="message-box-wrap">
             <div class="error" role="alert" id="div4">
@@ -46,8 +46,23 @@
 
         <!-- do not show for TRC -->
         {% if baseCurrency !== 'TRC' %}
-        <div id="chart_container" style="height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
+
+        <div id="chart_container" class="animate-bottom" style="display:none; height: 500px; margin-bottom: 70px; in-width: 310px; max-width: 100%;"></div>
+        <div id="loader"></div>
         {% endif %}
+
+        <script>
+            var myVar;
+
+            function myLoader() {
+                myVar = setTimeout(showPage, 5000);
+            }
+
+            function showPage() {
+              document.getElementById("loader").style.display = "none";
+              document.getElementById("chart_container").style.display = "block";
+            }
+        </script>
 
         <div class="clear"></div>
 
@@ -59,7 +74,11 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
+<<<<<<< HEAD
               <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower | safe }}/{{ baseCurrencyLower | safe }}" method="POST" 
+=======
+              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower }}/{{ baseCurrencyLower }}" method="POST"
+>>>>>>> db4b963ebf70718f7ff97145a6f1044731d5fbcd
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
@@ -962,7 +981,7 @@ $(window).resize(function() {
         if (this.buyAmount > 0) {
           const ratio = (parseFloat(from)/parseFloat(to))
           const c1 = parseFloat(
-            (parseFloat(this.buyAmount) * ratio) 
+            (parseFloat(this.buyAmount) * ratio)
           ).toFixed(8)
           calc = parseFloat(c1) + parseFloat(txFee) // + (parseFloat(c1) * parseFloat(this.fee)))
           console.log(`status: balance=${balance}, txFee=${txFee}, calc=${calc}`)
@@ -972,7 +991,7 @@ $(window).resize(function() {
 
           if (finalCalc > parseFloat(balance)) {
             this.disableBuy = true
-            //const m1 = (parseFloat(balance) - parseFloat(txFee)) 
+            //const m1 = (parseFloat(balance) - parseFloat(txFee))
             //const maxBuy = ((m1 * parseFloat(this.fee)) + m1) / ratio
             this.buyError = `Insufficient funds.` // Maximum buy is ${maxBuy}`
             this.buyButtonStyle = 'color: red;'
@@ -1101,10 +1120,10 @@ $(window).resize(function() {
         var calc = '0.00000000'
         if (this.sellAmount > 0) {
           calc = parseFloat(
-            parseFloat(this.sellAmount) * 
+            parseFloat(this.sellAmount) *
             (parseFloat(from) / parseFloat(to))
             ).toFixed(8)
-          const totalWithFees = (parseFloat(this.sellAmount) + parseFloat(fee)) 
+          const totalWithFees = (parseFloat(this.sellAmount) + parseFloat(fee))
           //console.log(`status: balance: ${balance}, sellAmount: ${this.sellAmount}, fee: ${fee}`)
           if (totalWithFees > balance) {
             this.disableSell = true
