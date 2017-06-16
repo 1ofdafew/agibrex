@@ -74,11 +74,7 @@
               </h3>
               <div class="clear"></div>
               <div class="dotted"></div>
-<<<<<<< HEAD
               <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower | safe }}/{{ baseCurrencyLower | safe }}" method="POST" 
-=======
-              <form id="buy_form" action="/exchange/buy/{{ extCurrencyLower }}/{{ baseCurrencyLower }}" method="POST"
->>>>>>> db4b963ebf70718f7ff97145a6f1044731d5fbcd
                     v-on:submit.prevent="executeBuy">
                 {{ csrfField }}
                 {% verbatim %}
